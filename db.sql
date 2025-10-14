@@ -39,7 +39,7 @@ CREATE TABLE payment_tbl(
     PRIMARY KEY (user_id, card_num)
 );
 
---メンバーシップ情報
+--メンバーシップ情報テーブル
 CREATE TABLE membership_tbl(
     user_id INT(10),
     join_date DATE(10),
@@ -51,8 +51,61 @@ CREATE TABLE membership_tbl(
     PRIMARY KEY(user_id,creator_id)
 );
 
+--商品情報テーブル
+CREATE TABLE product_tbl(
+    id INT(32),
+    favorites INT(32),
+    product_view_flag TINYINT(1),
+    user_id	INT (10),	
+    PRIMARY KEY(id)
+);
 
+--出品情報テーブル
+CREATE TABLE listing_tbl(
+    product_id	INT(64),
+    product_image CHAR(128),		
+    product_name INT(128),		
+    product_price INT(7),
+    shipping_area VARCHAR(4),		
+    product_category CHAR(16),		
+    product_condition CHAR(8),		
+    product_description	VARCHAR(128),		
+    listing_status TINYINT(1),						
+    listing_date DATE(8),		
+    sales_status CHAR(8),		
+    update_date	DATETIME,		
+    product_upload_user	 INT(10),
+    PRIMARY KEY(product_id,product_upload_user)
+);
 
+--取引情報テーブル
+CREATE TABLE market_order_tbl(
+    id						
+    purchaser_id INT(32),					
+    seller_id INT (10),					
+    transaction_status CHAR(8),						
+    transaction_startdate CHAR(8),				
+    transaction_completeddate CHAR(8),    					
+    total_amount INT(7),
+    sales_profit INT(7),						
+    shipping_cost INT(4),				
+    total_commission INT(4),					
+    shipping_status CHAR(8),			
+    shipping_method	CHAR(16),			
+    buyer_evaluation TINYINT(1),				
+    seller_evaluation TINYINT(1),
+    PRIMARY KEY(id)			
+);
 
+--取引メッセージテーブル
+CREATE TABLE order_message_tbl(
+    id INT(128),				
+    order_message_date DATETIME					
+    order_message_user_id INT(10),				
+    transaction_id INT(32),		
+    order_message_text VARCHAR(128),
+    PRIMARY KEY(id,order_message_user_id,transaction_id)		
+);
 
-
+--投稿フィードアップロードテーブル
+CREATE TABLE post_tbl
