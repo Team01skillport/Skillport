@@ -39,4 +39,17 @@ CREATE TABLE payment_tbl(
     PRIMARY KEY (user_id, card_num)
 );
 
+--メンバーシップ情報
+CREATE TABLE membership_tbl(
+    user_id INT(10),
+    join_date DATE,
+    renewal_date DATE,
+    payment_status CHAR(16),
+    payment_method CHAR(8),
+    bonus_id CHAR(10),
+    creator_id INT(10),
+    PRIMARY KEY(user_id,creator_id)
+);
+
+
 
