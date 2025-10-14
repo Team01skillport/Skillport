@@ -38,3 +38,5 @@ CREATE TABLE payment_tbl(
     account_type CHAR(10),
     PRIMARY KEY (user_id, card_num)
 );
+
+
