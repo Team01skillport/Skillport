@@ -1,6 +1,6 @@
-<img width="1024" height="1024" alt="スキルポートロゴ透明" src="https://github.com/user-attachments/assets/7c71e04b-74f4-4be7-903e-6d221ca2a344" />
-<h5>IH22グループ制作・Team01</h5>
-<p>大倉聖士・木下昇悟・黄惟楊・清水佳也・庄田成壱・ランタング ジェレマイヤー・沈ラクヒン・マクレンドン アレック</p>
+<img width="562" height="562" alt="スキルポートロゴ透明" src="https://github.com/user-attachments/assets/7c71e04b-74f4-4be7-903e-6d221ca2a344" />
+<h3>IH22グループ制作・Team01</h3>
+<h5>大倉聖士・木下昇悟・黄惟楊・清水佳也・庄田成壱・ランタング ジェレマイヤー・沈ラクヒン・マクレンドン アレック</h5>
 
 <h1>スキルポート</h1>
 <h3>スキルの売買ができるECサイトです。
