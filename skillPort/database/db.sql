@@ -53,47 +53,47 @@ CREATE TABLE membership_tbl(
 
 --商品情報テーブル
 CREATE TABLE product_tbl(
-    id INT(32),
-    favorites INT(32),
+    id CHAR(32),
+    favorites CHAR(32),
     product_view_flag TINYINT(1),
-    user_id	INT (10),	
+    user_id	CHAR(10),	
     PRIMARY KEY(id)
 );
 
 --出品情報テーブル
 CREATE TABLE listing_tbl(
-    product_id	INT(64),
-    product_image CHAR(128),		
-    product_name INT(128),		
+    product_id	VARCHAR(64),
+    product_image VARCHAR(128),		
+    product_name VARCHAR(128),		
     product_price INT(7),
     shipping_area VARCHAR(4),		
     product_category CHAR(16),		
     product_condition CHAR(8),		
-    product_description	VARCHAR(128),		
+    product_description	VARCHAR(255),		
     listing_status TINYINT(1),						
-    listing_date DATE(8),		
+    listing_date DATE,		
     sales_status CHAR(8),		
-    update_date	DATETIME,		
-    product_upload_user	 INT(10),
+    update_date	DATETIME NULL,		
+    product_upload_user	 CHAR(10),
     PRIMARY KEY(product_id,product_upload_user)
 );
 
 --取引情報テーブル
 CREATE TABLE market_order_tbl(
-    id						
-    purchaser_id INT(32),					
-    seller_id INT (10),					
+    id CHAR(32),				
+    purchaser_id CHAR(10),					
+    seller_id CHAR(10),					
     transaction_status CHAR(8),						
-    transaction_startdate CHAR(8),				
-    transaction_completeddate CHAR(8),    					
+    transaction_startdate DATETIME,				
+    transaction_completeddate DATETIME,    					
     total_amount INT(7),
     sales_profit INT(7),						
     shipping_cost INT(4),				
     total_commission INT(4),					
     shipping_status CHAR(8),			
     shipping_method	CHAR(16),			
-    buyer_evaluation TINYINT(1),				
-    seller_evaluation TINYINT(1),
+    buyer_evaluation INT(5),				
+    seller_evaluation INT(5),
     PRIMARY KEY(id)			
 );
 
