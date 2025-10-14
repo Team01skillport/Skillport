@@ -42,8 +42,8 @@ CREATE TABLE payment_tbl(
 --メンバーシップ情報テーブル
 CREATE TABLE membership_tbl(
     user_id INT(10),
-    join_date DATE(10),
-    renewal_date DATE(8),
+    join_date DATE,
+    renewal_date DATE,
     payment_status CHAR(16),
     payment_method CHAR(8),
     bonus_id CHAR(10),
