@@ -99,10 +99,10 @@ CREATE TABLE market_order_tbl(
 
 --取引メッセージテーブル
 CREATE TABLE order_message_tbl(
-    id INT(128),				
-    order_message_date DATETIME					
-    order_message_user_id INT(10),				
-    transaction_id INT(32),		
+    id CHAR(128),				
+    order_message_date DATETIME,				
+    order_message_user_id CHAR(10),				
+    transaction_id CHAR(32),		
     order_message_text VARCHAR(128),
     PRIMARY KEY(id,order_message_user_id,transaction_id)		
 );
