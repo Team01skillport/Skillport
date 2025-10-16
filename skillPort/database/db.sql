@@ -251,3 +251,12 @@ CREATE TABLE video_tbl(
     file_path VARCHAR(255),
     PRIMARY KEY(id,video_uploader_id)
 );
+
+--講義動画いいねテーブル
+CREATE TABLE video_like_tbl(
+    id CHAR(256),			
+    video_id CHAR(64),				
+    video_uploader_id CHAR(8),					
+    video_like_date DATE,
+    PRIMARY KEY(id,video_id,video_uploader_id,video_like_date)			 
+)
