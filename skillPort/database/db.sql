@@ -271,3 +271,18 @@ CREATE TABLE video_comment_tbl(
     parent_comment_id CHAR(256),
     PRIMARY KEY(comment_id,video_id,commentor_id)
 )
+
+--サポートテーブル
+CREATE TABLE support_tbl(
+    id CHAR(64),	
+    category CHAR(16),					
+    content VARCHAR(256),			
+    inquiry_user_id CHAR(10),				
+    send_date DATE,				
+    receiving_date DATE,						
+    response_status CHAR(16),				
+    response_date DATE,			
+    attached_file CHAR(128),				
+    response_content VARCHAR(256),
+    PRIMARY KEY(id,inquiry_user_id)				 
+)
