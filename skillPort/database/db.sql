@@ -277,29 +277,59 @@ INSERT INTO feed_comment_tbl (
 
 --講義動画テーブル
 CREATE TABLE video_tbl(
-    id CHAR(64),					
+    id VARCHAR(255),					
     video_title CHAR(32),						
     video_length INT(5),	
-    video_uploader_id INT(10),					
-    video_upload_date DATE,				
-    video_description_section VARCHAR(256),			
+    video_uploader_id CHAR(10),					
+    video_upload_date DATETIME,				
+    video_description_section VARCHAR(255),			
     video_public_status TINYINT(1),		
     video_category CHAR(16),						
-    video_tag CHAR(16)		
+    video_tag CHAR(16),	
     video_report_flag TINYINT(1),						
-    video_popularity_index FLOAT				
-    view_count INT (),	
-    like_count INT(),				
-    comment_count INT(),					
+    video_popularity_index FLOAT,			
+    view_count INT(10),	
+    like_count INT(10),				
+    comment_count INT(10),					
     file_path VARCHAR(255),
-    PRIMARY KEY(id,video_uploader_id)
+    PRIMARY KEY(id, video_uploader_id)
 );
+
+INSERT INTO video_tbl (
+    id, video_title, video_length, video_uploader_id, video_upload_date,
+    video_description_section, video_public_status, video_category, video_tag,
+    video_report_flag, video_popularity_index, view_count, like_count, comment_count, file_path
+) VALUES
+('vid0001', '街ブラ日記', 320, 'usr0001', '2025-09-25 10:00:00', '大阪の街を散歩しながら紹介します。', 1, '旅行', '#大阪', 0, 7.8, 2300, 150, 12, '/videos/vid0001.mp4'),
+('vid0002', 'ギター練習', 420, 'usr0002', '2025-09-26 14:10:00', '初心者向けギターコード練習講座', 1, '音楽', '#ギター', 0, 8.3, 5400, 380, 45, '/videos/vid0002.mp4'),
+('vid0003', '英語勉強法', 600, 'usr0003', '2025-09-27 09:30:00', '短期間で英語力を伸ばすコツを紹介', 1, '教育', '#英語', 0, 9.0, 10200, 890, 65, '/videos/vid0003.mp4'),
+('vid0004', '猫の一日', 210, 'usr0004', '2025-09-28 17:50:00', 'うちの猫の可愛い日常です🐱', 1, 'ペット', '#猫', 0, 6.2, 1200, 95, 8, '/videos/vid0004.mp4'),
+('vid0005', '料理チャレンジ', 540, 'usr0005', '2025-09-29 19:00:00', '初めてのパスタ作り挑戦！', 1, '料理', '#パスタ', 0, 7.0, 3400, 220, 30, '/videos/vid0005.mp4'),
+('vid0006', 'メイク講座', 480, 'usr0006', '2025-09-30 12:00:00', 'ナチュラルメイクのやり方を紹介', 1, '美容', '#メイク', 0, 8.1, 7800, 540, 42, '/videos/vid0006.mp4'),
+('vid0007', '筋トレ日記', 360, 'usr0007', '2025-10-01 08:30:00', '今日のワークアウトルーティン', 1, 'フィットネス', '#筋トレ', 0, 9.3, 15000, 1200, 110, '/videos/vid0007.mp4'),
+('vid0008', '夜景撮影', 260, 'usr0008', '2025-10-02 21:00:00', 'カメラ設定と撮影のコツを紹介', 1, 'カメラ', '#夜景', 0, 8.5, 6500, 410, 27, '/videos/vid0008.mp4'),
+('vid0009', '日常Vlog', 300, 'usr0009', '2025-10-03 10:40:00', '朝のルーティンを紹介します', 1, 'ライフスタイル', '#vlog', 0, 7.2, 2100, 170, 15, '/videos/vid0009.mp4'),
+('vid0010', '炎上事件', 400, 'usr0010', '2025-10-04 13:15:00', '内容が不適切と報告されました', 0, 'ニュース', '#炎上', 1, 2.1, 500, 20, 8, '/videos/vid0010.mp4');
+
 
 --講義動画いいねテーブル
 CREATE TABLE video_like_tbl(
-    id CHAR(256),			
-    video_id CHAR(64),				
-    video_uploader_id CHAR(8),					
-    video_like_date DATE,
-    PRIMARY KEY(id,video_id,video_uploader_id,video_like_date)			 
-)
+    id VARCHAR(255),			
+    video_id VARCHAR(255),				
+    video_uploader_id CHAR(10),					
+    video_like_date DATETIME,
+    PRIMARY KEY(id,video_id)		 
+);
+
+INSERT INTO video_like_tbl (id, video_id, video_uploader_id, video_like_date) VALUES
+('user001', 'vid001', 'upl001', '2025-10-01 12:34:56'),
+('user002', 'vid001', 'upl001', '2025-10-01 12:35:12'),
+('user003', 'vid002', 'upl002', '2025-10-02 09:22:18'),
+('user004', 'vid003', 'upl003', '2025-10-02 10:45:00'),
+('user001', 'vid003', 'upl003', '2025-10-02 11:10:45'),
+('user005', 'vid004', 'upl004', '2025-10-03 14:25:30'),
+('user006', 'vid005', 'upl005', '2025-10-03 16:50:00'),
+('user007', 'vid002', 'upl002', '2025-10-04 08:15:20'),
+('user003', 'vid004', 'upl004', '2025-10-05 17:40:10'),
+('user002', 'vid005', 'upl005', '2025-10-05 18:55:33');
+
