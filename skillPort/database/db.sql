@@ -356,26 +356,55 @@ INSERT INTO video_like_tbl (id, video_id, video_uploader_id, video_like_date) VA
 
 --講義動画コメントテーブル
 CREATE TABLE video_comment_tbl(
-    comment_id	CHAR(256),				
-    video_id CHAR(64),					
+    comment_id VARCHAR(255),				
+    video_id VARCHAR(64),					
     commentor_id CHAR(10),					
-    comment_date date					
-    comment_text VARCHAR(64)						
-    parent_comment_id CHAR(256),
-    PRIMARY KEY(comment_id,video_id,commentor_id)
+    comment_date DATETIME,				
+    comment_text VARCHAR(64),					
+    parent_comment_id VARCHAR(255),
+    PRIMARY KEY(comment_id, video_id)
 );
+
+INSERT INTO video_comment_tbl (comment_id, video_id, commentor_id, comment_date, comment_text, parent_comment_id) VALUES
+('cmt001', 'vid001', 'user001', '2025-10-01 12:00:00', '最高の動画ですね！', NULL),
+('cmt002', 'vid001', 'user002', '2025-10-01 12:05:30', '編集がうまい！', NULL),
+('cmt003', 'vid001', 'user003', '2025-10-01 12:10:15', '同意です！', 'cmt002'),
+('cmt004', 'vid002', 'user004', '2025-10-02 09:20:00', '音質めっちゃ良い！', NULL),
+('cmt005', 'vid002', 'user005', '2025-10-02 09:35:50', '途中の展開好き', NULL),
+('cmt006', 'vid003', 'user006', '2025-10-03 14:10:00', 'サムネに惹かれた笑', NULL),
+('cmt007', 'vid003', 'user007', '2025-10-03 14:12:30', '同じく！', 'cmt006'),
+('cmt008', 'vid004', 'user002', '2025-10-04 11:00:00', '投稿お疲れ様です！', NULL),
+('cmt009', 'vid004', 'user003', '2025-10-04 11:03:15', 'もっと見たい！', NULL),
+('cmt010', 'vid005', 'user001', '2025-10-05 16:45:00', 'また次も期待してます！', NULL);
+
 
 --サポートテーブル
 CREATE TABLE support_tbl(
-    id CHAR(64),	
+    id VARCHAR(255),	
     category CHAR(16),					
-    content VARCHAR(256),			
+    content VARCHAR(255),			
     inquiry_user_id CHAR(10),				
-    send_date DATE,				
-    receiving_date DATE,						
+    send_date DATETIME,				
+    receiving_date DATETIME,						
     response_status CHAR(16),				
-    response_date DATE,			
-    attached_file CHAR(128),				
-    response_content VARCHAR(256),
-    PRIMARY KEY(id,inquiry_user_id)				 
+    response_date DATETIME,			
+    attached_file VARCHAR(255),				
+    response_content VARCHAR(255),
+    PRIMARY KEY(id)				 
 );
+
+INSERT INTO support_tbl (
+    id, category, content, inquiry_user_id, send_date, receiving_date,
+    response_status, response_date, attached_file, response_content
+) VALUES
+('sup001', 'ログイン', 'パスワードを忘れてしまいました。', 'user001', '2025-10-01 09:15:00', '2025-10-01 09:16:00', '対応済み', '2025-10-01 10:00:00', NULL, 'パスワード再設定のリンクを送信しました。'),
+('sup002', 'バグ報告', '動画が再生途中で止まります。', 'user002', '2025-10-01 12:30:00', '2025-10-01 12:31:00', '確認中', NULL, 'error_log.txt', NULL),
+('sup003', 'アカウント', 'ユーザー名を変更したいです。', 'user003', '2025-10-02 08:45:00', '2025-10-02 08:46:00', '対応済み', '2025-10-02 09:20:00', NULL, 'ユーザー名を更新しました。'),
+('sup004', 'その他', 'プレミアムプランの詳細を教えてください。', 'user004', '2025-10-02 14:10:00', '2025-10-02 14:12:00', '対応済み', '2025-10-02 14:45:00', NULL, '料金と機能の詳細をメールでご案内しました。'),
+('sup005', '動画アップロード', 'アップロードが途中で失敗します。', 'user005', '2025-10-03 11:20:00', '2025-10-03 11:22:00', '対応中', NULL, 'upload_error.png', NULL),
+('sup006', 'コメント', 'コメントが投稿できません。', 'user006', '2025-10-03 16:00:00', '2025-10-03 16:01:00', '対応済み', '2025-10-03 17:00:00', NULL, '一時的な不具合を修正しました。'),
+('sup007', 'バグ報告', 'スマホでページが崩れています。', 'user007', '2025-10-04 09:50:00', '2025-10-04 09:52:00', '確認中', NULL, 'screenshot.jpg', NULL),
+('sup008', 'アカウント', '退会方法を教えてください。', 'user002', '2025-10-04 15:30:00', '2025-10-04 15:32:00', '対応済み', '2025-10-04 16:00:00', NULL, '退会ページへのリンクをご案内しました。'),
+('sup009', '動画再生', '音声が出ません。', 'user003', '2025-10-05 10:10:00', '2025-10-05 10:12:00', '対応中', NULL, NULL, NULL),
+('sup010', 'その他', '機能の追加要望があります。', 'user001', '2025-10-05 20:00:00', '2025-10-05 20:01:00', '未対応', NULL, NULL, NULL);
+
