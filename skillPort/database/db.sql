@@ -271,7 +271,6 @@ INSERT INTO video_tbl (
 
 --講義動画いいねテーブル
 CREATE TABLE video_like_tbl(
-<<<<<<< HEAD
     id VARCHAR(255),			
     video_id VARCHAR(255),				
     video_uploader_id CHAR(10),					
@@ -291,13 +290,26 @@ INSERT INTO video_like_tbl (id, video_id, video_uploader_id, video_like_date) VA
 ('user003', 'vid004', 'upl004', '2025-10-05 17:40:10'),
 ('user002', 'vid005', 'upl005', '2025-10-05 18:55:33');
 
-=======
+CREATE TABLE video_like_tbl(
     id CHAR(256),			
     video_id CHAR(64),				
     video_uploader_id CHAR(8),					
     video_like_date DATE,
     PRIMARY KEY(id,video_id,video_uploader_id,video_like_date)			 
-)
+);
+
+INSERT INTO video_like_tbl (id, video_id, video_uploader_id, video_like_date) VALUES
+('user001', 'vid001', 'upl001', '2025-10-01 12:34:56'),
+('user002', 'vid001', 'upl001', '2025-10-01 12:35:12'),
+('user003', 'vid002', 'upl002', '2025-10-02 09:22:18'),
+('user004', 'vid003', 'upl003', '2025-10-02 10:45:00'),
+('user001', 'vid003', 'upl003', '2025-10-02 11:10:45'),
+('user005', 'vid004', 'upl004', '2025-10-03 14:25:30'),
+('user006', 'vid005', 'upl005', '2025-10-03 16:50:00'),
+('user007', 'vid002', 'upl002', '2025-10-04 08:15:20'),
+('user003', 'vid004', 'upl004', '2025-10-05 17:40:10'),
+('user002', 'vid005', 'upl005', '2025-10-05 18:55:33');
+
 
 --講義動画コメントテーブル
 CREATE TABLE video_comment_tbl(
@@ -308,5 +320,20 @@ CREATE TABLE video_comment_tbl(
     comment_text VARCHAR(64)						
     parent_comment_id CHAR(256),
     PRIMARY KEY(comment_id,video_id,commentor_id)
+);
+
+--サポートテーブル
+CREATE TABLE support_tbl(
+    id CHAR(64),	
+    category CHAR(16),					
+    content VARCHAR(256),			
+    inquiry_user_id CHAR(10),				
+    send_date DATE,				
+    receiving_date DATE,						
+    response_status CHAR(16),				
+    response_date DATE,			
+    attached_file CHAR(128),				
+    response_content VARCHAR(256),
+    PRIMARY KEY(id,inquiry_user_id)				 
 )
->>>>>>> 94974cd68225c55904792a99f1e394e7a82e520c
+>>>>>>> c893069dfb19ab08f89074d2e0b2e17504b534f2
