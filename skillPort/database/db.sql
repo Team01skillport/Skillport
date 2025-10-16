@@ -201,36 +201,79 @@ INSERT INTO order_message_tbl (
 
 --投稿フィードアップロードテーブル
 CREATE TABLE post_tbl(
-    id	CHAR(128),					
-    user_id CHAR(128),				
-    post_date DATETIME,			
-    post_text VARCHAR(128),			
-    post_media CHAR(128),		
-    post_update_date DATETIME					
-    post_report_flag TINYINT(1),				
-    post_status	TINYINT(1),
-    PRIMARY KEY(id)			
+    id CHAR(128),                  
+    user_id CHAR(10),              
+    post_date DATETIME,        
+    post_text VARCHAR(128),        
+    post_media VARCHAR(128),        
+    post_update_date DATETIME,              
+    post_report_flag TINYINT(1),            
+    post_status TINYINT(1),
+    PRIMARY KEY(id)
 );
+
+INSERT INTO post_tbl (
+    id, user_id, post_date, post_text, post_media, post_update_date, post_report_flag, post_status
+) VALUES
+('pst0001', 'usr0001', '2025-10-01 10:00:00', '初めての投稿です！', 'img_post1.jpg', '2025-10-01 10:00:00', 0, 1),
+('pst0002', 'usr0002', '2025-10-02 08:30:00', '新しい商品を紹介します！', 'item_20251002.png', '2025-10-02 08:31:00', 0, 1),
+('pst0003', 'usr0003', '2025-10-02 20:45:00', 'ギターが届いた！', 'guitar_post3.jpg', '2025-10-02 21:00:00', 0, 1),
+('pst0004', 'usr0004', '2025-10-03 12:00:00', '大阪のイベントに行きました〜', 'event_osaka4.jpg', '2025-10-03 12:10:00', 0, 1),
+('pst0005', 'usr0005', '2025-10-04 09:50:00', '投稿が通報されました', 'none', '2025-10-04 10:00:00', 1, 0),
+('pst0006', 'usr0006', '2025-10-05 15:20:00', 'フォロワー100人ありがとう！', 'img_celebration6.jpg', '2025-10-05 15:30:00', 0, 1),
+('pst0007', 'usr0007', '2025-10-06 17:15:00', '新しいカメラで撮影しました📸', 'camera_test7.png', '2025-10-06 17:20:00', 0, 1),
+('pst0008', 'usr0008', '2025-10-07 11:25:00', '今日のランチ🍜', 'ramen8.jpg', '2025-10-07 11:30:00', 0, 1),
+('pst0009', 'usr0009', '2025-10-08 20:10:00', '不適切な内容を含む投稿', 'none', '2025-10-08 20:20:00', 1, 0),
+('pst0010', 'usr0010', '2025-10-09 13:45:00', '友達と旅行行った！最高！', 'trip10.png', '2025-10-09 14:00:00', 0, 1);
+
 
 --投稿フィードいいねテーブル
 CREATE TABLE feed_like_tbl(
-    id INT(10),
-    post_id INT (10),
-    user_id INT (10),
+    id VARCHAR(255),
+    post_id VARCHAR(255),
+    user_id INT(10),
     like_time DATE,
     PRIMARY KEY(id)
 );
 
+INSERT INTO feed_like_tbl (id, post_id, user_id, like_time) VALUES
+('like0001', 'pst0001', 'usr0002', '2025-10-01 10:10:00'),
+('like0002', 'pst0001', 'usr0003', '2025-10-01 10:15:00'),
+('like0003', 'pst0002', 'usr0004', '2025-10-02 08:35:00'),
+('like0004', 'pst0003', 'usr0005', '2025-10-02 21:00:00'),
+('like0005', 'pst0004', 'usr0006', '2025-10-03 12:15:00'),
+('like0006', 'pst0006', 'usr0008', '2025-10-05 15:25:00'),
+('like0007', 'pst0007', 'usr0009', '2025-10-06 17:30:00'),
+('like0008', 'pst0008', 'usr0010', '2025-10-07 11:40:00'),
+('like0009', 'pst0009', 'usr0001', '2025-10-08 20:15:00'),
+('like0010', 'pst0010', 'usr0007', '2025-10-09 13:50:00');
+
+
 --投稿フィードコメントテーブル
 CREATE TABLE feed_comment_tbl(
-    id	CHAR(10),					
-    user_id	CHAR(10),					
-    post_id	CHAR(10),			
-    post VARCHAR(128),			
-    comment_date DATE,					
-    father_comment_id INT(10),
-    PRIMARY KEY(id)					
+    id VARCHAR(255),                    
+    user_id CHAR(10),                  
+    post_id VARCHAR(255),          
+    post VARCHAR(128),          
+    comment_date DATETIME,                  
+    father_comment_id VARCHAR(255),
+    PRIMARY KEY(id)                
 );
+
+INSERT INTO feed_comment_tbl (
+    id, user_id, post_id, comment_text, comment_date, father_comment_id
+) VALUES
+('cmt0001', 'usr0002', 'pst0001', '素敵な投稿ですね！', '2025-10-01 10:20:00', NULL),
+('cmt0002', 'usr0003', 'pst0001', '写真が綺麗！', '2025-10-01 10:25:00', NULL),
+('cmt0003', 'usr0005', 'pst0002', 'いい商品ですね！', '2025-10-02 09:15:00', NULL),
+('cmt0004', 'usr0006', 'pst0002', '購入を考えています！', '2025-10-02 09:30:00', 'cmt0003'),
+('cmt0005', 'usr0007', 'pst0003', 'ギター欲しい！', '2025-10-03 13:00:00', NULL),
+('cmt0006', 'usr0004', 'pst0004', 'イベント楽しそう！', '2025-10-03 18:10:00', NULL),
+('cmt0007', 'usr0008', 'pst0004', '写真ありがとうございます！', '2025-10-03 18:25:00', 'cmt0006'),
+('cmt0008', 'usr0009', 'pst0006', 'おめでとうございます！', '2025-10-05 15:35:00', NULL),
+('cmt0009', 'usr0010', 'pst0007', 'カメラの設定教えてください', '2025-10-06 17:40:00', NULL),
+('cmt0010', 'usr0001', 'pst0007', '了解です！後で教えますね', '2025-10-06 17:50:00', 'cmt0009');
+
 
 --講義動画テーブル
 CREATE TABLE video_tbl(
