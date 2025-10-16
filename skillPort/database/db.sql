@@ -408,3 +408,15 @@ INSERT INTO support_tbl (
 ('sup009', '動画再生', '音声が出ません。', 'user003', '2025-10-05 10:10:00', '2025-10-05 10:12:00', '対応中', NULL, NULL, NULL),
 ('sup010', 'その他', '機能の追加要望があります。', 'user001', '2025-10-05 20:00:00', '2025-10-05 20:01:00', '未対応', NULL, NULL, NULL);
 
+
+CREATE TABLE video_review_tbl(
+    review_id CHAR(64),				
+    video_id CHAR(64),			
+    reviewer_id	CHAR(16),					
+    review_status CHAR(8),				
+    review_result_comment VARCHAR(200),						
+    reviewed_at	DATETIME,				
+    created_at	DATETIME,			
+    updated_at DATETIME,
+    PRIMARY KEY(review_id)
+)
