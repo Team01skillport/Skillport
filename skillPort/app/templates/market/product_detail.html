@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>商品詳細 | SkillPort</title>
+  <link rel="stylesheet" href="../static/css/product_detail.css">
+</head>
+<body>
+  <!-- ================= ヘッダー ================= -->
+  <div id="profile">
+    <ul>
+      <li><a href="register.html">アカウント登録</a></li>
+      <li><a href="login.html">ログイン</a></li>
+    </ul>
+    <a href="#"><img src="../static/media/profile_icon.png" alt="プロフィールアイコン"></a>
+  </div>
+
+  <div id="header_cap"></div>
+
+  <div id="header">
+    <a href="index.html">
+      <img src="../static/media/skill-port-logo.png" alt="logo">
+    </a>
+
+    <div class="container">
+      <ul>
+        <li><a href="#">プロフィール</a></li>
+        <li><a href="#" class="is-active">マーケット</a></li>
+        <li><a href="#">コミュニティー</a></li>
+        <li class="dropdown" id="nav-category">
+          <a href="#" class="dropdown-toggle">カテゴリ一</a>
+          <ul class="dropdown-menu">
+            <li><a href="#">アニメーション</a></li>
+            <li><a href="#">音楽</a></li>
+            <li><a href="#">カメラ</a></li>
+            <li><a href="#">フィットネス</a></li>
+            <li><a href="#">英語</a></li>
+            <li><a href="#">プログラミング</a></li>
+          </ul>
+        </li>
+      </ul>
+
+      <form action="/search" method="get" class="search">
+        <input type="text" name="q" placeholder="検索..." />
+        <button type="submit">検索</button>
+      </form>
+    </div>
+  </div>
+  <!-- header情報はここまで -->
+
+  <!-- ================= 商品内容 ================= -->
+  <main class="product-section">
+    <div class="image-area">
+      <div class="thumbnails">
+        <img src="../static/media/book.jpg" class="thumb active" alt="サムネイル1">
+        <img src="../static/media/bookback.jpg" class="thumb" alt="サムネイル2">
+      </div>
+      <div class="main-image">
+        <img id="mainImage" src="../static/media/book.jpg" alt="メイン商品画像">
+      </div>
+    </div>
+
+    <div class="info-area">
+      <h1>国史教科書 第7版 検定合格 市販 中学校社会用</h1>
+      <p class="price">¥1,700(税込)</p>
+
+      <div class="action-buttons">
+        <a href="#" class="btn">♡ お気に入り</a>
+        <a href="#" class="btn">💬 コメント</a>
+        <a href="#" class="btn">📩 連絡</a>
+      </div>
+
+      <a href="#" class="buy-btn">購入手続きへ</a>
+
+      <div class="desc">
+        <h2>商品の説明</h2>
+        <p>「国史教科書 第7版 検定合格 市販版 中学校社会用」</p>
+      </div>
+
+      <div class="detail">
+        <h2>商品の情報</h2>
+        <ul>
+          <li>商品の状態</li>
+          <li>配送料の負担</li>
+          <li>配送の方法</li>
+          <li>配送元の地域</li>
+          <li>発送までの日数</li>
+        </ul>
+      </div>
+    </div>
+  </main>
+
+  <!-- ================= コメント & 出品者 ================= -->
+  <section class="bottom-section">
+    <div class="comment-box">
+      <button class="comment-btn">コメント投稿</button>
+      <h3>コメント一覧</h3>
+      <ul>
+        <li><img src="../static/media/profile_icon.png"><div class="bubble">ふふはは</div></li>
+        <li><img src="../static/media/profile_icon.png"><div class="bubble">ググがが</div></li>
+        <li><img src="../static/media/profile_icon.png"><div class="bubble">ううわわ</div></li>
+        <li><img src="../static/media/profile_icon.png"><div class="bubble">ちちがが</div></li>
+      </ul>
+    </div>
+
+    <div class="seller-box">
+      <h3>出品者</h3>
+      <div class="seller-info">
+        <img src="../static/media/profile_icon.png" alt="大頭貼">
+        <div class="text">
+          <h4><a href="#">しょうごくん</a></h4>
+          <p>#プログラマー　#デザイナー　#シェフ</p>
+          <p>フォロワー：403　フォロー：219　⭐️⭐️⭐️⭐️☆</p>
+        </div>
+        <a href="#" class="follow-btn">フォローする</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= フッター ================= -->
+  <footer>©copyright SkillPort2025</footer>
+
+  <script src="../static/js/product_detail.js"></script>
+</body>
+</html>

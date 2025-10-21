@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>銀行口座登録</title>
+    <link rel="stylesheet" href="">
+</head>
+<body>
+    <header>
+        <div class="logo">Skill<br>Port</div>
+        <div class="user-section">
+            <span class="username">しょうごくん</span>
+            <div class="user-icon">👤</div>
+        </div>
+    </header>
+
+    <nav>
+        <ul class="nav-links">
+            <li><a href="#">プロフィール</a></li>
+            <li><a href="#">マーケット</a></li>
+            <li><a href="#">コミュニティー</a></li>
+            <li><a href="#">カテゴリー</a></li>
+        </ul>
+        <div class="search-container">
+            <input type="text" class="search-input" placeholder="検索">
+            <button class="search-btn">検索</button>
+        </div>
+    </nav>
+
+    <main>
+        <aside class="sidebar">
+            <h2 class="sidebar-title">銀行口座登録</h2>
+            <ul>
+                <li><a href="#">視聴履歴</a></li>
+                <li><a href="#">いいね</a></li>
+                <li><a href="#">売り上げ確認</a></li>
+                <li><a href="#">メンバーシップ一覧</a></li>
+                <li><a href="#" class="active">銀行口座登録</a></li>
+                <li><a href="#">お気に入り</a></li>
+                <li><a href="#">パスワードのリセット</a></li>
+                <li><a href="#">支払い履歴</a></li>
+                <li><a href="#">カード一覧</a></li>
+                <li><a href="#">カスタマーサポート</a></li>
+                <li><a href="#">お知らせ</a></li>
+                <li><a href="#" class="danger">アカウント削除</a></li>
+            </ul>
+        </aside>
+
+        <div class="form-container">
+            <form>
+                <div class="form-group">
+                    <label for="bank-name">銀行名</label>
+                    <input type="text" id="bank-name" name="bank-name">
+                </div>
+
+                <div class="form-group">
+                    <label for="account-type">口座種別</label>
+                    <input type="text" id="account-type" name="account-type">
+                </div>
+
+                <div class="form-group">
+                    <label for="branch-code">支店コード</label>
+                    <input type="text" id="branch-code" name="branch-code">
+                </div>
+
+                <div class="form-group">
+                    <label for="account-number">口座番号</label>
+                    <input type="text" id="account-number" name="account-number">
+                </div>
+
+                <div class="form-group">
+                    <label for="account-name-sei">口座名義（セイ）</label>
+                    <input type="text" id="account-name-sei" name="account-name-sei">
+                </div>
+
+                <div class="form-group">
+                    <label for="account-name-mei">口座名義（メイ）</label>
+                    <input type="text" id="account-name-mei" name="account-name-mei">
+                </div>
+
+                <button type="submit" class="save-btn">保存</button>
+            </form>
+        </div>
+    </main>
+
+    <footer>
+        <p>©copyright SkillPort 2025</p>
+    </footer>
+</body>
+</html>
