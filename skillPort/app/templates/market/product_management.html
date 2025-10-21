@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>商品管理 - SkillPort</title>
+
+  <!-- 共通CSS -->
+  <link rel="stylesheet" href="../../static/css/index.css">
+  <!-- 商品管理専用CSS -->
+  <link rel="stylesheet" href="../../static/css/product_management.css">
+</head>
+<body>
+
+  <!-- ===== プロフィール帯 ===== -->
+  <div id="profile">
+    <ul>
+      <li><a href="../../templates/account/register.html">アカウント登録</a></li>
+      <li><a href="../../templates/auth/login.html">ログイン</a></li>
+    </ul>
+    <a href="#"><img src="../../static/media/profile_icon.png" alt="profile"></a>
+  </div>
+
+  <div id="header_cap"></div>
+
+  <!-- ===== ヘッダー（ナビゲーションバー） ===== -->
+  <div id="header">
+    <a href="../../templates/index.html">
+      <img src="../../static/media/skill-port-logo.png" alt="logo">
+    </a>
+
+    <div class="container">
+      <ul>
+        <li><a href="#">プロフィール</a></li>
+        <li><a href="market.html">マーケット</a></li>
+        <li><a href="#">コミュニティー</a></li>
+        <li class="dropdown" id="nav-category">
+          <a href="#" class="dropdown-toggle">カテゴリ一</a>
+          <ul class="dropdown-menu">
+            <li><a href="#">アニメーション</a></li>
+            <li><a href="#">音楽</a></li>
+            <li><a href="#">カメラ</a></li>
+            <li><a href="#">フィットネス</a></li>
+            <li><a href="#">英語</a></li>
+            <li><a href="#">プログラミング</a></li>
+          </ul>
+        </li>
+      </ul>
+
+      <!-- 検索バー -->
+      <form action="#" method="get" class="search">
+        <input type="text" name="q" placeholder="検索..." />
+        <button type="submit">検索</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- ===== ページ本体 ===== -->
+  <main class="pmain">
+    <div class="pcontainer">
+      <h2 class="page-title">商品管理</h2>
+
+      <!-- 操作ボタン群 -->
+      <div class="toolbar">
+        <button class="pill blue">新規商品登録</button>
+        <button class="pill indigo">売上を表示</button>
+        <button class="pill gray">出品済み一覧</button>
+      </div>
+
+      <!-- 商品カード一覧 -->
+      <section class="grid">
+        <!-- ▼ ダミーカード（12枚） -->
+        <article class="card">
+          <div class="thumb">
+            <img src="../../static/media/monkey.png" alt="item">
+          </div>
+          <div class="ops">
+            <span class="badge">出品中</span>
+            <button class="ghost-sm">編集</button>
+          </div>
+        </article>
+
+        <!-- 以下は複製例 -->
+        <article class="card"><div class="thumb"><img src="../../static/media/monkey.png" alt=""></div><div class="ops"><span class="badge">出品中</span><button class="ghost-sm">編集</button></div></article>
+        <article class="card"><div class="thumb"><img src="../../static/media/monkey.png" alt=""></div><div class="ops"><span class="badge">出品中</span><button class="ghost-sm">編集</button></div></article>
+        <article class="card"><div class="thumb"><img src="../../static/media/monkey.png" alt=""></div><div class="ops"><span class="badge">出品中</span><button class="ghost-sm">編集</button></div></article>
+        <article class="card"><div class="thumb"><img src="../../static/media/monkey.png" alt=""></div><div class="ops"><span class="badge">出品中</span><button class="ghost-sm">編集</button></div></article>
+        <article class="card"><div class="thumb"><img src="../../static/media/monkey.png" alt=""></div><div class="ops"><span class="badge">出品中</span><button class="ghost-sm">編集</button></div></article>
+        <article class="card"><div class="thumb"><img src="../../static/media/monkey.png" alt=""></div><div class="ops"><span class="badge">出品中</span><button class="ghost-sm">編集</button></div></article>
+        <article class="card"><div class="thumb"><img src="../../static/media/monkey.png" alt=""></div><div class="ops"><span class="badge">出品中</span><button class="ghost-sm">編集</button></div></article>
+        <article class="card"><div class="thumb"><img src="../../static/media/monkey.png" alt=""></div><div class="ops"><span class="badge">出品中</span><button class="ghost-sm">編集</button></div></article>
+        <article class="card"><div class="thumb"><img src="../../static/media/monkey.png" alt=""></div><div class="ops"><span class="badge">出品中</span><button class="ghost-sm">編集</button></div></article>
+        <article class="card"><div class="thumb"><img src="../../static/media/monkey.png" alt=""></div><div class="ops"><span class="badge">出品中</span><button class="ghost-sm">編集</button></div></article>
+        <article class="card"><div class="thumb"><img src="../../static/media/monkey.png" alt=""></div><div class="ops"><span class="badge">出品中</span><button class="ghost-sm">編集</button></div></article>
+      </section>
+
+      <!-- もっと見るボタン -->
+      <div class="more">
+        <button class="more-btn">もっと見る</button>
+      </div>
+    </div>
+  </main>
+
+  <footer>©copyright SkillPort2025</footer>
+
+  <script src="../../static/js/product_management.js" defer></script>
+</body>
+</html>

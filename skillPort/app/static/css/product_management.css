@@ -1,0 +1,117 @@
+:root{
+  --ink:#111827;
+  --muted:#6b7280;
+  --panel:#ffffff;
+  --bg:#f6f7fb;
+  --border:#e5e7eb;
+  --blue:#2563eb;
+  --indigo:#4f46e5;
+  --gray:#64748b;
+}
+
+/* ページ全体の基本設定 */
+html,body{height:100%}
+body{
+  margin:0;
+  background:var(--bg);
+  color:var(--ink);
+  font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,"Noto Sans JP",sans-serif;
+}
+
+/* メインコンテナ */
+.pmain .pcontainer{
+  max-width:1200px;
+  margin:24px auto;
+  padding:0 16px;
+}
+
+/* タイトル */
+.page-title{
+  font-size:28px;
+  margin:8px 0 18px;
+}
+
+/* 右上操作ボタン */
+.toolbar{
+  display:flex;
+  gap:10px;
+  justify-content:flex-end;
+  margin:8px 0 18px;
+}
+.pill{
+  border:0;
+  border-radius:10px;
+  padding:.55rem .9rem;
+  color:#fff;
+  font-weight:700;
+  cursor:pointer;
+}
+.pill.blue{background:var(--blue)}
+.pill.indigo{background:var(--indigo)}
+.pill.gray{background:var(--gray)}
+
+/* 商品グリッド */
+.grid{
+  display:grid;
+  grid-template-columns:repeat(6,1fr);
+  gap:18px;
+}
+@media(max-width:1080px){ .grid{grid-template-columns:repeat(4,1fr)} }
+@media(max-width:700px){ .grid{grid-template-columns:repeat(2,1fr)} }
+
+/* 商品カード */
+.card{
+  background:var(--panel);
+  border:1px solid var(--border);
+  border-radius:16px;
+  box-shadow:0 8px 22px rgba(0,0,0,.06);
+  padding:10px;
+  transition:transform .15s ease, box-shadow .15s ease;
+}
+.card:hover{
+  transform:translateY(-2px);
+  box-shadow:0 12px 26px rgba(0,0,0,.09);
+}
+.thumb{
+  aspect-ratio:1/1;
+  border-radius:12px;
+  overflow:hidden;
+  background:#f3f4f6;
+  display:block;
+}
+.thumb img{width:100%;height:100%;object-fit:cover}
+
+/* 操作ラベル部分 */
+.ops{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  margin-top:8px;
+}
+.badge{
+  display:inline-block;
+  background:#111827;
+  color:#fff;
+  border-radius:999px;
+  padding:.25rem .6rem;
+  font-size:.8rem;
+}
+.ghost-sm{
+  border:1px solid var(--border);
+  background:#fff;
+  border-radius:8px;
+  padding:.35rem .6rem;
+  cursor:pointer;
+}
+.ghost-sm:hover{border-color:#cbd5e1}
+
+/* もっと見る */
+.more{display:flex;justify-content:center;margin:22px 0 60px}
+.more-btn{
+  border:1px solid var(--border);
+  background:#fff;
+  border-radius:10px;
+  padding:.7rem 1.2rem;
+  cursor:pointer;
+}
+.more-btn:active{transform:translateY(1px)}
