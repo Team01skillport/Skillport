@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>講義動画再生 | SkillPort</title>
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="../../static/css/lecture.css">
+  <link rel="stylesheet" href="../../static/css/popup_report.css">
+</head>
+<body>
+  <!-- ===== ヘッダー ===== -->
+  <div id="profile">
+    <ul>
+      <li><a href="../register.html">アカウント登録</a></li>
+      <li><a href="../login.html">ログイン</a></li>
+    </ul>
+    <a href="#"><img src="../../static/media/profile_icon.png" alt="プロフィール"></a>
+  </div>
+
+  <div id="header_cap"></div>
+
+  <div id="header">
+    <a href="../index.html">
+      <img src="../../static/media/skill-port-logo.png" alt="logo">
+    </a>
+    <div class="container">
+      <ul>
+        <li><a href="#">プロフィール</a></li>
+        <li><a href="../market/market.html">マーケット</a></li>
+        <li><a href="#" class="is-active">コミュニティー</a></li>
+        <li class="dropdown" id="nav-category">
+          <a href="#" class="dropdown-toggle">カテゴリ一</a>
+          <ul class="dropdown-menu">
+            <li><a href="#">プログラミング</a></li>
+            <li><a href="#">フィットネス</a></li>
+            <li><a href="#">英語</a></li>
+            <li><a href="#">音楽</a></li>
+          </ul>
+        </li>
+      </ul>
+
+      <form class="search">
+        <input type="text" placeholder="検索..." />
+        <button type="submit">検索</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- ===== メイン ===== -->
+  <main class="main-grid">
+    <!-- 左側（動画 + コメント） -->
+    <section class="left">
+      <div class="video-area">
+        <!-- 将来可以换成实际视频 -->
+        <video controls class="video-frame" poster="../../static/media/video_cover.png">
+          <source src="../../static/media/sample.mp4" type="video/mp4">
+          ブラウザは動画再生に対応していません。
+        </video>
+      </div>
+
+      <h2 class="video-title">しょうごくんと楽しくイラストレーション学びましょう！</h2>
+      <p class="video-desc">
+        しょうごくんが丁寧にイラストの描き方を解説します。初心者でも安心して学べます！
+      </p>
+
+      <div class="video-stats">
+        <span>👍 239</span>
+        <span>💬 42</span>
+        <a href="#" id="reportBtn" class="btn-report">🚨 通報</a>
+      </div>
+
+      <div class="uploader">
+        <img src="../../static/media/profile_icon.png" alt="">
+        <p>しょうごくん</p>
+      </div>
+
+      <h3>コメント</h3>
+      <div class="comment-form">
+        <input type="text" placeholder="コメント投稿">
+        <button>投稿する</button>
+      </div>
+
+      <ul class="comment-list">
+        <li>
+          <img src="../../static/media/profile_icon.png" alt="">
+          <div><strong>okura_masato0721</strong><p>すごい動画でした！ありがとうございます！</p></div>
+        </li>
+        <li>
+          <img src="../../static/media/profile_icon.png" alt="">
+          <div><strong>okura_masato0721</strong><p>ああああああああああああああ</p></div>
+        </li>
+      </ul>
+    </section>
+
+    <!-- 右側（おすすめ動画） -->
+    <aside class="right">
+      <h3>おすすめ動画</h3>
+      <div class="recommend">
+        <div class="video-card">
+          <img src="../../static/media/book.jpg" alt="">
+          <p>「のからギタをやろう」<br><span>かっこいいしょうごくん</span></p>
+        </div>
+        <div class="video-card">
+          <img src="../../static/media/bookback.jpg" alt="">
+          <p>「からギタをやろう」<br><span>しょうごくん</span></p>
+        </div>
+      </div>
+    </aside>
+  </main>
+
+  <!-- ===== 通報ポップアップ ===== -->
+  <div id="reportModal" class="modal hidden">
+    <div class="modal-content">
+      <h2>通報</h2>
+      <form id="reportForm">
+        <label><input type="radio" name="reason" value="ガイドライン違反"> ガイドラインに反する内容</label><br>
+        <label><input type="radio" name="reason" value="暴力表現"> 暴力的または不快感を与える表現</label><br>
+        <label><input type="radio" name="reason" value="虚偽"> 虚偽情報・スパムコンテンツ</label><br>
+        <label><input type="radio" name="reason" value="著作権侵害"> 著作権侵害・違法動画の投稿</label><br>
+        <label><input type="radio" name="reason" value="その他"> その他</label><br>
+        <textarea name="detail" rows="4" placeholder="詳細内容を入力してください"></textarea>
+        <div class="modal-buttons">
+          <button type="button" id="closeModal">キャンセル</button>
+          <button type="submit" id="submitReport">報告</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <footer>©copyright SkillPort2025</footer>
+
+  <script src="../../static/js/lecture.js" defer></script>
+  <script src="../../static/js/popup_report.js" defer></script>
+</body>
+</html>
