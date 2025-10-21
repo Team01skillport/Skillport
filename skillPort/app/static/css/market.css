@@ -4,241 +4,462 @@
 
 /* Main Content Layout */
 .main-content {
-    padding: 30px 0;
-    /* 确保内容区域在页眉下方 */
-    margin-top: 20px; 
+  padding: 30px 0;
+  /* 确保内容区域在页眉下方 */
+  margin-top: 20px;
 }
 
 .main-container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
 }
 
 .page-title {
-    font-size: 32px;
-    font-weight: bold;
-    margin-bottom: 30px;
-    border-bottom: 3px solid #333;
-    display: inline-block;
-    padding-bottom: 5px;
+  font-size: 32px;
+  font-weight: bold;
+  margin-bottom: 30px;
+  border-bottom: 3px solid #333;
+  display: inline-block;
+  padding-bottom: 5px;
 }
 
 .content-wrapper {
-    display: flex;
-    gap: 30px;
+  display: flex;
+  gap: 30px;
 }
 
 /* Sidebar */
 .sidebar {
-    width: 250px;
-    background-color: white;
-    padding: 20px;
-    border-radius: 10px;
-    height: fit-content;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+  width: 250px;
+  background-color: white;
+  padding: 20px;
+  border-radius: 10px;
+  height: fit-content;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
 }
 
 .filter-btn {
-    width: 100%;
-    padding: 15px;
-    background-color: #f0f0f0;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    font-size: 16px;
-    margin-bottom: 20px;
+  width: 100%;
+  padding: 15px;
+  background-color: #f0f0f0;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 16px;
+  margin-bottom: 20px;
 }
 
 .filter-btn.active {
-    background-color: #e0e0e0;
+  background-color: #e0e0e0;
 }
 
 .filter-section {
-    margin-bottom: 10px;
+  margin-bottom: 10px;
 }
 
 .filter-item {
-    width: 100%;
-    padding: 15px;
-    background-color: white;
-    border: 1px solid #e0e0e0;
-    border-radius: 8px;
-    cursor: pointer;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    font-size: 16px;
+  width: 100%;
+  padding: 15px;
+  background-color: white;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 16px;
 }
 
 .filter-item:hover {
-    background-color: #f9f9f9;
+  background-color: #f9f9f9;
 }
 
 .arrow {
-    color: #999;
+  color: #999;
 }
 
 /* Products Area */
 .products-area {
-    flex: 1;
+  flex: 1;
 }
 
 .products-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 30px;
-    gap: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30px;
+  gap: 20px;
 }
 
 .search-bar {
-    flex: 1;
-    max-width: 500px;
-    position: relative;
+  flex: 1;
+  max-width: 500px;
+  position: relative;
 }
 
 .search-icon {
-    position: absolute;
-    left: 15px;
-    top: 50%;
-    transform: translateY(-50%);
+  position: absolute;
+  left: 15px;
+  top: 50%;
+  transform: translateY(-50%);
 }
 
 .product-search {
-    width: 100%;
-    padding: 12px 15px 12px 45px;
-    border: 1px solid #ddd;
-    border-radius: 25px;
-    outline: none;
-    font-size: 14px;
+  width: 100%;
+  padding: 12px 15px 12px 45px;
+  border: 1px solid #ddd;
+  border-radius: 25px;
+  outline: none;
+  font-size: 14px;
 }
 
 .action-buttons {
-    display: flex;
-    gap: 15px;
+  display: flex;
+  gap: 15px;
 }
 
 .btn {
-    padding: 12px 25px;
-    border: 2px solid;
-    border-radius: 25px;
-    cursor: pointer;
-    font-size: 14px;
-    font-weight: 500;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    background-color: white;
+  padding: 12px 25px;
+  border: 2px solid;
+  border-radius: 25px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background-color: white;
 }
 
 .btn-green {
-    border-color: #4caf50;
-    color: #4caf50;
+  border-color: #4caf50;
+  color: #4caf50;
 }
 
 .btn-green .btn-icon {
-    color: #4caf50;
+  color: #4caf50;
 }
 
 .btn-yellow {
-    border-color: #ffc107;
-    color: #ffc107;
+  border-color: #ffc107;
+  color: #ffc107;
 }
 
 .btn-yellow .btn-icon {
-    color: #ffc107;
+  color: #ffc107;
 }
 
 .btn:hover {
-    opacity: 0.8;
+  opacity: 0.8;
 }
 
 /* Product Grid */
 .product-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-    gap: 20px;
-    margin-bottom: 30px;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 20px;
+  margin-bottom: 30px;
 }
 
 .product-card {
-    background-color: white;
-    border-radius: 10px;
-    overflow: hidden;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-    transition: transform 0.3s, box-shadow 0.3s;
-    cursor: pointer;
+  background-color: white;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s, box-shadow 0.3s;
+  cursor: pointer;
 }
 
 .product-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  transform: translateY(-5px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 }
 
 .product-image {
-    width: 100%;
-    height: 150px; 
-    object-fit: contain;
-    background-color: #f0f0f0;
-    border-radius:0; 
+  width: 100%;
+  height: 150px;
+  object-fit: contain;
+  background-color: #f0f0f0;
+  border-radius: 0;
 }
 
 .product-info {
-    padding: 15px;
+  padding: 15px;
 }
 
 .product-title {
-    font-size: 14px;
-    margin-bottom: 8px;
-    line-height: 1.4;
-    height: 40px;
-    overflow: hidden;
+  font-size: 14px;
+  margin-bottom: 8px;
+  line-height: 1.4;
+  height: 40px;
+  overflow: hidden;
 }
 
 .product-price {
-    font-size: 16px;
-    font-weight: bold;
-    color: #333;
+  font-size: 16px;
+  font-weight: bold;
+  color: #333;
 }
 
 /* Load More Button */
 .load-more {
-    display: block;
-    margin: 0 auto;
-    padding: 15px 60px;
-    background-color: white;
-    border: 2px solid #333;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 16px;
-    font-weight: 500;
+  display: block;
+  margin: 0 auto;
+  padding: 15px 60px;
+  background-color: white;
+  border: 2px solid #333;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: 500;
 }
 
 .load-more:hover {
-    background-color: #f5f5f5;
+  background-color: #f5f5f5;
 }
 
 /* Responsive */
 @media (max-width: 768px) {
-    .content-wrapper {
-        flex-direction: column;
-    }
-    
-    .sidebar {
-        width: 100%;
-    }
-    
-    .products-header {
-        flex-direction: column;
-        align-items: stretch;
-    }
-    
-    .search-bar {
-        max-width: 100%;
-    }
-    
-    .product-grid {
-        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-    }
+  .content-wrapper {
+    flex-direction: column;
+  }
+
+  .sidebar {
+    width: 100%;
+  }
+
+  .products-header {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .search-bar {
+    max-width: 100%;
+  }
+
+  .product-grid {
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  }
 }
+
+body {
+  font-family: sans-serif;
+  margin: 0;
+}
+
+/* ヘッダー情報 */
+/* 右上プロファイルのやつ----------------------------------------------- */
+
+#profile {
+  display: flex;
+  align-items: center;
+  position: absolute;
+  right: 0;
+  margin-right: 1vw;
+  margin-top: 0.5vw;
+}
+
+#profile ul {
+  display: flex;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  font-weight: bold;
+  font-size: 12px;
+}
+
+#profile ul li {
+  padding: 0 10px;
+}
+
+#profile ul li:not(:last-child) {
+  border-right: 2px solid black;
+}
+
+#profile ul {
+  display: flex;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+#profile li a {
+  text-decoration: none;
+  color: #333;
+}
+
+#profile img {
+  width: 25px;
+}
+
+/* ------------------------------------------------------------------ */
+
+/* ヘッダ------------------------------------------------------------ */
+
+#header_cap {
+  padding-top: 35px;
+}
+
+#header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: sticky;
+  top: 5px;
+  z-index: 100;
+}
+
+#header img {
+  width: 7vw;
+  max-width: 115px;
+}
+
+#header .container {
+  display: flex;
+  align-items: center;
+  margin-left: 2vw;
+  gap: 2vw;
+  background-color: #226cff;
+  height: 4vw;
+  width: 75vw;
+  border-radius: 50px;
+  justify-content: center;
+  overflow: hidden;
+  max-height: 70px;
+}
+
+#header ul {
+  display: flex;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  font-size: 1.5vw;
+  font-weight: bolder;
+  height: 100%;
+}
+
+#header ul li {
+  /* margin-right: 2.5vw; */
+  height: 100%;
+}
+
+#header ul li a {
+  display: flex;
+  align-items: center;
+  height: 100%;
+  text-decoration: none;
+  color: white;
+  padding: 0 1.7vw;
+  white-space: nowrap;
+}
+
+/* #header ul li:first-child a {
+    position: relative;
+    z-index: 0;
+  }
+
+  #header ul li:first-child a:hover::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: -100vw;
+    width: 100vw;
+    background: #4e89ff;
+    z-index: -1;
+    pointer-events: none;
+  } */
+
+#header ul li a:hover {
+  background-color: #4e89ff;
+}
+
+#header ul li a.is-active {
+  background-color: #4e89ff;
+}
+
+/* Search form */
+#header .search {
+  display: flex;
+  align-items: center;
+  gap: 0.5vw;
+}
+
+#header .search input {
+  padding: 5px 10px;
+  font-size: 1vw;
+  border: 1px solid #ccc;
+  border-radius: 20px;
+  /* margin-left: 50px; */
+}
+
+#header .search button {
+  padding: 5px 12px;
+  font-size: 1vw;
+  font-weight: bold;
+  /* font-size: clamp(10px, 1vw, 100px); */
+  cursor: pointer;
+  background-color: rgba(255, 255, 255, 0);
+  border: 1.5px solid #ffffff;
+  color: white;
+  border-radius: 5px;
+}
+
+#header .search button:hover {
+  background: white;
+  color: #5d5d5d;
+}
+
+/* dropdown-------------------------------------------- */
+
+#header .container {
+  overflow: visible;
+}
+
+#header .dropdown {
+  position: relative;
+}
+
+#header .dropdown-menu {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  min-width: 150px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
+  height: auto;
+}
+
+/* #header .dropdown-menu li:not(:last-child){
+  line-height: 2.2;
+} */
+
+#header .dropdown-menu li a {
+  display: block;
+  padding: 8px 12px;
+  color: #000000;
+  text-decoration: none;
+  background: #fff;
+  line-height: 2;
+}
+
+#header .dropdown-menu li a:hover {
+  background: #e6e6e6;
+}
+
+#header .dropdown.open > .dropdown-menu {
+  display: block;
+}
+/* ヘッダーCSSはここまで */
+
+/* フッター情報 */
+footer {
+  background-color: #226cff;
+  color: white;
+  text-align: center;
+  margin-top: 5vw;
+}
+
+/* ------------------------------------------------------------------ */

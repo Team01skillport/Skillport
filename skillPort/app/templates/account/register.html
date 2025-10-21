@@ -1,23 +1,30 @@
-<!DOCTYPE html>
-<html>
+{% extends "base.html" %} {% block title %}アカウント登録{% endblock %} {% block
+content %}
 <head>
-    <title>Register</title>
-    <link rel="stylesheet" href="../static/css/register.css">
+  <link rel="stylesheet" href="../../static/css/register.css" />
 </head>
 <body>
-
-    <div class="login-container">
-        <h1>アカウントの新規登録</h1>
-        <!-- {% if message %}
+  <div class="login-container">
+    <h1>アカウントの新規登録</h1>
+    <!-- {% if message %}
             <p>{{ message }}</p>
         {% endif %} -->
-        <form method="POST">
-            <input type="text" name="username" placeholder="ユーザー名" required><br>
-            <input type="password" name="password" placeholder="パスワード" required><br>
-            <input type="submit" value="アカウント作成">
-        </form>
-        <p><a href="login.html">ログイン画面に戻る</a></p>
-    </div>
-
+    <form method="POST">
+      <input
+        type="text"
+        name="username"
+        placeholder="ユーザー名"
+        required
+      /><br />
+      <input
+        type="password"
+        name="password"
+        placeholder="パスワード"
+        required
+      /><br />
+      <input type="submit" value="アカウント作成" />
+    </form>
+    <p><a href="login.html">ログイン画面に戻る</a></p>
+  </div>
 </body>
-</html>
+{% endblock %}

@@ -1,108 +1,93 @@
-<!DOCTYPE html>
-<html lang="ja">
+{% extends "base.html" %} {% block title %}SkillPort{% endblock %} {% block
+content %}
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ホーム</title>
-    <link rel="stylesheet" href="../static/css/index.css">
+  <link rel="stylesheet" href="../static/css/index.css" />
 </head>
-<body>
-
-    <div id="profile">
-        <ul>
-            <li><a href="register.html">アカウント登録</a></li>
-            <li><a href="login.html">ログイン</a></li>
-        </ul>
-        <a href="#"><img src="../static/media/profile_icon.png"></a>
-    </div>
-
-    <div id="header_cap"></div>
-
-    <div id="header">
-        <a href="index.html">
-          <img src="../static/media/skill-port-logo.png" alt="logo">
-        </a>
-      
-
-        <div class="container">
-          <ul>
-            <li><a href="#">プロフィール</a></li>
-            <li><a href="#">マーケット</a></li>
-            <li><a href="#">コミュニティー</a></li>
-            <!-- before: <li><a href="#">カテゴリ一</a></li> -->
-            <li class="dropdown" id="nav-category">
-              <a href="#" class="dropdown-toggle">カテゴリ一</a>
-              <ul class="dropdown-menu">
-                <li><a href="#">アニメーション</a></li>
-                <li><a href="#">音楽</a></li>
-                <li><a href="#">カメラ</a></li>
-                <li><a href="#">フィットネス</a></li>
-                <li><a href="#">英語</a></li>
-                <li><a href="#">プログラミング</a></li>
-              </ul>
-            </li>
-
-          </ul>
-      
-          <form action="/search" method="get" class="search">
-            <input type="text" name="q" placeholder="検索..." />
-            <button type="submit">検索</button>
-          </form>
-        </div>
-      </div>
-<!-- header情報はここまで -->
-    
-      <div class="slideshow-container">
-        <div class="slide active">
-          <h2>アニメーション</h2>
-          <a href="#"><img src="../static/media/VnS76wTmnfKVrbz8zaXr96.webp" alt="Slide 1"></a>
-        </div>
-        <div class="slide">
-          <h2>音楽</h2>
-          <a href="#"><img src="../static/media/Bgitjwkld6Qc_1722765180.jpg" alt="Slide 2"></a>
-        </div>
-        <div class="slide">
-          <h2>プログラミング</h2>
-          <a href="index.html"><img src="../static/media/VnS76wTmnfKVrbz8zaXr96.webp" alt="Slide 3"></a>
-        </div>
-        <div class="slide">
-          <h2>フィットネス</h2>
-          <a href="index.html"><img src="../static/media/Bgitjwkld6Qc_1722765180.jpg" alt="Slide 4"></a>
-        </div>
-        <div class="slide">
-          <h2>英語</h2>
-          <a href="index.html"><img src="../static/media/VnS76wTmnfKVrbz8zaXr96.webp" alt="Slide 5"></a>
-        </div>
-    
-        <div class="dots">
-          <span class="dot active"></span>
-          <span class="dot"></span>
-          <span class="dot"></span>
-          <span class="dot"></span>
-          <span class="dot"></span>
-        </div>
-      </div>
-
-
-  <div id="videos">
-    <h1>人気な動画</h1>
-
-    <div class="video_grid">
-      <a href="#"><img src="../static/media/1.jpeg" alt="Image 1">ああああああああああああああああああああああああああああああああああああ</a>
-      <a href="#"><img src="../static/media/2.webp" alt="Image 2">ああああああああああああああああああああああああああああああああああああ</a>
-      <a href="#"><img src="../static/media/3.jpg" alt="Image 3">ああああああああああああああああああああああああああああああああああああ</a>
-      <a href="#"><img src="../static/media/2.webp" alt="Image 4">ああああああああああああああああああああああああああああああああああああ</a>
-      <a href="#"><img src="../static/media/3.jpg" alt="Image 5">ああああああああああああああああああああああああああああああああああああ</a>
-      <a href="#"><img src="../static/media/1.jpeg" alt="Image 6">ああああああああああああああああああああああああああああああああああああ</a>
-    </div>
-
-    <h2><a href="#">もっと見る</a></h2>
-
+<div class="slideshow-container">
+  <div class="slide active">
+    <h2>アニメーション</h2>
+    <a href="#"
+      ><img src="../static/media/VnS76wTmnfKVrbz8zaXr96.webp" alt="Slide 1"
+    /></a>
+  </div>
+  <div class="slide">
+    <h2>音楽</h2>
+    <a href="#"
+      ><img src="../static/media/Bgitjwkld6Qc_1722765180.jpg" alt="Slide 2"
+    /></a>
+  </div>
+  <div class="slide">
+    <h2>プログラミング</h2>
+    <a href="index.html"
+      ><img src="../static/media/VnS76wTmnfKVrbz8zaXr96.webp" alt="Slide 3"
+    /></a>
+  </div>
+  <div class="slide">
+    <h2>フィットネス</h2>
+    <a href="index.html"
+      ><img src="../static/media/Bgitjwkld6Qc_1722765180.jpg" alt="Slide 4"
+    /></a>
+  </div>
+  <div class="slide">
+    <h2>英語</h2>
+    <a href="index.html"
+      ><img src="../static/media/VnS76wTmnfKVrbz8zaXr96.webp" alt="Slide 5"
+    /></a>
   </div>
 
+  <div class="dots">
+    <span class="dot active"></span>
+    <span class="dot"></span>
+    <span class="dot"></span>
+    <span class="dot"></span>
+    <span class="dot"></span>
+  </div>
+</div>
 
-<footer>©copyright SkillPort2025</footer>
+<div id="videos">
+  <h1>人気な動画</h1>
 
-  <script src="../static/js/index.js"></script>
-</body>
-</html>
+  <div class="video_grid">
+    <a href="#"
+      ><img
+        src="../static/media/1.jpeg"
+        alt="Image 1"
+      />ああああああああああああああああああああああああああああああああああああ</a
+    >
+    <a href="#"
+      ><img
+        src="../static/media/2.webp"
+        alt="Image 2"
+      />ああああああああああああああああああああああああああああああああああああ</a
+    >
+    <a href="#"
+      ><img
+        src="../static/media/3.jpg"
+        alt="Image 3"
+      />ああああああああああああああああああああああああああああああああああああ</a
+    >
+    <a href="#"
+      ><img
+        src="../static/media/2.webp"
+        alt="Image 4"
+      />ああああああああああああああああああああああああああああああああああああ</a
+    >
+    <a href="#"
+      ><img
+        src="../static/media/3.jpg"
+        alt="Image 5"
+      />ああああああああああああああああああああああああああああああああああああ</a
+    >
+    <a href="#"
+      ><img
+        src="../static/media/1.jpeg"
+        alt="Image 6"
+      />ああああああああああああああああああああああああああああああああああああ</a
+    >
+  </div>
+
+  <h2><a href="#">もっと見る</a></h2>
+</div>
+
+{% endblock %}
+<script src="../static/js/index.js"></script>

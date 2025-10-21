@@ -1,99 +1,65 @@
-<!DOCTYPE html>
-<html lang="ja">
+{% extends "base.html" %} {% block title %}マーケット{% endblock %} {% block
+content %}
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>マーケット - SkillPort</title>
-
-    <link rel="stylesheet" href="../static/css/index.css">
-    <link rel="stylesheet" href="../static/css/market.css">
+  <link rel="stylesheet" href="../../static/css/market.css" />
 </head>
-<body>
+<main class="main-content">
+  <div class="main-container">
+    <h2 class="page-title">マーケット</h2>
 
-    <div id="profile">
-        <ul>
-            <li><a href="register.html">アカウント登録</a></li>
-            <li><a href="login.html">ログイン</a></li>
-        </ul>
-        <a href="#"><img src="../static/media/profile_icon.png"></a>
-    </div>
-
-    <div id="header_cap"></div>
-
-    <div id="header">
-        <a href="index.html">
-            <img src="../static/media/skill-port-logo.png" alt="logo">
-        </a>
-        
-        <div class="container">
-          <ul>
-            <li><a href="#">プロフィール</a></li>
-            <li><a href="market.html" class="is-active">マーケット</a></li>
-            <li><a href="#">コミュニティー</a></li>
-            <li class="dropdown" id="nav-category">
-              <a href="#" class="dropdown-toggle">カテゴリ一</a>
-              <ul class="dropdown-menu">
-                <li><a href="#">アニメーション</a></li>
-                <li><a href="#">音楽</a></li>
-                <li><a href="#">カメラ</a></li>
-                <li><a href="#">フィットネス</a></li>
-                <li><a href="#">英語</a></li>
-                <li><a href="#">プログラミング</a></li>
-              </ul>
-            </li>
-          </ul>
-      
-          <form action="/search" method="get" class="search">
-            <input type="text" name="q" placeholder="検索..." />
-            <button type="submit">検索</button>
-          </form>
+    <div class="content-wrapper">
+      <aside class="sidebar">
+        <button class="filter-btn active">更新</button>
+        <div class="filter-section">
+          <button class="filter-item">
+            <span>カテゴリー</span><span class="arrow">＞</span>
+          </button>
         </div>
-    </div>
-    <main class="main-content">
-        <div class="main-container"> <h2 class="page-title">マーケット</h2>
-    
-            <div class="content-wrapper">
-                <aside class="sidebar">
-                    <button class="filter-btn active">更新</button>
-                    <div class="filter-section">
-                        <button class="filter-item"><span>カテゴリー</span><span class="arrow">＞</span></button>
-                    </div>
-                    <div class="filter-section">
-                        <button class="filter-item"><span>販売状況</span><span class="arrow">＞</span></button>
-                    </div>
-                    <div class="filter-section">
-                        <button class="filter-item"><span>出品者</span><span class="arrow">＞</span></button>
-                    </div>
-                    <div class="filter-section">
-                        <button class="filter-item"><span>商品の状態</span><span class="arrow">＞</span></button>
-                    </div>
-                    <div class="filter-section">
-                        <button class="filter-item"><span>価格</span><span class="arrow">＞</span></button>
-                    </div>
-                </aside>
-        
-                <div class="products-area">
-                    <div class="products-header">
-                        <div class="search-bar">
-                            <span class="search-icon">🔍</span>
-                            <input type="text" placeholder="検索バー" class="product-search">
-                        </div>
-                        <div class="action-buttons">
-                            <button class="btn btn-green"><span class="btn-icon">●</span> 出品管理</button>
-                            <button class="btn btn-yellow"><span class="btn-icon">●</span> 購入管理</button>
-                        </div>
-                    </div>
-        
-                    <div class="product-grid" id="productGrid">
-                        </div>
-        
-                    <button class="load-more">もっと見る</button>
-                </div>
-            </div>
+        <div class="filter-section">
+          <button class="filter-item">
+            <span>販売状況</span><span class="arrow">＞</span>
+          </button>
         </div>
-    </main>
-    <footer>©copyright SkillPort2025</footer>
-    <script src="../static/js/index.js"></script>
-    <script src="../static/js/market.js" defer></script>
-</body>
-</html>
+        <div class="filter-section">
+          <button class="filter-item">
+            <span>出品者</span><span class="arrow">＞</span>
+          </button>
+        </div>
+        <div class="filter-section">
+          <button class="filter-item">
+            <span>商品の状態</span><span class="arrow">＞</span>
+          </button>
+        </div>
+        <div class="filter-section">
+          <button class="filter-item">
+            <span>価格</span><span class="arrow">＞</span>
+          </button>
+        </div>
+      </aside>
+
+      <div class="products-area">
+        <div class="products-header">
+          <div class="search-bar">
+            <span class="search-icon">🔍</span>
+            <input type="text" placeholder="検索バー" class="product-search" />
+          </div>
+          <div class="action-buttons">
+            <button class="btn btn-green">
+              <span class="btn-icon">●</span> 出品管理
+            </button>
+            <button class="btn btn-yellow">
+              <span class="btn-icon">●</span> 購入管理
+            </button>
+          </div>
+        </div>
+
+        <div class="product-grid" id="productGrid"></div>
+
+        <button class="load-more">もっと見る</button>
+      </div>
+    </div>
+  </div>
+</main>
+{% endblock %}
+<script src="../static/js/index.js"></script>
+<script src="../static/js/market.js" defer></script>
