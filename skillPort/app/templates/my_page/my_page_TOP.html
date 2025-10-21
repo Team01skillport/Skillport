@@ -1,0 +1,124 @@
+<!DOCTYPE html> 
+<html lang="ja"> 
+  <head> 
+    <meta charset="UTF-8"> 
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+    <title>マイページ トップ | SkillPort</title> 
+    <link rel="stylesheet" href="../../static/css/my_page_top.css"> 
+  </head> 
+  <body> 
+    <div id="profile"> 
+      <ul> 
+        <li><a href="register.html">アカウント登録</a></li> 
+        <li><a href="login.html">ログイン</a></li> 
+      </ul> 
+      <a href="#"><img src="../static/media/profile_icon.png"></a> 
+    </div> 
+
+    <div id="header_cap"></div> 
+
+    <div id="header"> 
+      <a href="index.html"> 
+        <img src="../static/media/skill-port-logo.png" alt="logo"> 
+      </a>
+      <div class="container"> 
+        <ul> 
+          <li><a href="#">プロフィール</a></li> 
+          <li><a href="#">マーケット</a></li> 
+          <li><a href="#">コミュニティー</a></li> 
+          <li class="dropdown" id="nav-category"> 
+            <a href="#" class="dropdown-toggle">カテゴリ一</a> 
+            <ul class="dropdown-menu"> 
+              <li><a href="#">アニメーション</a></li> 
+              <li><a href="#">音楽</a></li> 
+              <li><a href="#">カメラ</a></li> 
+              <li><a href="#">フィットネス</a></li> 
+              <li><a href="#">英語</a></li> 
+              <li><a href="#">プログラミング</a></li> 
+            </ul> 
+          </li> 
+        </ul> 
+        <form action="/search" method="get" class="search"> 
+          <input type="text" name="q" placeholder="検索..." /> 
+          <button type="submit">検索</button> 
+        </form> 
+      </div> 
+    </div> 
+
+    <div class="mypage-container">
+        <div class="mypage-sidebar">
+            <h1 class="mypage-title">マイページ</h1>
+            <ul class="mypage-nav-list">
+                <li><a href="#history" class="active">視聴履歴</a> </li>
+                <li><a href="#likes">いいね</a> </li>
+                <li><a href="#sales">売り上げ確認</a> </li>
+                <li><a href="#membership">メンバーシップ一覧</a> </li>
+                <li><a href="#bank">銀行口座登録</a> </li>
+                <li><a href="#favorites">お気に入り</a> </li>
+                <li><a href="#password">パスワードのリセット</a> </li>
+                <li><a href="#payments">支払い履歴</a> </li>
+                <li><a href="#cards">カード一覧</a> </li>
+                <li><a href="#support">カスタマーサポート</a> </li>
+                <li><a href="#notifications">お知らせ</a> </li>
+                <li><a href="#delete-account" class="delete-link">アカウント削除</a> </li>
+            </ul>
+        </div>
+        
+        <div class="mypage-content-area">
+            <div id="dashboardContent" class="dashboard-content">
+                <h2 class="welcome-message">しょうごくん、おかえりなさい！</h2>
+
+                <div class="dashboard-section">
+                    <h3 class="section-title">学習進捗</h3>
+                    <div class="progress-cards-grid">
+                        
+                        <div class="progress-card">
+                            <img src="../static/media/anime_placeholder.jpg" alt="コース画像" class="card-image">
+                            <div class="card-info">
+                                <p class="card-title-small">イラストレーション基礎コース</p>
+                                <p class="card-status">視聴中 (45% 完了)</p>
+                                <div class="progress-bar-bg"><div class="progress-bar-fill" style="width: 45%;"></div></div>
+                                <a href="#" class="continue-btn">続きを見る</a>
+                            </div>
+                        </div>
+
+                        <div class="progress-card">
+                            <img src="../static/media/camera_placeholder.jpg" alt="コース画像" class="card-image">
+                            <div class="card-info">
+                                <p class="card-title-small">写真撮影テクニック</p>
+                                <p class="card-status">未開始</p>
+                                <div class="progress-bar-bg"><div class="progress-bar-fill" style="width: 0%;"></div></div>
+                                <a href="#" class="continue-btn">コース詳細へ</a>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="dashboard-section activity-section">
+                    <h3 class="section-title">アクティビティ</h3>
+                    <div class="activity-summary">
+                        <div class="activity-item">
+                            <span class="activity-icon">🔔</span>
+                            <span class="activity-count">3</span>件
+                            <p class="activity-label">未読のお知らせ</p>
+                        </div>
+                        <div class="activity-item">
+                            <span class="activity-icon">❤️</span>
+                            <span class="activity-count">12</span>件
+                            <p class="activity-label">いいねした投稿</p>
+                        </div>
+                        <div class="activity-item">
+                            <span class="activity-icon">🌟</span>
+                            <span class="activity-count">プレミアム会員</span>
+                            <p class="activity-label">現在のメンバーシップ</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer>©copyright SkillPort2025</footer> 
+  </body> 
+</html>
