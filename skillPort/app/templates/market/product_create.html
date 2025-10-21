@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>出品商品登録 - SkillPort</title>
+
+  <!-- 共通スタイル（ヘッダー／フッター等） -->
+  <link rel="stylesheet" href="../../static/css/index.css">
+  <!-- 本ページ専用スタイル -->
+  <link rel="stylesheet" href="../../static/css/product_create.css">
+</head>
+<body>
+  <!-- ===== 上部プロフィール帯（共通） ===== -->
+  <div id="profile">
+    <ul>
+      <li><a href="../../templates/account/register.html">アカウント登録</a></li>
+      <li><a href="../../templates/auth/login.html">ログイン</a></li>
+    </ul>
+    <a href="#"><img src="../../static/media/profile_icon.png" alt="profile"></a>
+  </div>
+
+  <div id="header_cap"></div>
+
+  <!-- ===== ヘッダー（共通ナビ） ===== -->
+  <div id="header">
+    <a href="../../templates/index.html">
+      <img src="../../static/media/skill-port-logo.png" alt="logo">
+    </a>
+
+    <div class="container">
+      <ul>
+        <li><a href="#">プロフィール</a></li>
+        <li><a href="market.html" class="is-active">マーケット</a></li>
+        <li><a href="#">コミュニティー</a></li>
+        <li class="dropdown" id="nav-category">
+          <a href="#" class="dropdown-toggle">カテゴリ一</a>
+          <ul class="dropdown-menu">
+            <li><a href="#">アニメーション</a></li>
+            <li><a href="#">音楽</a></li>
+            <li><a href="#">カメラ</a></li>
+            <li><a href="#">フィットネス</a></li>
+            <li><a href="#">英語</a></li>
+            <li><a href="#">プログラミング</a></li>
+          </ul>
+        </li>
+      </ul>
+
+      <!-- 検索（ダミー） -->
+      <form action="#" class="search">
+        <input type="text" placeholder="検索">
+        <button type="submit">検索</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- ===== ページ本体 ===== -->
+  <main class="pc-main">
+    <div class="pc-container">
+
+      <h1 class="pc-h1">出品中の商品詳細新規登録</h1>
+
+      <!-- 画像アップロード（最大20枚） -->
+      <section class="pc-section">
+        <div class="pc-sec-title">出品画像（最大20枚）</div>
+
+        <!-- サムネイルグリッド（最初は空＋追加スロット） -->
+        <div class="pc-image-grid" id="imageGrid">
+          <!-- 追加スロット（クリックでファイル選択） -->
+          <button class="pc-thumb add-slot" type="button" id="addImageBtn" aria-label="画像を追加">
+            <span>＋</span><small>（画像を追加）</small>
+          </button>
+          <button class="pc-thumb add-slot" type="button" id="addImageBtn2" aria-label="画像を追加">
+            <span>＋</span><small>（画像を追加）</small>
+          </button>
+        </div>
+
+        <!-- 非表示のファイル入力 -->
+        <input type="file" id="imageInput" accept="image/*" multiple hidden>
+        <div class="pc-note">※ 画像はドラッグ＆ドロップでも追加できます。最大20枚まで。</div>
+      </section>
+
+      <!-- 商品名 -->
+      <section class="pc-section">
+        <label class="pc-sec-title" for="titleInput">商品名</label>
+        <div class="pc-input-wrap">
+          <input id="titleInput" type="text" placeholder="商品名を入力" maxlength="40" required>
+          <div class="pc-chars"><span id="titleCount">0</span>/40</div>
+        </div>
+        <p class="pc-error" id="titleError" hidden>※ 商品名を入力してください。</p>
+      </section>
+
+      <!-- 商品の詳細（カテゴリー／状態） -->
+      <section class="pc-section">
+        <div class="pc-sec-title">商品の詳細</div>
+
+        <label class="pc-label">カテゴリー</label>
+        <div class="pc-detail-edit">
+          <select id="catLv1" required>
+            <option value="" selected disabled>選択してください</option>
+            <option>書籍</option><option>家電</option><option>楽器</option><option>スポーツ</option>
+          </select>
+          <select id="catLv2" required>
+            <option value="" selected disabled>選択してください</option>
+            <option>教材</option><option>技術書</option><option>写真集</option>
+          </select>
+          <select id="catLv3" required>
+            <option value="" selected disabled>選択してください</option>
+            <option>本</option><option>PDF</option><option>その他</option>
+          </select>
+        </div>
+        <p class="pc-error" id="catError" hidden>※ カテゴリーを選択してください。</p>
+
+        <label class="pc-label">商品の状態</label>
+        <div class="pc-select">
+          <select id="condSelect" required>
+            <option value="" selected disabled>選択してください</option>
+            <option>新品・未使用</option>
+            <option>目立った傷や汚れなし</option>
+            <option>やや傷や汚れあり</option>
+            <option>傷や汚れあり</option>
+            <option>全体的に状態が悪い</option>
+          </select>
+        </div>
+        <p class="pc-error" id="condError" hidden>※ 商品の状態を選択してください。</p>
+      </section>
+
+      <!-- 商品の説明 -->
+      <section class="pc-section">
+        <label class="pc-sec-title" for="descInput">商品の説明</label>
+        <textarea id="descInput" rows="8" placeholder="この商品の状態や仕様等の詳細を記載してください。中古の場合は具体的にご記載ください。"></textarea>
+        <div class="pc-help">
+          禁止されている行為及び出品物を必ずご確認ください。出品前に利用規約及びプライバシーポリシーに同意の上、「登録する」ボタンを押してください。
+        </div>
+      </section>
+
+      <!-- 配送について -->
+      <section class="pc-section">
+        <div class="pc-sec-title">配送について</div>
+
+        <label class="pc-label">配送料の負担</label>
+        <div class="pc-select">
+          <select id="shipFeeWho" required>
+            <option value="" selected disabled>選択してください</option>
+            <option>出品者負担（送料込み）</option>
+            <option>購入者負担（着払い）</option>
+          </select>
+        </div>
+
+        <label class="pc-label">配送方法</label>
+        <div class="pc-select">
+          <select id="shipMethod" required>
+            <option value="" selected disabled>選択してください</option>
+            <option>指定なし</option>
+            <option>宅配便</option>
+            <option>メール便</option>
+            <option>ゆうパック</option>
+            <option>クロネコDM便</option>
+          </select>
+        </div>
+
+        <label class="pc-label">配送元の地域</label>
+        <div class="pc-select">
+          <select id="shipFrom" required>
+            <option value="" selected disabled>選択してください</option>
+            <option>大阪府</option>
+            <option>東京都</option>
+            <option>神奈川県</option>
+            <option>福岡県</option>
+            <option>北海道</option>
+          </select>
+        </div>
+
+        <label class="pc-label">発送までの日数</label>
+        <div class="pc-select">
+          <select id="shipDays" required>
+            <option value="" selected disabled>選択してください</option>
+            <option>1〜2日で発送</option>
+            <option>2〜3日で発送</option>
+            <option>4〜7日で発送</option>
+          </select>
+        </div>
+      </section>
+
+      <!-- 価格・手数料・利益 -->
+      <section class="pc-section">
+        <label class="pc-sec-title">販売価格を設定する</label>
+
+        <div class="pc-price-row">
+          <span class="pc-symbol">¥</span>
+          <input id="priceInput" class="pc-price" type="number" min="0" max="500000" step="10" placeholder="価格を入力" required>
+          <span class="pc-max">5000</span>
+        </div>
+        <p class="pc-error" id="priceError" hidden>※ 価格を入力してください。</p>
+
+        <div class="pc-fee-profit">
+          <div class="pc-kpi">
+            <div class="pc-kpi-label">販売手数料</div>
+            <div class="pc-kpi-value">¥ <span id="feeValue">0</span></div>
+          </div>
+          <div class="pc-divider"></div>
+          <div class="pc-kpi">
+            <div class="pc-kpi-label">販売利益</div>
+            <div class="pc-kpi-value strong">¥ <span id="profitValue">0</span></div>
+          </div>
+        </div>
+
+        <div class="pc-help small">現在の手数料率：<b id="feeRateLabel">10%</b>（※JSで計算）</div>
+      </section>
+
+      <!-- 操作ボタン -->
+      <section class="pc-actions">
+        <button class="pc-primary" id="createBtn" type="button">登録する</button>
+        <button class="pc-secondary" id="draftBtn" type="button">下書き保存</button>
+        <button class="pc-danger" id="clearBtn" type="button">入力をクリア</button>
+      </section>
+
+    </div>
+  </main>
+
+  <footer>©copyright SkillPort2025</footer>
+
+  <!-- 本ページ用スクリプト -->
+  <script src="../../static/js/product_create.js" defer></script>
+</body>
+</html>
