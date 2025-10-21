@@ -1,0 +1,76 @@
+{% extends "base.html" %} {% block title %}コミュニティー{% endblock %} {% block
+  content %}
+<link rel="stylesheet" href="category.css">
+<!-- header---------------------------------------- -->
+
+<div class="video_container">
+
+  <div class="header_button">
+    <h1>アニメーション</h1>
+    <button class="upload_button">動画をアプロード</button>
+  </div>
+
+  <!-- Upload Modal -->
+  <div id="upload_modal" class="modal" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="upload_modal_title">
+    <div class="modal__backdrop" data-close></div>
+
+    <div class="modal__card" role="document">
+      <button class="modal__close" type="button" aria-label="閉じる" data-close>&times;</button>
+
+      <h2 id="upload_modal_title">動画をアップロード</h2>
+
+      <form id="upload_form" enctype="multipart/form-data">
+        <label for="video_file" class="form_label">動画ファイル</label>
+
+        <input id="video_file" name="video" type="file"
+               accept=".mp4,.mov,.m4v,.webm,.avi,.mkv" required>
+      
+        <div id="video_preview" class="video_preview" style="display: none;">
+          <video id="preview_player" controls playsinline></video>
+        </div>
+      
+        <label for="video_title" class="form_label">タイトル</label>
+        <input type="text" id="video_title" name="title" placeholder="動画のタイトルを入力" required>
+      
+        <label for="video_description" class="form_label">説明</label>
+        <textarea id="video_description" name="description" rows="4" placeholder="動画の説明を入力"></textarea>
+      
+        <div class="modal__actions">
+          <button type="submit" class="btn btn__primary">アップロード</button>
+          <!-- <button type="button" class="btn" data-close>キャンセル</button> -->
+
+          <label>
+            <input type="checkbox" name="member_only">メンバー限定
+          </label>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <div id="videos">
+    <div class="video_grid">
+      <a href="#"><img src="../static/media/1.jpeg" alt="Image 1"><h3>asdf</h3>ああああああああああああああああああああああああああああああああああああ</a>
+      <a href="#"><img src="../static/media/2.webp" alt="Image 2"><h3>asdf</h3>ああああああああああああああああああああああああああああああああああああ</a>
+      <a href="#"><img src="../static/media/3.jpg" alt="Image 3"><h3>asdf</h3>ああああああああああああああああああああああああああああああああああああ</a>
+      <a href="#"><img src="../static/media/2.webp" alt="Image 4"><h3>asdf</h3>ああああああああああああああああああああああああああああああああああああ</a>
+      <a href="#"><img src="../static/media/3.jpg" alt="Image 5"><h3>asdf</h3>ああああああああああああああああああああああああああああああああああああ</a>
+      <a href="#"><img src="../static/media/1.jpeg" alt="Image 6"><h3>asdf</h3>ああああああああああああああああああああああああああああああああああああ</a>
+      <a href="#"><img src="../static/media/1.jpeg" alt="Image 7"><h3>asdf</h3>ああああああああああああああああああああああああああああああああああああ</a>
+      <a href="#"><img src="../static/media/2.webp" alt="Image 8"><h3>asdf</h3>ああああああああああああああああああああああああああああああああああああ</a>
+      <a href="#"><img src="../static/media/3.jpg" alt="Image 9"><h3>asdf</h3>ああああああああああああああああああああああああああああああああああああ</a>
+    </div>
+  </div>
+
+</div>
+
+<div class="pagination">
+  <a href="#">&laquo;</a>
+  <a href="#" class="active">1</a>
+  <a href="#">2</a>
+  <a href="#">3</a>
+  <a href="#">4</a>
+  <a href="#">5</a>
+  <a href="#">&raquo;</a>
+</div>
+<script src="category.js"></script>
+{% endblock %}
