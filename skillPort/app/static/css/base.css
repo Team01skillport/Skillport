@@ -206,3 +206,14 @@ body {
 #header .dropdown.open > .dropdown-menu {
   display: block;
 }
+
+/*フッター ------------------------------------------------------------ */
+
+footer {
+  background-color: #226cff;
+  color: white;
+  text-align: center;
+  margin-top: 5vw;
+}
+
+/* ------------------------------------------------------------------ */
