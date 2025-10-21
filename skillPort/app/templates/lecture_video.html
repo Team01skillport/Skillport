@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>講義動画 | SkillPort</title>
+  <link rel="stylesheet" href="../static/css/lecture_video.css">
+</head>
+<body>
+
+<!-- profile -->
+<div id="profile">
+  <ul>
+    <li><a href="#">アカウント登録</a></li>
+    <li><a href="#">ログイン</a></li>
+  </ul>
+  <a href="#"><img src="../static/media/profile_icon.png" alt="Profile Icon"></a>
+</div>
+
+<div id="header_cap"></div>
+
+<!-- header -->
+<div id="header">
+  <a href="#">
+    <img src="../static/media/skill-port-logo.png" alt="SkillPort Logo">
+  </a>
+
+  <div class="container">
+    <ul>
+      <li><a href="#">プロフィール</a></li>
+      <li><a href="#">マーケット</a></li>
+      <li><a href="#">コミュニティー</a></li>
+      <li class="dropdown" id="nav-category">
+        <a href="#" class="dropdown-toggle">カテゴリー</a>
+        <ul class="dropdown-menu">
+          <li><a href="#">アニメーション</a></li>
+          <li><a href="#">音楽</a></li>
+          <li><a href="#">カメラ</a></li>
+          <li><a href="#">フィットネス</a></li>
+          <li><a href="#">英語</a></li>
+          <li><a href="#">プログラミング</a></li>
+        </ul>
+      </li>
+    </ul>
+
+    <form class="search">
+      <input type="text" placeholder="検索...">
+      <button type="submit">検索</button>
+    </form>
+  </div>
+</div>
+
+<!-- main -->
+<main class="lecture-container">
+  <div class="top-bar">
+    <h1>講義動画</h1>
+    <button class="upload-btn">動画をアップロード</button>
+  </div>
+
+  <div class="video-grid">
+    <!-- 影片卡片 12個 -->
+    <div class="video-card">
+      <div class="thumb">
+        <img src="https://m.media-amazon.com/images/I/61kV1t60i6L._AC_UF1000,1000_QL80_.jpg" alt="">
+        <img class="play-icon" src="../static/media/play-icon.svg" alt="Play">
+      </div>
+      <h3>しょうごくんと楽しくイラストレーションを学びましょう！</h3>
+      <p>ahdnjkasdajsdsjnsnajskansjdjahbdjkwadwanandsanda</p>
+      <span class="price">¥7,800</span>
+    </div>
+
+    <div class="video-card">
+      <div class="thumb">
+        <img src="https://m.media-amazon.com/images/I/61Dw3D6GptL._AC_UF1000,1000_QL80_.jpg" alt="">
+        <img class="play-icon" src="../static/media/play-icon.svg" alt="Play">
+      </div>
+      <h3>しょうごくんと楽しくイラストレーションを学びましょう！</h3>
+      <p>ahdnjkasdajsdsjnsnajskansjdjahbdjkwadwanandsanda</p>
+      <span class="price">¥7,800</span>
+    </div>
+
+    <!-- 你可以自由複製這個 video-card 塊來增加影片 -->
+  </div>
+
+  <!-- pagination -->
+  <div class="pagination">
+    <a href="#" class="active">1</a>
+    <a href="#">2</a>
+    <a href="#">3</a>
+    <a href="#">4</a>
+    <a href="#">5</a>
+    <a href="#">6</a>
+  </div>
+</main>
+
+<footer>©copyright SkillPort 2025</footer>
+
+</body>
+</html>
