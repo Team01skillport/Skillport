@@ -4,7 +4,7 @@ body{
 }
 
 /* ========================================================= */
-/* 基礎樣式 (Header, Profile, Dropdown, Footer) */
+/* 基礎樣式 (Header, Profile, Dropdown) */
 /* ========================================================= */
 #profile {
     display: flex; align-items: center; position: absolute; right: 0; margin-right: 1vw; margin-top: .5vw;
@@ -155,10 +155,22 @@ body{
 .item-image-container {
     position: relative;
     width: 100%;
-    padding-top: 65%; /* 圖片在上方的垂直卡片比例 */
+    padding-top: 65%; 
     overflow: hidden;
     border: 1px solid #ccc; 
     border-radius: 5px;
+}
+
+.item-image-container .image-label {
+    position: absolute;
+    top: 5px;
+    left: 5px;
+    font-size: 12px;
+    color: white;
+    background-color: rgba(0, 0, 0, 0.5);
+    padding: 2px 6px;
+    border-radius: 3px;
+    z-index: 5;
 }
 
 .item-image {
@@ -177,18 +189,40 @@ body{
     padding: 10px 0 0;
 }
 
+/* 核心修復：移除行數限制，確保文字完整顯示 */
 .item-title {
-    font-size: 16px; font-weight: bold; line-height: 1.4; color: #333; margin: 5px 0 5px 0;
-    display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; height: 38px; 
+    font-size: 16px; 
+    font-weight: bold; 
+    line-height: 1.4; 
+    color: #333; 
+    margin: 5px 0 5px 0;
+    
+    display: block; 
+    overflow: visible; 
+    height: auto; 
+    -webkit-line-clamp: unset; 
+    -webkit-box-orient: unset;
 }
 
+/* 核心修復：移除行數限制，確保文字完整顯示 */
 .item-description {
-    font-size: 12px; color: #666; margin: 0; line-height: 1.3;
-    display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; height: 32px; 
+    font-size: 12px; 
+    color: #666; 
+    margin: 0; 
+    line-height: 1.3;
+    
+    display: block; 
+    overflow: visible; 
+    height: auto; 
+    -webkit-line-clamp: unset; 
+    -webkit-box-orient: unset;
 }
 
 .item-price {
-    font-size: 16px; font-weight: bold; color: #333; margin-top: 8px;
+    font-size: 16px; 
+    font-weight: bold; 
+    color: #333; 
+    margin-top: 8px;
 }
 
 .pagination {
@@ -196,7 +230,7 @@ body{
 }
 
 .pagination a {
-    display: flex; justify-content: center; align-items: center; width: 35px; height: 35px; font-size: 14px; text-decoration: none; color: #333; border: 1px solid #ccc; border-radius: 5px; transition: all 0.2s;
+    display: flex; justify-content: center; align-items: center; width: 35px; height: 35px; font-size: 14px; text-decoration: none; color: #333; border: 1px solid #ccc; border-radius: 5px; transition: background-color 0.2s;
 }
 
 .pagination a:hover {
@@ -210,7 +244,6 @@ body{
 /* 響應式調整 */
 @media (max-width: 992px) {
     .item-grid {
-        /* 中等螢幕調整為 2 欄 */
         grid-template-columns: repeat(2, 1fr); 
         gap: 25px 15px;
     }
@@ -223,7 +256,6 @@ body{
 }
 
 @media (max-width: 576px) {
-    /* 小手機螢幕調整為 1 欄 */
     .item-grid {
         grid-template-columns: 1fr; 
     }
@@ -261,24 +293,22 @@ body{
     text-align: center; margin-top: 0; margin-bottom: 20px; font-size: 20px;
 }
 
-/* 檔案和縮圖預覽區容器 */
 .file-preview-group {
     display: flex;
-    align-items: flex-end; /* 將按鈕和圖片底部對齊 */
-    gap: 20px;
+    align-items: flex-start;
+    justify-content: space-between;
     margin-bottom: 20px;
 }
 
-/* 檔案和縮圖按鈕容器 */
 .file-button-container {
     display: flex;
     flex-direction: column;
     gap: 10px;
+    flex-grow: 1;
 }
 
-/* 檔案和縮圖按鈕通用樣式 */
+/* 檔案和縮圖按鈕通用樣式 (藍色按鈕) */
 .file-label, .thumbnail-label {
-    /* 核心更改：變為藍色按鈕樣式 */
     background-color: #226CFF;
     color: white;
     padding: 10px 20px;
@@ -286,50 +316,47 @@ body{
     font-size: 16px;
     font-weight: bold;
     cursor: pointer;
-    display: inline-flex; /* 變成 inline-flex 讓它像按鈕一樣自適應寬度 */
+    display: inline-flex; 
     justify-content: center;
     align-items: center;
     transition: background-color 0.2s;
+    white-space: nowrap; 
+    height: 40px; 
 }
 
 .file-label:hover, .thumbnail-label:hover {
     background-color: #4e89ff;
 }
 
-/* 檔案選擇器特有樣式 */
-.file-label {
-    flex-direction: column;
-    align-items: flex-start;
-}
-
 .file-label input, .thumbnail-label input {
     display: none;
 }
 
-/* 顯示檔案名稱 */
-#fileName {
-    font-weight: normal;
-    color: #eeeeee;
-    font-size: 12px;
-    margin-top: 5px;
+/* 檔案選擇器特有樣式 */
+.file-label {
+    width: 150px; 
+    margin-bottom: 0; 
 }
 
-/* 縮圖選擇器特有樣式 */
 .thumbnail-label {
-    width: 150px;
-    height: 40px;
-    padding: 0;
-    margin-right: 15px; /* 與檔案按鈕分離 */
+    width: 150px; 
 }
 
-/* 縮圖預覽圖片 */
+.file-name-display {
+    font-weight: normal;
+    color: #555;
+    font-size: 12px;
+    margin-top: -5px; 
+    margin-left: 20px; 
+    align-self: flex-start;
+}
+
 .thumbnail-image-preview {
-    width: 150px; /* 固定預覽圖寬度 */
-    height: 150px; /* 固定預覽圖高度 */
-    border: 1px solid #ccc;
-    border-radius: 5px;
+    width: 150px; 
+    height: 150px; 
     overflow: hidden;
     flex-shrink: 0;
+    margin-top: 0;
 }
 
 .thumbnail-image-preview img {
@@ -339,7 +366,7 @@ body{
 }
 
 /* ------------------------------------- */
-/* 表單元素 (維持不變) */
+/* 表單元素 */
 .form-label {
     display: block; font-weight: bold; margin: 15px 0 5px 0; font-size: 14px;
 }
@@ -382,14 +409,24 @@ body.modal-open {
 @media (max-width: 500px) {
     .file-preview-group {
         flex-direction: column;
-        align-items: stretch;
+        align-items: center;
     }
-    .file-label, .thumbnail-label {
+    .file-button-container {
         width: 100%;
+        align-items: center;
+        gap: 15px;
+    }
+    .file-label, .thumbnail-label.thumbnail-button {
+        width: 80%; 
+        margin-right: 0;
     }
     .thumbnail-image-preview {
         width: 100%;
         height: 200px;
+    }
+    .file-name-display {
+        margin-left: 0;
+        text-align: center;
     }
 }
 
