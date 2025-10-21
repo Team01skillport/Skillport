@@ -1,0 +1,172 @@
+/* ===== カラーと余白の基調（既存デザインに合わせたトークン） ===== */
+:root{
+  --ink:#111827;          /* 文字（濃） */
+  --muted:#6b7280;        /* 補助テキスト */
+  --panel:#ffffff;        /* パネル背景 */
+  --bg:#f6f7fb;           /* ページ背景 */
+  --border:#e5e7eb;       /* 境界線 */
+  --brand:#3b82f6;        /* ブランド色（青） */
+  --accent:#2563eb;       /* 強めの青 */
+  --danger:#e11d48;       /* 危険操作 */
+  --shadow:0 10px 30px rgba(0,0,0,.06);
+}
+
+html,body{height:100%}
+body{
+  margin:0;
+  background:var(--bg);
+  color:var(--ink);
+  font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,"Noto Sans JP",sans-serif;
+}
+
+/* ===== ページコンテナ（長ページ想定） ===== */
+.pd-main .pd-container{
+  max-width:960px;
+  margin:24px auto 80px;
+  padding:0 16px;
+}
+
+.pd-h1{
+  font-size:24px;
+  margin:8px 0 16px;
+}
+
+/* ===== セクション共通 ===== */
+.pd-section{
+  background:var(--panel);
+  border:1px solid var(--border);
+  border-radius:12px;
+  box-shadow:var(--shadow);
+  padding:16px;
+  margin:18px 0;
+}
+.pd-sec-title{
+  font-weight:700;
+  margin:4px 0 12px;
+}
+
+/* ===== 画像グリッド ===== */
+.pd-image-grid{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:12px;
+}
+@media (max-width:768px){
+  .pd-image-grid{ grid-template-columns:repeat(2,1fr); }
+}
+.pd-thumb{
+  aspect-ratio:1/1;
+  border:1px dashed var(--border);
+  background:#fafafa;
+  border-radius:10px;
+  overflow:hidden;
+  display:flex; align-items:center; justify-content:center;
+}
+.pd-thumb img{width:100%; height:100%; object-fit:cover}
+.add-slot{
+  cursor:pointer; background:#fff;
+}
+.add-slot span{font-size:28px; line-height:1}
+.add-slot small{display:block; color:var(--muted)}
+
+/* ドロップヒント */
+.pd-note{
+  margin-top:10px;
+  font-size:.9rem;
+  color:var(--muted);
+}
+
+/* ===== 入力／表示行 ===== */
+.pd-input-wrap{
+  position:relative;
+}
+.pd-input-wrap input{
+  width:100%; height:40px; padding:0 12px;
+  border:1px solid var(--border);
+  border-radius:8px; background:#fff;
+}
+.pd-chars{
+  position:absolute; right:10px; bottom:-20px;
+  font-size:.85rem; color:var(--muted);
+}
+
+/* 詳細のピル表示＋編集ボタン行 */
+.pd-detail-row{
+  display:flex; gap:10px; align-items:center; justify-content:space-between;
+}
+.pd-detail-pill{
+  flex:1;
+  border:1px solid var(--border);
+  background:#fff; border-radius:8px;
+  padding:8px 12px;
+}
+.pd-kv{ color:#374151 }
+.pd-inline-btn{
+  border:1px solid var(--border);
+  background:#fff; border-radius:8px;
+  padding:8px 12px; cursor:pointer;
+}
+
+/* 編集エリア（簡易モーダル風・段落内開閉） */
+.pd-detail-edit{
+  margin-top:10px;
+  display:flex; gap:10px; flex-wrap:wrap;
+}
+.pd-detail-edit select,
+.pd-detail-edit input{
+  height:38px; border:1px solid var(--border); border-radius:8px; padding:0 10px;
+}
+.pd-save-sm{
+  background:var(--brand); color:#fff; border:0; border-radius:8px; padding:0 14px; cursor:pointer;
+}
+
+/* 説明欄 */
+#descInput{
+  width:100%; border:1px solid var(--border); border-radius:10px; padding:12px;
+  min-height:160px; background:#fff;
+}
+.pd-help{ color:var(--muted); margin-top:8px }
+.pd-help.small{ font-size:.9rem }
+
+/* セレクト */
+.pd-label{ display:block; margin:14px 0 6px }
+.pd-select select{
+  width:100%; height:40px; border:1px solid var(--border); border-radius:8px;
+  background:#fff; padding:0 10px;
+}
+
+/* 価格／手数料／利益 */
+.pd-price-row{
+  display:flex; align-items:center; gap:8px;
+  border:1px solid var(--border); border-radius:10px; background:#fff;
+  padding:6px 10px; height:48px;
+}
+.pd-symbol{ color:#6b7280 }
+.pd-price{
+  flex:1; height:100%; border:0; outline:none; font-size:1.1rem;
+}
+.pd-max{ color:#9ca3af; font-size:.9rem }
+
+.pd-fee-profit{
+  display:flex; align-items:center; gap:14px; margin-top:12px;
+  padding:10px; border:1px dashed var(--border); border-radius:10px; background:#fafafa;
+}
+.pd-kpi{ flex:1 }
+.pd-kpi-label{ color:var(--muted); font-size:.9rem }
+.pd-kpi-value{ font-size:1.25rem }
+.pd-kpi-value.strong{ font-weight:800 }
+.pd-divider{ width:1px; height:28px; background:var(--border) }
+
+/* 操作ボタン群 */
+.pd-actions{
+  display:flex; flex-direction:column; gap:12px; align-items:center; margin:26px 0;
+}
+.pd-primary{
+  width:min(480px,100%); height:44px;
+  background:#e85a3c; color:#fff; border:0; border-radius:10px; cursor:pointer;
+}
+.pd-secondary, .pd-danger{
+  width:min(540px,100%); height:42px;
+  border:1px solid var(--border); background:#fff; border-radius:10px; cursor:pointer;
+}
+.pd-danger{ border-color:#fecaca; color:#b91c1c }
