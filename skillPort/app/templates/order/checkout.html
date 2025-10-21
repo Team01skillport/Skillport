@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>購入手続き | SkillPort</title>
+
+  <!-- ページ専用CSS -->
+  <link rel="stylesheet" href="../../static/css/checkout.css" />
+</head>
+<body>
+  <!-- ============== ヘッダー ============== -->
+  <div id="profile">
+    <ul>
+      <li><a href="../register.html">アカウント登録</a></li>
+      <li><a href="../login.html">ログイン</a></li>
+    </ul>
+    <a href="#"><img src="../../static/media/profile_icon.png" alt="プロフィールアイコン"></a>
+  </div>
+
+  <div id="header_cap"></div>
+
+  <div id="header">
+    <a href="../index.html">
+      <img src="../../static/media/skill-port-logo.png" alt="SkillPort ロゴ">
+    </a>
+
+    <div class="container">
+      <ul>
+        <li><a href="#">プロフィール</a></li>
+        <li><a href="../market/market.html">マーケット</a></li>
+        <li><a href="#">コミュニティー</a></li>
+        <li class="dropdown" id="nav-category">
+          <a href="#" class="dropdown-toggle">カテゴリ一</a>
+          <ul class="dropdown-menu">
+            <li><a href="#">アニメーション</a></li>
+            <li><a href="#">音楽</a></li>
+            <li><a href="#">カメラ</a></li>
+            <li><a href="#">フィットネス</a></li>
+            <li><a href="#">英語</a></li>
+            <li><a href="#">プログラミング</a></li>
+          </ul>
+        </li>
+      </ul>
+
+      <form action="#" method="get" class="search">
+        <input type="text" name="q" placeholder="検索..." />
+        <button type="submit">検索</button>
+      </form>
+    </div>
+  </div>
+  <!-- /ヘッダー -->
+
+  <main class="page">
+    <h1 class="page-title">購入手続き</h1>
+
+    <div class="grid">
+      <!-- 左側：明細 & 入力 -->
+      <section class="left">
+        <!-- 商品行 -->
+        <div class="product-row">
+          <img src="../../static/media/book.jpg" alt="商品画像" class="thumb">
+          <div class="meta">
+            <p class="title">国史教科書 第7版 検定合格 市販版 中学校社会用</p>
+            <p class="price">¥1,700(税込)</p>
+          </div>
+          <a class="link-edit" href="../market/product_detail.html">変更</a>
+        </div>
+
+        <!-- 支払い方法 -->
+        <div class="block">
+          <div class="block-head">
+            <h2>支払い方法</h2>
+            <button class="link-edit small" type="button" id="btnEditPayment">変更</button>
+          </div>
+
+          <div class="select-wrap">
+            <select id="paymentSelect" aria-label="支払い方法を選択">
+              <option value="クレジットカード">クレジットカード</option>
+              <option value="コンビニ払い">コンビニ払い</option>
+              <option value="銀行振込">銀行振込</option>
+              <option value="PayPay">PayPay</option>
+            </select>
+            <span class="select-icon">▾</span>
+          </div>
+
+          <!-- クレカフォーム（ダミー/静的） -->
+          <form class="card-form" id="cardForm">
+            <label>カード番号
+              <input type="text" inputmode="numeric" placeholder="1234 5678 9012 3456" maxlength="19">
+            </label>
+            <div class="row-2">
+              <label>有効期限(MM/YY)
+                <input type="text" inputmode="numeric" placeholder="12/29" maxlength="5">
+              </label>
+              <label>セキュリティコード
+                <input type="password" inputmode="numeric" placeholder="123" maxlength="4">
+              </label>
+            </div>
+            <label>名義人
+              <input type="text" placeholder="TARO YAMADA">
+            </label>
+          </form>
+        </div>
+
+        <!-- 配送先 -->
+        <div class="block">
+          <div class="block-head">
+            <h2>配送先</h2>
+            <button class="link-edit small" type="button" id="btnEditAddress">変更</button>
+          </div>
+
+          <address class="address">
+            木下昇悟（キノシタ　ショウゴ）<br>
+            〒532-0011<br>
+            大阪府大阪市淀川区西中島 5-88-88<br>
+            なんとなビル 3階
+          </address>
+        </div>
+      </section>
+
+      <!-- 右側：注文サマリー -->
+      <aside class="right">
+        <div class="summary">
+          <div class="row">
+            <span>商品代金</span>
+            <strong id="sumSubtotal">¥1,700</strong>
+          </div>
+          <div class="row">
+            <span>送料</span>
+            <strong id="sumShipping">無料</strong>
+          </div>
+          <div class="row total">
+            <span>支払い金額</span>
+            <strong id="sumTotal">¥1,700</strong>
+          </div>
+          <div class="row">
+            <span>支払い方法</span>
+            <strong id="sumPayment">クレジットカード</strong>
+          </div>
+        </div>
+
+        <button class="btn-primary" id="btnPurchase">購入する</button>
+        <p class="note">「購入する」ボタンを押すことで、利用規約およびプライバシーポリシーに同意したものとみなします。</p>
+      </aside>
+    </div>
+  </main>
+
+  <footer>©copyright SkillPort2025</footer>
+
+  <!-- JS -->
+  <script src="../../static/js/checkout.js" defer></script>
+</body>
+</html>
