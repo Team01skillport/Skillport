@@ -9,5 +9,6 @@ def header_search():
     search_word = request.args.get("headersearch")
     if not search_word:
         errtbl["empty"] = "検索する文字を入力をしてください"
+        return render_template('/')
     print(search_word)
     return render_template('search/header_search_result.html', search_word=search_word)
