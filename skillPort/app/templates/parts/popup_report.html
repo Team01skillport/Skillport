@@ -1,0 +1,20 @@
+<!-- ================= 商品通報ポップアップ ================= -->
+<div id="reportModal" class="modal hidden">
+  <div class="modal-content">
+    <h2>通報</h2>
+    <form id="reportForm">
+      <label><input type="radio" name="reason" value="不適切な内容"> 公序良俗に反する内容を含む</label><br>
+      <label><input type="radio" name="reason" value="違法商品"> 違法・禁止商品の出品</label><br>
+      <label><input type="radio" name="reason" value="著作権侵害"> 著作権・商標権の侵害</label><br>
+      <label><input type="radio" name="reason" value="虚偽"> 商品説明が虚偽</label><br>
+      <label><input type="radio" name="reason" value="その他"> その他</label><br>
+
+      <textarea name="detail" rows="4" placeholder="詳細内容を入力してください"></textarea>
+
+      <div class="modal-buttons">
+        <button type="button" id="closeModal">キャンセル</button>
+        <button type="submit" id="submitReport">報告</button>
+      </div>
+    </form>
+  </div>
+</div>
