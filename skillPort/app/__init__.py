@@ -26,6 +26,6 @@ def create_app():
     # --- トップページのルートをここで定義 ---
     @app.route('/', methods=["GET"])
     def index():
-        return render_template('community/communitytest.html')
+        return render_template('index.html')
     
     return app
