@@ -8,3 +8,7 @@ account_bp = Blueprint('account', __name__, url_prefix='/account')
 def register_form():
     
     return render_template('account/register.html')
+
+@account_bp.route('/account/profile', methods=["GET"])
+def user_profile():
+    return render_template('account/profile.html')
