@@ -4,8 +4,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>商品詳細 | SkillPort</title>
+
   <link rel="stylesheet" href="../../static/css/product_detail.css">
-  <!-- 通報ポップアップのスタイル -->
   <link rel="stylesheet" href="../../static/css/popup_report.css">
 </head>
 <body>
@@ -49,7 +49,7 @@
       </form>
     </div>
   </div>
-  <!-- header ここまで -->
+  <!-- headerここまで -->
 
   <div class="page-wrap">
     <!-- ================= 商品内容 ================= -->
@@ -126,17 +126,30 @@
   <!-- ================= フッター ================= -->
   <footer>©copyright SkillPort2025</footer>
 
-  <!-- ===== 通報ポップアップ（静的閲覧用に fetch で読み込み） ===== -->
-  <div id="popup-container"></div>
-  <script>
-    fetch('../../templates/parts/popup_report.html')
-      .then(res => res.text())
-      .then(html => document.getElementById('popup-container').innerHTML = html);
-  </script>
+<!-- ===== 通報ポップアップ（内联版） ===== -->
+<div id="reportModal" class="modal hidden">
+  <div class="modal-content">
+    <h2>通報</h2>
+    <form id="reportForm">
+      <label><input type="radio" name="reason" value="不適切"> 公序良俗に反する内容を含む</label><br>
+      <label><input type="radio" name="reason" value="違法商品"> 違法・禁止商品の出品</label><br>
+      <label><input type="radio" name="reason" value="著作権侵害"> 著作権・商標権の侵害</label><br>
+      <label><input type="radio" name="reason" value="虚偽"> 商品説明が虚偽</label><br>
+      <label><input type="radio" name="reason" value="その他"> その他</label><br>
+      <textarea name="detail" rows="4" placeholder="詳細内容を入力してください"></textarea>
+      <div class="modal-buttons">
+        <button type="button" id="closeModal">キャンセル</button>
+        <button type="submit" id="submitReport">報告</button>
+      </div>
+    </form>
+  </div>
+</div>
 
-  <!-- ページ用JS -->
+<!-- JS 继续保留 -->
+<script src="../../static/js/product_detail.js" defer></script>
+<script src="../../static/js/popup_report.js" defer></script>
+
   <script src="../../static/js/product_detail.js" defer></script>
-  <!-- 通報ポップアップ用JS -->
   <script src="../../static/js/popup_report.js" defer></script>
 </body>
 </html>

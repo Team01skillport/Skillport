@@ -1,4 +1,4 @@
-// ヘッダードロップダウンの開閉（簡易）
+// ドロップダウン開閉
 document.addEventListener('click', (e) => {
   const dd = document.getElementById('nav-category');
   if (!dd) return;
@@ -9,7 +9,7 @@ document.addEventListener('click', (e) => {
   }
 });
 
-// サムネイルクリックでメイン画像切替
+// サムネイルクリックでメイン画像切り替え
 document.addEventListener('DOMContentLoaded', () => {
   const main = document.getElementById('mainImage');
   document.querySelectorAll('.thumbnails img').forEach(img => {
