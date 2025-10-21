@@ -18,14 +18,21 @@
         </li>
         <li><a href="login.html">ログイン</a></li>
       </ul>
-      <a href="#"><img src="../static/media/profile_icon.png" /></a>
+      <a href="#">
+        <img
+          src="{{ url_for('static', filename='media/profile_icon.png') }}"
+          alt="logo"
+      /></a>
     </div>
 
     <div id="header_cap"></div>
 
     <div id="header">
       <a href="/">
-        <img src="../static/media/skill-port-logo.png" alt="logo" />
+        <img
+          src="{{ url_for('static', filename='media/skill-port-logo.png') }}"
+          alt="logo"
+        />
       </a>
 
       <div class="container">
