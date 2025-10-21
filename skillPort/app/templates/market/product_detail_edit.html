@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>出品中の商品詳細情報 - SkillPort</title>
+
+  <!-- 共通スタイル（ヘッダー／フッター等） -->
+  <link rel="stylesheet" href="../../static/css/index.css">
+  <!-- 本ページ専用スタイル -->
+  <link rel="stylesheet" href="../../static/css/product_detail_edit.css">
+</head>
+<body>
+
+  <!-- ===== 上部プロフィール帯（共通） ===== -->
+  <div id="profile">
+    <ul>
+      <li><a href="../../templates/account/register.html">アカウント登録</a></li>
+      <li><a href="../../templates/auth/login.html">ログイン</a></li>
+    </ul>
+    <a href="#"><img src="../../static/media/profile_icon.png" alt="profile"></a>
+  </div>
+
+  <div id="header_cap"></div>
+
+  <!-- ===== ヘッダー（共通ナビ） ===== -->
+  <div id="header">
+    <a href="../../templates/index.html">
+      <img src="../../static/media/skill-port-logo.png" alt="logo">
+    </a>
+
+    <div class="container">
+      <ul>
+        <li><a href="#">プロフィール</a></li>
+        <li><a href="market.html" class="is-active">マーケット</a></li>
+        <li><a href="#">コミュニティー</a></li>
+        <li class="dropdown" id="nav-category">
+          <a href="#" class="dropdown-toggle">カテゴリ一</a>
+          <ul class="dropdown-menu">
+            <li><a href="#">アニメーション</a></li>
+            <li><a href="#">音楽</a></li>
+            <li><a href="#">カメラ</a></li>
+            <li><a href="#">フィットネス</a></li>
+            <li><a href="#">英語</a></li>
+            <li><a href="#">プログラミング</a></li>
+          </ul>
+        </li>
+      </ul>
+
+      <!-- 検索（ダミー） -->
+      <form action="#" class="search">
+        <input type="text" placeholder="検索">
+        <button type="submit">検索</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- ===== ページ本体 ===== -->
+  <main class="pd-main">
+    <div class="pd-container">
+
+      <h1 class="pd-h1">出品中の商品詳細情報</h1>
+
+      <!-- 画像アップロード（最大20枚） -->
+      <section class="pd-section">
+        <div class="pd-sec-title">出品画像（最大20枚）</div>
+
+        <!-- サムネイルグリッド -->
+        <div class="pd-image-grid" id="imageGrid">
+          <!-- 既存例：ダミー画像（サル） -->
+          <div class="pd-thumb">
+            <img src="../../static/media/monkey.png" alt="thumb">
+          </div>
+          <div class="pd-thumb">
+            <img src="../../static/media/monkey.png" alt="thumb">
+          </div>
+          <div class="pd-thumb">
+            <img src="../../static/media/monkey.png" alt="thumb">
+          </div>
+          <div class="pd-thumb">
+            <img src="../../static/media/monkey.png" alt="thumb">
+          </div>
+          <div class="pd-thumb">
+            <img src="../../static/media/monkey.png" alt="thumb">
+          </div>
+          <div class="pd-thumb">
+            <img src="../../static/media/monkey.png" alt="thumb">
+          </div>
+
+          <!-- 追加ボックス（クリックでファイル選択） -->
+          <button class="pd-thumb add-slot" type="button" id="addImageBtn" aria-label="画像を追加">
+            <span>＋</span><small>（画像を追加）</small>
+          </button>
+          <button class="pd-thumb add-slot" type="button" id="addImageBtn2" aria-label="画像を追加">
+            <span>＋</span><small>（画像を追加）</small>
+          </button>
+        </div>
+
+        <!-- 非表示のファイル入力 -->
+        <input type="file" id="imageInput" accept="image/*" multiple hidden>
+        <div class="pd-note">※ 画像はドラッグ＆ドロップでも追加できます。最大20枚まで。</div>
+      </section>
+
+      <!-- 商品名 -->
+      <section class="pd-section">
+        <label class="pd-sec-title" for="titleInput">商品名</label>
+        <div class="pd-input-wrap">
+          <input id="titleInput" type="text" placeholder="例：国史教材 第7版 検定合格 市販版 中学校社会用" maxlength="40">
+          <div class="pd-chars"><span id="titleCount">0</span>/40</div>
+        </div>
+      </section>
+
+      <!-- 商品の詳細（カテゴリなど） -->
+      <section class="pd-section">
+        <div class="pd-sec-title">商品の詳細</div>
+        <div class="pd-detail-row">
+          <div class="pd-detail-pill">
+            <span class="pd-kv"><b>カテゴリー：</b><span id="catText">書籍 ＞ 教材 ＞ 本</span></span>
+          </div>
+          <button class="pd-inline-btn" type="button" id="editCatBtn">変更する</button>
+        </div>
+
+        <!-- 簡易：カテゴリ変更モーダル風の行（開閉） -->
+        <div class="pd-detail-edit" id="catEdit" hidden>
+          <select id="catLv1">
+            <option>書籍</option><option>家電</option><option>楽器</option><option>スポーツ</option>
+          </select>
+          <select id="catLv2">
+            <option>教材</option><option>技術書</option><option>写真集</option>
+          </select>
+          <select id="catLv3">
+            <option>本</option><option>PDF</option><option>その他</option>
+          </select>
+          <button class="pd-save-sm" type="button" id="catSave">保存</button>
+        </div>
+      </section>
+
+      <!-- 商品の状態 -->
+      <section class="pd-section">
+        <div class="pd-sec-title">商品の状態</div>
+        <div class="pd-detail-row">
+          <div class="pd-detail-pill">
+            <span class="pd-kv"><b>状態：</b><span id="condText">目立った傷や汚れなし・折れや欠損なし・日焼けなし</span></span>
+          </div>
+          <button class="pd-inline-btn" type="button" id="editCondBtn">変更する</button>
+        </div>
+
+        <div class="pd-detail-edit" id="condEdit" hidden>
+          <select id="condSelect">
+            <option>新品・未使用</option>
+            <option selected>目立った傷や汚れなし</option>
+            <option>やや傷や汚れあり</option>
+            <option>傷や汚れあり</option>
+            <option>全体的に状態が悪い</option>
+          </select>
+          <input type="text" id="condMore" placeholder="補足（任意）例：カバーに微小な擦れあり">
+          <button class="pd-save-sm" type="button" id="condSave">保存</button>
+        </div>
+      </section>
+
+      <!-- 商品の説明 -->
+      <section class="pd-section">
+        <label class="pd-sec-title" for="descInput">商品の説明</label>
+        <textarea id="descInput" rows="8" placeholder="この商品の状態や仕様等の詳細を記載してください。中古の場合は具体的にご記載ください。"></textarea>
+        <div class="pd-help">
+          禁止されている行為及び出品物を必ずご確認ください。出品前に利用規約及びプライバシーポリシーに同意の上、「変更する」ボタンを押してください。
+        </div>
+      </section>
+
+      <!-- 配送について -->
+      <section class="pd-section">
+        <div class="pd-sec-title">配送について</div>
+
+        <label class="pd-label">配送料の負担</label>
+        <div class="pd-select">
+          <select id="shipFeeWho">
+            <option selected>出品者負担（送料込み）</option>
+            <option>購入者負担（着払い）</option>
+          </select>
+        </div>
+
+        <label class="pd-label">配送方法</label>
+        <div class="pd-select">
+          <select id="shipMethod">
+            <option>指定なし</option>
+            <option>宅配便</option>
+            <option>メール便</option>
+            <option>ゆうパック</option>
+            <option>クロネコDM便</option>
+          </select>
+        </div>
+
+        <label class="pd-label">配送元の地域</label>
+        <div class="pd-select">
+          <select id="shipFrom">
+            <option>大阪府</option>
+            <option>東京都</option>
+            <option>神奈川県</option>
+            <option>福岡県</option>
+            <option>北海道</option>
+          </select>
+        </div>
+
+        <label class="pd-label">発送までの日数</label>
+        <div class="pd-select">
+          <select id="shipDays">
+            <option>1〜2日で発送</option>
+            <option>2〜3日で発送</option>
+            <option>4〜7日で発送</option>
+          </select>
+        </div>
+      </section>
+
+      <!-- 価格・手数料・利益 -->
+      <section class="pd-section">
+        <label class="pd-sec-title">販売価格を設定する</label>
+
+        <div class="pd-price-row">
+          <span class="pd-symbol">¥</span>
+          <input id="priceInput" class="pd-price" type="number" min="0" max="500000" step="10" placeholder="価格を入力">
+          <span class="pd-max">5000</span>
+        </div>
+
+        <div class="pd-fee-profit">
+          <div class="pd-kpi">
+            <div class="pd-kpi-label">販売手数料</div>
+            <div class="pd-kpi-value">¥ <span id="feeValue">0</span></div>
+          </div>
+          <div class="pd-divider"></div>
+          <div class="pd-kpi">
+            <div class="pd-kpi-label">販売利益</div>
+            <div class="pd-kpi-value strong">¥ <span id="profitValue">0</span></div>
+          </div>
+        </div>
+
+        <div class="pd-help small">現在の手数料率：<b id="feeRateLabel">10%</b>（※JSで計算）</div>
+      </section>
+
+      <!-- 操作ボタン -->
+      <section class="pd-actions">
+        <button class="pd-primary" id="saveBtn" type="button">変更する</button>
+        <button class="pd-secondary" id="pauseBtn" type="button">出品を一時停止する</button>
+        <button class="pd-danger" id="deleteBtn" type="button">この商品を削除する</button>
+      </section>
+
+    </div>
+  </main>
+
+  <footer>©copyright SkillPort2025</footer>
+
+  <!-- 本ページ用スクリプト -->
+  <script src="../../static/js/product_detail_edit.js" defer></script>
+</body>
+</html>

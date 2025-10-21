@@ -1,0 +1,82 @@
+/* ===== 通報ポップアップ ===== */
+.modal.hidden {
+  display: none;
+}
+
+.modal {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.45);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 999;
+  font-family: system-ui, "Noto Sans JP", sans-serif;
+}
+
+.modal-content {
+  background: #fff;
+  border-radius: 12px;
+  padding: 24px;
+  width: min(480px, 90%);
+  box-shadow: 0 8px 30px rgba(0,0,0,0.2);
+  animation: popupFade 0.25s ease-out;
+}
+
+@keyframes popupFade {
+  from { transform: scale(0.95); opacity: 0; }
+  to   { transform: scale(1); opacity: 1; }
+}
+
+.modal-content h2 {
+  margin-top: 0;
+  margin-bottom: 16px;
+  font-size: 20px;
+  border-bottom: 2px solid #2563eb;
+  padding-bottom: 6px;
+}
+
+.modal-content label {
+  display: block;
+  margin: 6px 0;
+  cursor: pointer;
+}
+
+.modal-content input[type="radio"] {
+  margin-right: 6px;
+}
+
+.modal-content textarea {
+  width: 100%;
+  margin-top: 10px;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  resize: vertical;
+  font-family: inherit;
+}
+
+.modal-buttons {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  margin-top: 18px;
+}
+
+.modal-buttons button {
+  padding: 8px 16px;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+#closeModal {
+  background: #e5e7eb;
+  color: #111;
+}
+
+#submitReport {
+  background: #2563eb;
+  color: #fff;
+}

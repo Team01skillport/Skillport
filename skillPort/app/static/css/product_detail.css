@@ -1,602 +1,113 @@
-body {
-  font-family: sans-serif;
-  margin: 0;
-}
-
-/* ヘッダー情報 */
-/* 右上プロファイルのやつ----------------------------------------------- */
-
-#profile {
-  display: flex;
-  align-items: center;
-  position: absolute;
-  right: 0;
-  margin-right: 1vw;
-  margin-top: 0.5vw;
-}
-
-#profile ul {
-  display: flex;
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  font-weight: bold;
-  font-size: 12px;
-}
-
-#profile ul li {
-  padding: 0 10px;
-}
-
-#profile ul li:not(:last-child) {
-  border-right: 2px solid black;
-}
-
-#profile ul {
-  display: flex;
-  list-style: none;
-  margin: 0;
-  padding: 0;
-}
-
-#profile li a {
-  text-decoration: none;
-  color: #333;
-}
-
-#profile img {
-  width: 25px;
-}
-
-/* ------------------------------------------------------------------ */
-
-/* ヘッダ------------------------------------------------------------ */
-
-#header_cap {
-  padding-top: 35px;
-}
-
-#header {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  position: sticky;
-  top: 5px;
-  z-index: 100;
-}
-
-#header img {
-  width: 7vw;
-  max-width: 115px;
-}
-
-#header .container {
-  display: flex;
-  align-items: center;
-  margin-left: 2vw;
-  gap: 2vw;
-  background-color: #226cff;
-  height: 4vw;
-  width: 75vw;
-  border-radius: 50px;
-  justify-content: center;
-  overflow: hidden;
-  max-height: 70px;
-}
-
-#header ul {
-  display: flex;
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  font-size: 1.5vw;
-  font-weight: bolder;
-  height: 100%;
-}
-
-#header ul li {
-  /* margin-right: 2.5vw; */
-  height: 100%;
-}
-
-#header ul li a {
-  display: flex;
-  align-items: center;
-  height: 100%;
-  text-decoration: none;
-  color: white;
-  padding: 0 1.7vw;
-  white-space: nowrap;
-}
-
-/* #header ul li:first-child a {
-    position: relative;
-    z-index: 0;
-  }
-
-  #header ul li:first-child a:hover::before {
-    content: "";
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    left: -100vw;
-    width: 100vw;
-    background: #4e89ff;
-    z-index: -1;
-    pointer-events: none;
-  } */
-
-#header ul li a:hover {
-  background-color: #4e89ff;
-}
-
-#header ul li a.is-active {
-  background-color: #4e89ff;
-}
-
-/* Search form */
-#header .search {
-  display: flex;
-  align-items: center;
-  gap: 0.5vw;
-}
-
-#header .search input {
-  padding: 5px 10px;
-  font-size: 1vw;
-  border: 1px solid #ccc;
-  border-radius: 20px;
-  /* margin-left: 50px; */
-}
-
-#header .search button {
-  padding: 5px 12px;
-  font-size: 1vw;
-  font-weight: bold;
-  /* font-size: clamp(10px, 1vw, 100px); */
-  cursor: pointer;
-  background-color: rgba(255, 255, 255, 0);
-  border: 1.5px solid #ffffff;
-  color: white;
-  border-radius: 5px;
-}
-
-#header .search button:hover {
-  background: white;
-  color: #5d5d5d;
-}
-
-/* dropdown-------------------------------------------- */
-
-#header .container {
-  overflow: visible;
-}
-
-#header .dropdown {
-  position: relative;
-}
-
-#header .dropdown-menu {
-  display: none;
-  position: absolute;
-  top: 100%;
-  left: 0;
-  min-width: 150px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-  z-index: 1000;
-  height: auto;
-}
-
-/* #header .dropdown-menu li:not(:last-child){
-  line-height: 2.2;
-} */
-
-#header .dropdown-menu li a {
-  display: block;
-  padding: 8px 12px;
-  color: #000000;
-  text-decoration: none;
-  background: #fff;
-  line-height: 2;
-}
-
-#header .dropdown-menu li a:hover {
-  background: #e6e6e6;
-}
-
-#header .dropdown.open > .dropdown-menu {
-  display: block;
-}
-/* ヘッダーCSSはここまで */
-
-/* フッター情報 */
-footer {
-  background-color: #226cff;
-  color: white;
-  text-align: center;
-  margin-top: 5vw;
-}
-
-/* ------------------------------------------------------------------ */
-
-body {
-  font-family: sans-serif;
-  margin: 0;
-}
+/* ベース */
+*{ box-sizing:border-box; }
+body{ font-family:system-ui,-apple-system,"Noto Sans JP",Arial,sans-serif; margin:0; color:#111; }
+.page-wrap{ max-width:1100px; margin:24px auto 80px; padding:0 16px; }
 
 /* ================= ヘッダー ================= */
-#profile {
-  display: flex;
-  align-items: center;
-  position: absolute;
-  right: 0;
-  margin-right: 1vw;
-  margin-top: 0.5vw;
-}
+#profile{ display:flex; align-items:center; position:absolute; right:0; margin-right:1vw; margin-top:.5vw; }
+#profile ul{ display:flex; list-style:none; margin:0; padding:0; font-weight:700; font-size:12px; }
+#profile ul li{ padding:0 10px; }
+#profile ul li:not(:last-child){ border-right:2px solid #000; }
+#profile li a{ text-decoration:none; color:#333; }
+#profile img{ width:25px; }
 
-#profile ul {
-  display: flex;
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  font-weight: bold;
-  font-size: 12px;
+#header_cap{ padding-top:48px; }
+#header{ display:flex; align-items:center; justify-content:center; position:sticky; top:5px; z-index:100; }
+#header img{ width:115px; }
+#header .container{
+  display:flex; align-items:center; justify-content:center; gap:24px;
+  background:#226CFF; height:56px; width:860px;
+  border-radius:999px; overflow:visible;
 }
-
-#profile ul li {
-  padding: 0 10px;
-}
-
-#profile ul li:not(:last-child) {
-  border-right: 2px solid black;
-}
-
-#profile li a {
-  text-decoration: none;
-  color: #333;
-}
-
-#profile img {
-  width: 25px;
-}
-
-/* ヘッダー本体 */
-#header_cap {
-  padding-top: 35px;
-}
-
-#header {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  position: sticky;
-  top: 5px;
-  z-index: 100;
-}
-
-#header img {
-  width: 7vw;
-  max-width: 115px;
-}
-
-#header .container {
-  display: flex;
-  align-items: center;
-  margin-left: 2vw;
-  gap: 2vw;
-  background-color: #226cff;
-  height: 4vw;
-  width: 75vw;
-  border-radius: 50px;
-  justify-content: center;
-  overflow: visible;
-  max-height: 70px;
-}
-
-#header ul {
-  display: flex;
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  font-size: 1.5vw;
-  font-weight: bolder;
-  height: 100%;
-}
-
-#header ul li a {
-  display: flex;
-  align-items: center;
-  height: 100%;
-  text-decoration: none;
-  color: white;
-  padding: 0 1.7vw;
-  white-space: nowrap;
-}
-
-#header ul li a:hover,
-#header ul li a.is-active {
-  background-color: #4e89ff;
-}
-
-/* Search */
-#header .search {
-  display: flex;
-  align-items: center;
-  gap: 0.5vw;
-}
-
-#header .search input {
-  padding: 5px 10px;
-  font-size: 1vw;
-  border: 1px solid #ccc;
-  border-radius: 20px;
-}
-
-#header .search button {
-  padding: 5px 12px;
-  font-size: 1vw;
-  font-weight: bold;
-  cursor: pointer;
-  background-color: rgba(255, 255, 255, 0);
-  border: 1.5px solid #ffffff;
-  color: white;
-  border-radius: 5px;
-}
-
-#header .search button:hover {
-  background: white;
-  color: #5d5d5d;
-}
-
-/* dropdown */
-#header .dropdown {
-  position: relative;
-}
-
-#header .dropdown-menu {
-  display: none;
-  position: absolute;
-  top: 100%;
-  left: 0;
-  min-width: 150px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-  z-index: 1000;
-}
-
-#header .dropdown-menu li a {
-  display: block;
-  padding: 8px 12px;
-  color: #000000;
-  text-decoration: none;
-  background: #fff;
-  line-height: 2;
-}
-
-#header .dropdown-menu li a:hover {
-  background: #e6e6e6;
-}
-
-#header .dropdown.open > .dropdown-menu {
-  display: block;
-}
+#header ul{ display:flex; list-style:none; margin:0; padding:0; font-size:16px; font-weight:800; height:100%; }
+#header ul li a{ display:flex; align-items:center; height:100%; text-decoration:none; color:#fff; padding:0 28px; white-space:nowrap; }
+#header ul li a:hover,#header ul li a.is-active{ background:#4e89ff; }
+#header .search{ display:flex; align-items:center; gap:8px; }
+#header .search input{ padding:6px 12px; font-size:14px; border:1px solid #ccc; border-radius:20px; }
+#header .search button{ padding:6px 12px; font-size:14px; font-weight:bold; cursor:pointer; background:transparent; border:1.5px solid #fff; color:#fff; border-radius:6px; }
+#header .search button:hover{ background:#fff; color:#5d5d5d; }
+#header .dropdown{ position:relative; }
+#header .dropdown-menu{ display:none; position:absolute; top:100%; left:0; min-width:150px; box-shadow:0 4px 10px rgba(0,0,0,.1); z-index:1000; }
+#header .dropdown-menu li a{ display:block; padding:8px 12px; color:#000; text-decoration:none; background:#fff; line-height:2; }
+#header .dropdown-menu li a:hover{ background:#e6e6e6; }
+#header .dropdown.open>.dropdown-menu{ display:block; }
 
 /* ================= 商品エリア ================= */
-.product-section {
-  display: flex;
-  justify-content: center;
-  align-items: flex-start;
-  gap: 60px;
-  max-width: 1000px;
-  margin: 60px auto;
+:root{
+  --main-img: 440px;
+  --thumb: 72px;
+  --gap: 40px;
 }
 
-.image-area {
-  display: flex;
-  gap: 15px;
-  align-items: flex-start;
+.product-section{
+  display:grid;
+  grid-template-columns: calc(var(--main-img) + 20px + 3px + var(--thumb) + 16px) 440px;
+  column-gap: var(--gap);
+  align-items:start;
+  margin:40px auto;
+  justify-content:center;
+  max-width:1100px;
 }
 
-.thumbnails {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
+.image-area{ display:grid; grid-template-columns: var(--thumb) 1fr; gap:16px; align-items:start; }
+.thumbnails{ display:grid; gap:12px; }
+.thumbnails img{
+  width:var(--thumb); height:var(--thumb);
+  object-fit:cover;
+  border-radius:6px;
+  border:1.5px solid #ccc;
+  cursor:pointer;
+  transition:.2s;
+}
+.thumbnails img:hover{ transform:scale(1.05); border-color:#226CFF; }
+.thumbnails img.active{ border:2px solid #226CFF; }
+
+.main-image img{
+  width:var(--main-img);
+  height:var(--main-img);
+  object-fit:contain;
+  border-radius:10px;
+  border:1.5px solid #ccc;
+  background:#f8f8f8;
+  padding:10px;
+  box-shadow:0 2px 8px rgba(0,0,0,0.08);
 }
 
-.thumbnails img {
-  width: 70px;
-  border-radius: 5px;
-  border: 1px solid #ccc;
-  cursor: pointer;
-  transition: transform 0.2s, border 0.2s;
+@media (min-width:1280px){ :root{ --main-img:460px; --thumb:76px; --gap:48px; } }
+@media (max-width:1100px){ :root{ --main-img:420px; --thumb:68px; --gap:36px; } }
+@media (max-width:900px){
+  .product-section{ grid-template-columns:1fr; row-gap:24px; }
+  .image-area{ grid-template-columns: var(--thumb) minmax(0,1fr); justify-content:start; }
 }
 
-.thumbnails img:hover {
-  transform: scale(1.05);
-  border-color: #226cff;
-}
-
-.thumbnails img.active {
-  border: 2px solid #226cff;
-}
-
-.main-image img {
-  width: 350px;
-  border-radius: 8px;
-  border: 1px solid #ccc;
-  transition: opacity 0.3s ease-in-out;
-}
-
-.info-area {
-  width: 400px;
-}
-
-.info-area h1 {
-  font-size: 18px;
-  margin-bottom: 5px;
-}
-
-.price {
-  font-weight: bold;
-  font-size: 16px;
-  margin-bottom: 15px;
-}
-
-.action-buttons {
-  display: flex;
-  gap: 10px;
-  margin: 10px 0;
-}
-
-.btn {
-  background-color: #fff;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  padding: 5px 10px;
-  text-decoration: none;
-  color: #333;
-  font-size: 14px;
-}
-
-.btn:hover {
-  background-color: #eee;
-}
-
-.buy-btn {
-  display: block;
-  width: 100%;
-  text-align: center;
-  background-color: #226cff;
-  color: white;
-  text-decoration: none;
-  padding: 10px 0;
-  border-radius: 5px;
-  font-weight: bold;
-  margin: 15px 0 20px;
-}
-
-.buy-btn:hover {
-  background-color: #4e89ff;
-}
-
-.desc,
-.detail {
-  margin-top: 15px;
-}
-
-.desc h2,
-.detail h2 {
-  font-size: 16px;
-  border-bottom: 2px solid #000;
-  padding-bottom: 5px;
-  margin-bottom: 10px;
-}
-
-.detail ul {
-  list-style: none;
-  padding: 0;
-}
-
-.detail li {
-  border: 1px solid #ccc;
-  border-radius: 6px;
-  padding: 8px;
-  margin: 5px 0;
-}
+/* 右側情報 */
+.info-area{ width:100%; max-width:440px; }
+.info-area h1{ font-size:20px; line-height:1.5; margin:0 0 6px; }
+.price{ font-weight:700; font-size:18px; margin:0 0 12px; }
+.action-buttons{ display:grid; grid-template-columns:repeat(4,1fr); gap:8px; margin:10px 0; }
+.btn{ background:#fff; border:1px solid #ccc; border-radius:6px; padding:8px 0; text-decoration:none; color:#333; text-align:center; font-size:14px; }
+.btn:hover{ background:#eee; }
+.buy-btn{ display:block; text-align:center; background:#226CFF; color:#fff; text-decoration:none; padding:10px 0; border-radius:6px; font-weight:700; margin:8px 0 18px; height:40px; }
+.buy-btn:hover{ background:#4e89ff; }
+.desc,.detail{ margin-top:15px; }
+.desc h2,.detail h2{ font-size:16px; border-bottom:2px solid #000; padding-bottom:6px; margin:18px 0 10px; }
+.detail ul{ list-style:none; padding:0; margin:0; display:grid; gap:10px; }
+.detail li{ height:40px; border:1px solid #d1d5db; border-radius:6px; background:#fff; padding:8px 12px; display:flex; align-items:center; }
 
 /* ================= コメント & 出品者 ================= */
-.bottom-section {
-  display: flex;
-  justify-content: center;
-  align-items: flex-start;
-  gap: 60px;
-  max-width: 1000px;
-  margin: 50px auto 100px;
-}
-
-.comment-box {
-  flex: 1;
-}
-
-.comment-btn {
-  width: 200px;
-  background-color: #226cff;
-  color: white;
-  border: none;
-  border-radius: 5px;
-  padding: 10px 0;
-  margin-bottom: 15px;
-  cursor: pointer;
-}
-
-.comment-box ul {
-  list-style: none;
-  padding: 0;
-}
-
-.comment-box li {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  margin: 10px 0;
-}
-
-.comment-box img {
-  width: 45px;
-  height: 45px;
-  border-radius: 50%;
-}
-
-.bubble {
-  flex: 1;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  padding: 8px 10px;
-}
-
-/* 出品者 */
-.seller-box {
-  flex: 1;
-}
-
-.seller-box h3 {
-  font-size: 18px;
-  margin-bottom: 10px;
-}
-
-.seller-info {
-  display: flex;
-  align-items: center;
-  border-top: 1px solid #ccc;
-  padding-top: 10px;
-  gap: 15px;
-}
-
-.seller-info img {
-  width: 60px;
-  height: 60px;
-  border-radius: 50%;
-}
-
-.follow-btn {
-  background-color: #226cff;
-  color: white;
-  text-decoration: none;
-  padding: 7px 15px;
-  border-radius: 20px;
-  font-weight: bold;
-  margin-left: auto;
-  font-size: 14px;
-}
-
-.follow-btn:hover {
-  background-color: #4e89ff;
-}
+.bottom-section{ display:grid; grid-template-columns:1fr 1fr; gap:48px; max-width:1100px; margin:32px auto 100px; }
+.comment-box{ flex:1; }
+.comment-btn{ width:240px; height:40px; background:#226CFF; color:#fff; border:none; border-radius:6px; margin-bottom:15px; cursor:pointer; }
+.comment-box ul{ list-style:none; padding:0; margin:0; }
+.comment-box li{ display:flex; align-items:center; gap:10px; margin:10px 0; }
+.comment-box img{ width:45px; height:45px; border-radius:50%; }
+.bubble{ flex:1; border:1px solid #ccc; border-radius:6px; padding:8px 10px; }
+.seller-box{ flex:1; }
+.seller-box h3{ font-size:18px; margin-bottom:10px; }
+.seller-info{ display:flex; align-items:center; border-top:1px solid #ccc; padding-top:10px; gap:15px; }
+.seller-info img{ width:60px; height:60px; border-radius:50%; }
+.follow-btn{ background:#226CFF; color:#fff; text-decoration:none; padding:7px 15px; border-radius:20px; font-weight:700; margin-left:auto; font-size:14px; }
+.follow-btn:hover{ background:#4e89ff; }
 
 /* ================= フッター ================= */
-footer {
-  background-color: #226cff;
-  color: white;
-  text-align: center;
-  margin-top: 5vw;
-  padding: 1vw;
-}
+footer{ background:#226CFF; color:#fff; text-align:center; padding:14px 0; }
