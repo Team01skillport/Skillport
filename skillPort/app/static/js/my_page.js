@@ -9,7 +9,7 @@ $(".menu_link").on("click", function (e) {
     method: "GET",
   })
     .done(function (data) {
-      $("#main-content").html(data);
+      $("#main_content").html(data);
     })
     .fail(function () {
       console.log("FAILED");
