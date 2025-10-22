@@ -1,12 +1,12 @@
 body{
     font-family: sans-serif;
     margin: 0;
-    /* 註釈: 設定圖片中的淺灰色背景 */
+    /* 註釈: 設定灰色背景 */
     background-color: #f0f0f0; 
 }
 
 /* ========================================================= */
-/* ログイン (Login) 專用 CSS */
+/* 新規アカウント登録 (Account Registration) 專用 CSS */
 /* ========================================================= */
 
 .page-center-wrapper {
@@ -19,59 +19,59 @@ body{
     box-sizing: border-box;
 }
 
-.login-card {
-    /* 登入卡片盒子 */
+.registration-card {
+    /* 註冊卡片盒子 */
     width: 100%;
-    max-width: 350px; /* 限制卡片寬度 */
+    max-width: 400px; /* 限制卡片寬度 */
     background-color: white;
     border-radius: 10px;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
     padding: 40px 30px; 
-    text-align: center; /* 讓內部區塊居中 */
+    text-align: center;
 }
 
-/* Logo 區 */
-.logo-area {
+.main-title {
+    font-size: 24px;
+    font-weight: bold;
     margin-bottom: 30px;
+    color: #333;
+    text-align: center; /* 標題居中 */
 }
 
-.logo-image {
-    width: 150px; /* 根據圖片估算 Logo 大小 */
-    height: auto;
-}
-
-/* 表單樣式 */
-.login-form {
+.register-form {
     width: 100%;
 }
 
 .form-group {
     margin-bottom: 15px; /* 輸入框間距 */
     width: 100%;
+    /* 確保 form-group 內容靠左，但輸入框本身會佔滿寬度 */
+    text-align: left; 
 }
 
-/* 輸入框樣式 */
-.login-form input {
+/* 輸入框樣式 - 完美對齊 */
+.register-form input {
     width: 100%;
     padding: 12px 15px;
     border: 1px solid #ccc;
     border-radius: 5px; /* 輕微圓角 */
     box-sizing: border-box;
     font-size: 16px;
-    text-align: left; /* 輸入文字靠左 */
+    transition: border-color 0.2s;
 }
 
-.login-form input:focus {
+.register-form input:focus {
     border-color: #226CFF;
     outline: none;
 }
 
+
 .form-actions {
-    margin-top: 20px;
-    margin-bottom: 25px;
+    margin-top: 25px;
+    margin-bottom: 15px;
 }
 
-/* 登入按鈕 (藍色) */
+/* 帳號創建按鈕 (藍色) */
 .submit-btn {
     width: 100%;
     padding: 15px 0;
@@ -89,24 +89,28 @@ body{
     background-color: #5d93ff;
 }
 
-/* 底部連結區 */
-.link-option {
+/* 返回登入連結 */
+.back-to-login {
     display: block;
-    margin-top: 10px;
-    font-size: 13px;
+    margin-top: 15px;
+    font-size: 14px;
     color: #427df0;
     text-decoration: none;
     transition: opacity 0.2s;
+    text-align: center;
 }
 
-.link-option:hover {
+.back-to-login:hover {
     opacity: 0.8;
 }
 
 /* 響應式調整 */
 @media (max-width: 450px) {
-    .login-card {
+    .registration-card {
         padding: 30px 20px;
-        box-shadow: none; /* 小螢幕移除陰影，更像全螢幕 APP */
+    }
+    /* 確保所有輸入框在小螢幕上保持完整寬度 */
+    .form-group:nth-child(3) input {
+        max-width: 100%; 
     }
 }

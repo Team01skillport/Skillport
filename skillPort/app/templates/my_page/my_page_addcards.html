@@ -1,0 +1,46 @@
+<head>
+    <link rel="stylesheet" href="../../static/css/my_page_addcards.css" /> 
+</head>
+
+<div class="page-center-wrapper">
+    
+    <div class="card-register-container">
+        
+        <h1 class="main-title-flex">
+            <span>新しいクレジットカードを登録</span>
+        </h1>
+        
+        <form class="card-register-form">
+            
+            <div class="form-group">
+                <label for="cardNumber">例：182377128971287</label>
+                <input type="text" id="cardNumber" name="cardNumber" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="cardHolderName">名義人</label>
+                <input type="text" id="cardHolderName" name="cardHolderName" placeholder="例：KINOSHITA SYOKOU" required>
+            </div>
+            
+            <label class="form-label-wide">有効期限</label>
+            <div class="form-group expiry-group-wrapper">
+                <div class="expiry-input-group">
+                    <input type="text" id="expiryMonth" name="expiryMonth" placeholder="MM" required pattern="\d{2}">
+                    <span class="separator">/</span>
+                    <input type="text" id="expiryYear" name="expiryYear" placeholder="YYYY" required pattern="\d{4}">
+                </div>
+            </div>
+
+            <label class="form-label-wide">セキュリティコード</label>
+            <div class="form-group security-group-wrapper">
+                <div class="security-input-group">
+                    <input type="text" id="securityCode" name="securityCode" placeholder="例：564" required pattern="\d{3,4}">
+                </div>
+            </div>
+
+            <div class="form-actions">
+                <button type="submit" class="register-submit-btn">登録する</button>
+            </div>
+        </form>
+    </div>
+</div>

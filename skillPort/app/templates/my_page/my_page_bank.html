@@ -1,0 +1,40 @@
+<head>
+    <link rel="stylesheet" href="../../static/css/my_page_bank.css" /> 
+</head>
+<div class="bank-page-container">
+    <h1 class="support-main-title">銀行口座登録</h1>
+    <h2 class="content-list-title">振込先口座情報登録</h2> 
+    
+    <form class="bank-form">
+        <div class="form-group">
+            <label for="bankName">銀行名</label>
+            <input type="text" id="bankName" name="bankName" value="あああああああああ" required>
+        </div>
+        <div class="form-group">
+            <label for="accountType">口座種別</label>
+            <select id="accountType" name="accountType" required>
+                <option value="futsu">普通 (ふつう)</option>
+                <option value="toza">当座 (とうざ)</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="branchCode">支店コード</label>
+            <input type="text" id="branchCode" name="branchCode" placeholder="3桁の数字" required pattern="\d{3}">
+        </div>
+        <div class="form-group">
+            <label for="accountNumber">口座番号</label>
+            <input type="text" id="accountNumber" name="accountNumber" placeholder="7桁の数字" required pattern="\d{7}">
+        </div>
+        <div class="form-group">
+            <label for="lastName">口座名義 (セイ)</label>
+            <input type="text" id="lastName" name="lastName" value="あああああああああ" required>
+        </div>
+        <div class="form-group">
+            <label for="firstName">口座名義 (メイ)</label>
+            <input type="text" id="firstName" name="firstName" value="あああああああああ" required>
+        </div>
+        <div class="form-actions">
+            <button type="submit" class="save-btn">保存</button>
+        </div>
+    </form>
+</div>

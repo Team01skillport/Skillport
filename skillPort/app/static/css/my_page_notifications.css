@@ -1,0 +1,120 @@
+body{
+    font-family: sans-serif;
+    margin: 0;
+}
+
+/* ========================================================= */
+/* お知らせ (Notifications) 專用 CSS */
+/* ========================================================= */
+
+.notifications-page-container {
+    width: 90%;
+    max-width: 700px; /* 限制寬度以集中列表 */
+    margin: 50px auto; /* 確保頂部和底部有邊距 */
+    padding: 0 20px;
+}
+
+.content-main-title {
+    font-size: 24px;
+    font-weight: bold;
+    margin: 0 0 20px 0;
+    padding-bottom: 5px;
+    border-bottom: 3px solid #000000; /* 黑色底線 */
+    width: 100%;
+    max-width: 300px;
+}
+
+.notification-list {
+    border-top: 1px solid #ccc; /* 列表頂部線 */
+}
+
+.notification-item {
+    display: flex;
+    align-items: flex-start; /* 圖標和文字頂部對齊 */
+    padding: 15px 0;
+    border-bottom: 1px solid #eee;
+    transition: background-color 0.1s;
+    cursor: pointer;
+}
+
+.notification-item:hover {
+    background-color: #fcfcfc;
+}
+
+/* 圖標/頭像容器 */
+.item-icon {
+    width: 40px;
+    height: 40px;
+    flex-shrink: 0;
+    margin-right: 15px;
+    overflow: hidden;
+}
+
+.item-icon .icon-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.user-icon .icon-image {
+    border-radius: 50%; /* 用戶頭像為圓形 */
+}
+
+.system-icon .icon-image {
+    border-radius: 5px; /* 系統圖標為方形 */
+}
+
+
+/* 通知詳細內容 */
+.item-details {
+    flex-grow: 1;
+}
+
+.notification-text {
+    font-size: 14px;
+    font-weight: 500;
+    margin: 0 0 3px 0;
+    color: #333;
+    line-height: 1.4;
+}
+
+.notification-meta {
+    font-size: 11px;
+    color: #888;
+    margin: 0;
+}
+
+/* もっと見る (查看更多) 按鈕 */
+.view-more-btn {
+    display: block;
+    width: 150px;
+    margin: 30px auto 0 auto;
+    padding: 10px 20px;
+    text-align: center;
+    background-color: #f0f0f0;
+    color: #333;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.view-more-btn:hover {
+    background-color: #e0e0e0;
+}
+
+/* 響應式調整 */
+@media (max-width: 576px) {
+    .notifications-page-container {
+        padding: 0 10px;
+    }
+    .notification-item {
+        /* 在小螢幕上減少間距 */
+        padding: 12px 0;
+    }
+    .item-icon {
+        width: 35px;
+        height: 35px;
+    }
+}

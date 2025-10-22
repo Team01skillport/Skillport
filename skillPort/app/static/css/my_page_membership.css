@@ -1,0 +1,91 @@
+body{
+    font-family: sans-serif;
+    margin: 0;
+}
+
+.membership-page-container {
+    width: 90%;
+    max-width: 900px;
+    margin: 50px auto;
+    padding: 0 20px;
+}
+
+.support-main-title {
+    font-size: 28px;
+    font-weight: bold;
+    margin: 0 0 30px 0;
+    border-bottom: 3px solid #000000;
+    padding-bottom: 5px;
+    width: 100%;
+    max-width: 350px;
+}
+
+.content-list-title {
+    font-size: 18px;
+    font-weight: bold;
+    margin: 0 0 20px 0;
+    padding-bottom: 5px;
+    border-bottom: 1px solid #ddd;
+}
+
+/* 創作者網格佈局 */
+.creator-grid {
+    display: grid;
+    /* 創建一個響應式的網格，每欄最小寬度 120px */
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); 
+    gap: 30px 20px; /* 垂直和水平間距 */
+    text-align: center;
+    padding-top: 10px;
+}
+
+.creator-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-decoration: none;
+    color: #333;
+    transition: opacity 0.2s;
+}
+
+.creator-card:hover {
+    opacity: 0.8;
+}
+
+/* 創作者頭像 */
+.creator-avatar {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    border-radius: 50%; /* 圓形頭像 */
+    border: 3px solid #226CFF; /* 藍色邊框 */
+    margin-bottom: 8px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.creator-name {
+    font-size: 14px;
+    font-weight: bold;
+    margin: 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 100%;
+}
+
+.creator-tag {
+    font-size: 12px;
+    color: #555;
+    margin: 2px 0 0 0;
+}
+
+/* 響應式調整 */
+@media (max-width: 768px) {
+    .creator-grid {
+        grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+        gap: 20px 10px;
+    }
+    .creator-avatar {
+        width: 80px;
+        height: 80px;
+    }
+}

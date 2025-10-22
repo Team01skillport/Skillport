@@ -1,0 +1,122 @@
+body{
+    font-family: sans-serif;
+    margin: 0;
+}
+
+/* ========================================================= */
+/* カスタマーサポート (Customer Support) 專用 CSS */
+/* 註釈: このCSSファイルは、ページの中央コンテンツのみをスタイリングし、
+         Header/Footer/Sidebarの共通スタイルは省略されています。 */
+/* ========================================================= */
+
+.support-page-container {
+    width: 90%;
+    max-width: 800px; /* 制限幅を設けてフォームを中央に集めます */
+    margin: 50px auto; /* 確保頂部和底部有邊距 */
+    padding: 0 20px;
+}
+
+.support-main-title {
+    font-size: 28px;
+    font-weight: bold;
+    margin: 0 0 30px 0;
+    border-bottom: 3px solid #000000;
+    padding-bottom: 5px;
+    width: 100%;
+    max-width: 350px;
+}
+
+.support-content-wrapper {
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background-color: #fcfcfc;
+}
+
+.section-title {
+    font-size: 20px;
+    font-weight: bold;
+    margin: 0 0 20px 0;
+    color: #333;
+}
+
+/* 聯繫表單 */
+.contact-form {
+    margin-bottom: 40px;
+}
+
+.contact-form .form-group {
+    margin-bottom: 15px;
+}
+
+.contact-form label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 5px;
+    color: #333;
+    font-size: 14px;
+}
+
+.contact-form input[type="text"],
+.contact-form input[type="email"],
+.contact-form select,
+.contact-form textarea {
+    width: 100%;
+    padding: 10px 12px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    font-size: 14px;
+}
+
+.contact-form textarea {
+    resize: vertical;
+}
+
+.submit-btn {
+    display: block;
+    width: 200px;
+    padding: 12px 0;
+    margin-top: 25px;
+    margin-left: auto; /* 右寄せ */
+    background-color: #226CFF;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-weight: bold;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.2s;
+}
+
+.submit-btn:hover {
+    background-color: #4e89ff;
+}
+
+/* FAQ 連結區 */
+.faq-link-area {
+    padding-top: 20px;
+    border-top: 1px solid #eee;
+}
+
+.faq-link-area p {
+    font-size: 14px;
+    line-height: 1.5;
+    margin: 0;
+}
+
+.faq-link-area a {
+    color: #226CFF;
+    text-decoration: underline;
+}
+
+/* 註釈: 為了防止意外，添加基本的響應式調整 */
+@media (max-width: 768px) {
+    .support-page-container {
+        margin: 30px auto;
+    }
+    .submit-btn {
+        width: 100%;
+        margin-left: 0;
+    }
+}

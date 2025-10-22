@@ -1,0 +1,155 @@
+body{
+    font-family: sans-serif;
+    margin: 0;
+}
+
+.registration-page-container {
+    width: 90%;
+    max-width: 1000px;
+    margin: 50px auto;
+    padding: 0 20px;
+}
+
+.page-main-title {
+    font-size: 28px;
+    font-weight: bold;
+    margin: 0 0 20px 0;
+    border-bottom: 3px solid #000000;
+    padding-bottom: 5px;
+    width: 100%;
+    max-width: 300px;
+}
+
+/* 方案網格 */
+.membership-plans-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); 
+    gap: 30px;
+    margin-top: 40px;
+}
+
+/* 單個方案卡片 */
+.plan-card {
+    border: 1px solid #ddd;
+    border-radius: 15px; 
+    padding: 20px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+    display: flex;
+    flex-direction: column;
+    min-height: 350px; 
+}
+
+/* 標題區 */
+.plan-header {
+    margin-bottom: 15px;
+    border-bottom: 1px solid #ccc;
+    padding-bottom: 10px;
+}
+
+.plan-title {
+    font-size: 18px;
+    font-weight: bold;
+    margin: 0;
+    padding: 5px 10px;
+    background-color: #e6f0ff; 
+    border-radius: 5px;
+    color: #333;
+    text-align: center;
+}
+
+/* 內容區 */
+.plan-body {
+    flex-grow: 1; 
+    margin-bottom: 20px;
+}
+
+.plan-description-box {
+    border: 1px solid #ccc; 
+    border-radius: 5px;
+    padding: 15px;
+    min-height: 120px; 
+}
+
+.description-label {
+    font-size: 14px;
+    font-weight: bold;
+    color: #333;
+    display: block;
+    margin-bottom: 5px;
+}
+
+.description-text {
+    font-size: 13px;
+    color: #555;
+    margin: 0;
+    line-height: 1.5;
+}
+
+/* 底部價格和按鈕區 */
+.plan-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 10px;
+}
+
+.price-box {
+    display: flex;
+    align-items: baseline;
+    font-size: 16px;
+}
+
+.price-label {
+    font-weight: bold;
+    color: #333;
+    margin-right: 5px;
+}
+
+.price-value {
+    font-size: 20px;
+    font-weight: bolder;
+    color: #226CFF; 
+}
+
+.buy-button {
+    background-color: #226CFF;
+    color: white;
+    padding: 10px 25px;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.buy-button:hover {
+    background-color: #4e89ff;
+}
+
+/* 戻る (返回) 按鈕 */
+.back-button {
+    display: block;
+    width: 150px;
+    margin: 40px auto 0 auto;
+    padding: 10px 20px;
+    text-align: center;
+    background-color: #cccccc;
+    color: #333;
+    text-decoration: none;
+    border: none;
+    border-radius: 5px;
+    font-weight: bold;
+    transition: background-color 0.2s;
+}
+
+.back-button:hover {
+    background-color: #b0b0b0;
+}
+
+/* 響應式調整 */
+@media (max-width: 768px) {
+    .membership-plans-grid {
+        grid-template-columns: 1fr; /* 單欄排列 */
+    }
+}

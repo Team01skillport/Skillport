@@ -3,97 +3,21 @@ body {
   margin: 0;
 }
 
-/* ========================================================= */
-/* マイページ (My Page) 基礎佈局 */
-/* ========================================================= */
-.main-container {
-  display: flex;
+.dashboard-content-wrapper {
+    width: 90%;
+    max-width: 1200px;
+    margin: 30px auto 50px auto;
+    padding: 0 20px;
 }
 
-#main_content {
-  width: 100%;
-  max-width: 70vw;
-  margin: 3rem 7rem 3rem 3rem;
-}
-
-.mypage-container {
-  width: auto;
-  max-width: 30vw;
-  margin: 30px 0 50px 7rem;
-  padding: 0 20px;
-  display: flex; /* 啟用 Flexbox 進行側邊欄和內容區域佈局 */
-  gap: 40px; /* 側邊欄和內容之間的間距 */
-}
-
-/* 左側導覽列 (Sidebar) */
-.mypage-sidebar {
-  width: 200px; /* 固定側邊欄寬度 */
-  flex-shrink: 0;
-}
-
-.mypage-title {
-  font-size: 24px;
-  font-weight: bold;
-  margin: 0 0 20px 0;
-  border-bottom: 3px solid #000000; /* 黑色底線 */
-  padding-bottom: 5px;
-}
-
-.mypage-nav-list {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
-
-.mypage-nav-list li {
-  margin-bottom: 1px; /* 清單項目之間的細微間距 */
-}
-
-.mypage-nav-list a {
-  display: block;
-  padding: 10px 15px;
-  text-decoration: none;
-  color: #333;
-  font-size: 14px;
-  border-left: 5px solid transparent; /* 預留左側藍線位置 */
-  transition: all 0.2s;
-  font-weight: 500;
-}
-
-.mypage-nav-list a:hover {
-  background-color: #f0f8ff; /* 輕微懸停效果 */
-  color: #226cff;
-}
-
-/* 確保左側標題的 active 樣式 */
-.mypage-nav-list a.active {
-  font-weight: bold;
-  color: #226cff;
-  border-left: 5px solid #226cff; /* 藍色活動指示線 */
-  background-color: #f0f8ff;
-}
-
-.mypage-nav-list .delete-link {
-  color: #d9534f; /* 紅色，表示危險操作 */
-}
-
-.mypage-nav-list .delete-link:hover {
-  color: white;
-  background-color: #d9534f;
-}
-
-/* 右側內容顯示區 (Content Area) */
-.mypage-content-area {
-  flex-grow: 1; /* 佔據所有剩餘空間 */
-  min-height: 500px;
-}
-
-/* ========================================================= */
-/* マイページ TOP (Dashboard) 專用 CSS */
-/* ========================================================= */
-
-.dashboard-content {
-  padding: 10px 0; /* 讓內容與左側導覽對齊 */
+.support-main-title {
+    font-size: 28px;
+    font-weight: bold;
+    margin: 0 0 30px 0;
+    border-bottom: 3px solid #000000;
+    padding-bottom: 5px;
+    width: 100%;
+    max-width: 350px;
 }
 
 .welcome-message {
@@ -222,17 +146,12 @@ body {
   margin: 0;
 }
 
-/* 響應式調整 (Dashboard) */
+/* 響應式調整 */
 @media (max-width: 768px) {
-  .welcome-message {
-    font-size: 24px;
-  }
-  .activity-summary {
-    flex-direction: column;
-  }
-  .activity-item {
-    flex-grow: 0;
-  }
+    .welcome-message {
+        font-size: 24px;
+    }
+    .activity-summary {
+        flex-direction: column;
+    }
 }
-
-/* ... (My Page 響應式調整 - 保持不變) ... */

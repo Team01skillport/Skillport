@@ -3,9 +3,9 @@ body{
     margin: 0;
 }
 
-.history-page-container {
+.likes-page-container {
     width: 90%;
-    max-width: 900px; /* 限制寬度以集中列表 */
+    max-width: 900px;
     margin: 50px auto;
     padding: 0 20px;
 }
@@ -20,7 +20,15 @@ body{
     max-width: 350px;
 }
 
-/* 觀看紀錄列表 (視聴履歴リスト) 樣式 */
+.content-list-title {
+    font-size: 18px;
+    font-weight: bold;
+    margin: 0 0 20px 0;
+    padding-bottom: 5px;
+    border-bottom: 1px solid #ddd;
+}
+
+/* 觀看紀錄列表 (history-list) 樣式適用於 likesList */
 .history-list {
     display: flex;
     flex-direction: column;
@@ -110,11 +118,10 @@ body{
 
 /* 響應式調整 */
 @media (max-width: 768px) {
-    .history-page-container {
+    .likes-page-container {
         max-width: 100%;
     }
     
-    /* 觀看紀錄在小螢幕上調整為垂直佈局 */
     .history-item-card {
         flex-direction: column;
         align-items: center;
@@ -128,7 +135,7 @@ body{
     }
     
     .history-details {
-        text-align: left; /* 文字靠左對齊 */
+        text-align: left;
         width: 100%;
     }
 }

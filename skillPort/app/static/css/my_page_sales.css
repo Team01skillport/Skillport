@@ -1,0 +1,211 @@
+body{
+    font-family: sans-serif;
+    margin: 0;
+}
+
+.sales-page-container {
+    width: 90%;
+    max-width: 900px;
+    margin: 50px auto;
+    padding: 0 20px;
+}
+
+.support-main-title {
+    font-size: 28px;
+    font-weight: bold;
+    margin: 0 0 30px 0;
+    border-bottom: 3px solid #000000;
+    padding-bottom: 5px;
+    width: 100%;
+    max-width: 350px;
+}
+
+/* 2. 取引履歴 列表區 標題 */
+.transaction-history-title {
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 15px;
+    border-bottom: 2px solid #ccc;
+    padding-bottom: 5px;
+}
+
+/* 1. 売上情報 統計區 */
+.sales-summary-container {
+    margin-bottom: 30px;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    background-color: #fcfcfc;
+}
+
+.sales-info-box {
+    margin-bottom: 20px;
+}
+
+.sales-data-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 5px 0;
+    font-size: 14px;
+    border-bottom: 1px dashed #eee;
+}
+
+.sales-data-row:last-child {
+    border-bottom: none;
+}
+
+.data-label {
+    font-weight: bold;
+    color: #555;
+    flex-basis: 50%;
+}
+
+.data-value {
+    color: #000;
+    font-weight: 600;
+    text-align: right;
+}
+
+.withdrawal-row {
+    padding-top: 15px;
+    padding-bottom: 0;
+    border-bottom: none;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.withdrawal-row .data-label {
+    flex-basis: auto;
+    margin-right: 15px;
+}
+
+.withdrawal-row .data-value {
+    font-size: 16px;
+    color: #d9534f; /* 警告色 */
+    flex-grow: 1;
+    text-align: left;
+}
+
+.withdrawal-btn {
+    background-color: #226CFF;
+    color: white;
+    padding: 8px 15px;
+    border: none;
+    border-radius: 5px;
+    font-weight: bold;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: background-color 0.2s;
+}
+
+.withdrawal-btn:hover {
+    background-color: #4e89ff;
+}
+
+/* 圖表預覽區 */
+.sales-chart-preview {
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    overflow: hidden;
+    padding: 10px;
+    text-align: center;
+}
+
+.chart-image-placeholder {
+    width: 100%;
+    max-width: 400px;
+    height: auto;
+    display: block;
+    margin: 0 auto;
+}
+
+
+/* 2. 取引履歴 列表區 */
+.transaction-list {
+    display: flex;
+    flex-direction: column;
+    border-top: 1px solid #eee;
+}
+
+.transaction-item {
+    display: flex;
+    align-items: center;
+    padding: 15px 0;
+    border-bottom: 1px solid #eee;
+}
+
+.transaction-item:hover {
+    background-color: #fcfcfc;
+}
+
+.item-icon {
+    width: 40px;
+    height: 40px;
+    flex-shrink: 0;
+    margin-right: 15px;
+    position: relative;
+}
+
+.product-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 5px;
+}
+
+.user-icon .product-image {
+    border-radius: 50%;
+}
+
+.item-details {
+    flex-grow: 1;
+    font-size: 13px;
+}
+
+.transaction-description {
+    margin: 0;
+    font-weight: 500;
+    color: #333;
+}
+
+.transaction-meta {
+    margin: 3px 0 0 0;
+    font-size: 11px;
+    color: #888;
+}
+
+.item-amount {
+    font-size: 14px;
+    font-weight: bold;
+    color: #000;
+    flex-shrink: 0;
+}
+
+/* 響應式調整 */
+@media (max-width: 768px) {
+    .withdrawal-row {
+        flex-wrap: wrap;
+    }
+
+    .withdrawal-row .data-value {
+        text-align: right;
+        flex-grow: 0;
+    }
+
+    .withdrawal-btn {
+        margin-top: 10px;
+        width: 100%;
+    }
+
+    .transaction-item {
+        flex-wrap: wrap;
+    }
+
+    .item-icon {
+        margin-bottom: 5px;
+    }
+
+    .item-details {
+        margin-right: 15px;
+    }
+}

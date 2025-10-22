@@ -1,0 +1,171 @@
+body{
+    font-family: sans-serif;
+    margin: 0;
+    /* 設定背景色 */
+    background-color: #f0f0f0; 
+}
+
+/* ========================================================= */
+/* クレジットカード登録 (Card Registration) 專用 CSS */
+/* ========================================================= */
+
+.page-center-wrapper {
+    /* 修正點：用於居中整個內容塊 (標題 + 表單) */
+    width: 100%; /* 佔滿視窗寬度 */
+    display: flex;
+    flex-direction: column; 
+    align-items: center; /* 讓內容水平居中 */
+    padding: 20px 0;
+    min-height: 100vh;
+    box-sizing: border-box;
+}
+
+.card-register-container {
+    /* 表單和標題的容器，現在被 center-wrapper 居中 */
+    width: 100%;
+    max-width: 500px; /* 限制容器最大寬度 */
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    padding: 40px 30px; 
+}
+
+/* 修正點：新的標題佈局 - 讓標題和線條自適應且居中 */
+.main-title-flex {
+    width: 100%;
+    text-align: center;
+    margin-bottom: 30px;
+}
+.main-title-flex span {
+    /* 讓 span 成為一個獨立的塊，可以應用 border-bottom */
+    display: inline-block; 
+    font-size: 24px; 
+    font-weight: bold;
+    color: #333;
+    padding-bottom: 5px;
+    
+    /* 修正點：底線寬度與文字寬度相同 */
+    border-bottom: 3px solid #000; 
+    
+    /* 修正點：防止文字折行 */
+    white-space: nowrap; 
+}
+
+
+.card-register-form {
+    width: 100%;
+    max-width: 450px; 
+    margin: 0 auto; /* 確保表單在容器內居中 */
+    padding: 0 10px; 
+}
+
+.card-register-form .form-group {
+    margin-bottom: 25px;
+}
+
+/* 標籤和輸入提示文字 */
+.card-register-form label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 5px; 
+    color: #333;
+    font-size: 16px; 
+    text-align: left;
+}
+
+/* 頂部卡號提示文字 (Placeholder 樣式) */
+.form-group:nth-child(1) label { 
+    font-weight: normal;
+    font-size: 14px; /* 卡號提示文字較小 */
+}
+
+.form-label-wide {
+    width: 100%;
+    text-align: left;
+    margin-bottom: 5px;
+    font-size: 16px;
+}
+
+/* 輸入框樣式 */
+.card-register-form input[type="text"] {
+    width: 100%;
+    padding: 15px 20px;
+    border: 1px solid #ccc;
+    border-radius: 30px; /* 圓角輸入框 */
+    box-sizing: border-box;
+    font-size: 16px;
+    text-align: left; 
+}
+
+.card-register-form input:focus {
+    border-color: #226CFF;
+    outline: none;
+}
+
+/* 有效期限/安全碼的群組佈局 */
+.expiry-input-group {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+.expiry-input-group input {
+    width: calc(50% - 20px); 
+    text-align: center;
+    border-radius: 30px; 
+}
+
+.separator {
+    font-size: 20px;
+    color: #555;
+    font-weight: 300;
+}
+
+/* 安全碼的群組佈局 */
+.security-input-group {
+    display: flex;
+    justify-content: flex-start; /* 確保安全碼輸入框靠左 */
+}
+.security-input-group input {
+    max-width: 150px; 
+    text-align: center;
+    border-radius: 30px; 
+}
+
+
+/* 提交按鈕 */
+.form-actions {
+    margin-top: 30px;
+    text-align: center;
+}
+
+.register-submit-btn {
+    width: 80%;
+    max-width: 250px;
+    padding: 15px 0;
+    border: none;
+    border-radius: 5px; /* 方角按鈕 */
+    background-color: #427df0; 
+    color: white;
+    font-size: 18px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.register-submit-btn:hover {
+    background-color: #5d93ff;
+}
+
+/* 響應式調整 */
+@media (max-width: 500px) {
+    .card-register-container {
+        padding: 30px 15px;
+    }
+    .register-submit-btn {
+        width: 100%;
+    }
+    .security-input-group input {
+        max-width: 100%;
+    }
+}

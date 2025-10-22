@@ -1,0 +1,165 @@
+body{
+    font-family: sans-serif;
+    margin: 0;
+}
+
+/* ========================================================= */
+/* 支払い方法を選択 (Select for Pay) 專用 CSS */
+/* ========================================================= */
+
+.payment-select-page-wrapper {
+    width: 90%;
+    max-width: 600px; /* 集中在頁面中央 */
+    margin: 50px auto 100px auto; /* 確保頂部和底部有邊距 */
+    padding: 0 20px;
+}
+
+.page-main-title {
+    font-size: 28px;
+    font-weight: bold;
+    margin: 0 0 40px 0;
+    text-align: center;
+    color: #333;
+}
+
+.payment-box {
+    width: 100%;
+    padding: 30px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+    background-color: #fff;
+}
+
+/* 訂單總結卡片 */
+.order-summary-card {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 20px;
+    margin-bottom: 30px;
+    border-bottom: 1px solid #ccc;
+}
+
+.item-info {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.creator-avatar {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid #226CFF;
+}
+
+.text-details {
+    display: flex;
+    flex-direction: column;
+}
+
+.product-title {
+    font-size: 16px;
+    font-weight: bold;
+    margin: 0;
+    color: #333;
+}
+
+.membership-detail {
+    font-size: 13px;
+    color: #555;
+    margin: 5px 0 0 0;
+}
+
+.price-info {
+    text-align: right;
+}
+
+.price-value {
+    font-size: 16px;
+    font-weight: bold;
+    color: #226CFF;
+    margin: 0;
+}
+
+
+/* 支付選項按鈕區 */
+.payment-options-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-bottom: 30px;
+}
+
+.option-btn {
+    width: 100%;
+    padding: 15px 0;
+    border: 1px solid #226CFF;
+    border-radius: 5px;
+    background-color: white;
+    color: #226CFF;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.option-btn:hover {
+    background-color: #e6f0ff;
+}
+
+/* 註釈及說明 */
+.payment-notes {
+    font-size: 12px;
+    color: #888;
+    padding: 15px;
+    border: 1px solid #ffcc00; /* 警告邊框 */
+    border-radius: 5px;
+    background-color: #fffacd; /* 淺黃色背景 */
+    margin-bottom: 30px;
+}
+
+.payment-notes p {
+    margin: 0 0 5px 0;
+}
+
+/* 最終購買按鈕 */
+.purchase-action {
+    text-align: center;
+}
+
+.purchase-btn {
+    width: 80%;
+    max-width: 300px;
+    padding: 15px 0;
+    border: none;
+    border-radius: 5px;
+    background-color: #226CFF;
+    color: white;
+    font-size: 18px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.purchase-btn:hover {
+    background-color: #4e89ff;
+}
+
+/* 響應式調整 */
+@media (max-width: 500px) {
+    .order-summary-card {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 15px;
+    }
+    .price-info {
+        width: 100%;
+        text-align: left;
+    }
+    .purchase-btn {
+        width: 100%;
+    }
+}

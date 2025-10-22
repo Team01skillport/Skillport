@@ -1,0 +1,170 @@
+body{
+    font-family: sans-serif;
+    margin: 0;
+    background-color: #f0f0f0; 
+}
+
+/* ========================================================= */
+/* 銀行口座一覧 (Bank Account List) 專用 CSS */
+/* ========================================================= */
+
+.bank-list-page-container {
+    width: 90%;
+    max-width: 1000px; /* 寬度稍微放寬以容納多欄位 */
+    margin: 50px auto; 
+    padding: 0 20px;
+    background-color: white; /* 列表區塊背景 */
+    border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+    padding-bottom: 30px;
+}
+
+.bank-list-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-bottom: 25px;
+    border-bottom: 3px solid #000000;
+    padding-top: 30px;
+    padding-bottom: 5px;
+}
+
+.bank-list-header .main-title {
+    font-size: 24px;
+    font-weight: bold;
+    margin: 0;
+    padding-left: 0;
+}
+
+/* 新增註冊按鈕 */
+.register-new-btn {
+    padding: 8px 15px;
+    font-size: 14px;
+    font-weight: bold;
+    color: white;
+    background-color: #226CFF;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+    white-space: nowrap;
+}
+
+.register-new-btn:hover {
+    background-color: #4e89ff;
+}
+
+.bank-account-list-wrapper {
+    width: 100%;
+    /* 移除外層邊框，讓列表本身更像表格 */
+}
+
+/* 列表項目 (使用 CSS Grid 模擬表格) */
+.account-item {
+    display: grid;
+    /* 註釈: 6 欄佈局 - 確保 action 欄位夠寬，其他欄位自適應 */
+    grid-template-columns: 1fr 2fr 1.5fr 1.5fr 1fr 1.5fr; 
+    align-items: center;
+    padding: 10px 0;
+    border-bottom: 1px solid #eee;
+    font-size: 13px;
+}
+
+.account-item:hover:not(.header) {
+    background-color: #fcfcfc;
+}
+
+/* 表格標頭樣式 */
+.account-item.header {
+    font-weight: bold;
+    color: #555;
+    border-bottom: 2px solid #ccc;
+    padding-bottom: 12px;
+}
+
+/* 內容欄位樣式 */
+.account-item span {
+    padding: 0 5px;
+}
+
+/* 操作按鈕群組 */
+.account-item .col-actions {
+    display: flex;
+    gap: 5px;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+/* 預設狀態項目樣式 */
+.default-item {
+    background-color: #f7f7ff; /* 淺藍色背景突出預設項 */
+}
+
+/* 操作按鈕樣式 */
+.action-btn {
+    padding: 4px 8px;
+    font-size: 12px;
+    border-radius: 3px;
+    cursor: pointer;
+    font-weight: 500;
+    transition: background-color 0.2s;
+    white-space: nowrap;
+    border: 1px solid #ccc;
+    background-color: #f0f0f0;
+    color: #333;
+}
+
+.set-btn { /* 変更 (修改/設定) */
+    color: #226CFF;
+}
+
+.delete-btn { /* 削除 (刪除) */
+    color: #d9534f;
+}
+
+.default-badge { /* 既定 (預設) 標籤 */
+    background-color: #ff9800; 
+    color: white;
+    border: none;
+    font-weight: bold;
+}
+
+
+/* 響應式調整 */
+@media (max-width: 768px) {
+    .bank-list-page-container {
+        max-width: 100%;
+    }
+    
+    /* 堆疊佈局：當螢幕較小時，將表格模擬為堆疊卡片 */
+    .account-item {
+        grid-template-columns: 1fr; /* 單列佈局 */
+        padding: 15px;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        margin-bottom: 10px;
+        background-color: #fbfbfb;
+    }
+    
+    .account-item.header {
+        display: none; /* 隱藏標頭 */
+    }
+    
+    .account-item span {
+        display: block;
+        padding: 2px 0;
+        text-align: left;
+    }
+
+    /* 在小螢幕上，為每個數據項添加標籤前綴 */
+    .account-item .col-type::before { content: "表示名: "; font-weight: bold; color: #555; }
+    .account-item .col-bank::before { content: "金融機関名: "; font-weight: bold; color: #555; }
+    .account-item .col-number::before { content: "口座番号: "; font-weight: bold; color: #555; }
+    .account-item .col-name::before { content: "名義人: "; font-weight: bold; color: #555; }
+    .account-item .col-date::before { content: "登録時期: "; font-weight: bold; color: #555; }
+    
+    .account-item .col-actions {
+        justify-content: flex-start;
+        margin-top: 10px;
+    }
+}

@@ -1,0 +1,45 @@
+<head>
+    <link rel="stylesheet" href="../../static/css/my_page_support.css" /> 
+</head>
+<div class="support-page-container">
+    
+    <h1 class="support-main-title">カスタマーサポート</h1>
+    
+    <div class="support-content-wrapper">
+        <h2 class="section-title">お問い合わせフォーム</h2>
+        
+        <form class="contact-form">
+            <div class="form-group">
+                <label for="name">ユーザー名前</label>
+                <input type="text" id="name" name="name" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="email">メールアドレス</label>
+                <input type="email" id="email" name="email" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="category">お問い合わせカテゴリ</label>
+                <select id="category" name="category" required>
+                    <option value="">選択してください</option>
+                    <option value="billing">支払い・請求について</option>
+                    <option value="account">アカウント情報について</option>
+                    <option value="report">違反報告・その他</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="details">お問い合わせ内容</label>
+                <textarea id="details" name="details" rows="6" required></textarea>
+            </div>
+            
+            <button type="submit" class="submit-btn">送信する</button>
+        </form>
+
+        <div class="faq-link-area">
+            <h2 class="section-title">よくある質問 (FAQ)</h2>
+            <p>お問い合わせの前に、<a href="#faq">FAQページ</a>をご確認ください。すぐに解決できる場合があります。</p>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,106 @@
+<head>
+    <link rel="stylesheet" href="../../static/css/my_page_cards.css" /> 
+</head>
+<div class="cards-page-container">
+    <div class="card-list-header">
+        <h1 class="content-list-title">カード一覧</h1> 
+        <button class="register-card-btn" id="openCardModal">カード登録</button>
+    </div>
+
+    <div class="card-list-wrapper">
+        <div class="card-item">
+            <div class="card-data">
+                <div class="data-row"><span class="label">カードタイプ</span> VISAカード</div>
+                <div class="data-row"><span class="label">カード番号</span> ****_****_****_5678</div>
+                <div class="data-row"><span class="label">有効期限</span> 06/2030</div>
+                <div class="data-row"><span class="label">名義人</span> SYOKOU KINOSHITA</div>
+                <div class="data-row"><span class="label">登録時期</span> 2030/08/19</div>
+            </div>
+            <div class="card-actions">
+                <span class="default-badge">既定</span>
+                <button class="action-btn edit-btn">編集</button>
+                <button class="action-btn delete-btn">削除</button>
+            </div>
+        </div>
+        <div class="card-item">
+            <div class="card-data">
+                <div class="data-row"><span class="label">カードタイプ</span> VISAカード</div>
+                <div class="data-row"><span class="label">カード番号</span> ****_****_****_5678</div>
+                <div class="data-row"><span class="label">有効期限</span> 06/2030</div>
+                <div class="data-row"><span class="label">名義人</span> SYOKOU KINOSHITA</div>
+                <div class="data-row"><span class="label">登録時期</span> 2030/08/19</div>
+            </div>
+            <div class="card-actions">
+                <button class="action-btn default-set-btn">設定</button>
+                <button class="action-btn edit-btn">編集</button>
+                <button class="action-btn delete-btn">削除</button>
+            </div>
+        </div>
+        <div class="card-item">
+            <div class="card-data">
+                <div class="data-row"><span class="label">カードタイプ</span> VISAカード</div>
+                <div class="data-row"><span class="label">カード番号</span> ****_****_****_5678</div>
+                <div class="data-row"><span class="label">有効期限</span> 06/2030</div>
+                <div class="data-row"><span class="label">名義人</span> SYOKOU KINOSHITA</div>
+                <div class="data-row"><span class="label">登録時期</span> 2030/08/19</div>
+            </div>
+            <div class="card-actions">
+                <button class="action-btn default-set-btn">設定</button>
+                <button class="action-btn edit-btn">編集</button>
+                <button class="action-btn delete-btn">削除</button>
+            </div>
+        </div>
+    </div>
+    
+    <div id="cardRegisterModal" class="modal">
+        <div class="modal__backdrop"></div>
+        <div class="modal__card card-register-card">
+            <button class="modal__close" aria-label="Close modal">×</button>
+            <h2 class="register-form-title">新しいクレジットカードを登録</h2>
+            <form class="register-card-form">
+                <div class="form-group">
+                    <input type="text" id="cardNumber" name="cardNumber" 
+                           placeholder="例：182377128971287" required>
+                </div>
+                <div class="form-group">
+                    <input type="text" id="cardHolderName" name="cardHolderName" 
+                           placeholder="例：KINOSHITA SYOKOU" required>
+                </div>
+                <label class="form-label-small">有効期限</label>
+                <div class="form-group expiry-group">
+                    <input type="text" id="expiryMonth" name="expiryMonth" placeholder="" required pattern="\d{2}">
+                    <span class="expiry-separator">/</span>
+                    <input type="text" id="expiryYear" name="expiryYear" placeholder="" required pattern="\d{4}">
+                </div>
+                <label class="form-label-small">セキュリティコード</label>
+                <div class="form-group">
+                    <input type="text" id="securityCode" name="securityCode" 
+                           placeholder="例：564" required pattern="\d{3,4}">
+                </div>
+                <div class="form-actions-modal">
+                    <button type="submit" class="register-submit-btn">登録する</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    
+    <script>
+        const openModalBtn = document.getElementById('openCardModal');
+        const modal = document.getElementById('cardRegisterModal');
+        const closeBtn = modal ? modal.querySelector('.modal__close') : null;
+        const backdrop = modal ? modal.querySelector('.modal__backdrop') : null;
+
+        function openModal() { if (modal) { modal.classList.add('is-open'); document.body.classList.add('modal-open'); } }
+        function closeModal() { if (modal) { modal.classList.remove('is-open'); document.body.classList.remove('modal-open'); } }
+
+        if (openModalBtn) openModalBtn.addEventListener('click', openModal);
+        if (closeBtn) closeBtn.addEventListener('click', closeModal);
+        if (backdrop) backdrop.addEventListener('click', closeModal);
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && modal && modal.classList.contains('is-open')) {
+                closeModal();
+            }
+        });
+    </script>
+</div>

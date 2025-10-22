@@ -1,0 +1,111 @@
+body{
+    font-family: sans-serif;
+    margin: 0;
+    /* 註釈: 設定灰色背景，讓中間的白色盒子更突出 */
+    background-color: #f0f0f0; 
+}
+
+/* ========================================================= */
+/* アカウント削除 (Account Deletion) 專用 CSS */
+/* ========================================================= */
+
+.account-delete-page-wrapper {
+    /* 全屏居中 */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh; /* 確保至少佔據視窗高度 */
+    width: 100%;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+.delete-confirmation-box {
+    width: 100%;
+    max-width: 450px; /* 限制盒子寬度 */
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    padding: 40px;
+    text-align: center;
+}
+
+.main-title {
+    font-size: 28px;
+    font-weight: bold;
+    margin-bottom: 30px;
+    color: #333;
+}
+
+.confirmation-form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px; /* 輸入框間距 */
+}
+
+.form-group {
+    width: 100%;
+}
+
+/* 輸入框樣式 */
+.confirmation-form input[type="email"],
+.confirmation-form input[type="password"] {
+    width: 100%;
+    padding: 12px 15px;
+    border: 1px solid #ccc;
+    border-radius: 30px; /* 圓角輸入框 */
+    box-sizing: border-box;
+    font-size: 16px;
+    text-align: center; /* 輸入文字居中 */
+    transition: border-color 0.2s;
+}
+
+.confirmation-form input:focus {
+    border-color: #226CFF;
+    outline: none;
+}
+
+.form-actions {
+    margin-top: 25px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+/* 刪除按鈕 (紅色) */
+.delete-btn {
+    width: 100%;
+    padding: 15px 0;
+    border: none;
+    border-radius: 5px;
+    font-weight: bold;
+    cursor: pointer;
+    background-color: #e75c49; /* 紅色/橙色，警告色 */
+    color: white;
+    font-size: 18px;
+    transition: background-color 0.2s;
+}
+
+.delete-btn:hover {
+    background-color: #d9534f;
+}
+
+/* 返回按鈕 (藍色) */
+.back-btn {
+    display: block;
+    width: 100%;
+    padding: 15px 0;
+    text-decoration: none;
+    border: none;
+    border-radius: 5px;
+    font-weight: bold;
+    cursor: pointer;
+    background-color: #427df0; /* 藍色 */
+    color: white;
+    font-size: 18px;
+    transition: background-color 0.2s;
+}
+
+.back-btn:hover {
+    background-color: #5d93ff;
+}
