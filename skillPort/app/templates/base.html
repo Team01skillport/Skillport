@@ -16,7 +16,7 @@
         <li>
           <a href="{{ url_for('account.register_form')}}">アカウント登録</a>
         </li>
-        <li><a href="login.html">ログイン</a></li>
+        <li><a href="{{ url_for('auth.login_form')}}">ログイン</a></li>
       </ul>
       <a href="#">
         <img
@@ -46,7 +46,11 @@
           </li>
           <!-- before: <li><a href="#">カテゴリ一</a></li> -->
           <li class="dropdown" id="nav-category">
-            <a href="#" class="dropdown-toggle">カテゴリ一</a>
+            <a
+              href="{{ url_for('category.category_list')}}"
+              class="dropdown-toggle"
+              >カテゴリ一</a
+            >
             <ul class="dropdown-menu">
               <li><a href="#">アニメーション</a></li>
               <li><a href="#">音楽</a></li>

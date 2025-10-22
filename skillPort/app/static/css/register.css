@@ -11,6 +11,14 @@ body {
   height: 90vh;
 }
 
+main {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  max-height: 71vh;
+  height: 100%;
+}
+
 .login-container {
   background-color: rgb(255, 255, 255);
   color: rgb(0, 0, 0);
