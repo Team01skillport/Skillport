@@ -6,33 +6,63 @@ content %}
   <div class="mypage-sidebar">
     <h1 class="mypage-title">マイページ</h1>
     <ul class="mypage-nav-list">
-      <li>
-        <a href="#history" value="view_history" class="active">視聴履歴</a>
-      </li>
-      <li><a href="#likes" value="likes_list">いいね</a></li>
-      <li><a href="#sales" value="sales_list">売り上げ確認</a></li>
-      <li>
-        <a href="#membership" value="membership_list">メンバーシップ一覧</a>
-      </li>
-      <li><a href="#bank" value="bank_account_register">銀行口座登録</a></li>
-      <li><a href="#favorites" value="favorites">お気に入り</a></li>
-      <li>
-        <a href="#password" value="password_reset">パスワードのリセット</a>
-      </li>
-      <li><a href="#payments" value="payment_history">支払い履歴</a></li>
-      <li><a href="#cards" value="card_list">カード一覧</a></li>
-      <li>
-        <a href="#support" value="customer_support">カスタマーサポート</a>
-      </li>
-      <li><a href="#notifications" value="notifications">お知らせ</a></li>
-      <li>
-        <a href="#delete-account" value="delete_account" class="delete-link"
-          >アカウント削除</a
-        >
-      </li>
+      <nav>
+        <li>
+          <a href="" data-target="view_history" class="menu_link">視聴履歴</a>
+        </li>
+        <li>
+          <a href="" data-target="likes_list" class="menu_link">いいね</a>
+        </li>
+        <li>
+          <a href="" data-target="sales_list" class="menu_link">売り上げ確認</a>
+        </li>
+        <li>
+          <a href="" data-target="membership_list" class="menu_link"
+            >メンバーシップ一覧</a
+          >
+        </li>
+        <li>
+          <a href="" class="menu_link" data-target="bank_account_register">
+            銀行口座登録
+          </a>
+        </li>
+        <li>
+          <a href="" data-target="favories_list" class="menu_link"
+            >お気に入り</a
+          >
+        </li>
+        <li>
+          <a href="" data-target="password_reset" class="menu_link"
+            >パスワードのリセット</a
+          >
+        </li>
+        <li>
+          <a href="" data-target="payment_history" class="menu_link"
+            >支払い履歴</a
+          >
+        </li>
+        <li>
+          <a href="" data-target="card_list" class="menu_link">カード一覧</a>
+        </li>
+        <li>
+          <a href="" data-target="customer_support" class="menu_link"
+            >カスタマーサポート</a
+          >
+        </li>
+        <li>
+          <a href="" data-target="notifications" class="menu_link">お知らせ</a>
+        </li>
+        <li>
+          <a href="" data-target="delete_account" class="menu_link"
+            >アカウント削除</a
+          >
+        </li>
+      </nav>
     </ul>
   </div>
+  <div id="main_content"></div>
 </div>
-{% endblock %}
+
 <script src="../../static/js/jquery-3.7.0.min.js"></script>
 <script src="../../static/js/my_page.js"></script>
+{% endblock %}
