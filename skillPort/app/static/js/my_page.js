@@ -8,8 +8,8 @@ $(".menu_link").on("click", function (e) {
     dataType: "html",
     method: "GET",
   })
-    .done(function (response) {
-      $("#main-content").html(response);
+    .done(function (data) {
+      $("#main-content").html(data);
     })
     .fail(function () {
       console.log("FAILED");

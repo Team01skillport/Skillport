@@ -6,11 +6,20 @@ body {
 /* ========================================================= */
 /* マイページ (My Page) 基礎佈局 */
 /* ========================================================= */
+.main-container {
+  display: flex;
+}
+
+#main_content {
+  width: 100%;
+  max-width: 70vw;
+  margin: 3rem 7rem 3rem 3rem;
+}
 
 .mypage-container {
-  width: 90%;
-  max-width: 1200px;
-  margin: 30px auto 50px auto;
+  width: auto;
+  max-width: 30vw;
+  margin: 30px 0 50px 7rem;
   padding: 0 20px;
   display: flex; /* 啟用 Flexbox 進行側邊欄和內容區域佈局 */
   gap: 40px; /* 側邊欄和內容之間的間距 */
