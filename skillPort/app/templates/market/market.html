@@ -71,12 +71,30 @@
 
 {# ================= ページ固有のJS ================= #}
 {% block scripts %}
+  {# 
+    1. 修正了路径
+    2. 把它们从文件末尾移到了这里
+  #}
+
+  {# 
+    !! 关键 !!
+    我们在这里定义JS变量, 把 Flask 的 URL 传递给 market.js
+  #}
   <script>
+    /* * 为 market.js 提供它无法知道的 Flask 路径:
+     * 1. 静态 media 文件夹的 URL (用于图片)
+     * 2. 商品详情页的基础 URL (用于点击)
+     */
     var STATIC_MEDIA_URL = "{{ url_for('static', filename='media/') }}";
+    
+    /* * 我们通过 'product_id=0' 生成一个模板 URL, 
+     * 然后用 JS 去掉 '0'，得到基础路径: "/market/product/"
+     */
     var PRODUCT_DETAIL_URL_BASE = "{{ url_for('market.product_detail', product_id=0) }}".replace('0', '');
   </script>
 
   {# 
+    您原来的 index.js (如果 base.html 没加载, 就保留它)
     <script src="{{ url_for('static', filename='js/index.js') }}"></script> 
   #}
   <script src="{{ url_for('static', filename='js/market.js') }}" defer></script>

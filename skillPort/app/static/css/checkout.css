@@ -2,34 +2,12 @@
 *{ box-sizing:border-box; }
 body{ margin:0; color:#111; font-family:system-ui,-apple-system,"Noto Sans JP",Arial,sans-serif; }
 
-/* ===== ヘッダー（既存デザイン準拠） ===== */
-#profile{ display:flex; align-items:center; position:absolute; right:0; margin-right:1vw; margin-top:.5vw; }
-#profile ul{ display:flex; list-style:none; margin:0; padding:0; font-weight:700; font-size:12px; }
-#profile ul li{ padding:0 10px; }
-#profile ul li:not(:last-child){ border-right:2px solid #000; }
-#profile li a{ text-decoration:none; color:#333; }
-#profile img{ width:25px; }
-
-#header_cap{ padding-top:48px; }
-#header{ display:flex; align-items:center; justify-content:center; position:sticky; top:5px; z-index:100; }
-#header img{ width:115px; }
-#header .container{
-  display:flex; align-items:center; justify-content:center; gap:24px;
-  background:#226CFF; height:56px; width:860px;
-  border-radius:999px; overflow:visible;
-}
-#header ul{ display:flex; list-style:none; margin:0; padding:0; font-size:16px; font-weight:800; height:100%; }
-#header ul li a{ display:flex; align-items:center; height:100%; text-decoration:none; color:#fff; padding:0 28px; white-space:nowrap; }
-#header ul li a:hover,#header ul li a.is-active{ background:#4e89ff; }
-#header .search{ display:flex; align-items:center; gap:8px; }
-#header .search input{ padding:6px 12px; font-size:14px; border:1px solid #ccc; border-radius:20px; }
-#header .search button{ padding:6px 12px; font-size:14px; font-weight:bold; cursor:pointer; background:transparent; border:1.5px solid #fff; color:#fff; border-radius:6px; }
-#header .search button:hover{ background:#fff; color:#5d5d5d; }
-#header .dropdown{ position:relative; }
-#header .dropdown-menu{ display:none; position:absolute; top:100%; left:0; min-width:150px; box-shadow:0 4px 10px rgba(0,0,0,.1); z-index:1000; background:#fff; }
-#header .dropdown-menu li a{ display:block; padding:8px 12px; color:#000; text-decoration:none; line-height:2; }
-#header .dropdown-menu li a:hover{ background:#e6e6e6; }
-#header .dropdown.open>.dropdown-menu{ display:block; }
+/* ===== ヘッダー（既存デザイン準拠） =====
+  !! 注意 !!
+  base.css と重複するため、
+  ここの #profile, #header_cap, #header のスタイル は
+  すべて削除されました。
+*/
 
 /* ===== ページ ===== */
 .page{ max-width:1100px; margin:24px auto 80px; padding:0 16px; }
@@ -95,8 +73,11 @@ body{ margin:0; color:#111; font-family:system-ui,-apple-system,"Noto Sans JP",A
 
 .note{ font-size:12px; color:#6b7280; margin:8px 4px 0; }
 
-/* ===== フッター ===== */
-footer{ margin-top:40px; background:#226CFF; color:#fff; text-align:center; padding:14px 0; }
+/* ===== フッター =====
+  !! 注意 !!
+  base.css と重複するため、
+  ここの footer のスタイル は削除されました。
+*/
 
 /* ===== レスポンシブ ===== */
 @media (max-width: 960px){

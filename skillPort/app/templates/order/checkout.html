@@ -1,73 +1,38 @@
-<!DOCTYPE html>
-<html lang="ja">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>購入手続き | SkillPort</title>
+{% extends "base.html" %}
 
-  <!-- ページ専用CSS -->
-  <link rel="stylesheet" href="../../static/css/checkout.css" />
-</head>
-<body>
-  <!-- ============== ヘッダー ============== -->
-  <div id="profile">
-    <ul>
-      <li><a href="../register.html">アカウント登録</a></li>
-      <li><a href="../login.html">ログイン</a></li>
-    </ul>
-    <a href="#"><img src="../../static/media/profile_icon.png" alt="プロフィールアイコン"></a>
-  </div>
+{# ================= ページのタイトル ================= #}
+{% block title %}
+購入手続き | SkillPort
+{% endblock %}
 
-  <div id="header_cap"></div>
+{# ================= ページ固有のCSS ================= #}
+{% block styles %}
+  {# ページ専用CSSのパスを url_for を使って修正 #}
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/checkout.css') }}" />
+{% endblock %}
 
-  <div id="header">
-    <a href="../index.html">
-      <img src="../../static/media/skill-port-logo.png" alt="SkillPort ロゴ">
-    </a>
-
-    <div class="container">
-      <ul>
-        <li><a href="#">プロフィール</a></li>
-        <li><a href="../market/market.html">マーケット</a></li>
-        <li><a href="#">コミュニティー</a></li>
-        <li class="dropdown" id="nav-category">
-          <a href="#" class="dropdown-toggle">カテゴリ一</a>
-          <ul class="dropdown-menu">
-            <li><a href="#">アニメーション</a></li>
-            <li><a href="#">音楽</a></li>
-            <li><a href="#">カメラ</a></li>
-            <li><a href="#">フィットネス</a></li>
-            <li><a href="#">英語</a></li>
-            <li><a href="#">プログラミング</a></li>
-          </ul>
-        </li>
-      </ul>
-
-      <form action="#" method="get" class="search">
-        <input type="text" name="q" placeholder="検索..." />
-        <button type="submit">検索</button>
-      </form>
-    </div>
-  </div>
-  <!-- /ヘッダー -->
-
+{# ================= メインコンテンツ ================= #}
+{% block content %}
   <main class="page">
     <h1 class="page-title">購入手続き</h1>
 
     <div class="grid">
-      <!-- 左側：明細 & 入力 -->
       <section class="left">
-        <!-- 商品行 -->
         <div class="product-row">
-          <img src="../../static/media/book.jpg" alt="商品画像" class="thumb">
+          {# 
+            注意: 静的パスとリンクを url_for ヘルパーで修正。
+            実際にはここの '1' や 'book.jpg' は、
+            ルーティング関数から渡される商品オブジェクトの変数に置き換えます。
+          #}
+          <img src="{{ url_for('static', filename='media/book.jpg') }}" alt="商品画像" class="thumb">
           <div class="meta">
             <p class="title">国史教科書 第7版 検定合格 市販版 中学校社会用</p>
             <p class="price">¥1,700(税込)</p>
           </div>
-          <a class="link-edit" href="../market/product_detail.html">変更</a>
+          {# product_detail へのリンクを修正 #}
+          <a class="link-edit" href="{{ url_for('market.product_detail', product_id=1) }}">変更</a>
         </div>
 
-        <!-- 支払い方法 -->
         <div class="block">
           <div class="block-head">
             <h2>支払い方法</h2>
@@ -84,7 +49,6 @@
             <span class="select-icon">▾</span>
           </div>
 
-          <!-- クレカフォーム（ダミー/静的） -->
           <form class="card-form" id="cardForm">
             <label>カード番号
               <input type="text" inputmode="numeric" placeholder="1234 5678 9012 3456" maxlength="19">
@@ -103,7 +67,6 @@
           </form>
         </div>
 
-        <!-- 配送先 -->
         <div class="block">
           <div class="block-head">
             <h2>配送先</h2>
@@ -119,7 +82,6 @@
         </div>
       </section>
 
-      <!-- 右側：注文サマリー -->
       <aside class="right">
         <div class="summary">
           <div class="row">
@@ -145,10 +107,10 @@
       </aside>
     </div>
   </main>
+{% endblock %}
 
-  <footer>©copyright SkillPort2025</footer>
-
-  <!-- JS -->
-  <script src="../../static/js/checkout.js" defer></script>
-</body>
-</html>
+{# ================= ページ固有のJS ================= #}
+{% block scripts %}
+  {# ページ専用JSのパスを url_for を使って修正 #}
+  <script src="{{ url_for('static', filename='js/checkout.js') }}" defer></script>
+{% endblock %}

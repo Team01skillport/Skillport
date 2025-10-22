@@ -1,93 +1,52 @@
-<!DOCTYPE html>
-<html lang="ja">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>出品中の商品詳細情報 - SkillPort</title>
+{% extends "base.html" %}
 
-  <!-- 共通スタイル（ヘッダー／フッター等） -->
-  <link rel="stylesheet" href="../../static/css/index.css">
-  <!-- 本ページ専用スタイル -->
-  <link rel="stylesheet" href="../../static/css/product_detail_edit.css">
-</head>
-<body>
+{# ================= ページのタイトル ================= #}
+{% block title %}
+出品中の商品詳細情報 - SkillPort
+{% endblock %}
 
-  <!-- ===== 上部プロフィール帯（共通） ===== -->
-  <div id="profile">
-    <ul>
-      <li><a href="../../templates/account/register.html">アカウント登録</a></li>
-      <li><a href="../../templates/auth/login.html">ログイン</a></li>
-    </ul>
-    <a href="#"><img src="../../static/media/profile_icon.png" alt="profile"></a>
-  </div>
+{# ================= ページ固有のCSS ================= #}
+{% block styles %}
+  {# <link rel="stylesheet" href="{{ url_for('static', filename='css/index.css') }}"> #}
+  
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/product_detail_edit.css') }}">
+{% endblock %}
 
-  <div id="header_cap"></div>
 
-  <!-- ===== ヘッダー（共通ナビ） ===== -->
-  <div id="header">
-    <a href="../../templates/index.html">
-      <img src="../../static/media/skill-port-logo.png" alt="logo">
-    </a>
-
-    <div class="container">
-      <ul>
-        <li><a href="#">プロフィール</a></li>
-        <li><a href="market.html" class="is-active">マーケット</a></li>
-        <li><a href="#">コミュニティー</a></li>
-        <li class="dropdown" id="nav-category">
-          <a href="#" class="dropdown-toggle">カテゴリ一</a>
-          <ul class="dropdown-menu">
-            <li><a href="#">アニメーション</a></li>
-            <li><a href="#">音楽</a></li>
-            <li><a href="#">カメラ</a></li>
-            <li><a href="#">フィットネス</a></li>
-            <li><a href="#">英語</a></li>
-            <li><a href="#">プログラミング</a></li>
-          </ul>
-        </li>
-      </ul>
-
-      <!-- 検索（ダミー） -->
-      <form action="#" class="search">
-        <input type="text" placeholder="検索">
-        <button type="submit">検索</button>
-      </form>
-    </div>
-  </div>
-
-  <!-- ===== ページ本体 ===== -->
+{# ================= メインコンテンツ ================= #}
+{% block content %}
   <main class="pd-main">
     <div class="pd-container">
 
       <h1 class="pd-h1">出品中の商品詳細情報</h1>
 
-      <!-- 画像アップロード（最大20枚） -->
       <section class="pd-section">
         <div class="pd-sec-title">出品画像（最大20枚）</div>
 
-        <!-- サムネイルグリッド -->
         <div class="pd-image-grid" id="imageGrid">
-          <!-- 既存例：ダミー画像（サル） -->
           <div class="pd-thumb">
-            <img src="../../static/media/monkey.png" alt="thumb">
+            {# 
+              注意: 这里的图片路径也需要用 url_for 修正 
+              'media/monkey.png' 只是一个例子
+            #}
+            <img src="{{ url_for('static', filename='media/monkey.png') }}" alt="thumb">
           </div>
           <div class="pd-thumb">
-            <img src="../../static/media/monkey.png" alt="thumb">
+            <img src="{{ url_for('static', filename='media/monkey.png') }}" alt="thumb">
           </div>
           <div class="pd-thumb">
-            <img src="../../static/media/monkey.png" alt="thumb">
+            <img src="{{ url_for('static', filename='media/monkey.png') }}" alt="thumb">
           </div>
           <div class="pd-thumb">
-            <img src="../../static/media/monkey.png" alt="thumb">
+            <img src="{{ url_for('static', filename='media/monkey.png') }}" alt="thumb">
           </div>
           <div class="pd-thumb">
-            <img src="../../static/media/monkey.png" alt="thumb">
+            <img src="{{ url_for('static', filename='media/monkey.png') }}" alt="thumb">
           </div>
           <div class="pd-thumb">
-            <img src="../../static/media/monkey.png" alt="thumb">
+            <img src="{{ url_for('static', filename='media/monkey.png') }}" alt="thumb">
           </div>
 
-          <!-- 追加ボックス（クリックでファイル選択） -->
           <button class="pd-thumb add-slot" type="button" id="addImageBtn" aria-label="画像を追加">
             <span>＋</span><small>（画像を追加）</small>
           </button>
@@ -96,12 +55,10 @@
           </button>
         </div>
 
-        <!-- 非表示のファイル入力 -->
         <input type="file" id="imageInput" accept="image/*" multiple hidden>
         <div class="pd-note">※ 画像はドラッグ＆ドロップでも追加できます。最大20枚まで。</div>
       </section>
 
-      <!-- 商品名 -->
       <section class="pd-section">
         <label class="pd-sec-title" for="titleInput">商品名</label>
         <div class="pd-input-wrap">
@@ -110,7 +67,6 @@
         </div>
       </section>
 
-      <!-- 商品の詳細（カテゴリなど） -->
       <section class="pd-section">
         <div class="pd-sec-title">商品の詳細</div>
         <div class="pd-detail-row">
@@ -120,7 +76,6 @@
           <button class="pd-inline-btn" type="button" id="editCatBtn">変更する</button>
         </div>
 
-        <!-- 簡易：カテゴリ変更モーダル風の行（開閉） -->
         <div class="pd-detail-edit" id="catEdit" hidden>
           <select id="catLv1">
             <option>書籍</option><option>家電</option><option>楽器</option><option>スポーツ</option>
@@ -135,7 +90,6 @@
         </div>
       </section>
 
-      <!-- 商品の状態 -->
       <section class="pd-section">
         <div class="pd-sec-title">商品の状態</div>
         <div class="pd-detail-row">
@@ -158,7 +112,6 @@
         </div>
       </section>
 
-      <!-- 商品の説明 -->
       <section class="pd-section">
         <label class="pd-sec-title" for="descInput">商品の説明</label>
         <textarea id="descInput" rows="8" placeholder="この商品の状態や仕様等の詳細を記載してください。中古の場合は具体的にご記載ください。"></textarea>
@@ -167,7 +120,6 @@
         </div>
       </section>
 
-      <!-- 配送について -->
       <section class="pd-section">
         <div class="pd-sec-title">配送について</div>
 
@@ -211,7 +163,6 @@
         </div>
       </section>
 
-      <!-- 価格・手数料・利益 -->
       <section class="pd-section">
         <label class="pd-sec-title">販売価格を設定する</label>
 
@@ -236,7 +187,6 @@
         <div class="pd-help small">現在の手数料率：<b id="feeRateLabel">10%</b>（※JSで計算）</div>
       </section>
 
-      <!-- 操作ボタン -->
       <section class="pd-actions">
         <button class="pd-primary" id="saveBtn" type="button">変更する</button>
         <button class="pd-secondary" id="pauseBtn" type="button">出品を一時停止する</button>
@@ -245,10 +195,9 @@
 
     </div>
   </main>
+{% endblock %}
 
-  <footer>©copyright SkillPort2025</footer>
-
-  <!-- 本ページ用スクリプト -->
-  <script src="../../static/js/product_detail_edit.js" defer></script>
-</body>
-</html>
+{# ================= ページ固有のJS ================= #}
+{% block scripts %}
+  <script src="{{ url_for('static', filename='js/product_detail_edit.js') }}" defer></script>
+{% endblock %}

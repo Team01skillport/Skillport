@@ -8,6 +8,7 @@
       rel="stylesheet"
       href="{{url_for('static', filename='css/base.css')}}"
     />
+    {% block styles %}{% endblock %}
   </head>
   <body>
     <!-- ヘッダー -->
@@ -81,5 +82,6 @@
     </main>
     <!-- フッター -->
     <footer>©copyright SkillPort2025</footer>
+    {% block scripts %}{% endblock %}
   </body>
 </html>
