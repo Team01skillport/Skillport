@@ -1,114 +1,168 @@
 {% extends "base.html" %} {% block title %}コミュニティー{% endblock %} {% block
-    content %}
-    <head>
-      <link rel="stylesheet" href="../../static/css/profile.css" />
-    </head>
-    <main>
-        <div class="profile-section">
-            <img src="https://images.unsplash.com/photo-1540573133985-87b6da6d54a9?w=300&h=300&fit=crop" alt="プロフィール画像" class="profile-image">
-            
-            <div class="profile-info">
-                <div class="profile-header">
-                    <div>
-                        <h1 class="profile-name">しょうごくん</h1>
-                        <div class="profile-tags">
-                            <span class="tag">#プログラマー</span>
-                            <span class="tag">#デザイナー</span>
-                            <span class="tag">#シェフ</span>
-                        </div>
-                        <div class="profile-stats">
-                            <div class="stat">フォロワー<span class="stat-number">403</span></div>
-                            <div class="stat">フォロー<span class="stat-number">219</span></div>
-                            <div class="rating">★★★★☆</div>
-                        </div>
-                    </div>
-                    <div class="profile-actions">
-                        <button class="action-btn">マイページ</button>
-                        <button class="action-btn">編集</button>
-                    </div>
-                </div>
-                <div class="profile-bio">
-                    よろしくお願いします！
-                </div>
+content %}
+<head>
+  <link rel="stylesheet" href="../../static/css/profile.css" />
+</head>
+<main>
+  <div class="profile-section">
+    <img
+      src="https://images.unsplash.com/photo-1540573133985-87b6da6d54a9?w=300&h=300&fit=crop"
+      alt="プロフィール画像"
+      class="profile-image"
+    />
+
+    <div class="profile-info">
+      <div class="profile-header">
+        <div>
+          <h1 class="profile-name">しょうごくん</h1>
+          <div class="profile-tags">
+            <span class="tag">#プログラマー</span>
+            <span class="tag">#デザイナー</span>
+            <span class="tag">#シェフ</span>
+          </div>
+          <div class="profile-stats">
+            <div class="stat">
+              フォロワー<span class="stat-number">403</span>
             </div>
+            <div class="stat">フォロー<span class="stat-number">219</span></div>
+            <div class="rating">★★★★☆</div>
+          </div>
         </div>
+        <div class="profile-actions">
+          <a href="{{ url_for('my_page.my_page_top')}}"
+            ><button class="action-btn">マイページ</button></a
+          >
 
-        <div class="content-sections">
-            <div class="section">
-                <h2 class="section-title">動画</h2>
-                
-                <div class="video-card">
-                    <div class="video-thumbnail">
-                        <div class="play-icon">▶</div>
-                    </div>
-                    <div class="video-title">しょうごくんと楽しくイラストレーションずびしましょう！</div>
-                </div>
-
-                <div class="video-card">
-                    <div class="video-thumbnail blue">
-                        <div class="play-icon">▶</div>
-                    </div>
-                    <div class="video-title">しょうごくんと楽しくプログラミングを学びましょう！</div>
-                </div>
-
-                <div class="video-card">
-                    <div class="video-thumbnail">
-                        <div class="play-icon">▶</div>
-                    </div>
-                    <div class="video-title">しょうごくんと楽しくイラストレーションずびしましょう！</div>
-                </div>
-
-                <div class="video-card">
-                    <div class="video-thumbnail blue">
-                        <div class="play-icon">▶</div>
-                    </div>
-                    <div class="video-title">しょうごくんと楽しくプログラミングを学びましょう！</div>
-                </div>
-
-                <div class="video-card">
-                    <div class="video-thumbnail">
-                        <div class="play-icon">▶</div>
-                    </div>
-                    <div class="video-title">しょうごくんと楽しくイラストレーションずびしましょう！</div>
-                </div>
-            </div>
-
-            <div class="section">
-                <h2 class="section-title">投稿</h2>
-
-                <div class="post-card">
-                    <div class="post-header">
-                        <img src="https://images.unsplash.com/photo-1540573133985-87b6da6d54a9?w=80&h=80&fit=crop" alt="ユーザー" class="post-avatar">
-                        <div class="post-user-info">
-                            <div class="post-username">okura_masato0721 <span style="font-size: 12px; color: #666;">フォロバする</span> <span style="font-size: 12px;">🔥</span></div>
-                        </div>
-                    </div>
-                    <img src="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=600&h=600&fit=crop" alt="投稿画像" class="post-image">
-                    <div class="post-text">ああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああ</div>
-                </div>
-
-                <div class="post-card">
-                    <div class="post-header">
-                        <img src="https://images.unsplash.com/photo-1540573133985-87b6da6d54a9?w=80&h=80&fit=crop" alt="ユーザー" class="post-avatar">
-                        <div class="post-user-info">
-                            <div class="post-username">okura_masato0721 <span style="font-size: 12px; color: #666;">フォロバする</span> <span style="font-size: 12px;">🔥</span></div>
-                        </div>
-                    </div>
-                    <div class="post-text">ああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああ</div>
-                </div>
-
-                <div class="post-card">
-                    <div class="post-header">
-                        <img src="https://images.unsplash.com/photo-1540573133985-87b6da6d54a9?w=80&h=80&fit=crop" alt="ユーザー" class="post-avatar">
-                        <div class="post-user-info">
-                            <div class="post-username">okura_masato0721 <span style="font-size: 12px; color: #666;">フォロバする</span> <span style="font-size: 12px;">🔥</span></div>
-                        </div>
-                    </div>
-                    <img src="https://images.unsplash.com/photo-1540573133985-87b6da6d54a9?w=600&h=600&fit=crop" alt="投稿画像" class="post-image">
-                    <div class="post-text">ああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああ</div>
-                </div>
-            </div>
+          <button class="action-btn">編集</button>
         </div>
-    </main>
-    {% endblock %}
-    
+      </div>
+      <div class="profile-bio">よろしくお願いします！</div>
+    </div>
+  </div>
+
+  <div class="content-sections">
+    <div class="section">
+      <h2 class="section-title">動画</h2>
+
+      <div class="video-card">
+        <div class="video-thumbnail">
+          <div class="play-icon">▶</div>
+        </div>
+        <div class="video-title">
+          しょうごくんと楽しくイラストレーションずびしましょう！
+        </div>
+      </div>
+
+      <div class="video-card">
+        <div class="video-thumbnail blue">
+          <div class="play-icon">▶</div>
+        </div>
+        <div class="video-title">
+          しょうごくんと楽しくプログラミングを学びましょう！
+        </div>
+      </div>
+
+      <div class="video-card">
+        <div class="video-thumbnail">
+          <div class="play-icon">▶</div>
+        </div>
+        <div class="video-title">
+          しょうごくんと楽しくイラストレーションずびしましょう！
+        </div>
+      </div>
+
+      <div class="video-card">
+        <div class="video-thumbnail blue">
+          <div class="play-icon">▶</div>
+        </div>
+        <div class="video-title">
+          しょうごくんと楽しくプログラミングを学びましょう！
+        </div>
+      </div>
+
+      <div class="video-card">
+        <div class="video-thumbnail">
+          <div class="play-icon">▶</div>
+        </div>
+        <div class="video-title">
+          しょうごくんと楽しくイラストレーションずびしましょう！
+        </div>
+      </div>
+    </div>
+
+    <div class="section">
+      <h2 class="section-title">投稿</h2>
+
+      <div class="post-card">
+        <div class="post-header">
+          <img
+            src="https://images.unsplash.com/photo-1540573133985-87b6da6d54a9?w=80&h=80&fit=crop"
+            alt="ユーザー"
+            class="post-avatar"
+          />
+          <div class="post-user-info">
+            <div class="post-username">
+              okura_masato0721
+              <span style="font-size: 12px; color: #666">フォロバする</span>
+              <span style="font-size: 12px">🔥</span>
+            </div>
+          </div>
+        </div>
+        <img
+          src="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=600&h=600&fit=crop"
+          alt="投稿画像"
+          class="post-image"
+        />
+        <div class="post-text">
+          ああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああ
+        </div>
+      </div>
+
+      <div class="post-card">
+        <div class="post-header">
+          <img
+            src="https://images.unsplash.com/photo-1540573133985-87b6da6d54a9?w=80&h=80&fit=crop"
+            alt="ユーザー"
+            class="post-avatar"
+          />
+          <div class="post-user-info">
+            <div class="post-username">
+              okura_masato0721
+              <span style="font-size: 12px; color: #666">フォロバする</span>
+              <span style="font-size: 12px">🔥</span>
+            </div>
+          </div>
+        </div>
+        <div class="post-text">
+          ああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああ
+        </div>
+      </div>
+
+      <div class="post-card">
+        <div class="post-header">
+          <img
+            src="https://images.unsplash.com/photo-1540573133985-87b6da6d54a9?w=80&h=80&fit=crop"
+            alt="ユーザー"
+            class="post-avatar"
+          />
+          <div class="post-user-info">
+            <div class="post-username">
+              okura_masato0721
+              <span style="font-size: 12px; color: #666">フォロバする</span>
+              <span style="font-size: 12px">🔥</span>
+            </div>
+          </div>
+        </div>
+        <img
+          src="https://images.unsplash.com/photo-1540573133985-87b6da6d54a9?w=600&h=600&fit=crop"
+          alt="投稿画像"
+          class="post-image"
+        />
+        <div class="post-text">
+          ああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああ
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+{% endblock %}

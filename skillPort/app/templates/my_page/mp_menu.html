@@ -1,0 +1,38 @@
+{% extends "base.html" %} {% block title %}マイページ{% endblock %} {% block
+content %}
+<link rel="stylesheet" href="../../static/css/my_page_top.css" />
+<!-- メニューだけのCSSファイルが必要 -->
+<div class="mypage-container">
+  <div class="mypage-sidebar">
+    <h1 class="mypage-title">マイページ</h1>
+    <ul class="mypage-nav-list">
+      <li>
+        <a href="#history" value="view_history" class="active">視聴履歴</a>
+      </li>
+      <li><a href="#likes" value="likes_list">いいね</a></li>
+      <li><a href="#sales" value="sales_list">売り上げ確認</a></li>
+      <li>
+        <a href="#membership" value="membership_list">メンバーシップ一覧</a>
+      </li>
+      <li><a href="#bank" value="bank_account_register">銀行口座登録</a></li>
+      <li><a href="#favorites" value="favorites">お気に入り</a></li>
+      <li>
+        <a href="#password" value="password_reset">パスワードのリセット</a>
+      </li>
+      <li><a href="#payments" value="payment_history">支払い履歴</a></li>
+      <li><a href="#cards" value="card_list">カード一覧</a></li>
+      <li>
+        <a href="#support" value="customer_support">カスタマーサポート</a>
+      </li>
+      <li><a href="#notifications" value="notifications">お知らせ</a></li>
+      <li>
+        <a href="#delete-account" value="delete_account" class="delete-link"
+          >アカウント削除</a
+        >
+      </li>
+    </ul>
+  </div>
+</div>
+{% endblock %}
+<script src="../../static/js/jquery-3.7.0.min.js"></script>
+<script src="../../static/js/my_page.js"></script>
