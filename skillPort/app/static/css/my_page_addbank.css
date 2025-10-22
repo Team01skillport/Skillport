@@ -1,0 +1,143 @@
+body{
+    font-family: sans-serif;
+    margin: 0;
+    background-color: #f0f0f0; 
+}
+
+/* ========================================================= */
+/* 銀行口座登録 (Bank Account Registration) 專用 CSS */
+/* ========================================================= */
+
+.page-center-wrapper {
+    width: 100%; 
+    display: flex;
+    flex-direction: column; 
+    align-items: center; 
+    padding: 50px 0; 
+    min-height: 100vh; 
+    box-sizing: border-box;
+}
+
+.bank-register-container {
+    width: 100%;
+    max-width: 500px; 
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    padding: 40px 30px; 
+}
+
+/* 標題佈局 - 確保文字不折行且底線自適應 */
+.main-title-flex {
+    width: 100%;
+    text-align: left; 
+    margin-bottom: 30px;
+    padding-left: 10px; 
+}
+.main-title-flex span {
+    display: inline-block; 
+    font-size: 24px; 
+    font-weight: bold;
+    color: #333;
+    padding-bottom: 5px;
+    
+    border-bottom: 3px solid #000; 
+    white-space: nowrap; 
+}
+
+
+.bank-register-form {
+    width: 100%;
+    max-width: 450px; 
+    margin: 0 auto; 
+    padding: 0 10px; 
+}
+
+.bank-register-form .form-group {
+    margin-bottom: 25px;
+    text-align: left;
+}
+
+/* 標籤樣式 */
+.bank-register-form label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 5px; 
+    color: #333;
+    font-size: 16px; 
+    text-align: left;
+}
+
+/* 輸入框樣式 */
+.bank-register-form input[type="text"] {
+    width: 100%;
+    padding: 15px 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px; 
+    box-sizing: border-box;
+    font-size: 16px;
+    text-align: left; 
+}
+
+.bank-register-form input:focus {
+    border-color: #226CFF;
+    outline: none;
+}
+
+
+/* 提交/返回按鈕群組 */
+.form-actions {
+    margin-top: 30px;
+    display: flex; /* 修正點：使用 Flexbox */
+    justify-content: center; /* 居中對齊 */
+    gap: 15px; /* 按鈕間距 */
+}
+
+.action-btn {
+    width: 45%; /* 讓兩個按鈕平分寬度 */
+    max-width: 180px; /* 限制單個按鈕最大寬度 */
+    padding: 15px 0;
+    border: none;
+    border-radius: 5px;
+    font-size: 18px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.2s, color 0.2s, border-color 0.2s;
+    white-space: nowrap;
+}
+
+.save-btn { /* 登録・保存 按鈕 */
+    
+    background-color: #f0f0f0; /* 淺灰色 */
+    color: #333;
+    border: 1px solid #ccc; /* 邊框 */
+}
+
+.save-btn:hover {
+    background-color: #5d93ff;
+}
+
+.back-btn { /* 戻る 按鈕 */
+    background-color: #427df0; 
+    color: white;
+}
+
+.back-btn:hover {
+    background-color: #e0e0e0;
+    border-color: #bbb;
+}
+
+/* 響應式調整 */
+@media (max-width: 500px) {
+    .bank-register-container {
+        padding: 30px 15px;
+    }
+    .form-actions {
+        flex-direction: column; /* 小螢幕下按鈕垂直堆疊 */
+        gap: 10px;
+    }
+    .action-btn {
+        width: 100%; /* 小螢幕下按鈕佔滿寬度 */
+        max-width: 100%;
+    }
+}
