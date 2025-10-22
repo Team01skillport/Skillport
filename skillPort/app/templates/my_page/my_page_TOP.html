@@ -1,5 +1,5 @@
-<!DOCTYPE html> 
-<html lang="ja"> 
+{% extends "base.html" %} {% block title %}マイページ{% endblock %} {% block
+    content %}
   <head> 
     <meta charset="UTF-8"> 
     <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
@@ -7,44 +7,6 @@
     <link rel="stylesheet" href="../../static/css/my_page_top.css"> 
   </head> 
   <body> 
-    <div id="profile"> 
-      <ul> 
-        <li><a href="register.html">アカウント登録</a></li> 
-        <li><a href="login.html">ログイン</a></li> 
-      </ul> 
-      <a href="#"><img src="../static/media/profile_icon.png"></a> 
-    </div> 
-
-    <div id="header_cap"></div> 
-
-    <div id="header"> 
-      <a href="index.html"> 
-        <img src="../static/media/skill-port-logo.png" alt="logo"> 
-      </a>
-      <div class="container"> 
-        <ul> 
-          <li><a href="#">プロフィール</a></li> 
-          <li><a href="#">マーケット</a></li> 
-          <li><a href="#">コミュニティー</a></li> 
-          <li class="dropdown" id="nav-category"> 
-            <a href="#" class="dropdown-toggle">カテゴリ一</a> 
-            <ul class="dropdown-menu"> 
-              <li><a href="#">アニメーション</a></li> 
-              <li><a href="#">音楽</a></li> 
-              <li><a href="#">カメラ</a></li> 
-              <li><a href="#">フィットネス</a></li> 
-              <li><a href="#">英語</a></li> 
-              <li><a href="#">プログラミング</a></li> 
-            </ul> 
-          </li> 
-        </ul> 
-        <form action="/search" method="get" class="search"> 
-          <input type="text" name="q" placeholder="検索..." /> 
-          <button type="submit">検索</button> 
-        </form> 
-      </div> 
-    </div> 
-
     <div class="mypage-container">
         <div class="mypage-sidebar">
             <h1 class="mypage-title">マイページ</h1>
@@ -119,6 +81,6 @@
         </div>
     </div>
 
-    <footer>©copyright SkillPort2025</footer> 
+  {% endblock %}
   </body> 
 </html>
