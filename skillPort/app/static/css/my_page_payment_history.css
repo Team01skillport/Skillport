@@ -8,19 +8,23 @@ body {
 /* ========================================================= */
 
 .mypage-container {
-  width: 90%;
+  width: 200%; 
   max-width: 1200px;
-  margin: 30px auto 50px auto;
+  margin: 0 0 0 100px;
   padding: 0 20px;
-  display: flex; /* 啟用 Flexbox 進行側邊欄和內容區域佈局 */
-  gap: 40px; /* 側邊欄和內容之間的間距 */
+  display: flex; 
+  gap: 40px; 
 }
 
 /* 右側內容顯示區 (Content Area) */
 .mypage-content-area {
-  flex-grow: 1; /* 佔據所有剩餘空間 */
+  flex-grow: 1; 
   min-height: 500px;
   padding-top: 10px;
+  width: 200%;
+  max-width: 1200px;
+  margin: 0 0 0 800px;
+
 }
 
 /* 內容主標題 */
@@ -42,6 +46,8 @@ body {
   border-top: 1px solid #ccc;
   margin-bottom: 20px;
   max-width: 600px; /* 限制列表寬度 */
+  margin-left: 100px;
+  
 }
 
 .payment-item {
