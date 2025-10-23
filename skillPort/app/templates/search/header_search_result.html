@@ -1,12 +1,38 @@
 {% extends "base.html" %} {% block title %}アカウント登録{% endblock %} {% block
 content %}
 <head>
-  <link rel="stylesheet" href="../../static/css/index.css" />
+  <link
+    rel="stylesheet"
+    href="{{url_for('static', filename='css/header_search_result.css')}}"
+  />
 </head>
 <h2>{{search_word}}の検索結果：</h2>
-<ul>
+<ul class="item-grid">
   {% for item in search_results %}
-  <li>{{item.id}}{{item.video_title}}</li>
+  <li>
+    <a href="#" class="item-card">
+      <div class="item-image-container">
+        <img
+          src="../static/media/anime_placeholder.jpg"
+          alt="動畫課程封面"
+          class="item-image"
+        />
+        <div class="play-button">
+          <svg viewBox="0 0 24 24" fill="white" width="48px" height="48px">
+            <path d="M8 5v14l11-7z" />
+          </svg>
+        </div>
+        <p class="image-label">動画コース</p>
+      </div>
+      <div class="item-details">
+        <h2 class="item-title">{{item.video_title}}</h2>
+        <p class="item-description">{{item.video_description_section}}</p>
+        <p class="view-count">再生回数：{{item.view_count}}</p>
+        <p class="like-count">いいね数：{{item.like_count}}</p>
+        <p class="comment-cunt">コメント数：{{item.comment_count}}</p>
+      </div>
+    </a>
+  </li>
   {% endfor %}
 </ul>
 {% endblock %}
