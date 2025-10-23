@@ -1,4 +1,85 @@
 <head>
-  <link rel="stylesheet" href="../../static/css/community.css" />
+  <link rel="stylesheet" href="../../static/css/my_page_addbank.css" />
 </head>
-<h2>銀行口座登録</h2>
+
+<div class="page-center-wrapper">
+  <div class="bank-register-container">
+    <h1 class="main-title-flex">
+      <span>銀行口座情報登録</span>
+    </h1>
+
+    <form class="bank-register-form">
+      <div class="form-group">
+        <label for="bankName">銀行名</label>
+        <input
+          type="text"
+          id="bankName"
+          name="bankName"
+          placeholder="例：〇〇銀行"
+          required
+        />
+      </div>
+
+      <div class="form-group">
+        <label for="accountType">口座種別</label>
+        <input
+          type="text"
+          id="accountType"
+          name="accountType"
+          placeholder="例：普通 / 当座"
+          required
+        />
+      </div>
+
+      <div class="form-group">
+        <label for="branchCode">支店コード</label>
+        <input
+          type="text"
+          id="branchCode"
+          name="branchCode"
+          placeholder="例：123"
+          required
+          pattern="\d{3}"
+        />
+      </div>
+
+      <div class="form-group">
+        <label for="accountNumber">口座番号</label>
+        <input
+          type="text"
+          id="accountNumber"
+          name="accountNumber"
+          placeholder="例：1234567"
+          required
+        />
+      </div>
+
+      <div class="form-group">
+        <label for="lastName">口座名義 (セイ)</label>
+        <input
+          type="text"
+          id="lastName"
+          name="lastName"
+          placeholder="例：ヤマダ"
+          required
+        />
+      </div>
+
+      <div class="form-group">
+        <label for="firstName">口座名義 (メイ)</label>
+        <input
+          type="text"
+          id="firstName"
+          name="firstName"
+          placeholder="例：タロウ"
+          required
+        />
+      </div>
+
+      <div class="form-actions">
+        <button type="button" class="action-btn back-btn">保存</button>
+        <button type="submit" class="action-btn save-btn">戻る</button>
+      </div>
+    </form>
+  </div>
+</div>
