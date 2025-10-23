@@ -18,91 +18,79 @@
       
       <aside class="sidebar">
         
-        <div class="sidebar-title">
+        <button class="filter-btn active">更新</button>
+        
+        <button class="sidebar-toggle-btn" id="toggleFiltersBtn">
           <span>絞り込み</span>
           <span class="filter-icon">⬇</span>
-        </div>
-
-        <button class="filter-btn active">更新</button>
-
-        <div class="filter-section" id="categoryFilter">
-          <button class="filter-item toggle-filter-btn">
-            <span>カテゴリー</span><span class="arrow">＞</span>
-          </button>
-          
-          {# 
-            !!! 変更 !!!
-            ID を "categoryList" から "categoryListContainer" に変更
-            クラスを "subcategory-list" から "filter-list-container" に変更
-          #}
-          <div class="filter-content filter-list-container" id="categoryListContainer" style="display: none;">
-            </div>
-        </div>
-
-        <div class="filter-section" id="statusFilter">
-          <button class="filter-item toggle-filter-btn">
-            <span>販売状況</span><span class="arrow">＞</span>
-          </button>
-          <div class="filter-content" style="display: none;">
-            <div class="filter-checkbox-group">
-              <label>
-                <input type="checkbox" name="sale_status" value="on_sale">
-                販売中
-              </label>
-              <label>
-                <input type="checkbox" name="sale_status" value="sold_out">
-                売り切れ
-              </label>
-            </div>
-          </div>
-        </div>
+        </button>
         
-        <div class="filter-section" id="sellerFilter">
-          <button class="filter-item toggle-filter-btn">
-            <span>出品者</span><span class="arrow">＞</span>
-          </button>
-          <div class="filter-content" style="display: none;">
-            <p style="font-size: 14px; color: #888;">(未実装)</p>
+        <div id="filterSectionsContainer" style="display: none;"> 
+        
+          <div class="filter-section" id="categoryFilter">
+            <button class="filter-item toggle-filter-btn">
+              <span>カテゴリー</span><span class="arrow">＞</span>
+            </button>
+            <div class="filter-content filter-list-container" id="categoryListContainer" style="display: none;">
+              </div>
           </div>
-        </div>
 
-        <div class="filter-section" id="conditionFilter">
-          <button class="filter-item toggle-filter-btn">
-            <span>商品の状態</span><span class="arrow">＞</span>
-          </button>
-          <div class="filter-content" style="display: none;">
-            <div class="filter-checkbox-group">
-              <label><input type="checkbox" name="condition" value="new"> 新品、未使用</label>
-              <label><input type="checkbox" name="condition" value="like_new"> 未使用に近い</label>
-              <label><input type="checkbox" name="condition" value="good"> 目立った傷や汚れなし</label>
-              <label><input type="checkbox" name="condition" value="fair"> やや傷や汚れあり</label>
-              <label><input type="checkbox" name="condition" value="poor"> 傷や汚れあり</label>
+          <div class="filter-section" id="statusFilter">
+            <button class="filter-item toggle-filter-btn">
+              <span>販売状況</span><span class="arrow">＞</span>
+            </button>
+            <div class="filter-content" style="display: none;">
+              <div class="filter-checkbox-group">
+                <label><input type="checkbox" name="sale_status" value="on_sale"> 販売中</label>
+                <label><input type="checkbox" name="sale_status" value="sold_out"> 売り切れ</label>
+              </div>
             </div>
           </div>
-        </div>
-
-        <div class="filter-section" id="priceFilter">
-          <button class="filter-item toggle-filter-btn">
-            <span>価格</span><span class="arrow">＞</span>
-          </button>
-          <div class="filter-content price-filter-content" style="display: none;">
-            <div class="price-inputs">
-              <input type="number" placeholder="¥ Min" class="price-input" min="0">
-              <span>-</span>
-              <input type="number" placeholder="¥ Max" class="price-input" min="0">
+          
+          <div class="filter-section" id="sellerFilter">
+            <button class="filter-item toggle-filter-btn">
+              <span>出品者</span><span class="arrow">＞</span>
+            </button>
+            <div class="filter-content" style="display: none;">
+              <p style="font-size: 14px; color: #888;">(未実装)</p>
             </div>
-            <button class="btn-apply-price">適用</button>
           </div>
-        </div>
-      </aside>
 
-      <div class="products-area">
+          <div class="filter-section" id="conditionFilter">
+            <button class="filter-item toggle-filter-btn">
+              <span>商品の状態</span><span class="arrow">＞</span>
+            </button>
+            <div class="filter-content" style="display: none;">
+              <div class="filter-checkbox-group">
+                <label><input type="checkbox" name="condition" value="new"> 新品、未使用</label>
+                <label><input type="checkbox" name="condition" value="like_new"> 未使用に近い</label>
+                <label><input type="checkbox" name="condition" value="good"> 目立った傷や汚れなし</label>
+                <label><input type="checkbox" name="condition" value="fair"> やや傷や汚れあり</label>
+                <label><input type="checkbox" name="condition" value="poor"> 傷や汚れあり</label>
+              </div>
+            </div>
+          </div>
+
+          <div class="filter-section" id="priceFilter">
+            <button class="filter-item toggle-filter-btn">
+              <span>価格</span><span class="arrow">＞</span>
+            </button>
+            <div class="filter-content price-filter-content" style="display: none;">
+              <div class="price-inputs">
+                <input type="number" placeholder="¥ Min" class="price-input" min="0">
+                <span>-</span>
+                <input type="number" placeholder="¥ Max" class="price-input" min="0">
+              </div>
+              <button class="btn-apply-price">適用</button>
+            </div>
+          </div>
+          
+        </div> </aside> <div class="products-area">
         <div class="products-header">
           <div class="search-bar">
             <span class="search-icon">🔍</span>
             <input type="text" placeholder="検索バー" class="product-search" />
           </div>
-          <!--!ここからログイン判定  -->
 
           {% if 'user_id' in session %}
             <div class="action-buttons">
@@ -128,13 +116,7 @@
 {# === ページ固有のJS === #}
 {% block scripts %}
   <script>
-    /* なぜ？: JSファイル は 'url_for' を実行できないため、
-              HTML側でFlaskのパスを生成し、JSに渡す必要がある。*/
-    
-    // 1. 画像が格納されている 'static/media/' フォルダへのURL
     var STATIC_MEDIA_URL = "{{ url_for('static', filename='media/') }}";
-    
-    // 2. 商品詳細ページの基本URL (例: /market/product/)
     var PRODUCT_DETAIL_URL_BASE = "{{ url_for('market.product_detail', product_id=0) }}".replace('0', '');
   </script>
   

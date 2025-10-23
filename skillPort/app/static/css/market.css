@@ -44,23 +44,7 @@
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
 }
 
-/* 「絞り込み」タイトルのスタイル */
-.sidebar-title {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 12px 15px;
-  background-color: #f0f0f0;
-  border-radius: 8px;
-  font-weight: bold;
-  font-size: 16px;
-  margin-bottom: 20px;
-}
-
-.sidebar-title .filter-icon {
-  font-size: 14px;
-}
-
+/* 更新ボタン */
 .filter-btn {
   width: 100%;
   padding: 15px;
@@ -69,17 +53,47 @@
   border-radius: 8px;
   cursor: pointer;
   font-size: 16px;
-  margin-bottom: 20px;
+  margin-bottom: 10px; /* 間隔を少し詰める */
 }
 
 .filter-btn.active {
   background-color: #e0e0e0;
 }
 
-.filter-section {
-  margin-bottom: 10px;
+/* !!! 変更 !!! (旧: .sidebar-title)
+  新しい「絞り込み」ボタンのスタイル
+*/
+.sidebar-toggle-btn {
+  width: 100%; /* 幅を100%に */
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 15px;
+  background-color: #f0f0f0; /* デザイン に合わせる */
+  border: none; /* 枠線なし */
+  border-radius: 8px;
+  font-weight: bold;
+  font-size: 16px;
+  margin-bottom: 10px; /* 下のフィルターとの間隔 */
+  cursor: pointer; /* クリック可能を示す */
+  text-align: left; /* テキストを左揃え */
 }
 
+.sidebar-toggle-btn .filter-icon {
+  font-size: 14px;
+  transition: transform 0.2s ease; /* アイコンの回転アニメーション */
+}
+
+/* 展開時のアイコン回転 (JSでクラス 'open' を追加) */
+.sidebar-toggle-btn.open .filter-icon {
+  transform: rotate(180deg);
+}
+/* !!! 変更ここまで !!! */
+
+
+/* フィルターセクション (コンテナ内の各項目) */
+
+/* 各フィルター項目を開くボタン */
 .filter-item {
   width: 100%;
   padding: 15px;
@@ -91,7 +105,13 @@
   justify-content: space-between;
   align-items: center;
   font-size: 16px;
+  margin-top: 10px; /* 各フィルター間の上マージン */
 }
+/* 最初のフィルター項目は上マージン不要 */
+#filterSectionsContainer > .filter-section:first-child > .filter-item {
+    margin-top: 0;
+}
+
 
 .filter-item:hover {
   background-color: #f9f9f9;
@@ -99,50 +119,40 @@
 
 .arrow {
   color: #999;
-  transition: transform 0.2s ease; /* 矢印の回転をスムーズに */
+  transition: transform 0.2s ease;
 }
 
-/* 展開/折りたたみ時の矢印の回転 */
 .filter-item.open .arrow {
-  transform: rotate(90deg); /* 展開時に矢印を回転 */
+  transform: rotate(90deg);
 }
 
 
-/* !!! スタイル変更 !!!
-  (旧: .subcategory-list)
-  メルカリ風のリストコンテナ に合わせるため、
-  上下の padding/margin/border をリセット
-*/
+/* カテゴリーリストのスタイル */
 .filter-list-container {
-  border-top: none; /* 枠線は item 側で持つ */
+  border-top: none;
   padding-top: 0;
   margin-top: 0;
 }
 
-/*
-  !!! スタイル変更 !!!
-  (旧: .subcategory-item)
-  'image_e05b80.png' のデザインに合わせる
-*/
 .filter-list-item {
   display: flex;
-  justify-content: space-between; /* テキストと矢印を両端に */
+  justify-content: space-between;
   align-items: center;
   width: 100%;
-  padding: 14px 10px; /* 上下の余白を確保 */
+  padding: 14px 10px;
   background-color: white;
   border: none;
-  border-bottom: 1px solid #f0f0f0; /* 薄い区切り線 */
+  border-bottom: 1px solid #f0f0f0;
   text-align: left;
   cursor: pointer;
   font-size: 14px;
   color: #333;
   margin-bottom: 0;
-  border-radius: 0; /* 角丸をなくす */
+  border-radius: 0;
 }
 
 .filter-list-item:first-child {
-  border-top: 1px solid #f0f0f0; /* 最初の項目にも上線 */
+  border-top: 1px solid #f0f0f0;
 }
 
 .filter-list-item:hover {
