@@ -8,9 +8,9 @@ body{
 /* ========================================================= */
 
 .notifications-page-container {
-    width: 90%;
+    width: 300%;
     max-width: 700px; /* 限制寬度以集中列表 */
-    margin: 50px auto; /* 確保頂部和底部有邊距 */
+    margin: 0px 0px 0px 50px; /* 確保頂部和底部有邊距 */
     padding: 0 20px;
 }
 

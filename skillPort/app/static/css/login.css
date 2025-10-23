@@ -1,8 +1,8 @@
-body{
-    font-family: sans-serif;
-    margin: 0;
-    /* 註釈: 設定圖片中的淺灰色背景 */
-    background-color: #f0f0f0; 
+body {
+  font-family: sans-serif;
+  margin: 0;
+  /* 註釈: 設定圖片中的淺灰色背景 */
+  background-color: #f0f0f0;
 }
 
 /* ========================================================= */
@@ -10,103 +10,103 @@ body{
 /* ========================================================= */
 
 .page-center-wrapper {
-    /* 全局居中容器 */
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
-    padding: 20px;
-    box-sizing: border-box;
+  /* 全局居中容器 */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  max-height: 90vh;
+  padding: 20px 0 0 0;
+  box-sizing: border-box;
 }
 
 .login-card {
-    /* 登入卡片盒子 */
-    width: 100%;
-    max-width: 350px; /* 限制卡片寬度 */
-    background-color: white;
-    border-radius: 10px;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-    padding: 40px 30px; 
-    text-align: center; /* 讓內部區塊居中 */
+  /* 登入卡片盒子 */
+  width: 100%;
+  max-width: 350px; /* 限制卡片寬度 */
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  padding: 40px 30px;
+  text-align: center; /* 讓內部區塊居中 */
 }
 
 /* Logo 區 */
 .logo-area {
-    margin-bottom: 30px;
+  margin-bottom: 30px;
 }
 
 .logo-image {
-    width: 150px; /* 根據圖片估算 Logo 大小 */
-    height: auto;
+  width: 150px; /* 根據圖片估算 Logo 大小 */
+  height: auto;
 }
 
 /* 表單樣式 */
 .login-form {
-    width: 100%;
+  width: 100%;
 }
 
 .form-group {
-    margin-bottom: 15px; /* 輸入框間距 */
-    width: 100%;
+  margin-bottom: 15px; /* 輸入框間距 */
+  width: 100%;
 }
 
 /* 輸入框樣式 */
 .login-form input {
-    width: 100%;
-    padding: 12px 15px;
-    border: 1px solid #ccc;
-    border-radius: 5px; /* 輕微圓角 */
-    box-sizing: border-box;
-    font-size: 16px;
-    text-align: left; /* 輸入文字靠左 */
+  width: 100%;
+  padding: 12px 15px;
+  border: 1px solid #ccc;
+  border-radius: 5px; /* 輕微圓角 */
+  box-sizing: border-box;
+  font-size: 16px;
+  text-align: left; /* 輸入文字靠左 */
 }
 
 .login-form input:focus {
-    border-color: #226CFF;
-    outline: none;
+  border-color: #226cff;
+  outline: none;
 }
 
 .form-actions {
-    margin-top: 20px;
-    margin-bottom: 25px;
+  margin-top: 20px;
+  margin-bottom: 25px;
 }
 
 /* 登入按鈕 (藍色) */
 .submit-btn {
-    width: 100%;
-    padding: 15px 0;
-    border: none;
-    border-radius: 5px;
-    background-color: #427df0; 
-    color: white;
-    font-size: 18px;
-    font-weight: bold;
-    cursor: pointer;
-    transition: background-color 0.2s;
+  width: 100%;
+  padding: 15px 0;
+  border: none;
+  border-radius: 5px;
+  background-color: #427df0;
+  color: white;
+  font-size: 18px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.2s;
 }
 
 .submit-btn:hover {
-    background-color: #5d93ff;
+  background-color: #5d93ff;
 }
 
 /* 底部連結區 */
 .link-option {
-    display: block;
-    margin-top: 10px;
-    font-size: 13px;
-    color: #427df0;
-    text-decoration: none;
-    transition: opacity 0.2s;
+  display: block;
+  margin-top: 10px;
+  font-size: 13px;
+  color: #427df0;
+  text-decoration: none;
+  transition: opacity 0.2s;
 }
 
 .link-option:hover {
-    opacity: 0.8;
+  opacity: 0.8;
 }
 
 /* 響應式調整 */
 @media (max-width: 450px) {
-    .login-card {
-        padding: 30px 20px;
-        box-shadow: none; /* 小螢幕移除陰影，更像全螢幕 APP */
-    }
+  .login-card {
+    padding: 30px 20px;
+    box-shadow: none; /* 小螢幕移除陰影，更像全螢幕 APP */
+  }
 }

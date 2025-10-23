@@ -3,5 +3,10 @@ content %}
 <head>
   <link rel="stylesheet" href="../../static/css/index.css" />
 </head>
-<h2>{{search_word}}</h2>
+<h2>{{search_word}}の検索結果：</h2>
+<ul>
+  {% for item in search_results %}
+  <li>{{item.id}}{{item.video_title}}</li>
+  {% endfor %}
+</ul>
 {% endblock %}
