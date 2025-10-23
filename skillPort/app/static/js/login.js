@@ -7,14 +7,14 @@ $(".login-form").on("submit", function (response) {
   let password = $("#password").val();
   if (username === "") {
     response.preventDefault();
-    console.log("ENTER USERNAME");
-
     $("#userId").attr("placeholder", "ユーザー名を入力してください");
+  } else if (username !== "") {
+    $("#userId").attr("placeholder", "ユーザーID");
   }
   if (password === "") {
     response.preventDefault();
-    console.log("ENTER PASSWORD");
-
     $("#password").attr("placeholder", "パスワードを入力してください");
+  } else if (password !== "") {
+    $("#password").attr("placeholder", "パスワード");
   }
 });
