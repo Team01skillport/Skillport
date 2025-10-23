@@ -12,7 +12,7 @@ body{
 .support-page-container {
     width: 90%;
     max-width: 800px; /* 制限幅を設けてフォームを中央に集めます */
-    margin: 50px auto; /* 確保頂部和底部有邊距 */
+    margin: 0 0 0 100px; /* 確保頂部和底部有邊距 */
     padding: 0 20px;
 }
 
