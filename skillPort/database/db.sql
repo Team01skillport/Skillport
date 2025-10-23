@@ -89,7 +89,7 @@ INSERT INTO membership_tbl (
 CREATE TABLE product_tbl(
     id CHAR(32),
     favorites INT(32),
-    product_view_flag TINYINT(1),
+    product_view_flag TINYINT(1) DEFAULT 0,
     user_id	CHAR(10),	
     PRIMARY KEY(id)
 );
@@ -108,43 +108,50 @@ INSERT INTO product_tbl (id, favorites, product_view_flag, user_id) VALUES
 
 --出品情報テーブル
 CREATE TABLE listing_tbl(
-    product_id	CHAR(64),
-    product_image CHAR(128),		
+    product_id	VARCHAR(255),		
     product_name INT(128),		
     product_price INT(7),
     shipping_area VARCHAR(4),		
     product_category CHAR(16),		
     product_condition CHAR(8),		
     product_description	VARCHAR(255),		
-    listing_status TINYINT(1),						
-    listing_date DATE,		
+    listing_status TINYINT(1) DEFAULT 1,						
+    listing_date DATETIME DEFAULT CURRENT_TIMESTAMP,		
     sales_status CHAR,		
-    update_date	DATETIME,		
-    product_upload_user	 INT(10),
+    update_date	DATETIME DEFAULT CURRENT_TIMESTAMP,		
+    product_upload_user INT(10),
     PRIMARY KEY(product_id,product_upload_user)
 );
 
 INSERT INTO listing_tbl VALUES
-(1001, 'image_1001.jpg',  'スニーカー',   8500,  '大阪', 'ファッション', '新品',   '人気ブランドのスニーカーです', 1, '2025-10-01', '販売中', '2025-10-01 12:30:00',  1),
-(1002, 'image_1002.jpg',  'ノートパソコン', 78000, '東京', '家電',       '中古',   'バッテリー良好、傷少なめ',       1, '2025-09-28', '販売中', '2025-10-02 09:45:00',  2),
-(1003, 'image_1003.jpg',  'ギター',       32000, '神奈川', '楽器',       '新品',   '初心者向けのアコースティックギター', 1, '2025-10-03', '販売中', '2025-10-03 15:10:00',  3),
-(1004, 'image_1004.jpg',  'コート',       12000, '京都',   'ファッション', '中古',   '少し使用感あり、サイズL',       1, '2025-09-30', '販売中', '2025-10-04 08:20:00',  4),
-(1005, 'image_1005.jpg',  'スマートフォン', 52000, '愛知', '家電',       '新品',   'SIMフリー未使用品',             1, '2025-10-05', '販売中', '2025-10-05 17:00:00',  5),
-(1006, 'image_1006.jpg',  '腕時計',       25000, '大阪',   'アクセサリー', '中古',   '保証書付き、動作確認済み',       1, '2025-10-02', '販売中', '2025-10-06 11:45:00',  6),
-(1007, 'image_1007.jpg',  'カメラ',       64000, '北海道', '家電',       '中古',   'レンズに小傷あり、動作良好',     1, '2025-09-27', '販売中', '2025-10-06 13:50:00',  7),
-(1008, 'image_1008.jpg',  'ソファ',       18000, '兵庫',   '家具',       '中古',   '2人掛けソファ、少し使用感あり',   1, '2025-10-01', '販売中', '2025-10-07 14:00:00',  8),
-(1009, 'image_1009.jpg',  'ヘッドフォン',   9800,  '千葉', '家電',       '新品',   'ワイヤレスBluetoothモデル',       1, '2025-10-04', '販売中', '2025-10-08 10:10:00',  9),
-(1010, 'image_1010.jpg',  'バッグ',       13500, '福岡',   'ファッション', '新品',   'レザーバッグ・未使用',           1, '2025-10-06', '販売中', '2025-10-09 18:25:00', 10);
+(1001, 'スニーカー',   8500,  '大阪', 'ファッション', '新品',   '人気ブランドのスニーカーです', 1, '2025-10-01', '販売中', '2025-10-01 12:30:00',  1),
+(1002, 'ノートパソコン', 78000, '東京', '家電',       '中古',   'バッテリー良好、傷少なめ',       1, '2025-09-28', '販売中', '2025-10-02 09:45:00',  2),
+(1003, 'ギター',       32000, '神奈川', '楽器',       '新品',   '初心者向けのアコースティックギター', 1, '2025-10-03', '販売中', '2025-10-03 15:10:00',  3),
+(1004, 'コート',       12000, '京都',   'ファッション', '中古',   '少し使用感あり、サイズL',       1, '2025-09-30', '販売中', '2025-10-04 08:20:00',  4),
+(1005, 'スマートフォン', 52000, '愛知', '家電',       '新品',   'SIMフリー未使用品',             1, '2025-10-05', '販売中', '2025-10-05 17:00:00',  5),
+(1006, '腕時計',       25000, '大阪',   'アクセサリー', '中古',   '保証書付き、動作確認済み',       1, '2025-10-02', '販売中', '2025-10-06 11:45:00',  6),
+(1007, 'カメラ',       64000, '北海道', '家電',       '中古',   'レンズに小傷あり、動作良好',     1, '2025-09-27', '販売中', '2025-10-06 13:50:00',  7),
+(1008, 'ソファ',       18000, '兵庫',   '家具',       '中古',   '2人掛けソファ、少し使用感あり',   1, '2025-10-01', '販売中', '2025-10-07 14:00:00',  8),
+(1009, 'ヘッドフォン',   9800,  '千葉', '家電',       '新品',   'ワイヤレスBluetoothモデル',       1, '2025-10-04', '販売中', '2025-10-08 10:10:00',  9),
+(1010, 'バッグ',       13500, '福岡',   'ファッション', '新品',   'レザーバッグ・未使用',           1, '2025-10-06', '販売中', '2025-10-09 18:25:00', 10);
 
+CREATE TABLE listing_images_tbl(
+    image_id VARCHAR(255),
+    product_id VARCHAR(255),
+    image_path VARCHAR(255),
+    is_thumbnail TINYINT(1) DEFAULT 0,
+    uploaded_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (product_id) REFERENCES listing_tbl(product_id)
+);
 
 --取引情報テーブル
 CREATE TABLE market_order_tbl(
-    id						
-    purchaser_id CHAR(32),					
-    seller_id CHAR (10),					
+    id VARCHAR(255),						
+    purchaser_id CHAR(10),					
+    seller_id CHAR(10),					
     transaction_status CHAR(8),						
-    transaction_startdate DATETIME,				
-    transaction_completeddate DATETIME,    					
+    transaction_startdate DATETIME DEFAULT CURRENT_TIMESTAMP,				
+    transaction_completeddate DATETIME DEFAULT CURRENT_TIMESTAMP,    					
     total_amount INT(7),
     sales_profit INT(7),						
     shipping_cost INT(4),				
@@ -155,7 +162,6 @@ CREATE TABLE market_order_tbl(
     seller_evaluation INT(5),
     PRIMARY KEY(id)			
 );
-
 
 INSERT INTO market_order_tbl (
     purchaser_id, seller_id, transaction_status, transaction_startdate, transaction_completeddate,
@@ -177,7 +183,7 @@ INSERT INTO market_order_tbl (
 --取引メッセージテーブル
 CREATE TABLE order_message_tbl(
     id CHAR(128),				
-    order_message_date DATETIME					
+    order_message_date DATETIME DEFAULT CURRENT_TIMESTAMP,					
     order_message_user_id INT(10),				
     transaction_id INT(32),		
     order_message_text VARCHAR(128),
@@ -201,14 +207,14 @@ INSERT INTO order_message_tbl (
 
 --投稿フィードアップロードテーブル
 CREATE TABLE post_tbl(
-    id	CHAR(128),					
+    id CHAR(128),					
     user_id CHAR(128),				
-    post_date DATETIME,			
+    post_date DATETIME DEFAULT CURRENT_TIMESTAMP,			
     post_text VARCHAR(128),			
     post_media CHAR(128),		
-    post_update_date DATETIME					
-    post_report_flag TINYINT(1),				
-    post_status	TINYINT(1),
+    post_update_date DATETIME DEFAULT CURRENT_TIMESTAMP,				
+    post_report_flag TINYINT(1) DEFAULT 0,				
+    post_status	TINYINT(1) DEFAULT 1,
     PRIMARY KEY(id)			
 );
 
@@ -229,11 +235,12 @@ INSERT INTO post_tbl (
 
 --投稿フィードいいねテーブル
 CREATE TABLE feed_like_tbl(
-    id INT(10),
-    post_id INT (10),
-    user_id INT (10),
-    like_time DATE,
-    PRIMARY KEY(id)
+    id VARCHAR(255),
+    post_id VARCHAR(255),
+    user_id INT(10),
+    like_time DATETIME DEFAULT CURRENT_TIMESTAMP,
+    PRIMARY KEY(id), 
+    FOREIGN KEY (post_id) REFERENCES post_tbl(id)
 );
 
 INSERT INTO feed_like_tbl (id, post_id, user_id, like_time) VALUES
@@ -251,17 +258,18 @@ INSERT INTO feed_like_tbl (id, post_id, user_id, like_time) VALUES
 
 --投稿フィードコメントテーブル
 CREATE TABLE feed_comment_tbl(
-    id	CHAR(10),					
+    id VARCHAR(255),					
     user_id	CHAR(10),					
-    post_id	CHAR(10),			
-    post VARCHAR(128),			
-    comment_date DATE,					
-    father_comment_id INT(10),
-    PRIMARY KEY(id)					
+    post_id	VARCHAR(255),			
+    post_text VARCHAR(128),			
+    comment_date DATETIME DEFAULT CURRENT_TIMESTAMP,					
+    father_comment_id VARCHAR(255),
+    PRIMARY KEY(id),
+    FOREIGN KEY (post_id) REFERENCES post_tbl(id)				
 );
 
 INSERT INTO feed_comment_tbl (
-    id, user_id, post_id, comment_text, comment_date, father_comment_id
+    id, user_id, post_id, post_text, comment_date, father_comment_id
 ) VALUES
 ('cmt0001', 'usr0002', 'pst0001', '素敵な投稿ですね！', '2025-10-01 10:20:00', NULL),
 ('cmt0002', 'usr0003', 'pst0001', '写真が綺麗！', '2025-10-01 10:25:00', NULL),
@@ -281,12 +289,12 @@ CREATE TABLE video_tbl(
     video_title CHAR(32),						
     video_length INT(5),	
     video_uploader_id CHAR(10),					
-    video_upload_date DATETIME,				
+    video_upload_date DATETIME DEFAULT CURRENT_TIMESTAMP,				
     video_description_section VARCHAR(255),			
     video_public_status TINYINT(1),		
     video_category CHAR(16),						
     video_tag CHAR(16),	
-    video_report_flag TINYINT(1),						
+    video_report_flag TINYINT(1) DEFAULT 0,						
     video_popularity_index FLOAT,			
     view_count INT(10),	
     like_count INT(10),				
@@ -318,64 +326,46 @@ CREATE TABLE video_like_tbl(
     video_id VARCHAR(255),				
     video_uploader_id CHAR(10),					
     video_like_date DATETIME,
-    PRIMARY KEY(id,video_id)		 
+    PRIMARY KEY(id),
+    FOREIGN KEY (video_id) REFERENCES video_tbl(id)		 
 );
 
 INSERT INTO video_like_tbl (id, video_id, video_uploader_id, video_like_date) VALUES
-('user001', 'vid001', 'upl001', '2025-10-01 12:34:56'),
-('user002', 'vid001', 'upl001', '2025-10-01 12:35:12'),
-('user003', 'vid002', 'upl002', '2025-10-02 09:22:18'),
-('user004', 'vid003', 'upl003', '2025-10-02 10:45:00'),
-('user001', 'vid003', 'upl003', '2025-10-02 11:10:45'),
-('user005', 'vid004', 'upl004', '2025-10-03 14:25:30'),
-('user006', 'vid005', 'upl005', '2025-10-03 16:50:00'),
-('user007', 'vid002', 'upl002', '2025-10-04 08:15:20'),
-('user003', 'vid004', 'upl004', '2025-10-05 17:40:10'),
-('user002', 'vid005', 'upl005', '2025-10-05 18:55:33');
-
-CREATE TABLE video_like_tbl(
-    id CHAR(256),			
-    video_id CHAR(64),				
-    video_uploader_id CHAR(8),					
-    video_like_date DATE,
-    PRIMARY KEY(id,video_id,video_uploader_id,video_like_date)			 
-);
-
-INSERT INTO video_like_tbl (id, video_id, video_uploader_id, video_like_date) VALUES
-('user001', 'vid001', 'upl001', '2025-10-01 12:34:56'),
-('user002', 'vid001', 'upl001', '2025-10-01 12:35:12'),
-('user003', 'vid002', 'upl002', '2025-10-02 09:22:18'),
-('user004', 'vid003', 'upl003', '2025-10-02 10:45:00'),
-('user001', 'vid003', 'upl003', '2025-10-02 11:10:45'),
-('user005', 'vid004', 'upl004', '2025-10-03 14:25:30'),
-('user006', 'vid005', 'upl005', '2025-10-03 16:50:00'),
-('user007', 'vid002', 'upl002', '2025-10-04 08:15:20'),
-('user003', 'vid004', 'upl004', '2025-10-05 17:40:10'),
-('user002', 'vid005', 'upl005', '2025-10-05 18:55:33');
+('user001', 'vid0001', 'upl001', '2025-10-01 12:34:56'),
+('user002', 'vid0001', 'upl001', '2025-10-01 12:35:12'),
+('user003', 'vid0002', 'upl002', '2025-10-02 09:22:18'),
+('user004', 'vid0003', 'upl003', '2025-10-02 10:45:00'),
+('user013', 'vid0003', 'upl003', '2025-10-02 11:10:45'),
+('user005', 'vid0004', 'upl004', '2025-10-03 14:25:30'),
+('user006', 'vid0005', 'upl005', '2025-10-03 16:50:00'),
+('user007', 'vid0002', 'upl002', '2025-10-04 08:15:20'),
+('user014', 'vid0004', 'upl004', '2025-10-05 17:40:10'),
+('user016', 'vid0005', 'upl005', '2025-10-05 18:55:33');
 
 
 --講義動画コメントテーブル
 CREATE TABLE video_comment_tbl(
     comment_id VARCHAR(255),				
-    video_id VARCHAR(64),					
+    video_id VARCHAR(255),					
     commentor_id CHAR(10),					
-    comment_date DATETIME,				
+    comment_date DATETIME DEFAULT CURRENT_TIMESTAMP,				
     comment_text VARCHAR(64),					
     parent_comment_id VARCHAR(255),
-    PRIMARY KEY(comment_id, video_id)
+    PRIMARY KEY(comment_id),
+    FOREIGN KEY (video_id) REFERENCES video_tbl(id)
 );
 
 INSERT INTO video_comment_tbl (comment_id, video_id, commentor_id, comment_date, comment_text, parent_comment_id) VALUES
-('cmt001', 'vid001', 'user001', '2025-10-01 12:00:00', '最高の動画ですね！', NULL),
-('cmt002', 'vid001', 'user002', '2025-10-01 12:05:30', '編集がうまい！', NULL),
-('cmt003', 'vid001', 'user003', '2025-10-01 12:10:15', '同意です！', 'cmt002'),
-('cmt004', 'vid002', 'user004', '2025-10-02 09:20:00', '音質めっちゃ良い！', NULL),
-('cmt005', 'vid002', 'user005', '2025-10-02 09:35:50', '途中の展開好き', NULL),
-('cmt006', 'vid003', 'user006', '2025-10-03 14:10:00', 'サムネに惹かれた笑', NULL),
-('cmt007', 'vid003', 'user007', '2025-10-03 14:12:30', '同じく！', 'cmt006'),
-('cmt008', 'vid004', 'user002', '2025-10-04 11:00:00', '投稿お疲れ様です！', NULL),
-('cmt009', 'vid004', 'user003', '2025-10-04 11:03:15', 'もっと見たい！', NULL),
-('cmt010', 'vid005', 'user001', '2025-10-05 16:45:00', 'また次も期待してます！', NULL);
+('cmt001', 'vid0001', 'user001', '2025-10-01 12:00:00', '最高の動画ですね！', NULL),
+('cmt002', 'vid0001', 'user002', '2025-10-01 12:05:30', '編集がうまい！', NULL),
+('cmt003', 'vid0001', 'user003', '2025-10-01 12:10:15', '同意です！', 'cmt002'),
+('cmt004', 'vid0002', 'user004', '2025-10-02 09:20:00', '音質めっちゃ良い！', NULL),
+('cmt005', 'vid0002', 'user005', '2025-10-02 09:35:50', '途中の展開好き', NULL),
+('cmt006', 'vid0003', 'user006', '2025-10-03 14:10:00', 'サムネに惹かれた笑', NULL),
+('cmt007', 'vid0003', 'user007', '2025-10-03 14:12:30', '同じく！', 'cmt006'),
+('cmt008', 'vid0004', 'user002', '2025-10-04 11:00:00', '投稿お疲れ様です！', NULL),
+('cmt009', 'vid0004', 'user003', '2025-10-04 11:03:15', 'もっと見たい！', NULL),
+('cmt010', 'vid0005', 'user001', '2025-10-05 16:45:00', 'また次も期待してます！', NULL);
 
 
 --サポートテーブル
@@ -384,10 +374,10 @@ CREATE TABLE support_tbl(
     category CHAR(16),					
     content VARCHAR(255),			
     inquiry_user_id CHAR(10),				
-    send_date DATETIME,				
-    receiving_date DATETIME,						
+    send_date DATETIME DEFAULT CURRENT_TIMESTAMP,				
+    receiving_date DATETIME DEFAULT CURRENT_TIMESTAMP,						
     response_status CHAR(16),				
-    response_date DATETIME,			
+    response_date DATETIME DEFAULT CURRENT_TIMESTAMP,			
     attached_file VARCHAR(255),				
     response_content VARCHAR(255),
     PRIMARY KEY(id)				 
@@ -416,9 +406,9 @@ CREATE TABLE video_review_tbl(
     reviewer_id	CHAR(16),					
     review_status CHAR(8),				
     review_result_comment VARCHAR(255),						
-    reviewed_at	DATETIME,				
-    created_at	DATETIME,			
-    updated_at DATETIME,
+    reviewed_at	DATETIME DEFAULT CURRENT_TIMESTAMP,				
+    created_at	DATETIME DEFAULT CURRENT_TIMESTAMP,			
+    updated_at DATETIME DEFAULT CURRENT_TIMESTAMP,
     PRIMARY KEY(review_id)
 );
 

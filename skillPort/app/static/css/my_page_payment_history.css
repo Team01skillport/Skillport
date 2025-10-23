@@ -4,23 +4,35 @@ body {
 }
 
 /* ========================================================= */
-/* マイページ (My Page) 基礎佈局 */
+/* 1. マイページ 主容器 (.mypage-container) - Flex 修正 */
 /* ========================================================= */
 
 .mypage-container {
+  /* 修正点：幅の指定と衝突する margin を削除し、Flexbox の親として機能させる */
   width: 90%;
   max-width: 1200px;
-  margin: 30px auto 50px auto;
+  margin: 0px 500px 50px auto !important; /* 核心修正：全体を中央に配置 */
   padding: 0 20px;
-  display: flex; /* 啟用 Flexbox 進行側邊欄和內容區域佈局 */
-  gap: 40px; /* 側邊欄和內容之間的間距 */
+  
+  display: flex !important; /* 左右分欄を有効化 */
+  gap: 40px; /* Sidebar と内容の間隔 */
 }
 
-/* 右側內容顯示區 (Content Area) */
+/* 註釈: .mypage-sidebar のスタイルは別のCSSファイルから継承されていると想定 */
+
+/* ========================================================= */
+/* 2. 右側内容エリア (.mypage-content-area) - 占有スペースの修正 */
+/* ========================================================= */
+
 .mypage-content-area {
-  flex-grow: 1; /* 佔據所有剩餘空間 */
+  /* 修正点：エラーの原因だった width: 200% や巨大な margin を削除 */
+  flex-grow: 1 !important; /* 核心修正：残り全てのスペースを占める */
   min-height: 500px;
-  padding-top: 10px;
+  padding-top: 0px;
+  width: auto !important; 
+  max-width: none !important;
+  margin: 0 !important; /* 衝突する margin を全て除去 */
+  padding-left: 0; /* 左側の padding を除去し、gap からすぐに内容を開始 */
 }
 
 /* 內容主標題 */
@@ -30,18 +42,16 @@ body {
   margin: 0 0 20px 0;
   padding-bottom: 5px;
   border-bottom: 3px solid #000000;
-  width: 100%;
-  max-width: 300px;
+  width: 100%; /* 確保線條延伸 */
+  max-width: none;
 }
 
-/* ========================================================= */
-/* 支払い履歴 (Payment History) 專用 CSS */
-/* ========================================================= */
-
+/* 支払い履歴リスト */
 .payment-history-list {
   border-top: 1px solid #ccc;
   margin-bottom: 20px;
-  max-width: 600px; /* 限制列表寬度 */
+  max-width: none; /* 制限解除 */
+  margin-left: 0; /* 修正：余計なマージンを削除 */
 }
 
 .payment-item {
@@ -119,36 +129,5 @@ body {
   .mypage-container {
     flex-direction: column;
     gap: 20px;
-  }
-
-  .mypage-sidebar {
-    width: 100%;
-  }
-
-  .mypage-nav-list {
-    display: flex;
-    flex-wrap: wrap;
-    border-top: 1px solid #ccc;
-    border-bottom: 1px solid #ccc;
-    margin-bottom: 15px;
-  }
-
-  .mypage-nav-list li {
-    width: 50%;
-    box-sizing: border-box;
-  }
-
-  .mypage-nav-list a {
-    border-left: none;
-    border-bottom: 1px dotted #eee;
-  }
-
-  .mypage-nav-list a.active {
-    border-bottom: 2px solid #226cff;
-    border-left: none;
-  }
-
-  .payment-item {
-    padding-right: 15px;
   }
 }

@@ -1,0 +1,74 @@
+/* ========================================================= */
+/* マイページ (My Page) 核心佈局修正 */
+/* ========================================================= */
+body {
+  font-family: sans-serif;
+  margin: 0;
+}
+
+/* 1. 主容器：設置全局居中和 Flex */
+.mypage-master-wrapper {
+  /* 修正點：移除所有錯誤的 200% width 和衝突的 margin */
+  width: 90%;
+  max-width: 1200px;
+  margin: 30px auto 50px auto !important; /* 核心修正：水平居中 */
+  padding: 0 20px;
+  
+  display: flex !important; /* 確保左右分欄運作 */
+  gap: 40px; /* Sidebar 和內容之間的標準間距 */
+}
+
+
+/* 2. 左側導覽列 (Sidebar) 樣式 */
+.mypage-sidebar {
+  width: 200px !important; /* 嚴格固定寬度 */
+  flex-shrink: 0 !important; /* 確保 Sidebar 不被擠壓 */
+  flex-grow: 0 !important;
+  padding: 0; /* 確保沒有多餘 padding 影響排版 */
+}
+
+.mypage-title {
+  font-size: 24px;
+  font-weight: bold;
+  margin: 0 0 20px 0;
+  border-bottom: 3px solid #000000;
+  padding-bottom: 5px;
+}
+
+/* 導覽列列表樣式 (確保項目文字對齊) */
+.mypage-nav-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.mypage-nav-list a {
+  display: block;
+  padding: 10px 15px 10px 5px; /* 列表項目內邊距 */
+  border-left: 5px solid transparent; 
+  /* ... (其他列表樣式請確保已從您的 sidebar.css 導入) */
+}
+
+
+/* 3. 右側內容區 (Content Area) 樣式 */
+.mypage-content-area {
+  /* 核心修正：讓 Content Area 佔據所有剩餘空間 */
+  flex-grow: 1 !important; 
+  width: auto !important; 
+  max-width: none !important;
+  margin: 0 !important; 
+  padding-top: 10px;
+  padding-left: 0; /* 移除任何可能與 Flex Gap 衝突的 padding */
+}
+
+/* ========================================================= */
+/* 響應式佈局 (Responsive Layout) */
+/* ========================================================= */
+@media (max-width: 768px) {
+    .mypage-master-wrapper {
+        flex-direction: column; /* 小螢幕垂直堆疊 */
+        gap: 20px;
+    }
+    .mypage-sidebar {
+        width: 100%;
+    }
+}
