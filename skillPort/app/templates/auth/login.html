@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 {% extends "base.html" %} {% block title %}ログイン{% endblock %} {% block
 content %}
 <head>
@@ -32,3 +33,36 @@ content %}
   </div>
 </body>
 {% endblock %}
+=======
+<head>
+    <link rel="stylesheet" href="../../static/css/login.css" /> 
+</head>
+
+<div class="page-center-wrapper">
+    
+    <div class="login-card">
+        
+        <div class="logo-area">
+            <img src="../static/media/skill-port-logo.png" alt="SkillPort Logo" class="logo-image">
+        </div>
+        
+        <form class="login-form">
+            
+            <div class="form-group">
+                <input type="text" id="userId" name="userId" placeholder="ユーザーID" required>
+            </div>
+            
+            <div class="form-group">
+                <input type="password" id="password" name="password" placeholder="パスワード" required>
+            </div>
+            
+            <div class="form-actions">
+                <button type="submit" class="submit-btn">ログイン</button>
+            </div>
+            
+            <a href="account_register.html" class="link-option">新規アカウントを作成</a>
+            <a href="password_reset.html" class="link-option">ログイン情報を忘れた</a>
+        </form>
+    </div>
+</div>
+>>>>>>> 949925d31a6955959b83cc0d99121e9c2b6529eb

@@ -17,3 +17,22 @@ $(".search").on("submit", function (response) {
       .addClass("error");
   }
 });
+
+// dropdown---------------------------------------------------------
+
+document.addEventListener("DOMContentLoaded", () => {
+  const dropdown = document.getElementById("nav-category");
+  const toggle = dropdown.querySelector(".dropdown-toggle");
+
+  toggle.addEventListener("click", (e) => {
+    e.preventDefault();
+    dropdown.classList.toggle("open");
+  });
+
+  // close if click outside
+  document.addEventListener("click", (e) => {
+    if (!dropdown.contains(e.target)) {
+      dropdown.classList.remove("open");
+    }
+  });
+});
