@@ -1,61 +1,133 @@
-/* 註釈: 這是您的右側內容的 CSS 檔案 */
 body {
-    font-family: sans-serif;
-    margin: 0;
+  font-family: sans-serif;
+  margin: 0;
 }
 
 /* ========================================================= */
-/* 1. 確保 Flex 容器佈局正常 (高權重修正) */
+/* 1. マイページ 主容器 (.mypage-container) - Flex 修正 */
 /* ========================================================= */
 
-/* 假設這個容器是您 base.html 裡的 <main> 內的主包裹器，它必須啟動 Flex */
-/* 註釈: 如果您的 base.html 結構沒有問題，可以忽略這個區塊，但如果排版錯誤，這段修正非常必要 */
-.main-container-flex { /* 或您主容器的名稱 */
-    display: flex !important; /* 確保 Flex 佈局被啟用 */
-    gap: 40px !important;
+.mypage-container {
+  /* 修正点：幅の指定と衝突する margin を削除し、Flexbox の親として機能させる */
+  width: 90%;
+  max-width: 1200px;
+  margin: 0px 500px 50px auto !important; /* 核心修正：全体を中央に配置 */
+  padding: 0 20px;
+  
+  display: flex !important; /* 左右分欄を有効化 */
+  gap: 40px; /* Sidebar と内容の間隔 */
 }
 
+/* 註釈: .mypage-sidebar のスタイルは別のCSSファイルから継承されていると想定 */
 
 /* ========================================================= */
-/* 2. 修正 Sidebar 寬度被擠壓/放大問題 (高權重修正) */
-/* ========================================================= */
-
-.mypage-sidebar {
-    width: 200px !important; /* 註釈: 強制 Sidebar 寬度為 200px */
-    flex-shrink: 0 !important; /* 確保它不被擠壓 */
-    flex-grow: 0 !important;   /* 確保它不會佔據多餘空間 */
-    /* 註釈: 如果左側的空白區是 Sidebar 的背景，這會將其縮回 200px */
-}
-
-/* ========================================================= */
-/* 3. 右側內容區 (Content Area) 樣式 - 貼合 Sidebar */
+/* 2. 右側内容エリア (.mypage-content-area) - 占有スペースの修正 */
 /* ========================================================= */
 
 .mypage-content-area {
-    flex-grow: 1 !important; /* 佔據所有剩餘空間，解決溢出問題 */
-    width: auto !important; /* 確保 Content Area 不會被固定寬度限制 */
-    min-height: 500px;
-    padding-top: 10px;
-    margin: 0 !important; /* 移除任何多餘的 margin */
+  /* 修正点：エラーの原因だった width: 200% や巨大な margin を削除 */
+  flex-grow: 1 !important; /* 核心修正：残り全てのスペースを占める */
+  min-height: 500px;
+  padding-top: 0px;
+  width: auto !important; 
+  max-width: none !important;
+  margin: 0 !important; /* 衝突する margin を全て除去 */
+  padding-left: 0; /* 左側の padding を除去し、gap からすぐに内容を開始 */
 }
 
-/* 內容區的頂部標題 (支払い履歴) */
+/* 內容主標題 */
 .content-main-title {
-    font-size: 24px;
-    font-weight: bold;
-    margin: 0 0 20px 0;
-    padding-bottom: 5px;
-    border-bottom: 3px solid #000000;
-    width: 100%; /* 確保線條延伸 */
-    max-width: none;
+  font-size: 24px;
+  font-weight: bold;
+  margin: 0 0 20px 0;
+  padding-bottom: 5px;
+  border-bottom: 3px solid #000000;
+  width: 100%; /* 確保線條延伸 */
+  max-width: none;
 }
 
-/* 列表區樣式 (Payment History) */
+/* 支払い履歴リスト */
 .payment-history-list {
-    border-top: 1px solid #ccc;
-    margin-bottom: 20px;
-    max-width: none; /* 讓列表充滿右側區域 */
-    margin-left: 0; 
+  border-top: 1px solid #ccc;
+  margin-bottom: 20px;
+  max-width: none; /* 制限解除 */
+  margin-left: 0; /* 修正：余計なマージンを削除 */
 }
 
-/* ... (其餘列表樣式請從您原來的 code 導入) ... */
+.payment-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 0;
+  border-bottom: 1px solid #eee;
+  transition: background-color 0.1s;
+  cursor: pointer;
+}
+
+.payment-item:hover {
+  background-color: #fbfbfb;
+}
+
+.item-details-box {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.item-thumbnail {
+  width: 60px;
+  height: 60px;
+  object-fit: cover;
+  border-radius: 5px;
+  flex-shrink: 0;
+}
+
+.user-avatar {
+  border-radius: 50%; /* 頭像為圓形 */
+}
+
+.item-text {
+  display: flex;
+  flex-direction: column;
+}
+
+.item-name {
+  font-size: 14px;
+  font-weight: bold;
+  margin: 0 0 4px 0;
+  color: #333;
+}
+
+.item-meta {
+  font-size: 12px;
+  color: #888;
+  margin: 0;
+}
+
+/* もっと見る (查看更多) 按鈕 */
+.view-more-btn {
+  display: block;
+  width: 150px;
+  margin: 30px auto 0 auto;
+  padding: 10px 20px;
+  text-align: center;
+  background-color: #f0f0f0;
+  color: #333;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.view-more-btn:hover {
+  background-color: #e0e0e0;
+}
+
+/* 響應式調整 */
+@media (max-width: 768px) {
+  .mypage-container {
+    flex-direction: column;
+    gap: 20px;
+  }
+}
