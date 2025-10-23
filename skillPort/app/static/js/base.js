@@ -1,12 +1,6 @@
 console.log("BASE.JS LOADED");
 
-$("#search_button").on("click", function () {
-  console.log("CLICK");
-  if ($("#search_bar").val() == "") {
-    this.placeholder = "検索したいコンテンツを入力してください";
-  }
-});
-
+// 検索バーに文字列が入っているかを確認
 $(".search").on("submit", function (response) {
   let keyword = $("#search_bar").val().trim();
   if (keyword === "") {
@@ -18,8 +12,7 @@ $(".search").on("submit", function (response) {
   }
 });
 
-// dropdown---------------------------------------------------------
-
+// ドロップダウンメニュー制御
 document.addEventListener("DOMContentLoaded", () => {
   const dropdown = document.getElementById("nav-category");
   const toggle = dropdown.querySelector(".dropdown-toggle");
