@@ -8,6 +8,14 @@ body {
   margin: 3rem 7rem;
 }
 
+.mypage-container {
+  max-width: 20%;
+}
+.main_content {
+  max-width: 80%;
+  justify-content: center;
+}
+
 /* 左側導覽列 (Sidebar) */
 .mypage-sidebar {
   width: 200px; /* 固定側邊欄寬度 */
