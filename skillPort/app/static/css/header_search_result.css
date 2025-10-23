@@ -12,7 +12,9 @@ body {
   margin: 30px auto 50px auto;
   padding: 0 20px;
 }
-
+h2{
+  margin-left: 90px;
+}
 .category-header {
   display: flex;
   justify-content: space-between;
@@ -51,6 +53,8 @@ body {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 30px 20px;
+  margin: 0 50px 0 50px;
+
 }
 
 .item-card {
