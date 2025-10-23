@@ -1,11 +1,23 @@
 from flask import Blueprint, render_template
+import mysql.connector
 
 market_bp = Blueprint('market', __name__, url_prefix='/market')
 
 # 1. market.market_top
 @market_bp.route('/', methods=["GET"])
 def market_top():
-    return render_template('market/market.html')
+    con = mysql.connector.connect(
+    host = "localhost",
+    user = "py23admin",
+    passwd = "py23pass",
+    db = "skillport_db"
+    )  
+    sql = "SELECT * FROM listing_tbl;"
+    cur = con.cursor(dictionary=True)
+    cur.execute(sql)
+    all_products = cur.fetchall()
+    print(all_products)
+    return render_template('market/market.html', all_products=all_products)
 
 # 2.
 @market_bp.route('/create', methods=["GET"])

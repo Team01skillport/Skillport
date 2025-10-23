@@ -26,11 +26,13 @@ CREATE TABLE `feed_comment_tbl` (
   `id` varchar(255) NOT NULL,
   `user_id` char(10) DEFAULT NULL,
   `post_id` varchar(255) DEFAULT NULL,
-  `comment_text` varchar(128) DEFAULT NULL,
-  `comment_date` datetime DEFAULT NULL,
+  `post_text` varchar(128) DEFAULT NULL,
+  `comment_date` datetime DEFAULT current_timestamp(),
   `father_comment_id` varchar(255) DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+  PRIMARY KEY (`id`),
+  KEY `post_id` (`post_id`),
+  CONSTRAINT `feed_comment_tbl_ibfk_1` FOREIGN KEY (`post_id`) REFERENCES `post_tbl` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -54,9 +56,11 @@ CREATE TABLE `feed_like_tbl` (
   `id` varchar(255) NOT NULL,
   `post_id` varchar(255) DEFAULT NULL,
   `user_id` int(10) DEFAULT NULL,
-  `like_time` date DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+  `like_time` datetime DEFAULT current_timestamp(),
+  PRIMARY KEY (`id`),
+  KEY `post_id` (`post_id`),
+  CONSTRAINT `feed_like_tbl_ibfk_1` FOREIGN KEY (`post_id`) REFERENCES `post_tbl` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -65,8 +69,35 @@ CREATE TABLE `feed_like_tbl` (
 
 LOCK TABLES `feed_like_tbl` WRITE;
 /*!40000 ALTER TABLE `feed_like_tbl` DISABLE KEYS */;
-INSERT INTO `feed_like_tbl` VALUES ('like0001','pst0001',0,'2025-10-01'),('like0002','pst0001',0,'2025-10-01'),('like0003','pst0002',0,'2025-10-02'),('like0004','pst0003',0,'2025-10-02'),('like0005','pst0004',0,'2025-10-03'),('like0006','pst0006',0,'2025-10-05'),('like0007','pst0007',0,'2025-10-06'),('like0008','pst0008',0,'2025-10-07'),('like0009','pst0009',0,'2025-10-08'),('like0010','pst0010',0,'2025-10-09');
+INSERT INTO `feed_like_tbl` VALUES ('like0001','pst0001',0,'2025-10-01 10:10:00'),('like0002','pst0001',0,'2025-10-01 10:15:00'),('like0003','pst0002',0,'2025-10-02 08:35:00'),('like0004','pst0003',0,'2025-10-02 21:00:00'),('like0005','pst0004',0,'2025-10-03 12:15:00'),('like0006','pst0006',0,'2025-10-05 15:25:00'),('like0007','pst0007',0,'2025-10-06 17:30:00'),('like0008','pst0008',0,'2025-10-07 11:40:00'),('like0009','pst0009',0,'2025-10-08 20:15:00'),('like0010','pst0010',0,'2025-10-09 13:50:00');
 /*!40000 ALTER TABLE `feed_like_tbl` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `listing_images_tbl`
+--
+
+DROP TABLE IF EXISTS `listing_images_tbl`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `listing_images_tbl` (
+  `image_id` varchar(255) DEFAULT NULL,
+  `product_id` varchar(255) DEFAULT NULL,
+  `image_path` varchar(255) DEFAULT NULL,
+  `is_thumbnail` tinyint(1) DEFAULT 0,
+  `uploaded_at` datetime DEFAULT current_timestamp(),
+  KEY `product_id` (`product_id`),
+  CONSTRAINT `listing_images_tbl_ibfk_1` FOREIGN KEY (`product_id`) REFERENCES `listing_tbl` (`product_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `listing_images_tbl`
+--
+
+LOCK TABLES `listing_images_tbl` WRITE;
+/*!40000 ALTER TABLE `listing_images_tbl` DISABLE KEYS */;
+/*!40000 ALTER TABLE `listing_images_tbl` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -77,21 +108,20 @@ DROP TABLE IF EXISTS `listing_tbl`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `listing_tbl` (
-  `product_id` varchar(64) NOT NULL,
-  `product_image` varchar(128) DEFAULT NULL,
-  `product_name` varchar(128) DEFAULT NULL,
+  `product_id` varchar(255) NOT NULL,
+  `product_name` int(128) DEFAULT NULL,
   `product_price` int(7) DEFAULT NULL,
   `shipping_area` varchar(4) DEFAULT NULL,
   `product_category` char(16) DEFAULT NULL,
   `product_condition` char(8) DEFAULT NULL,
   `product_description` varchar(255) DEFAULT NULL,
-  `listing_status` tinyint(1) DEFAULT NULL,
-  `listing_date` date DEFAULT NULL,
-  `sales_status` char(8) DEFAULT NULL,
-  `update_date` datetime DEFAULT NULL,
-  `product_upload_user` char(10) NOT NULL,
+  `listing_status` tinyint(1) DEFAULT 1,
+  `listing_date` datetime DEFAULT current_timestamp(),
+  `sales_status` char(1) DEFAULT NULL,
+  `update_date` datetime DEFAULT current_timestamp(),
+  `product_upload_user` int(10) NOT NULL,
   PRIMARY KEY (`product_id`,`product_upload_user`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -100,7 +130,7 @@ CREATE TABLE `listing_tbl` (
 
 LOCK TABLES `listing_tbl` WRITE;
 /*!40000 ALTER TABLE `listing_tbl` DISABLE KEYS */;
-INSERT INTO `listing_tbl` VALUES ('1001','image_1001.jpg','スニーカー',8500,'大阪','ファッション','新品','人気ブランドのスニーカーです',1,'2025-10-01','販売中','2025-10-01 12:30:00','1'),('1002','image_1002.jpg','ノートパソコン',78000,'東京','家電','中古','バッテリー良好、傷少なめ',1,'2025-09-28','販売中','2025-10-02 09:45:00','2'),('1003','image_1003.jpg','ギター',32000,'神奈川','楽器','新品','初心者向けのアコースティックギター',1,'2025-10-03','販売中','2025-10-03 15:10:00','3'),('1004','image_1004.jpg','コート',12000,'京都','ファッション','中古','少し使用感あり、サイズL',1,'2025-09-30','販売中','2025-10-04 08:20:00','4'),('1005','image_1005.jpg','スマートフォン',52000,'愛知','家電','新品','SIMフリー未使用品',1,'2025-10-05','販売中','2025-10-05 17:00:00','5'),('1006','image_1006.jpg','腕時計',25000,'大阪','アクセサリー','中古','保証書付き、動作確認済み',1,'2025-10-02','販売中','2025-10-06 11:45:00','6'),('1007','image_1007.jpg','カメラ',64000,'北海道','家電','中古','レンズに小傷あり、動作良好',1,'2025-09-27','販売中','2025-10-06 13:50:00','7'),('1008','image_1008.jpg','ソファ',18000,'兵庫','家具','中古','2人掛けソファ、少し使用感あり',1,'2025-10-01','販売中','2025-10-07 14:00:00','8'),('1009','image_1009.jpg','ヘッドフォン',9800,'千葉','家電','新品','ワイヤレスBluetoothモデル',1,'2025-10-04','販売中','2025-10-08 10:10:00','9'),('1010','image_1010.jpg','バッグ',13500,'福岡','ファッション','新品','レザーバッグ・未使用',1,'2025-10-06','販売中','2025-10-09 18:25:00','10');
+INSERT INTO `listing_tbl` VALUES ('1001',0,8500,'大阪','ファッション','新品','人気ブランドのスニーカーです',1,'2025-10-01 00:00:00','販','2025-10-01 12:30:00',1),('1002',0,78000,'東京','家電','中古','バッテリー良好、傷少なめ',1,'2025-09-28 00:00:00','販','2025-10-02 09:45:00',2),('1003',0,32000,'神奈川','楽器','新品','初心者向けのアコースティックギター',1,'2025-10-03 00:00:00','販','2025-10-03 15:10:00',3),('1004',0,12000,'京都','ファッション','中古','少し使用感あり、サイズL',1,'2025-09-30 00:00:00','販','2025-10-04 08:20:00',4),('1005',0,52000,'愛知','家電','新品','SIMフリー未使用品',1,'2025-10-05 00:00:00','販','2025-10-05 17:00:00',5),('1006',0,25000,'大阪','アクセサリー','中古','保証書付き、動作確認済み',1,'2025-10-02 00:00:00','販','2025-10-06 11:45:00',6),('1007',0,64000,'北海道','家電','中古','レンズに小傷あり、動作良好',1,'2025-09-27 00:00:00','販','2025-10-06 13:50:00',7),('1008',0,18000,'兵庫','家具','中古','2人掛けソファ、少し使用感あり',1,'2025-10-01 00:00:00','販','2025-10-07 14:00:00',8),('1009',0,9800,'千葉','家電','新品','ワイヤレスBluetoothモデル',1,'2025-10-04 00:00:00','販','2025-10-08 10:10:00',9),('1010',0,13500,'福岡','ファッション','新品','レザーバッグ・未使用',1,'2025-10-06 00:00:00','販','2025-10-09 18:25:00',10);
 /*!40000 ALTER TABLE `listing_tbl` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -112,12 +142,12 @@ DROP TABLE IF EXISTS `market_order_tbl`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `market_order_tbl` (
-  `id` char(32) NOT NULL,
-  `purchaser_id` char(10) DEFAULT NULL,
+  `id` varchar(255) NOT NULL,
+  `purchaser_id` char(32) DEFAULT NULL,
   `seller_id` char(10) DEFAULT NULL,
   `transaction_status` char(8) DEFAULT NULL,
-  `transaction_startdate` datetime DEFAULT NULL,
-  `transaction_completeddate` datetime DEFAULT NULL,
+  `transaction_startdate` datetime DEFAULT current_timestamp(),
+  `transaction_completeddate` datetime DEFAULT current_timestamp(),
   `total_amount` int(7) DEFAULT NULL,
   `sales_profit` int(7) DEFAULT NULL,
   `shipping_cost` int(4) DEFAULT NULL,
@@ -127,7 +157,7 @@ CREATE TABLE `market_order_tbl` (
   `buyer_evaluation` int(5) DEFAULT NULL,
   `seller_evaluation` int(5) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -136,7 +166,6 @@ CREATE TABLE `market_order_tbl` (
 
 LOCK TABLES `market_order_tbl` WRITE;
 /*!40000 ALTER TABLE `market_order_tbl` DISABLE KEYS */;
-INSERT INTO `market_order_tbl` VALUES ('ord0001','usr0001','usr0005','完了','2025-09-25 10:00:00','2025-09-30 14:00:00',8500,7200,500,800,'発送済み','ヤマト運輸',5,5),('ord0002','usr0002','usr0003','完了','2025-09-28 09:30:00','2025-10-02 16:00:00',32000,28000,700,1300,'発送済み','ゆうパック',4,5),('ord0003','usr0003','usr0007','進行中','2025-10-05 13:15:00',NULL,18000,15000,600,1200,'発送待ち','佐川急便',NULL,NULL),('ord0004','usr0004','usr0008','完了','2025-09-29 11:00:00','2025-10-03 18:20:00',52000,48000,800,1200,'発送済み','ヤマト運輸',5,5),('ord0005','usr0005','usr0002','キャンセル','2025-10-01 08:45:00','2025-10-01 09:10:00',12000,0,0,0,'未発送','なし',1,1),('ord0006','usr0006','usr0009','完了','2025-09-30 12:40:00','2025-10-04 15:50:00',9800,8700,400,700,'発送済み','ゆうメール',4,4),('ord0007','usr0007','usr0004','進行中','2025-10-07 17:00:00',NULL,25000,22000,600,900,'発送待ち','宅配便',NULL,NULL),('ord0008','usr0008','usr0001','完了','2025-09-26 09:25:00','2025-09-30 11:45:00',13500,12000,500,1000,'発送済み','佐川急便',5,5),('ord0009','usr0009','usr0010','完了','2025-09-27 14:10:00','2025-09-29 19:30:00',64000,60000,700,1300,'発送済み','ヤマト運輸',5,5),('ord0010','usr0010','usr0006','進行中','2025-10-06 15:00:00',NULL,78000,72000,900,1500,'発送準備','ゆうパック',NULL,NULL);
 /*!40000 ALTER TABLE `market_order_tbl` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -148,7 +177,7 @@ DROP TABLE IF EXISTS `membership_tbl`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `membership_tbl` (
-  `user_id` int(10) NOT NULL,
+  `user_id` char(10) NOT NULL,
   `join_date` date DEFAULT NULL,
   `renewal_date` date DEFAULT NULL,
   `payment_status` char(16) DEFAULT NULL,
@@ -156,7 +185,7 @@ CREATE TABLE `membership_tbl` (
   `bonus_id` char(10) DEFAULT NULL,
   `creator_id` int(10) NOT NULL,
   PRIMARY KEY (`user_id`,`creator_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -165,7 +194,7 @@ CREATE TABLE `membership_tbl` (
 
 LOCK TABLES `membership_tbl` WRITE;
 /*!40000 ALTER TABLE `membership_tbl` DISABLE KEYS */;
-INSERT INTO `membership_tbl` VALUES (1,'2023-01-15','2024-01-15','有効','クレカ','B000000001',101),(2,'2022-06-10','2023-06-10','期限切れ','銀行振込','B000000002',102),(3,'2024-02-01','2025-02-01','有効','PayPay','B000000003',103),(4,'2023-08-20','2024-08-20','停止中','クレカ','B000000004',104),(5,'2023-03-05','2024-03-05','有効','銀行振込','B000000005',105),(6,'2022-11-11','2023-11-11','期限切れ','コンビニ','B000000006',106),(7,'2024-04-30','2025-04-30','有効','クレカ','B000000007',107),(8,'2023-12-25','2024-12-25','有効','PayPay','B000000008',108),(9,'2023-07-14','2024-07-14','停止中','クレカ','B000000009',109),(10,'2022-09-01','2023-09-01','期限切れ','銀行振込','B000000010',110);
+INSERT INTO `membership_tbl` VALUES ('1','2023-01-15','2024-01-15','有効','クレカ','B000000001',101),('10','2022-09-01','2023-09-01','期限切れ','銀行振込','B000000010',110),('2','2022-06-10','2023-06-10','期限切れ','銀行振込','B000000002',102),('3','2024-02-01','2025-02-01','有効','PayPay','B000000003',103),('4','2023-08-20','2024-08-20','停止中','クレカ','B000000004',104),('5','2023-03-05','2024-03-05','有効','銀行振込','B000000005',105),('6','2022-11-11','2023-11-11','期限切れ','コンビニ','B000000006',106),('7','2024-04-30','2025-04-30','有効','クレカ','B000000007',107),('8','2023-12-25','2024-12-25','有効','PayPay','B000000008',108),('9','2023-07-14','2024-07-14','停止中','クレカ','B000000009',109);
 /*!40000 ALTER TABLE `membership_tbl` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -178,12 +207,12 @@ DROP TABLE IF EXISTS `order_message_tbl`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `order_message_tbl` (
   `id` char(128) NOT NULL,
-  `order_message_date` datetime DEFAULT NULL,
-  `order_message_user_id` char(10) NOT NULL,
-  `transaction_id` char(32) NOT NULL,
+  `order_message_date` datetime DEFAULT current_timestamp(),
+  `order_message_user_id` int(10) NOT NULL,
+  `transaction_id` int(32) NOT NULL,
   `order_message_text` varchar(128) DEFAULT NULL,
   PRIMARY KEY (`id`,`order_message_user_id`,`transaction_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -192,7 +221,7 @@ CREATE TABLE `order_message_tbl` (
 
 LOCK TABLES `order_message_tbl` WRITE;
 /*!40000 ALTER TABLE `order_message_tbl` DISABLE KEYS */;
-INSERT INTO `order_message_tbl` VALUES ('','2025-09-25 10:15:00','1','1','購入させていただきました、よろしくお願いします。'),('','2025-10-02 20:10:00','1','8','無事届いてよかったです、またよろしくお願いします。'),('','2025-10-06 15:25:00','10','10','発送はいつ頃になりますか？'),('','2025-09-28 09:20:00','2','2','発送予定日はいつ頃になりますか？'),('','2025-09-28 12:00:00','3','2','明日発送予定です、よろしくお願いします。'),('','2025-10-01 08:10:00','3','7','支払いが完了しました。'),('','2025-10-01 09:00:00','4','7','確認しました、発送準備中です。'),('','2025-09-25 10:45:00','5','1','ご購入ありがとうございます、すぐに発送準備します。'),('','2025-10-06 16:00:00','6','10','本日中に発送いたします。'),('','2025-10-02 19:40:00','8','8','商品届きました、ありがとうございました！');
+INSERT INTO `order_message_tbl` VALUES ('','2025-09-25 10:15:00',1,1,'購入させていただきました、よろしくお願いします。'),('','2025-10-02 20:10:00',1,8,'無事届いてよかったです、またよろしくお願いします。'),('','2025-09-28 09:20:00',2,2,'発送予定日はいつ頃になりますか？'),('','2025-09-28 12:00:00',3,2,'明日発送予定です、よろしくお願いします。'),('','2025-10-01 08:10:00',3,7,'支払いが完了しました。'),('','2025-10-01 09:00:00',4,7,'確認しました、発送準備中です。'),('','2025-09-25 10:45:00',5,1,'ご購入ありがとうございます、すぐに発送準備します。'),('','2025-10-06 16:00:00',6,10,'本日中に発送いたします。'),('','2025-10-02 19:40:00',8,8,'商品届きました、ありがとうございました！'),('','2025-10-06 15:25:00',10,10,'発送はいつ頃になりますか？');
 /*!40000 ALTER TABLE `order_message_tbl` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -204,8 +233,8 @@ DROP TABLE IF EXISTS `payment_tbl`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `payment_tbl` (
-  `user_id` int(10) NOT NULL,
-  `card_num` int(16) NOT NULL,
+  `user_id` char(10) NOT NULL,
+  `card_num` char(16) NOT NULL,
   `card_name` char(16) DEFAULT NULL,
   `card_expiration` char(4) DEFAULT NULL,
   `card_block` tinyint(1) DEFAULT NULL,
@@ -219,7 +248,7 @@ CREATE TABLE `payment_tbl` (
   `withdrawal` int(16) DEFAULT NULL,
   `account_type` char(10) DEFAULT NULL,
   PRIMARY KEY (`user_id`,`card_num`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -228,7 +257,6 @@ CREATE TABLE `payment_tbl` (
 
 LOCK TABLES `payment_tbl` WRITE;
 /*!40000 ALTER TABLE `payment_tbl` DISABLE KEYS */;
-INSERT INTO `payment_tbl` VALUES (1,2147483647,'VISA','2608',0,'Mitsui Bank','1234567890123456','Namba','001','YAMADA TARO',50000,120000,30000,'普通'),(2,2147483647,'MasterCard','2507',0,'Mizuho Bank','9876543210987654','Shibuya','002','SUZUKI ICHIRO',72000,150000,50000,'当座'),(3,2147483647,'JCB','2701',1,'SMBC','0000111122223333','Umeda','003','SATO HANAKO',0,30000,0,'普通'),(4,2147483647,'Discover','2412',0,'Rakuten Bank','4444333322221111','Nagoya','004','TANAKA KEN',20000,80000,10000,'普通'),(5,2147483647,'VISA','2610',0,'MUFG','3333222211110000','Kyoto','005','YOSHIDA EMI',35000,100000,25000,'当座'),(6,2147483647,'MasterCard','2803',0,'PayPay Bank','5555666677778888','Tennoji','006','KOBAYASHI TAKU',60000,90000,40000,'普通'),(7,2147483647,'JCB','2905',0,'Japan Post Bank','1212121212121212','Osaka','007','KIMURA RYO',10000,30000,5000,'普通'),(8,2147483647,'Discover','2512',1,'Sony Bank','9090909090909090','Fukuoka','008','MORI HARUKA',0,5000,0,'普通'),(9,2147483647,'VISA','2709',0,'Shinsei Bank','8080808080808080','Sapporo','009','MATSUMOTO KEI',45000,60000,30000,'当座'),(10,2147483647,'MasterCard','2605',0,'Aeon Bank','2020202020202020','Kobe','010','NAKAMURA YUI',55000,75000,40000,'普通');
 /*!40000 ALTER TABLE `payment_tbl` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -241,15 +269,15 @@ DROP TABLE IF EXISTS `post_tbl`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `post_tbl` (
   `id` char(128) NOT NULL,
-  `user_id` char(10) DEFAULT NULL,
-  `post_date` datetime DEFAULT NULL,
+  `user_id` char(128) DEFAULT NULL,
+  `post_date` datetime DEFAULT current_timestamp(),
   `post_text` varchar(128) DEFAULT NULL,
-  `post_media` varchar(128) DEFAULT NULL,
-  `post_update_date` datetime DEFAULT NULL,
-  `post_report_flag` tinyint(1) DEFAULT NULL,
-  `post_status` tinyint(1) DEFAULT NULL,
+  `post_media` char(128) DEFAULT NULL,
+  `post_update_date` datetime DEFAULT current_timestamp(),
+  `post_report_flag` tinyint(1) DEFAULT 0,
+  `post_status` tinyint(1) DEFAULT 1,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -271,11 +299,11 @@ DROP TABLE IF EXISTS `product_tbl`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `product_tbl` (
   `id` char(32) NOT NULL,
-  `favorites` char(32) DEFAULT NULL,
-  `product_view_flag` tinyint(1) DEFAULT NULL,
+  `favorites` int(32) DEFAULT NULL,
+  `product_view_flag` tinyint(1) DEFAULT 0,
   `user_id` char(10) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -284,7 +312,7 @@ CREATE TABLE `product_tbl` (
 
 LOCK TABLES `product_tbl` WRITE;
 /*!40000 ALTER TABLE `product_tbl` DISABLE KEYS */;
-INSERT INTO `product_tbl` VALUES ('prd0001','125',1,'usr0001'),('prd0002','58',1,'usr0002'),('prd0003','342',1,'usr0003'),('prd0004','0',0,'usr0004'),('prd0005','76',1,'usr0005'),('prd0006','189',1,'usr0006'),('prd0007','250',0,'usr0007'),('prd0008','12',1,'usr0008'),('prd0009','480',1,'usr0009'),('prd0010','33',0,'usr0010');
+INSERT INTO `product_tbl` VALUES ('prd0001',125,1,'usr0001'),('prd0002',58,1,'usr0002'),('prd0003',342,1,'usr0003'),('prd0004',0,0,'usr0004'),('prd0005',76,1,'usr0005'),('prd0006',189,1,'usr0006'),('prd0007',250,0,'usr0007'),('prd0008',12,1,'usr0008'),('prd0009',480,1,'usr0009'),('prd0010',33,0,'usr0010');
 /*!40000 ALTER TABLE `product_tbl` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -300,14 +328,14 @@ CREATE TABLE `support_tbl` (
   `category` char(16) DEFAULT NULL,
   `content` varchar(255) DEFAULT NULL,
   `inquiry_user_id` char(10) DEFAULT NULL,
-  `send_date` datetime DEFAULT NULL,
-  `receiving_date` datetime DEFAULT NULL,
+  `send_date` datetime DEFAULT current_timestamp(),
+  `receiving_date` datetime DEFAULT current_timestamp(),
   `response_status` char(16) DEFAULT NULL,
-  `response_date` datetime DEFAULT NULL,
+  `response_date` datetime DEFAULT current_timestamp(),
   `attached_file` varchar(255) DEFAULT NULL,
   `response_content` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -328,7 +356,7 @@ DROP TABLE IF EXISTS `user_tbl`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `user_tbl` (
-  `id` int(10) NOT NULL,
+  `id` char(10) NOT NULL,
   `user_name` char(16) DEFAULT NULL,
   `first_name` char(8) DEFAULT NULL,
   `last_name` char(8) DEFAULT NULL,
@@ -346,7 +374,7 @@ CREATE TABLE `user_tbl` (
   `introduction` varchar(100) DEFAULT NULL,
   `report_flag` int(1) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -355,7 +383,7 @@ CREATE TABLE `user_tbl` (
 
 LOCK TABLES `user_tbl` WRITE;
 /*!40000 ALTER TABLE `user_tbl` DISABLE KEYS */;
-INSERT INTO `user_tbl` VALUES (1,'tanaka01','太郎','田中','タロウ','タナカ','8012345678','5300001','大阪府','大阪市北区','梅田','1-2-3','1980-05-12','tanaka@example.com','pass1234','趣味は釣りです。',0),(2,'suzuki02','花子','鈴木','ハナコ','スズキ','9012345678','1500001','東京都','渋谷区','神宮前','4-5-6','1992-07-03','suzuki@example.com','flower22','旅行が好きです。',0),(3,'sato03','健','佐藤','ケン','サトウ','7011112222','9800011','宮城県','仙台市青葉区','中央','7-8-9','1988-03-19','sato@example.com','kenpass','スポーツ観戦が趣味です。',0),(4,'kobayashi04','真由美','小林','マユミ','コバヤシ','6012223333','4600008','愛知県','名古屋市中区','栄','2-3-4','1995-09-25','kobayashi@example.com','mayu456','カフェ巡りが好きです。',0),(5,'watanabe05','翔太','渡辺','ショウタ','ワタナベ','5013334444','8100001','福岡県','福岡市中央区','天神','5-6-7','1990-12-11','watanabe@example.com','sho999','映画を見るのが趣味です。',0),(6,'yamamoto06','絵里','山本','エリ','ヤマモト','4014445555','6008001','京都府','京都市下京区','四条通','1-1-1','1997-01-04','yamamoto@example.com','eri321','音楽が大好きです。',0),(7,'nakamura07','健太','中村','ケンタ','ナカムラ','3015556666','9800811','宮城県','仙台市青葉区','一番町','10-2-3','1993-04-20','nakamura@example.com','kenta789','料理が得意です。',0),(8,'matsumoto08','裕子','松本','ユウコ','マツモト','2016667777','5500013','大阪府','大阪市西区','新町','2-4-5','1985-11-09','matsumoto@example.com','yuko555','読書が好きです。',0),(9,'inoue09','直樹','井上','ナオキ','イノウエ','1017778888','9800021','宮城県','仙台市青葉区','中央','6-7-8','1989-08-18','inoue@example.com','naoki12','ジョギングを毎朝しています。',0),(10,'takahashi10','美咲','高橋','ミサキ','タカハシ','9018889999','1000001','東京都','千代田区','千代田','9-9-9','1998-02-15','takahashi@example.com','misaki321','猫が大好きです。',0);
+INSERT INTO `user_tbl` VALUES ('1','tanaka01','太郎','田中','タロウ','タナカ','8012345678','5300001','大阪府','大阪市北区','梅田','1-2-3','1980-05-12','tanaka@example.com','pass1234','趣味は釣りです。',0),('10','takahashi10','美咲','高橋','ミサキ','タカハシ','9018889999','1000001','東京都','千代田区','千代田','9-9-9','1998-02-15','takahashi@example.com','misaki321','猫が大好きです。',0),('2','suzuki02','花子','鈴木','ハナコ','スズキ','9012345678','1500001','東京都','渋谷区','神宮前','4-5-6','1992-07-03','suzuki@example.com','flower22','旅行が好きです。',0),('3','sato03','健','佐藤','ケン','サトウ','7011112222','9800011','宮城県','仙台市青葉区','中央','7-8-9','1988-03-19','sato@example.com','kenpass','スポーツ観戦が趣味です。',0),('4','kobayashi04','真由美','小林','マユミ','コバヤシ','6012223333','4600008','愛知県','名古屋市中区','栄','2-3-4','1995-09-25','kobayashi@example.com','mayu456','カフェ巡りが好きです。',0),('5','watanabe05','翔太','渡辺','ショウタ','ワタナベ','5013334444','8100001','福岡県','福岡市中央区','天神','5-6-7','1990-12-11','watanabe@example.com','sho999','映画を見るのが趣味です。',0),('6','yamamoto06','絵里','山本','エリ','ヤマモト','4014445555','6008001','京都府','京都市下京区','四条通','1-1-1','1997-01-04','yamamoto@example.com','eri321','音楽が大好きです。',0),('7','nakamura07','健太','中村','ケンタ','ナカムラ','3015556666','9800811','宮城県','仙台市青葉区','一番町','10-2-3','1993-04-20','nakamura@example.com','kenta789','料理が得意です。',0),('8','matsumoto08','裕子','松本','ユウコ','マツモト','2016667777','5500013','大阪府','大阪市西区','新町','2-4-5','1985-11-09','matsumoto@example.com','yuko555','読書が好きです。',0),('9','inoue09','直樹','井上','ナオキ','イノウエ','1017778888','9800021','宮城県','仙台市青葉区','中央','6-7-8','1989-08-18','inoue@example.com','naoki12','ジョギングを毎朝しています。',0);
 /*!40000 ALTER TABLE `user_tbl` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -368,13 +396,15 @@ DROP TABLE IF EXISTS `video_comment_tbl`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `video_comment_tbl` (
   `comment_id` varchar(255) NOT NULL,
-  `video_id` varchar(64) NOT NULL,
+  `video_id` varchar(255) DEFAULT NULL,
   `commentor_id` char(10) DEFAULT NULL,
-  `comment_date` datetime DEFAULT NULL,
+  `comment_date` datetime DEFAULT current_timestamp(),
   `comment_text` varchar(64) DEFAULT NULL,
   `parent_comment_id` varchar(255) DEFAULT NULL,
-  PRIMARY KEY (`comment_id`,`video_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+  PRIMARY KEY (`comment_id`),
+  KEY `video_id` (`video_id`),
+  CONSTRAINT `video_comment_tbl_ibfk_1` FOREIGN KEY (`video_id`) REFERENCES `video_tbl` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -383,7 +413,7 @@ CREATE TABLE `video_comment_tbl` (
 
 LOCK TABLES `video_comment_tbl` WRITE;
 /*!40000 ALTER TABLE `video_comment_tbl` DISABLE KEYS */;
-INSERT INTO `video_comment_tbl` VALUES ('cmt001','vid001','user001','2025-10-01 12:00:00','最高の動画ですね！',NULL),('cmt002','vid001','user002','2025-10-01 12:05:30','編集がうまい！',NULL),('cmt003','vid001','user003','2025-10-01 12:10:15','同意です！','cmt002'),('cmt004','vid002','user004','2025-10-02 09:20:00','音質めっちゃ良い！',NULL),('cmt005','vid002','user005','2025-10-02 09:35:50','途中の展開好き',NULL),('cmt006','vid003','user006','2025-10-03 14:10:00','サムネに惹かれた笑',NULL),('cmt007','vid003','user007','2025-10-03 14:12:30','同じく！','cmt006'),('cmt008','vid004','user002','2025-10-04 11:00:00','投稿お疲れ様です！',NULL),('cmt009','vid004','user003','2025-10-04 11:03:15','もっと見たい！',NULL),('cmt010','vid005','user001','2025-10-05 16:45:00','また次も期待してます！',NULL);
+INSERT INTO `video_comment_tbl` VALUES ('cmt001','vid0001','user001','2025-10-01 12:00:00','最高の動画ですね！',NULL),('cmt002','vid0001','user002','2025-10-01 12:05:30','編集がうまい！',NULL),('cmt003','vid0001','user003','2025-10-01 12:10:15','同意です！','cmt002'),('cmt004','vid0002','user004','2025-10-02 09:20:00','音質めっちゃ良い！',NULL),('cmt005','vid0002','user005','2025-10-02 09:35:50','途中の展開好き',NULL),('cmt006','vid0003','user006','2025-10-03 14:10:00','サムネに惹かれた笑',NULL),('cmt007','vid0003','user007','2025-10-03 14:12:30','同じく！','cmt006'),('cmt008','vid0004','user002','2025-10-04 11:00:00','投稿お疲れ様です！',NULL),('cmt009','vid0004','user003','2025-10-04 11:03:15','もっと見たい！',NULL),('cmt010','vid0005','user001','2025-10-05 16:45:00','また次も期待してます！',NULL);
 /*!40000 ALTER TABLE `video_comment_tbl` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -396,11 +426,13 @@ DROP TABLE IF EXISTS `video_like_tbl`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `video_like_tbl` (
   `id` varchar(255) NOT NULL,
-  `video_id` varchar(255) NOT NULL,
+  `video_id` varchar(255) DEFAULT NULL,
   `video_uploader_id` char(10) DEFAULT NULL,
   `video_like_date` datetime DEFAULT NULL,
-  PRIMARY KEY (`id`,`video_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+  PRIMARY KEY (`id`),
+  KEY `video_id` (`video_id`),
+  CONSTRAINT `video_like_tbl_ibfk_1` FOREIGN KEY (`video_id`) REFERENCES `video_tbl` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -409,7 +441,7 @@ CREATE TABLE `video_like_tbl` (
 
 LOCK TABLES `video_like_tbl` WRITE;
 /*!40000 ALTER TABLE `video_like_tbl` DISABLE KEYS */;
-INSERT INTO `video_like_tbl` VALUES ('user001','vid001','upl001','2025-10-01 12:34:56'),('user001','vid003','upl003','2025-10-02 11:10:45'),('user002','vid001','upl001','2025-10-01 12:35:12'),('user002','vid005','upl005','2025-10-05 18:55:33'),('user003','vid002','upl002','2025-10-02 09:22:18'),('user003','vid004','upl004','2025-10-05 17:40:10'),('user004','vid003','upl003','2025-10-02 10:45:00'),('user005','vid004','upl004','2025-10-03 14:25:30'),('user006','vid005','upl005','2025-10-03 16:50:00'),('user007','vid002','upl002','2025-10-04 08:15:20');
+INSERT INTO `video_like_tbl` VALUES ('user001','vid0001','upl001','2025-10-01 12:34:56'),('user002','vid0001','upl001','2025-10-01 12:35:12'),('user003','vid0002','upl002','2025-10-02 09:22:18'),('user004','vid0003','upl003','2025-10-02 10:45:00'),('user005','vid0004','upl004','2025-10-03 14:25:30'),('user006','vid0005','upl005','2025-10-03 16:50:00'),('user007','vid0002','upl002','2025-10-04 08:15:20'),('user013','vid0003','upl003','2025-10-02 11:10:45'),('user014','vid0004','upl004','2025-10-05 17:40:10'),('user016','vid0005','upl005','2025-10-05 18:55:33');
 /*!40000 ALTER TABLE `video_like_tbl` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -426,11 +458,11 @@ CREATE TABLE `video_review_tbl` (
   `reviewer_id` char(16) DEFAULT NULL,
   `review_status` char(8) DEFAULT NULL,
   `review_result_comment` varchar(255) DEFAULT NULL,
-  `reviewed_at` datetime DEFAULT NULL,
-  `created_at` datetime DEFAULT NULL,
-  `updated_at` datetime DEFAULT NULL,
+  `reviewed_at` datetime DEFAULT current_timestamp(),
+  `created_at` datetime DEFAULT current_timestamp(),
+  `updated_at` datetime DEFAULT current_timestamp(),
   PRIMARY KEY (`review_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -455,19 +487,19 @@ CREATE TABLE `video_tbl` (
   `video_title` char(32) DEFAULT NULL,
   `video_length` int(5) DEFAULT NULL,
   `video_uploader_id` char(10) NOT NULL,
-  `video_upload_date` datetime DEFAULT NULL,
+  `video_upload_date` datetime DEFAULT current_timestamp(),
   `video_description_section` varchar(255) DEFAULT NULL,
   `video_public_status` tinyint(1) DEFAULT NULL,
   `video_category` char(16) DEFAULT NULL,
   `video_tag` char(16) DEFAULT NULL,
-  `video_report_flag` tinyint(1) DEFAULT NULL,
+  `video_report_flag` tinyint(1) DEFAULT 0,
   `video_popularity_index` float DEFAULT NULL,
   `view_count` int(10) DEFAULT NULL,
   `like_count` int(10) DEFAULT NULL,
   `comment_count` int(10) DEFAULT NULL,
   `file_path` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`,`video_uploader_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -476,7 +508,7 @@ CREATE TABLE `video_tbl` (
 
 LOCK TABLES `video_tbl` WRITE;
 /*!40000 ALTER TABLE `video_tbl` DISABLE KEYS */;
-INSERT INTO `video_tbl` VALUES ('vid0001','街ブラ日記',320,'usr0001','2025-09-25 10:00:00','大阪の街を散歩しながら紹介します。',1,'旅行','#大阪',0,7.8,2300,150,12,'/videos/vid0001.mp4'),('vid0002','ギター練習',420,'usr0002','2025-09-26 14:10:00','初心者向けギターコード練習講座',1,'音楽','#ギター',0,8.3,5400,380,45,'/videos/vid0002.mp4'),('vid0003','英語勉強法',600,'usr0003','2025-09-27 09:30:00','短期間で英語力を伸ばすコツを紹介',1,'教育','#英語',0,9,10200,890,65,'/videos/vid0003.mp4'),('vid0004','猫の一日',210,'usr0004','2025-09-28 17:50:00','うちの猫の可愛い日常です????',1,'ペット','#猫',0,6.2,1200,95,8,'/videos/vid0004.mp4'),('vid0005','料理チャレンジ',540,'usr0005','2025-09-29 19:00:00','初めてのパスタ作り挑戦！',1,'料理','#パスタ',0,7,3400,220,30,'/videos/vid0005.mp4'),('vid0006','メイク講座',480,'usr0006','2025-09-30 12:00:00','ナチュラルメイクのやり方を紹介',1,'美容','#メイク',0,8.1,7800,540,42,'/videos/vid0006.mp4'),('vid0007','筋トレ日記',360,'usr0007','2025-10-01 08:30:00','今日のワークアウトルーティン',1,'フィットネス','#筋トレ',0,9.3,15000,1200,110,'/videos/vid0007.mp4'),('vid0008','夜景撮影',260,'usr0008','2025-10-02 21:00:00','カメラ設定と撮影のコツを紹介',1,'カメラ','#夜景',0,8.5,6500,410,27,'/videos/vid0008.mp4'),('vid0009','日常Vlog',300,'usr0009','2025-10-03 10:40:00','朝のルーティンを紹介します',1,'ライフスタイル','#vlog',0,7.2,2100,170,15,'/videos/vid0009.mp4'),('vid001','初心者向けギター講座 第1回',600,'user0001','2024-03-15 14:30:00','ギター初心者向けにチューニングと基本コードを紹介します。',1,'音楽','ギター',0,4.5,1200,340,25,'/videos/vid001.mp4'),('vid0010','炎上事件',400,'usr0010','2025-10-04 13:15:00','内容が不適切と報告されました',0,'ニュース','#炎上',1,2.1,500,20,8,'/videos/vid0010.mp4'),('vid002','エレキギターの音作り解説',720,'user0002','2024-04-10 20:15:00','エフェクターとアンプの設定で音作りを詳しく解説。メタル系の音作りにも挑戦。',1,'音楽','機材',0,4.8,5600,890,78,'/videos/vid002.mp4'),('vid003','ギターで弾くアニメソングメドレー',900,'user0003','2024-05-02 18:00:00','人気アニメの名曲をギター1本で弾いてみた！録音・撮影環境も紹介します。',1,'音楽','アニメ',0,4.9,9800,1500,132,'/videos/vid003.mp4'),('vid004','ギターリフだけで分かる名曲10選',480,'user0004','2024-06-22 10:00:00','ギターリフが印象的な洋楽ロックを紹介。初心者にもおすすめ！',1,'エンタメ','ロック',0,4.6,7400,1100,89,'/videos/vid004.mp4'),('vid005','アコースティックギターで癒しの時間',660,'user0005','2024-07-05 21:45:00','夜に聴きたいアコースティックギターの演奏を集めました。',1,'音楽','癒し',0,4.7,8600,980,64,'/videos/vid005.mp4');
+INSERT INTO `video_tbl` VALUES ('vid0001','街ブラ日記',320,'usr0001','2025-09-25 10:00:00','大阪の街を散歩しながら紹介します。',1,'旅行','#大阪',0,7.8,2300,150,12,'/videos/vid0001.mp4'),('vid0002','ギター練習',420,'usr0002','2025-09-26 14:10:00','初心者向けギターコード練習講座',1,'音楽','#ギター',0,8.3,5400,380,45,'/videos/vid0002.mp4'),('vid0003','英語勉強法',600,'usr0003','2025-09-27 09:30:00','短期間で英語力を伸ばすコツを紹介',1,'教育','#英語',0,9,10200,890,65,'/videos/vid0003.mp4'),('vid0004','猫の一日',210,'usr0004','2025-09-28 17:50:00','うちの猫の可愛い日常です????',1,'ペット','#猫',0,6.2,1200,95,8,'/videos/vid0004.mp4'),('vid0005','料理チャレンジ',540,'usr0005','2025-09-29 19:00:00','初めてのパスタ作り挑戦！',1,'料理','#パスタ',0,7,3400,220,30,'/videos/vid0005.mp4'),('vid0006','メイク講座',480,'usr0006','2025-09-30 12:00:00','ナチュラルメイクのやり方を紹介',1,'美容','#メイク',0,8.1,7800,540,42,'/videos/vid0006.mp4'),('vid0007','筋トレ日記',360,'usr0007','2025-10-01 08:30:00','今日のワークアウトルーティン',1,'フィットネス','#筋トレ',0,9.3,15000,1200,110,'/videos/vid0007.mp4'),('vid0008','夜景撮影',260,'usr0008','2025-10-02 21:00:00','カメラ設定と撮影のコツを紹介',1,'カメラ','#夜景',0,8.5,6500,410,27,'/videos/vid0008.mp4'),('vid0009','日常Vlog',300,'usr0009','2025-10-03 10:40:00','朝のルーティンを紹介します',1,'ライフスタイル','#vlog',0,7.2,2100,170,15,'/videos/vid0009.mp4'),('vid0010','炎上事件',400,'usr0010','2025-10-04 13:15:00','内容が不適切と報告されました',0,'ニュース','#炎上',1,2.1,500,20,8,'/videos/vid0010.mp4');
 /*!40000 ALTER TABLE `video_tbl` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -489,4 +521,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2025-10-23 13:48:29
+-- Dump completed on 2025-10-23 15:46:13
