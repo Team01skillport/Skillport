@@ -68,8 +68,13 @@
           method="get"
           class="search"
         >
-          <input type="text" name="headersearch" placeholder="検索..." />
-          <button type="submit">検索</button>
+          <input
+            type="text"
+            name="headersearch"
+            placeholder="検索..."
+            id="search_bar"
+          />
+          <button type="submit" id="search_button">検索</button>
           <!--JSを使って入力欄が空かを確認する  -->
         </form>
       </div>
@@ -82,6 +87,8 @@
     </main>
     <!-- フッター -->
     <footer>©copyright SkillPort2025</footer>
-    {% block scripts %}{% endblock %}
   </body>
 </html>
+<script src="{{url_for('static', filename='js/jquery-3.7.0.min.js')}}"></script>
+<script src="{{url_for('static', filename='js/base.js')}}"></script>
+{% block scripts %}{% endblock %}

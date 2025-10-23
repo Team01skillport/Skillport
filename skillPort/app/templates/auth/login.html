@@ -1,6 +1,11 @@
 {% extends "base.html" %} {% block title %}ログイン{% endblock %} {% block
 content %}
-<link rel="stylesheet" href="../static/css/login.css" />
+<head>
+  <link
+    rel="stylesheet"
+    href="{{url_for('static', filename='css/login.css')}}"
+  />
+</head>
 <body>
   <div class="login-container">
     <!-- <h1>ログイン</h1> -->
