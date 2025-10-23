@@ -28,6 +28,7 @@ body{
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
     padding: 40px;
     text-align: center;
+    margin:  0 0 0 350px;
 }
 
 .main-title {
