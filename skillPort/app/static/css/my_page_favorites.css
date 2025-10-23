@@ -4,9 +4,9 @@ body{
 }
 
 .favorites-page-container {
-    width: 90%;
+    width: 270%;
     max-width: 1200px;
-    margin: 50px auto;
+    margin: 0 0 0 100px;
     padding: 0 20px;
 }
 
