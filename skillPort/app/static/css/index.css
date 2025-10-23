@@ -1,10 +1,14 @@
+body{
+  top: 0px;
+  position: absolute;
+}
 /* スライドショー--------------------------------------------------------- */
 
 .slide h2 {
   position: absolute;
   margin: 0;
   font-size: 4vw;
-  padding: 0px 20px 100px 20px;
+  padding: 0px 20px 100px 0px;
   border-top-left-radius: 8px;
   opacity: 0;
   transition: opacity 2s ease-in-out;
@@ -17,10 +21,10 @@
 
 .slideshow-container {
   position: relative;
-  width: 95%;
-  aspect-ratio: 16 / 9;
+  width: 100vw;
+  height: 100vh;
   overflow: hidden;
-  margin: 1.5vw auto 0;
+  object-fit: fill;
 }
 
 .slide {
@@ -38,6 +42,20 @@
   object-fit: cover;
   border-radius: 10px;
 }
+
+.slide::after {
+  content: "";
+  position: absolute;
+  inset: 0; /* 全体を覆う */
+  background:
+    /* 下方向の白フェード */
+    linear-gradient(to bottom, rgba(255,255,255,0) 70%, rgba(255,255,255,1) 100%),
+    /* 左右の白フェード */
+    linear-gradient(to left, rgba(255,255,255,0) 90%, rgba(255,255,255,1) 100%),
+    linear-gradient(to right, rgba(255,255,255,0) 90%, rgba(255,255,255,1) 100%);
+  pointer-events: none;
+}
+
 
 .slide.active {
   display: block;
@@ -80,7 +98,7 @@
 /*動画 ------------------------------------------------------------ */
 
 #videos {
-  margin: 1vw 0 0 5vw;
+  margin: 0.7vw 0 0 5vw;
 }
 
 #videos h1 {
