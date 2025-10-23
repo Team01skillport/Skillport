@@ -1,0 +1,92 @@
+body {
+  font-family: sans-serif;
+  margin: 0;
+}
+
+.main-container {
+  display: flex;
+  margin: 3rem 7rem;
+}
+
+/* 左側導覽列 (Sidebar) */
+.mypage-sidebar {
+  width: 200px; /* 固定側邊欄寬度 */
+  flex-shrink: 0;
+}
+
+.mypage-title {
+  font-size: 24px;
+  font-weight: bold;
+  margin: 0 0 20px 0;
+  border-bottom: 3px solid #000000; /* 黑色底線 */
+  padding-bottom: 5px;
+}
+
+.mypage-nav-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.mypage-nav-list li {
+  margin-bottom: 1px; /* 清單項目之間的細微間距 */
+}
+
+.mypage-nav-list a {
+  display: block;
+  padding: 10px 15px;
+  text-decoration: none;
+  color: #333;
+  font-size: 14px;
+  border-left: 5px solid transparent; /* 預留左側藍線位置 */
+  transition: all 0.2s;
+  font-weight: 500;
+}
+
+.mypage-nav-list a:hover {
+  background-color: #f0f8ff; /* 輕微懸停效果 */
+  color: #226cff;
+}
+
+/* 確保左側標題的 active 樣式 */
+.mypage-nav-list a.active {
+  font-weight: bold;
+  color: #226cff;
+  border-left: 5px solid #226cff; /* 藍色活動指示線 */
+  background-color: #f0f8ff;
+}
+
+.mypage-nav-list .delete-link {
+  color: #d9534f; /* 紅色，表示危險操作 */
+}
+
+.mypage-nav-list .delete-link:hover {
+  color: white;
+  background-color: #d35a57;
+}
+
+/* 註釈: 響應式佈局，適用於 My Page 的容器 */
+@media (max-width: 768px) {
+  .mypage-sidebar {
+    width: 100%; /* 小螢幕佔滿寬度 */
+  }
+  .mypage-nav-list {
+    display: flex;
+    flex-wrap: wrap;
+    border-top: 1px solid #ccc;
+    border-bottom: 1px solid #ccc;
+    margin-bottom: 15px;
+  }
+  .mypage-nav-list li {
+    width: 50%; /* 每行兩個 */
+    box-sizing: border-box;
+  }
+  .mypage-nav-list a {
+    border-left: none;
+    border-bottom: 1px dotted #eee;
+  }
+  .mypage-nav-list a.active {
+    border-bottom: 2px solid #226cff;
+    border-left: none;
+  }
+}

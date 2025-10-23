@@ -1,72 +1,29 @@
-<!DOCTYPE html>
-<html lang="ja">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>出品商品登録 - SkillPort</title>
+{% extends "base.html" %}
 
-  <!-- 共通スタイル（ヘッダー／フッター等） -->
-  <link rel="stylesheet" href="../../static/css/index.css">
-  <!-- 本ページ専用スタイル -->
-  <link rel="stylesheet" href="../../static/css/product_create.css">
-</head>
-<body>
-  <!-- ===== 上部プロフィール帯（共通） ===== -->
-  <div id="profile">
-    <ul>
-      <li><a href="../../templates/account/register.html">アカウント登録</a></li>
-      <li><a href="../../templates/auth/login.html">ログイン</a></li>
-    </ul>
-    <a href="#"><img src="../../static/media/profile_icon.png" alt="profile"></a>
-  </div>
+{# ================= ページのタイトル ================= #}
+{% block title %}
+出品商品登録 - SkillPort
+{% endblock %}
 
-  <div id="header_cap"></div>
+{# ================= ページ固有のCSS ================= #}
+{% block styles %}
+  {# <link rel="stylesheet" href="{{ url_for('static', filename='css/index.css') }}"> #}
+  
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/product_create.css') }}">
+{% endblock %}
 
-  <!-- ===== ヘッダー（共通ナビ） ===== -->
-  <div id="header">
-    <a href="../../templates/index.html">
-      <img src="../../static/media/skill-port-logo.png" alt="logo">
-    </a>
 
-    <div class="container">
-      <ul>
-        <li><a href="#">プロフィール</a></li>
-        <li><a href="market.html" class="is-active">マーケット</a></li>
-        <li><a href="#">コミュニティー</a></li>
-        <li class="dropdown" id="nav-category">
-          <a href="#" class="dropdown-toggle">カテゴリ一</a>
-          <ul class="dropdown-menu">
-            <li><a href="#">アニメーション</a></li>
-            <li><a href="#">音楽</a></li>
-            <li><a href="#">カメラ</a></li>
-            <li><a href="#">フィットネス</a></li>
-            <li><a href="#">英語</a></li>
-            <li><a href="#">プログラミング</a></li>
-          </ul>
-        </li>
-      </ul>
-
-      <!-- 検索（ダミー） -->
-      <form action="#" class="search">
-        <input type="text" placeholder="検索">
-        <button type="submit">検索</button>
-      </form>
-    </div>
-  </div>
-
-  <!-- ===== ページ本体 ===== -->
+{# ================= メインコンテンツ ================= #}
+{% block content %}
   <main class="pc-main">
     <div class="pc-container">
 
       <h1 class="pc-h1">出品中の商品詳細新規登録</h1>
 
-      <!-- 画像アップロード（最大20枚） -->
       <section class="pc-section">
         <div class="pc-sec-title">出品画像（最大20枚）</div>
 
-        <!-- サムネイルグリッド（最初は空＋追加スロット） -->
         <div class="pc-image-grid" id="imageGrid">
-          <!-- 追加スロット（クリックでファイル選択） -->
           <button class="pc-thumb add-slot" type="button" id="addImageBtn" aria-label="画像を追加">
             <span>＋</span><small>（画像を追加）</small>
           </button>
@@ -75,12 +32,10 @@
           </button>
         </div>
 
-        <!-- 非表示のファイル入力 -->
         <input type="file" id="imageInput" accept="image/*" multiple hidden>
         <div class="pc-note">※ 画像はドラッグ＆ドロップでも追加できます。最大20枚まで。</div>
       </section>
 
-      <!-- 商品名 -->
       <section class="pc-section">
         <label class="pc-sec-title" for="titleInput">商品名</label>
         <div class="pc-input-wrap">
@@ -90,7 +45,6 @@
         <p class="pc-error" id="titleError" hidden>※ 商品名を入力してください。</p>
       </section>
 
-      <!-- 商品の詳細（カテゴリー／状態） -->
       <section class="pc-section">
         <div class="pc-sec-title">商品の詳細</div>
 
@@ -125,16 +79,14 @@
         <p class="pc-error" id="condError" hidden>※ 商品の状態を選択してください。</p>
       </section>
 
-      <!-- 商品の説明 -->
       <section class="pc-section">
         <label class="pc-sec-title" for="descInput">商品の説明</label>
         <textarea id="descInput" rows="8" placeholder="この商品の状態や仕様等の詳細を記載してください。中古の場合は具体的にご記載ください。"></textarea>
         <div class="pc-help">
-          禁止されている行為及び出品物を必ずご確認ください。出品前に利用規約及びプライバシーポリシーに同意の上、「登録する」ボタンを押してください。
+          禁止されている行為及び出品物を必ずご確認ください。出品前に利用規S約及びプライバシーポリシーに同意の上、「登録する」ボタンを押してください。
         </div>
       </section>
 
-      <!-- 配送について -->
       <section class="pc-section">
         <div class="pc-sec-title">配送について</div>
 
@@ -182,7 +134,6 @@
         </div>
       </section>
 
-      <!-- 価格・手数料・利益 -->
       <section class="pc-section">
         <label class="pc-sec-title">販売価格を設定する</label>
 
@@ -208,7 +159,6 @@
         <div class="pc-help small">現在の手数料率：<b id="feeRateLabel">10%</b>（※JSで計算）</div>
       </section>
 
-      <!-- 操作ボタン -->
       <section class="pc-actions">
         <button class="pc-primary" id="createBtn" type="button">登録する</button>
         <button class="pc-secondary" id="draftBtn" type="button">下書き保存</button>
@@ -217,10 +167,9 @@
 
     </div>
   </main>
+{% endblock %}
 
-  <footer>©copyright SkillPort2025</footer>
-
-  <!-- 本ページ用スクリプト -->
-  <script src="../../static/js/product_create.js" defer></script>
-</body>
-</html>
+{# ================= ページ固有のJS ================= #}
+{% block scripts %}
+  <script src="{{ url_for('static', filename='js/product_create.js') }}" defer></script>
+{% endblock %}

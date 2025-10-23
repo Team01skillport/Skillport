@@ -7,7 +7,9 @@ from flask import Flask, render_template, session
 def create_app():
     # Flaskアプリケーションのインスタンスを作成
     # __name__をappパッケージのパスに設定
-    app = Flask(__name__)
+    app = Flask(__name__,
+                static_folder='static', 
+                template_folder='templates')
     
     # config.pyから設定を読み込む
     app.config.from_object('config.Config')

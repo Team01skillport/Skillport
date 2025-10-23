@@ -1,8 +1,18 @@
-{% extends "base.html" %} {% block title %}マーケット{% endblock %} {% block
-content %}
-<head>
-  <link rel="stylesheet" href="../../static/css/market.css" />
-</head>
+{% extends "base.html" %} 
+
+{% block title %}マーケット{% endblock %} 
+
+{# ================= ページ固有のCSS ================= #}
+{% block styles %}
+  {# 
+    1. <head> タグを削除し、このブロックに <link> を移動
+    2. パスを url_for を使って修正
+  #}
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/market.css') }}" />
+{% endblock %} 
+
+{# ================= メインコンテンツ ================= #}
+{% block content %}
 <main class="main-content">
   <div class="main-container">
     <h2 class="page-title">マーケット</h2>
@@ -44,22 +54,45 @@ content %}
             <input type="text" placeholder="検索バー" class="product-search" />
           </div>
           <div class="action-buttons">
-            <button class="btn btn-green">
+            {# 出品管理ページへのリンクを修正 #}
+            <a href="{{ url_for('market.manage_products_page') }}" class="btn btn-green">
               <span class="btn-icon">●</span> 出品管理
-            </button>
+            </a>
             <button class="btn btn-yellow">
               <span class="btn-icon">●</span> 購入管理
             </button>
           </div>
         </div>
 
+        {# JSがこのIDをターゲットにして商品カードを挿入します #}
         <div class="product-grid" id="productGrid"></div>
 
+        {# このボタンにJSがイベントを追加します #}
         <button class="load-more">もっと見る</button>
       </div>
     </div>
   </div>
 </main>
+{% endblock %} 
+
+{# ================= ページ固有のJS ================= #}
+{% block scripts %}
+
+
+  <script>
+    // 1. 画像が格納されている 'static/media/' フォルダへのURL
+    var STATIC_MEDIA_URL = "{{ url_for('static', filename='media/') }}";
+    
+    // 2. 商品詳細ページの基本URL (例: /market/product/)
+    //    (JS側で "0" を商品IDに置き換えて使います)
+    var PRODUCT_DETAIL_URL_BASE = "{{ url_for('market.product_detail', product_id=0) }}".replace('0', '');
+  </script>
+
+  {# 
+    (index.js が共通でない場合は、以下のコメントを解除)
+    <script src="{{ url_for('static', filename='js/index.js') }}"></script> 
+  #}
+  
+  {# 修正する market.js を読み込みます #}
+  <script src="{{ url_for('static', filename='js/market.js') }}" defer></script>
 {% endblock %}
-<script src="../static/js/index.js"></script>
-<script src="../static/js/market.js" defer></script>

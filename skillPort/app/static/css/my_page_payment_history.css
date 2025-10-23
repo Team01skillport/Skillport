@@ -1,316 +1,154 @@
-body{
-    font-family: sans-serif;
-    margin: 0;
+body {
+  font-family: sans-serif;
+  margin: 0;
 }
-
-/* ========================================================= */
-/* 基礎樣式 (Header, Profile, Dropdown, Footer) */
-/* ========================================================= */
-#profile {
-    display: flex; align-items: center; position: absolute; right: 0; margin-right: 1vw; margin-top: .5vw;
-}
-#profile ul {
-    display: flex; list-style: none; margin: 0; padding: 0; font-weight: bold; font-size: 12px;
-}
-#profile ul li {
-    padding: 0 10px; 
-}
-#profile ul li:not(:last-child) {
-    border-right: 2px solid black; 
-}
-#profile li a {
-    text-decoration: none; color: #333;
-}
-#profile img {
-    width: 25px;   
-}
-
-#header_cap{
-    padding-top: 35px;
-}
-
-#header {
-    display: flex; align-items: center; justify-content: center; position: sticky; top: 5px; z-index: 100;
-}
-
-#header img {
-    width: 7vw; max-width: 115px;
-}
-
-#header .container {
-    display: flex; align-items: center; margin-left: 2vw; gap: 2vw; background-color: #226CFF; height: 4vw; width: 75vw; border-radius: 50px; justify-content: center; overflow: visible; max-height: 70px;
-}
-
-#header ul {
-    display: flex; list-style: none; margin: 0; padding: 0; font-size: 1.5vw; font-weight: bolder; height: 100%;
-}
-
-#header ul li {
-    height: 100%;
-}
-
-#header ul li a {
-    display: flex; align-items: center; height: 100%; text-decoration: none; color: white; padding: 0 1.7vw; white-space: nowrap;
-}
-
-#header ul li a:hover{
-    background-color: #4e89ff;
-}
-
-#header ul li a.is-active {
-    background-color: #4e89ff;
-}
-
-#header .search {
-    display: flex; align-items: center; gap: 0.5vw;
-}
-
-#header .search input {
-    padding: 5px 10px; font-size: 1vw; border: 1px solid #ccc; border-radius: 20px;
-}
-
-#header .search button {
-    padding: 5px 12px; font-size: 1vw; font-weight: bold; cursor: pointer; background-color: rgba(255, 255, 255, 0); border: 1.5px solid #ffffff; color: white; border-radius: 5px;
-}
-
-#header .search button:hover {
-    background: white;  color: #5d5d5d;        
-}
-
-#header .dropdown {
-  position: relative;
-}
-
-#header .dropdown-menu {
-  display: none; position: absolute; top: 100%; left: 0; min-width: 150px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); z-index: 1000; height: auto;
-}
-
-#header .dropdown-menu li a {
-  display: block; padding: 8px 12px; color: #000000; text-decoration: none; background: #fff; line-height: 2;
-}
-
-#header .dropdown-menu li a:hover {
-  background: #e6e6e6;
-}
-
-#header .dropdown.open > .dropdown-menu {
-  display: block;
-}
-
-
-/* ========================================================= */
-/* フッター (頁尾) */
-/* ========================================================= */
-footer{
-    background-color: #226CFF; color: white; text-align: center; margin-top: 5vw;
-}
-
 
 /* ========================================================= */
 /* マイページ (My Page) 基礎佈局 */
 /* ========================================================= */
 
 .mypage-container {
-    width: 90%;
-    max-width: 1200px;
-    margin: 30px auto 50px auto;
-    padding: 0 20px;
-    display: flex; /* 啟用 Flexbox 進行側邊欄和內容區域佈局 */
-    gap: 40px; /* 側邊欄和內容之間的間距 */
+  width: 90%;
+  max-width: 1200px;
+  margin: 30px auto 50px auto;
+  padding: 0 20px;
+  display: flex; /* 啟用 Flexbox 進行側邊欄和內容區域佈局 */
+  gap: 40px; /* 側邊欄和內容之間的間距 */
 }
-
-/* 左側導覽列 (Sidebar) */
-.mypage-sidebar {
-    width: 200px; /* 固定側邊欄寬度 */
-    flex-shrink: 0; 
-}
-
-.mypage-title {
-    font-size: 24px;
-    font-weight: bold;
-    margin: 0 0 20px 0;
-    border-bottom: 3px solid #000000; /* 黑色底線 */
-    padding-bottom: 5px;
-}
-
-.mypage-nav-list {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-}
-
-.mypage-nav-list li {
-    margin-bottom: 1px; /* 清單項目之間的細微間距 */
-}
-
-.mypage-nav-list a {
-    display: block;
-    padding: 10px 15px;
-    text-decoration: none;
-    color: #333;
-    font-size: 14px;
-    border-left: 5px solid transparent; /* 預留左側藍線位置 */
-    transition: all 0.2s;
-    font-weight: 500;
-}
-
-.mypage-nav-list a:hover {
-    background-color: #f0f8ff; /* 輕微懸停效果 */
-    color: #226CFF;
-}
-
-/* 確保左側標題的 active 樣式 */
-.mypage-nav-list a.active {
-    font-weight: bold;
-    color: #226CFF;
-    border-left: 5px solid #226CFF; /* 藍色活動指示線 */
-    background-color: #f0f8ff;
-}
-
-.mypage-nav-list .delete-link {
-    color: #d9534f; /* 紅色，表示危險操作 */
-}
-
-.mypage-nav-list .delete-link:hover {
-    color: white;
-    background-color: #d35a57;
-}
-
 
 /* 右側內容顯示區 (Content Area) */
 .mypage-content-area {
-    flex-grow: 1; /* 佔據所有剩餘空間 */
-    min-height: 500px;
-    padding-top: 10px;
+  flex-grow: 1; /* 佔據所有剩餘空間 */
+  min-height: 500px;
+  padding-top: 10px;
 }
 
 /* 內容主標題 */
 .content-main-title {
-    font-size: 24px;
-    font-weight: bold;
-    margin: 0 0 20px 0;
-    padding-bottom: 5px;
-    border-bottom: 3px solid #000000;
-    width: 100%;
-    max-width: 300px;
+  font-size: 24px;
+  font-weight: bold;
+  margin: 0 0 20px 0;
+  padding-bottom: 5px;
+  border-bottom: 3px solid #000000;
+  width: 100%;
+  max-width: 300px;
 }
-
 
 /* ========================================================= */
 /* 支払い履歴 (Payment History) 專用 CSS */
 /* ========================================================= */
 
 .payment-history-list {
-    border-top: 1px solid #ccc;
-    margin-bottom: 20px;
-    max-width: 600px; /* 限制列表寬度 */
+  border-top: 1px solid #ccc;
+  margin-bottom: 20px;
+  max-width: 600px; /* 限制列表寬度 */
 }
 
 .payment-item {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 15px 0;
-    border-bottom: 1px solid #eee;
-    transition: background-color 0.1s;
-    cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 0;
+  border-bottom: 1px solid #eee;
+  transition: background-color 0.1s;
+  cursor: pointer;
 }
 
 .payment-item:hover {
-    background-color: #fbfbfb;
+  background-color: #fbfbfb;
 }
 
 .item-details-box {
-    display: flex;
-    align-items: center;
-    gap: 15px;
+  display: flex;
+  align-items: center;
+  gap: 15px;
 }
 
 .item-thumbnail {
-    width: 60px;
-    height: 60px;
-    object-fit: cover;
-    border-radius: 5px;
-    flex-shrink: 0;
+  width: 60px;
+  height: 60px;
+  object-fit: cover;
+  border-radius: 5px;
+  flex-shrink: 0;
 }
 
 .user-avatar {
-    border-radius: 50%; /* 頭像為圓形 */
+  border-radius: 50%; /* 頭像為圓形 */
 }
 
 .item-text {
-    display: flex;
-    flex-direction: column;
+  display: flex;
+  flex-direction: column;
 }
 
 .item-name {
-    font-size: 14px;
-    font-weight: bold;
-    margin: 0 0 4px 0;
-    color: #333;
+  font-size: 14px;
+  font-weight: bold;
+  margin: 0 0 4px 0;
+  color: #333;
 }
 
 .item-meta {
-    font-size: 12px;
-    color: #888;
-    margin: 0;
+  font-size: 12px;
+  color: #888;
+  margin: 0;
 }
 
 /* もっと見る (查看更多) 按鈕 */
 .view-more-btn {
-    display: block;
-    width: 150px;
-    margin: 30px auto 0 auto;
-    padding: 10px 20px;
-    text-align: center;
-    background-color: #f0f0f0;
-    color: #333;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    font-weight: bold;
-    cursor: pointer;
-    transition: background-color 0.2s;
+  display: block;
+  width: 150px;
+  margin: 30px auto 0 auto;
+  padding: 10px 20px;
+  text-align: center;
+  background-color: #f0f0f0;
+  color: #333;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.2s;
 }
 
 .view-more-btn:hover {
-    background-color: #e0e0e0;
+  background-color: #e0e0e0;
 }
 
 /* 響應式調整 */
 @media (max-width: 768px) {
-    .mypage-container {
-        flex-direction: column; 
-        gap: 20px;
-    }
+  .mypage-container {
+    flex-direction: column;
+    gap: 20px;
+  }
 
-    .mypage-sidebar {
-        width: 100%;
-    }
-    
-    .mypage-nav-list {
-        display: flex;
-        flex-wrap: wrap; 
-        border-top: 1px solid #ccc;
-        border-bottom: 1px solid #ccc;
-        margin-bottom: 15px;
-    }
-    
-    .mypage-nav-list li {
-        width: 50%;
-        box-sizing: border-box;
-    }
-    
-    .mypage-nav-list a {
-        border-left: none;
-        border-bottom: 1px dotted #eee;
-    }
-    
-    .mypage-nav-list a.active {
-        border-bottom: 2px solid #226CFF;
-        border-left: none;
-    }
-    
-    .payment-item {
-        padding-right: 15px;
-    }
+  .mypage-sidebar {
+    width: 100%;
+  }
+
+  .mypage-nav-list {
+    display: flex;
+    flex-wrap: wrap;
+    border-top: 1px solid #ccc;
+    border-bottom: 1px solid #ccc;
+    margin-bottom: 15px;
+  }
+
+  .mypage-nav-list li {
+    width: 50%;
+    box-sizing: border-box;
+  }
+
+  .mypage-nav-list a {
+    border-left: none;
+    border-bottom: 1px dotted #eee;
+  }
+
+  .mypage-nav-list a.active {
+    border-bottom: 2px solid #226cff;
+    border-left: none;
+  }
+
+  .payment-item {
+    padding-right: 15px;
+  }
 }
