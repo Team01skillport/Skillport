@@ -2,7 +2,7 @@ from flask import Blueprint, render_template
 
 market_bp = Blueprint('market', __name__, url_prefix='/market')
 
-# 1. 市场主页 market.market_top
+# 1. market.market_top
 @market_bp.route('/', methods=["GET"])
 def market_top():
     return render_template('market/market.html')
@@ -10,7 +10,7 @@ def market_top():
 # 2.
 @market_bp.route('/create', methods=["GET"])
 def create_product_page():
-    # 渲染 'templates/market/product_create.html'
+    # 'templates/market/product_create.html'
     return render_template('market/product_create.html')
 
 # 3.(product_detail)
