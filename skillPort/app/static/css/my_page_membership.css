@@ -4,10 +4,11 @@ body{
 }
 
 .membership-page-container {
-    width: 90%;
-    max-width: 900px;
-    margin: 50px auto;
+    width: 200%;
+    max-width: 1200px;
+    margin: 0 0 0 100px;
     padding: 0 20px;
+    
 }
 
 .support-main-title {
@@ -36,6 +37,7 @@ body{
     gap: 30px 20px; /* 垂直和水平間距 */
     text-align: center;
     padding-top: 10px;
+    
 }
 
 .creator-card {
