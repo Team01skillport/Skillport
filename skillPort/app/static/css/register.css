@@ -1,87 +1,131 @@
+/* ------------------------------------- */
+/* 基礎樣式 */
+/* ------------------------------------- */
 body {
-  font-family: sans-serif;
-  margin: 0;
+    font-family: 'Hiragino Sans', 'Hiragino Kaku Gothic ProN', Arial, sans-serif;
+    background-color: #f0f0f5; /* 輕微的灰色背景 */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+    padding: 20px;
 }
 
-body {
-  background-color: #e4e4e4;
-  font-family: "Segoe UI", sans-serif;
-  margin: 0;
-  padding: 0;
-  height: 90vh;
+/* 註冊卡片容器 */
+.register-container {
+    width: 100%;
+    max-width: 400px; /* 根據圖 4 估計的卡片寬度 */
+    background-color: white;
+    padding: 40px 30px;
+    border-radius: 15px; /* 圓角 */
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1); /* 柔和的陰影 */
+    text-align: center;
 }
 
-main {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  max-height: 71vh;
-  height: 100%;
+.register-title {
+    font-size: 24px;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 30px;
 }
 
-.login-container {
-  background-color: rgb(255, 255, 255);
-  color: rgb(0, 0, 0);
-  width: 90%;
-  max-width: 400px;
-  padding: 20px 30px;
-  border-radius: 12px;
-  box-shadow: 0 0 30px rgba(255, 255, 255, 0.05);
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
-  align-content: center;
-  justify-content: center;
+/* ------------------------------------- */
+/* 表單元素樣式 */
+/* ------------------------------------- */
+.register-form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px; /* 輸入框之間的間距 */
 }
 
-.login-container h1 {
-  text-align: center;
-  margin-bottom: 10px;
+.form-input,
+.form-textarea {
+    width: 100%;
+    padding: 12px 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+    font-size: 14px;
+    color: #333;
+    transition: border-color 0.3s, box-shadow 0.3s;
 }
 
-/* Input fields */
-.login-container input[type="text"],
-.login-container input[type="password"] {
-  width: 95%;
-  height: 40px;
-  margin-bottom: 25px;
-  border-radius: 6px;
-  padding: 0 10px;
-  font-size: 16px;
-  color: rgb(82, 82, 82);
-  border: 2px solid #969696;
+.form-input:focus,
+.form-textarea:focus {
+    border-color: #226cff; /* 聚焦時藍色邊框 */
+    box-shadow: 0 0 5px rgba(34, 108, 255, 0.3);
+    outline: none;
 }
 
-.login-container input[type="submit"] {
-  width: 100%;
-  height: 40px;
-  border: none;
-  border-radius: 6px;
-  background-color: #226cff;
-  color: rgb(255, 255, 255);
-  font-weight: bold;
-  font-size: 20px;
-  cursor: pointer;
-  margin-top: 10px;
-  transition: background-color 0.3s ease;
+.form-textarea {
+    resize: vertical; /* 允許垂直調整大小 */
+    min-height: 80px;
 }
 
-.login-container input[type="submit"]:hover {
-  background-color: #4e89ff;
+/* 特殊欄位樣式 */
+.form-tel {
+    /* 如果電話號碼輸入框需要與其他欄位有不同寬度或排版，可以在這裡調整。 
+       根據圖 4，它似乎與其他輸入框一樣寬 */
 }
 
-/* Error message */
-.login-container p {
-  margin: 0;
-  font-size: 14px;
-  text-align: center;
+
+/* ------------------------------------- */
+/* 性別選擇 (ラジオボタン) 樣式 */
+/* ------------------------------------- */
+.form-gender-group {
+    text-align: left;
+    font-size: 14px;
+    color: #555;
+    padding-top: 5px;
+    border-top: 1px solid #eee;
 }
 
-.login-container a {
-  color: #4cafef;
-  text-decoration: none;
+.form-gender-group label {
+    display: inline-block;
+    margin-right: 15px;
+    font-weight: normal;
 }
 
-.login-container a:hover {
-  text-decoration: none;
+.form-gender-group label:first-child {
+    font-weight: bold;
+    color: #333;
+    margin-right: 10px;
+}
+
+/* ------------------------------------- */
+/* 按鈕和連結樣式 */
+/* ------------------------------------- */
+
+.submit-btn {
+    background-color: #226cff; /* 圖 4 的藍色按鈕 */
+    color: white;
+    border: none;
+    padding: 12px;
+    border-radius: 5px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    margin-top: 15px;
+    transition: background-color 0.2s;
+    width: 100%;
+}
+
+.submit-btn:hover {
+    background-color: #4e89ff; /* 略微變淺 */
+}
+
+.login-link {
+    margin-top: 20px;
+    font-size: 14px;
+}
+
+.login-link a {
+    color: #226cff;
+    text-decoration: none;
+    transition: text-decoration 0.2s;
+}
+
+.login-link a:hover {
+    text-decoration: underline;
 }
