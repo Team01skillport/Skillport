@@ -1,49 +1,4 @@
 
-/* dropdown-------------------------------------------- */
-
-#header .container {
-  overflow: visible;
-  }
-  
-  #header .dropdown {
-  position: relative;
-  }
-  
-  #header .dropdown-menu {
-  display: none;
-  position: absolute;
-  top: 100%;
-  left: 0;
-  min-width: 150px;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-  z-index: 1000;
-  height: auto;
-  }
-  
-  /* #header .dropdown-menu li:not(:last-child){
-  line-height: 2.2;
-  } */
-  
-  
-  #header .dropdown-menu li a {
-  display: block;
-  padding: 8px 12px;
-  color: #000000;
-  text-decoration: none;
-  background: #fff;
-  line-height: 2;
-  }
-  
-  #header .dropdown-menu li a:hover {
-  background: #e6e6e6;
-  }
-  
-  #header .dropdown.open > .dropdown-menu {
-  display: block;
-  }
-    
-  /* header ------------------------------------------------------------------ */
-  
   
   h1{
     margin: 4vw 4.5vw 2vw;
