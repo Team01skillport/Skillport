@@ -13,8 +13,8 @@ content %}
     <a href="#" class="item-card">
       <div class="item-image-container">
         <img
-          src="../static/media/anime_placeholder.jpg"
-          alt="動畫課程封面"
+          src="{{ url_for('static', filename='media/' + item.video_thumbnail_path | default('anime_placeholder.jpg', true)) }}"
+          alt="{{ item.video_title }}のサムネイル"
           class="item-image"
         />
         <div class="play-button">
@@ -25,12 +25,18 @@ content %}
         <p class="image-label">動画コース</p>
       </div>
       <div class="item-details">
-        <h2 class="item-title">{{item.video_title}}</h2>
-        <p class="upload_user">{{item.video_uploader_id}}</p>
+        <div class="title-and-user">
+            <h2 class="item-title">{{item.video_title}}</h2>
+            <p class="upload_user">{{item.video_uploader_id}}</p>
+        </div>
+        
         <p class="item-description">{{item.video_description_section}}</p>
-        <p class="view-count">再生回数：{{item.view_count}}</p>
-        <p class="like-count">いいね数：{{item.like_count}}</p>
-        <p class="comment-cunt">コメント数：{{item.comment_count}}</p>
+        
+        <div class="stats-row">
+            <p class="view-count">再生回数：{{item.view_count}}</p>
+            <p class="like-count">いいね数：{{item.like_count}}</p>
+            <p class="comment-cunt">コメント数：{{item.comment_count}}</p>
+        </div>
       </div>
     </a>
   </li>
