@@ -36,16 +36,20 @@ let currentPage = 1;
 let productGrid = null;
 let loadMoreBtn = null;
 let categoryListContainer = null;
-let toggleFiltersBtn = null;      // !!! 新しい変数 !!! 「絞り込み」ボタン
-let filterSectionsContainer = null; // !!! 新しい変数 !!! フィルター全体のコンテナ
+// (!!! 削除 !!!) 以下の2行は不要 (中文: 这两行不再需要)
+// let toggleFiltersBtn = null;
+// let filterSectionsContainer = null;
 
 
 // --- 関数定義 --------------------------------------------
 
 /** 商品カードHTML生成 */
 function createProductCard(product) {
+    /* なぜ？: HTML [cite: team01skillport/skillport/Skillport-0e62dfe777015eee6d944c147dd2e8e9acf9b7f4/skillPort/app/templates/market/market.html] 側で定義されたグローバル変数から
+             静的ファイル（画像）への正しいパスを取得する。*/
     const imageUrl = `${STATIC_MEDIA_URL}${product.image}`;
     const detailUrl = `${PRODUCT_DETAIL_URL_BASE}${product.id}`;
+    
     return `
         <a href="${detailUrl}" class="product-card-link">
             <div class="product-card" data-id="${product.id}">
@@ -66,6 +70,8 @@ function renderProducts(page) {
     const productsToRender = allProducts.slice(start, end);
 
     if (productsToRender.length > 0) {
+        /* なぜ `+=`？: `innerHTML = ...` は上書き。
+                        `innerHTML += ...` は「追加」するため。*/
         productGrid.innerHTML += productsToRender.map(createProductCard).join('');
     }
 
@@ -99,6 +105,8 @@ function renderCategories(categories) {
 
 /** カテゴリー項目クリック処理 */
 function handleCategoryClick(event) {
+    /* なぜ？: 選択された項目をハイライトし、
+             そのカテゴリーで商品をフィルター（再描画）するため。*/
     categoryListContainer.querySelectorAll('.filter-list-item').forEach(item => {
         item.classList.remove('selected');
     });
@@ -106,15 +114,12 @@ function handleCategoryClick(event) {
     const selectedCategoryId = event.currentTarget.dataset.categoryId;
     console.log(`選択された親カテゴリID: ${selectedCategoryId}`);
     // TODO: 商品フィルターロジック
-    // (現在はダミーとして全商品再描画)
-    // productGrid.innerHTML = '';
-    // currentPage = 1;
-    // renderProducts(currentPage);
 }
 
 /**
  * フィルターセクション「内部」の展開/折りたたみを処理
- * (例: カテゴリーリスト、価格入力欄など)
+ * (これは保持されます)
+ * (中文: 这个函数处理过滤器 *内部* 的点击，比如点击“カテゴリー”)
  * @param {Event} event - クリックイベント
  */
 function handleFilterToggle(event) {
@@ -128,6 +133,8 @@ function handleFilterToggle(event) {
     
     if (content.style.display === 'none') {
         content.style.display = 'block';
+        /* なぜチェック？: 「カテゴリー」フィルターを開いた時だけ、
+                         中身が空であれば動的に「親カテゴリー」を生成するため。*/
         if (filterSection.id === 'categoryFilter' && categoryListContainer.innerHTML === '') {
             renderCategories(learningCategories);
         }
@@ -137,21 +144,12 @@ function handleFilterToggle(event) {
 }
 
 /**
- * !!! 新しい関数 !!!
- * 「絞り込み」ボタンクリックでフィルター全体を表示/非表示
+ * (!!! 削除 !!!)
+ * 「絞り込み」ボタンクリックでフィルター全体を表示/非表示にする機能は
+ * 要件変更により削除されました。
+ * (中文: “筛选”按钮的全局切换功能已被移除)
  */
-function handleToggleAllFilters() {
-    /* なぜ？: 「絞り込み」ボタン をクリックした時に、
-             フィルター項目全体 (filterSectionsContainer) の表示を切り替えるため。*/
-             
-    toggleFiltersBtn.classList.toggle('open'); // アイコン回転用クラス
-    
-    if (filterSectionsContainer.style.display === 'none') {
-        filterSectionsContainer.style.display = 'block';
-    } else {
-        filterSectionsContainer.style.display = 'none';
-    }
-}
+// function handleToggleAllFilters() { ... }
 
 /**
  * マーケットページの初期化処理
@@ -161,19 +159,19 @@ function initMarketPage() {
     productGrid = document.getElementById('productGrid');
     loadMoreBtn = document.querySelector('.load-more');
     categoryListContainer = document.getElementById('categoryListContainer');
-    // !!! 新しい要素を取得 !!!
-    toggleFiltersBtn = document.getElementById('toggleFiltersBtn');
-    filterSectionsContainer = document.getElementById('filterSectionsContainer'); 
+    
+    // (!!! 削除 !!!) toggleFiltersBtn と filterSectionsContainer は不要 (中文: 不再需要这些)
     
     // 各フィルターセクション「内部」のトグルボタンを取得
     const allInnerToggleButtons = document.querySelectorAll('.toggle-filter-btn');
 
     /* なぜチェック？: 必須要素が見つからない場合にエラーを防ぐため。*/
-    if (!productGrid || !loadMoreBtn || !categoryListContainer || !toggleFiltersBtn || !filterSectionsContainer) { 
+    if (!productGrid || !loadMoreBtn || !categoryListContainer) { 
         console.error('Market page critical elements not found.');
         return;
     }
 
+    /* なぜクリア？: ブラウザの「戻る」で表示が重複するのを防ぐため。*/
     productGrid.innerHTML = ''; 
     currentPage = 1;
     renderProducts(currentPage);
@@ -181,13 +179,11 @@ function initMarketPage() {
     // 「もっと見る」ボタンのイベント
     loadMoreBtn.addEventListener('click', handleLoadMoreClick);
 
-    // !!! 新しいイベント !!! 
-    // 「絞り込み」ボタンでフィルター全体をトグル
-    toggleFiltersBtn.addEventListener('click', handleToggleAllFilters);
-
-    // !!! 変更 !!! 
+    // (!!! 削除 !!!) 「絞り込み」ボタンのイベントは削除
+    
+    // (!!! 保持 !!!) 
     // 各フィルターセクション「内部」のトグルイベントを設定
-    // (これは handleFilterToggle を呼び出す)
+    // (中文: 保持内部过滤器点击事件)
     allInnerToggleButtons.forEach(button => {
         button.addEventListener('click', handleFilterToggle);
     });
@@ -196,3 +192,4 @@ function initMarketPage() {
 
 // --- 実行 --------------------------------------------------
 document.addEventListener('DOMContentLoaded', initMarketPage);
+
