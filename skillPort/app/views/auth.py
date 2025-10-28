@@ -51,6 +51,7 @@ def view_profile():
     else:
         return redirect(url_for('auth.login'))
 
+
 @auth_bp.route('/logout')
 def logout():
     session.pop('user_id', None)
