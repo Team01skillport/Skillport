@@ -12,7 +12,7 @@ def header_search():
     con = mysql.connector.connect(
     host="localhost",
     user = "root",
-    passwd = "root",
+    passwd = "",
     db = "skillport_db"
     )
     
