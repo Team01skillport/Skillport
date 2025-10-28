@@ -8,11 +8,11 @@ market_bp = Blueprint('market', __name__, url_prefix='/market')
 def market_top():
     con = mysql.connector.connect(
     host = "localhost",
-    port = 8889,
-    user = "py23admin",
-    passwd = "py23pass",
+    user = "root",
+    passwd = "",
     db = "skillport_db"
     )  
+    
     sql = "SELECT * FROM listing_tbl;"
     cur = con.cursor(dictionary=True)
     cur.execute(sql)
