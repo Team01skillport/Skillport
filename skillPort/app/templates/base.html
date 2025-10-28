@@ -12,18 +12,24 @@
   </head>
   <body>
     <!-- ヘッダー -->
-    <div id="profile">
+<div id="profile">
       <ul>
-        <li>
-          <a href="{{ url_for('account.register_form')}}">アカウント登録</a>
-        </li>
-        <li><a href="{{ url_for('auth.login_form')}}">ログイン</a></li>
+        {% if 'user_id' in session %}
+          <li><span>こんにちは, {{ session.user_name }} さん</span></li>
+          <!-- <li><a href="{{ url_for('auth.view_profile') }}">プロフィール</a></li> -->
+          <li><a href="{{ url_for('auth.logout') }}">ログアウト</a></li>
+
+        {% else %}
+          <li><a href="{{ url_for('account.register_form')}}">アカウント登録</a></li>
+          <li><a href="{{ url_for('auth.login') }}">ログイン</a></li>
+        {% endif %}
       </ul>
-      <a href="#">
+      <a href="{{ url_for('auth.view_profile') if 'user_id' in session else url_for('auth.login') }}">
         <img
           src="{{ url_for('static', filename='media/profile_icon.png') }}"
-          alt="logo"
-      /></a>
+          alt="profile icon"
+        />
+      </a>
     </div>
 
     <div id="header_cap"></div>
@@ -52,17 +58,12 @@
               >カテゴリ一</a
             >
             <ul class="dropdown-menu">
-              <li>
-                <a
-                  href="{{ url_for('category.category_list', name="animation") }}"
-                  >アニメーション</a
-                >
-              </li>
-              <li><a href="{{ url_for('category.category_list', name='音楽') }}">音楽</a></li>
-              <li><a href="{{ url_for('category.category_list', name='カメラ') }}">カメラ</a></li>
-              <li><a href="{{ url_for('category.category_list', name='フィットネス') }}">フィットネス</a></li>
-              <li><a href="{{ url_for('category.category_list', name='英語') }}">英語</a></li>
-              <li><a href="{{ url_for('category.category_list', name='プログラミング') }}">プログラミング</a></li>
+              <li><a href="#" name="animation">アニメーション</a></li>
+              <li><a href="#">音楽</a></li>
+              <li><a href="#">カメラ</a></li>
+              <li><a href="#">フィットネス</a></li>
+              <li><a href="#">英語</a></li>
+              <li><a href="#">プログラミング</a></li>
             </ul>
           </li>
         </ul>
