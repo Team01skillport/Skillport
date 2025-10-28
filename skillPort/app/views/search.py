@@ -11,8 +11,9 @@ def header_search():
     search_word = request.args.get("headersearch")
     con = mysql.connector.connect(
     host="localhost",
+    port=8889,
     user = "root",
-    passwd = "",
+    passwd = "root",
     db = "skillport_db"
     )
     
