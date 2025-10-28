@@ -1,169 +1,122 @@
-{% extends "base.html" %} {% block title %}コミュニティー{% endblock %} {% block
+{% extends "base.html" %} {% block title %}プロフィール{% endblock %} {% block
   content %}
-  <head>
-    <link rel="stylesheet" href="../../static/css/community.css" />
-  </head>
-  <main>
-    <div class="profile-section">
-      <img
-        src="https://images.unsplash.com/photo-1540573133985-87b6da6d54a9?w=300&h=300&fit=crop"
-        alt="プロフィール画像"
-        class="profile-image"
-      />
-  
-      <div class="profile-info">
-        <div class="profile-header">
-          <div>
-            <h1 class="profile-name">しょうごくん</h1>
-            <div class="profile-tags">
-              <span class="tag">#プログラマー</span>
-              <span class="tag">#デザイナー</span>
-              <span class="tag">#シェフ</span>
-            </div>
-            <div class="profile-stats">
-              <div class="stat">
-                フォロワー<span class="stat-number">403</span>
-              </div>
-              <div class="stat">フォロー<span class="stat-number">219</span></div>
-              <div class="rating">★★★★☆</div>
-            </div>
-          </div>
-          <div class="profile-actions">
-            <a href="{{ url_for('my_page.my_page_top')}}"
-              ><button class="action-btn">マイページ</button></a
-            >
-  
-            <button class="action-btn">編集</button>
-          </div>
-        </div>
-        <div class="profile-bio">よろしくお願いします！</div>
-      </div>
+
+<!-- header---------------------------------------- -->
+
+    <div id="profile">
+        <ul>
+            <li><a href="register.html">アカウント登録</a></li>
+            <li><a href="login.html">ログイン</a></li>
+        </ul>
+        <a href="#"><img src="../static/media/profile_icon.png" alt=""></a>
     </div>
-  
-    <div class="content-sections">
-      <div class="section">
-        <h2 class="section-title">動画</h2>
-  
-        <div class="video-card">
-          <div class="video-thumbnail">
-            <div class="play-icon">▶</div>
-          </div>
-          <div class="video-title">
-            しょうごくんと楽しくイラストレーションずびしましょう！
-          </div>
-        </div>
-  
-        <div class="video-card">
-          <div class="video-thumbnail blue">
-            <div class="play-icon">▶</div>
-          </div>
-          <div class="video-title">
-            しょうごくんと楽しくプログラミングを学びましょう！
-          </div>
-        </div>
-  
-        <div class="video-card">
-          <div class="video-thumbnail">
-            <div class="play-icon">▶</div>
-          </div>
-          <div class="video-title">
-            しょうごくんと楽しくイラストレーションずびしましょう！
-          </div>
-        </div>
-  
-        <div class="video-card">
-          <div class="video-thumbnail blue">
-            <div class="play-icon">▶</div>
-          </div>
-          <div class="video-title">
-            しょうごくんと楽しくプログラミングを学びましょう！
-          </div>
-        </div>
-  
-        <div class="video-card">
-          <div class="video-thumbnail">
-            <div class="play-icon">▶</div>
-          </div>
-          <div class="video-title">
-            しょうごくんと楽しくイラストレーションずびしましょう！
-          </div>
+
+    <div id="header_cap"></div>
+
+    <div id="header">
+        <a href="index.html">
+          <img src="../static/media/skill-port-logo.png" alt="logo">
+        </a>
+
+        <div class="container">
+          <ul>
+            <li><a href="#">プロフィール</a></li>
+            <li><a href="#">マーケット</a></li>
+            <li><a href="#">コミュニティー</a></li>
+            <li class="dropdown" id="nav_category">
+              <a href="#" class="dropdown_toggle">カテゴリ一</a>
+              <ul class="dropdown_menu">
+                <li><a href="#">アニメーション</a></li>
+                <li><a href="#">音楽</a></li>
+                <li><a href="#">カメラ</a></li>
+                <li><a href="#">フィットネス</a></li>
+                <li><a href="#">英語</a></li>
+                <li><a href="#">プログラミング</a></li>
+              </ul>
+            </li>
+          </ul>
+
+          <form action="/search" method="get" class="search">
+            <input type="text" name="q" placeholder="検索..." />
+            <button type="submit">検索</button>
+          </form>
         </div>
       </div>
-  
-      <div class="section">
-        <h2 class="section-title">投稿</h2>
-  
-        <div class="post-card">
-          <div class="post-header">
-            <img
-              src="https://images.unsplash.com/photo-1540573133985-87b6da6d54a9?w=80&h=80&fit=crop"
-              alt="ユーザー"
-              class="post-avatar"
-            />
-            <div class="post-user-info">
-              <div class="post-username">
-                okura_masato0721
-                <span style="font-size: 12px; color: #666">フォロバする</span>
-                <span style="font-size: 12px">🔥</span>
-              </div>
-            </div>
-          </div>
-          <img
-            src="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=600&h=600&fit=crop"
-            alt="投稿画像"
-            class="post-image"
-          />
-          <div class="post-text">
-            ああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああ
-          </div>
+
+<!-- header---------------------------------------- -->
+
+<div class="video_container">
+
+  <div class="header_button">
+    <h1>アニメーション</h1>
+    <button class="upload_button">動画をアプロード</button>
+  </div>
+
+  <!-- Upload Modal -->
+  <div id="upload_modal" class="modal" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="upload_modal_title">
+    <div class="modal__backdrop" data-close></div>
+
+    <div class="modal__card" role="document">
+      <button class="modal__close" type="button" aria-label="閉じる" data-close>&times;</button>
+
+      <h2 id="upload_modal_title">動画をアップロード</h2>
+
+      <form id="upload_form" enctype="multipart/form-data">
+        <label for="video_file" class="form_label">動画ファイル</label>
+
+        <input id="video_file" name="video" type="file"
+               accept=".mp4,.mov,.m4v,.webm,.avi,.mkv" required>
+      
+        <div id="video_preview" class="video_preview" style="display: none;">
+          <video id="preview_player" controls playsinline></video>
         </div>
-  
-        <div class="post-card">
-          <div class="post-header">
-            <img
-              src="https://images.unsplash.com/photo-1540573133985-87b6da6d54a9?w=80&h=80&fit=crop"
-              alt="ユーザー"
-              class="post-avatar"
-            />
-            <div class="post-user-info">
-              <div class="post-username">
-                okura_masato0721
-                <span style="font-size: 12px; color: #666">フォロバする</span>
-                <span style="font-size: 12px">🔥</span>
-              </div>
-            </div>
-          </div>
-          <div class="post-text">
-            ああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああ
-          </div>
+      
+        <label for="video_title" class="form_label">タイトル</label>
+        <input type="text" id="video_title" name="title" placeholder="動画のタイトルを入力" required>
+      
+        <label for="video_description" class="form_label">説明</label>
+        <textarea id="video_description" name="description" rows="4" placeholder="動画の説明を入力"></textarea>
+      
+        <div class="modal__actions">
+          <button type="submit" class="btn btn__primary">アップロード</button>
+          <!-- <button type="button" class="btn" data-close>キャンセル</button> -->
+
+          <label>
+            <input type="checkbox" name="member_only">メンバー限定
+          </label>
         </div>
-  
-        <div class="post-card">
-          <div class="post-header">
-            <img
-              src="https://images.unsplash.com/photo-1540573133985-87b6da6d54a9?w=80&h=80&fit=crop"
-              alt="ユーザー"
-              class="post-avatar"
-            />
-            <div class="post-user-info">
-              <div class="post-username">
-                okura_masato0721
-                <span style="font-size: 12px; color: #666">フォロバする</span>
-                <span style="font-size: 12px">🔥</span>
-              </div>
-            </div>
-          </div>
-          <img
-            src="https://images.unsplash.com/photo-1540573133985-87b6da6d54a9?w=600&h=600&fit=crop"
-            alt="投稿画像"
-            class="post-image"
-          />
-          <div class="post-text">
-            ああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああ
-          </div>
-        </div>
-      </div>
+      </form>
     </div>
-  </main>
-  {% endblock %}
-  
+  </div>
+
+  <div id="videos">
+    <div class="video_grid">
+      <a href="#"><img src="../static/media/1.jpeg" alt="Image 1"><h3>asdf</h3>ああああああああああああああああああああああああああああああああああああ</a>
+      <a href="#"><img src="../static/media/2.webp" alt="Image 2"><h3>asdf</h3>ああああああああああああああああああああああああああああああああああああ</a>
+      <a href="#"><img src="../static/media/3.jpg" alt="Image 3"><h3>asdf</h3>ああああああああああああああああああああああああああああああああああああ</a>
+      <a href="#"><img src="../static/media/2.webp" alt="Image 4"><h3>asdf</h3>ああああああああああああああああああああああああああああああああああああ</a>
+      <a href="#"><img src="../static/media/3.jpg" alt="Image 5"><h3>asdf</h3>ああああああああああああああああああああああああああああああああああああ</a>
+      <a href="#"><img src="../static/media/1.jpeg" alt="Image 6"><h3>asdf</h3>ああああああああああああああああああああああああああああああああああああ</a>
+      <a href="#"><img src="../static/media/1.jpeg" alt="Image 7"><h3>asdf</h3>ああああああああああああああああああああああああああああああああああああ</a>
+      <a href="#"><img src="../static/media/2.webp" alt="Image 8"><h3>asdf</h3>ああああああああああああああああああああああああああああああああああああ</a>
+      <a href="#"><img src="../static/media/3.jpg" alt="Image 9"><h3>asdf</h3>ああああああああああああああああああああああああああああああああああああ</a>
+    </div>
+  </div>
+
+</div>
+
+<div class="pagination">
+  <a href="#">&laquo;</a>
+  <a href="#" class="active">1</a>
+  <a href="#">2</a>
+  <a href="#">3</a>
+  <a href="#">4</a>
+  <a href="#">5</a>
+  <a href="#">&raquo;</a>
+</div>
+
+{% endblock %}
+
+<script src="../static/js/category.js"></script>
+</body>
+</html>
