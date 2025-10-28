@@ -14,7 +14,11 @@ content %}
       />
     </div>
 
-    <form class="login-form" method="post" action="{{url_for('index')}}">
+    <form
+      class="login-form"
+      method="post"
+      action="{{url_for('auth.login_check')}}"
+    >
       <input
         class="form-group"
         type="text"

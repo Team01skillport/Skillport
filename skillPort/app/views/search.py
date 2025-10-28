@@ -10,8 +10,7 @@ search_bp = Blueprint('search', __name__, url_prefix='/search')
 def header_search():
     search_word = request.args.get("headersearch")
     con = mysql.connector.connect(
-   host="localhost",
-    port = 8889,
+    host="localhost",
     user = "root",
     passwd = "root",
     db = "skillport_db"
