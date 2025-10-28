@@ -7,10 +7,10 @@ auth_bp = Blueprint('auth', __name__, url_prefix='/auth')
 def get_db_connection():
     return mysql.connector.connect(
         host="localhost",
-        port=8889,
+
         # 自分のMySQLのユーザー名とパスワードを指定してくだいさい
         user="root",
-        passwd="root",
+        passwd="",
         db="skillport_db"
     )
 

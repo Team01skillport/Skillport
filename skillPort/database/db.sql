@@ -18,6 +18,7 @@ password CHAR(32),
 introduction VARCHAR(100) NULL,
 user_tags VARCHAR(48) NULL,
 profile_icon VARCHAR(255),
+user_rating INT(1),
 report_flag INT(1),
 PRIMARY KEY(id, user_name)
 );
