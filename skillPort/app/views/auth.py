@@ -7,8 +7,8 @@ auth_bp = Blueprint('auth', __name__, url_prefix='/auth')
 # /auth/loginにアクセスされた際の処理を記述
 @auth_bp.route('/login', methods=["GET"])
 def login_form():
-
-    return render_template('auth/login.html')
+    errmsg = ""
+    return render_template('auth/login.html', errmsg=errmsg)
 
 @auth_bp.route('/login_success', methods=["POST"])
 def login_check():
@@ -18,7 +18,7 @@ def login_check():
     passwd = "",
     db = "skillport_db"
     )
-    
+    errmsg = ""
     username = request.form.get("userId")
     password = request.form.get("password")
 
@@ -32,7 +32,8 @@ def login_check():
     print(user_info)
     if user_info == None:
         print("USER NOT FOUND")
-        return render_template('auth/login.html')
+        errmsg = "ユーザー名かパスワードが間違っている"
+        return render_template('auth/login.html', errmsg=errmsg)
     return render_template('index/index.html')
 
 @auth_bp.route('/profile', methods=["GET"])
