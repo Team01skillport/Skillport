@@ -96,6 +96,7 @@ CREATE TABLE listing_tbl(
     product_upload_user CHAR(64),
     PRIMARY KEY(product_id,product_upload_user)
 );
+-- 同じ言葉が入っている商品が５本ほしい
 
 
 
@@ -199,6 +200,7 @@ CREATE TABLE video_tbl(
     file_path VARCHAR(255),
     PRIMARY KEY(id, video_uploader_id)
 );
+-- 同じ言葉がタイトルに入っている動画が５本ほしい
 
 
 --講義動画いいねテーブル
