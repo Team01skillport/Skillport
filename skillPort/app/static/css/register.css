@@ -1,5 +1,5 @@
 /* ------------------------------------- */
-/* 基礎樣式 - 負責頁面置中和背景 (修正置中問題) */
+/* 基礎和置中樣式 (保留上次修正的，確保置中) */
 /* ------------------------------------- */
 body {
     font-family: 'Hiragino Sans', 'Hiragino Kaku Gothic ProN', Arial, sans-serif;
@@ -7,96 +7,138 @@ body {
     min-height: 100vh;
     margin: 0;
     padding: 0; 
-    
-    /* 確保 body 是塊級元素，不被 flex/grid 影響 */
     display: block; 
     box-sizing: border-box;
 }
 
-/* 核心修正：註冊頁面內容的最外層包裝器，用於置中 */
 .register-wrapper {
-    /* 使用 Flexbox 進行內容置中 */
     display: flex;
-    justify-content: center; /* 水平置中 */
-    align-items: flex-start; /* 讓內容從頂部開始對齊 (對長表單友好) */
-    
+    justify-content: center; 
+    align-items: flex-start; 
     width: 100%;
-    /* 確保 wrapper 至少和視窗一樣高，這樣置中才有意義 */
     min-height: 100vh; 
     padding: 40px 20px; 
     box-sizing: border-box;
-    
-    /* 針對可能有的父級浮動干擾，進行清除 */
     clear: both; 
     overflow: auto; 
 }
 
-/* 註冊卡片容器 - 負責卡片外觀 */
+/* 註冊卡片容器 - 外觀優化 */
 .register-container {
     width: 100%;
-    max-width: 400px; /* 限制卡片最大寬度 */
+    max-width: 450px; /* 稍微寬一點，容納分組 */
     background-color: white;
-    padding: 40px 30px;
-    border-radius: 15px; 
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1); 
+    padding: 40px 35px;
+    border-radius: 18px; /* 圓角更大 */
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15); /* 陰影更深，更有層次感 */
     text-align: center;
-    
     flex-shrink: 0; 
-    margin: 0 auto; 
 }
 
 .register-title {
-    font-size: 24px;
-    font-weight: bold;
-    color: #333;
-    margin-bottom: 30px;
+    font-size: 26px;
+    font-weight: 700; /* 加粗 */
+    color: #2c3e50; /* 深灰色標題 */
+    margin-bottom: 35px;
 }
 
 /* ------------------------------------- */
-/* 表單元素樣式 */
+/* 表單分組與輸入框樣式 */
 /* ------------------------------------- */
 .register-form {
     display: flex;
     flex-direction: column;
-    gap: 15px; 
+    gap: 25px; /* 組與組之間的間距 */
+}
+
+/* 表單分組 */
+.form-section {
+    border: none;
+    padding: 0;
+    margin: 0;
+}
+
+.section-title {
+    display: block;
+    text-align: left;
+    font-size: 16px;
+    font-weight: bold;
+    color: #226cff; /* 品牌藍色分組標題 */
+    margin-bottom: 15px;
+    padding-bottom: 5px;
+    border-bottom: 2px solid #e0e0e0;
+}
+
+/* 輸入框容器 (用於實現底部線條和浮動標籤) */
+.input-group {
+    position: relative;
+    margin-bottom: 20px;
 }
 
 .form-input,
 .form-textarea {
     width: 100%;
-    padding: 12px 15px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
+    padding: 10px 0 5px 0; /* 調整 padding，底部留空間給線條 */
+    border: none;
+    border-bottom: 2px solid #ccc; /* 核心設計：底部線條 */
+    background-color: transparent;
     box-sizing: border-box;
-    font-size: 14px;
+    font-size: 16px;
     color: #333;
-    transition: border-color 0.3s, box-shadow 0.3s;
+    transition: border-color 0.3s;
 }
 
 .form-input:focus,
 .form-textarea:focus {
-    border-color: #226cff; 
-    box-shadow: 0 0 5px rgba(34, 108, 255, 0.3);
+    border-bottom-color: #226cff; /* 聚焦時線條高亮 */
     outline: none;
+    box-shadow: none; /* 移除瀏覽器預設的陰影 */
 }
 
+/* 浮動標籤樣式 (使用 label 模擬 placeholder) */
+.input-group label {
+    position: absolute;
+    left: 0;
+    top: 10px;
+    font-size: 14px;
+    color: #999;
+    pointer-events: none;
+    transition: 0.3s ease all;
+}
+
+/* 輸入框有內容或聚焦時，標籤向上移動並縮小 */
+.form-input:focus ~ label,
+.form-input:not([value=""]):valid ~ label, /* 檢查非空值時 */
+.form-textarea:focus ~ label,
+.form-textarea:not(:empty):valid ~ label {
+    top: -12px;
+    font-size: 12px;
+    color: #226cff;
+}
+
+/* 解決 type="date" 的特殊處理 */
+.input-date .form-input {
+    color: #999; /* 預設顏色 */
+}
+.input-date .form-input:not([value=""]):valid {
+    color: #333; /* 選擇後恢復深色 */
+}
+
+/* 文本區塊 */
 .form-textarea {
-    resize: vertical; 
-    min-height: 80px;
+    resize: vertical;
+    min-height: 60px;
+    padding-top: 20px;
 }
-
 
 /* ------------------------------------- */
-/* 性別選擇 (ラジオボタン) 樣式 */
+/* 性別選擇 (自定義 Radio) 樣式 */
 /* ------------------------------------- */
 .form-gender-group {
     text-align: left;
     font-size: 14px;
     color: #555;
     padding: 10px 0;
-    border-top: 1px solid #eee;
-    border-bottom: 1px solid #eee;
-    margin: 10px 0;
 }
 
 .gender-label-title {
@@ -105,12 +147,59 @@ body {
     margin-right: 15px;
 }
 
-.form-gender-group label {
-    display: inline-block;
-    margin-right: 10px;
-    font-weight: normal;
+.custom-radio {
+    display: inline-flex;
+    align-items: center;
+    margin-right: 15px;
+    cursor: pointer;
 }
 
+.custom-radio input[type="radio"] {
+    /* 隱藏原生 radio 按鈕 */
+    position: absolute;
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.radio-mark {
+    height: 16px;
+    width: 16px;
+    background-color: #fff;
+    border: 2px solid #ccc;
+    border-radius: 50%;
+    margin-right: 5px;
+    transition: all 0.2s ease;
+    display: inline-block;
+    position: relative;
+    flex-shrink: 0;
+}
+
+/* 圓點 (內圓) */
+.radio-mark:after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: white; /* 內圓預設白色 */
+    opacity: 0;
+    transition: opacity 0.2s ease;
+}
+
+/* 選中狀態 */
+.custom-radio input[type="radio"]:checked ~ .radio-mark {
+    background-color: #226cff; /* 外圓變藍 */
+    border-color: #226cff;
+}
+
+.custom-radio input[type="radio"]:checked ~ .radio-mark:after {
+    background: white; /* 內圓變白 */
+    opacity: 1;
+}
 
 /* ------------------------------------- */
 /* 按鈕和連結樣式 */
@@ -120,48 +209,33 @@ body {
     background-color: #226cff; 
     color: white;
     border: none;
-    padding: 12px;
-    border-radius: 5px;
+    padding: 14px;
+    border-radius: 8px; /* 按鈕圓角也變大一點 */
     font-size: 16px;
     font-weight: bold;
     cursor: pointer;
-    margin-top: 15px;
-    transition: background-color 0.2s;
+    margin-top: 25px;
+    transition: background-color 0.2s, transform 0.1s;
     width: 100%;
+    box-shadow: 0 4px 10px rgba(34, 108, 255, 0.3); /* 按鈕陰影 */
 }
 
 .submit-btn:hover {
     background-color: #4e89ff; 
+    transform: translateY(-1px);
 }
 
 .login-link {
-    margin-top: 20px;
+    margin-top: 25px;
     font-size: 14px;
 }
 
 .login-link a {
     color: #226cff;
     text-decoration: none;
-    transition: text-decoration 0.2s;
+    font-weight: 500;
 }
 
 .login-link a:hover {
     text-decoration: underline;
-}
-
-/* 確保整個頁面在小螢幕上也有良好的響應 */
-@media (max-width: 480px) {
-    .register-container {
-        padding: 30px 20px;
-    }
-    
-    .form-gender-group {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 5px;
-    }
-
-    .form-gender-group label {
-        margin-right: 5px;
-    }
 }
