@@ -1,24 +1,14 @@
 {% extends "base.html" %} {% block title %}アカウント登録{% endblock %} {% block
 content %}
 <head>
-  <link rel="stylesheet" href="../../static/css/register.css" />
+  <link rel="stylesheet" href="../../static/css/account_register.css" />
 </head>
 <body>
   <div class="login-container">
     <h1>アカウントの新規登録</h1>
-    <form method="POST">
-      <input
-        type="text"
-        name="username"
-        placeholder="ユーザー名"
-        required
-      /><br />
-      <input
-        type="password"
-        name="password"
-        placeholder="パスワード"
-        required
-      /><br />
+    <form action="{{url_for('account.register_userlogin')}}" method="POST">
+      <input type="text" name="username" placeholder="ユーザー名" /><br />
+      <input type="password" name="password" placeholder="パスワード" /><br />
       <input type="submit" value="アカウント作成" />
     </form>
     <p><a href="login.html">ログイン画面に戻る</a></p>

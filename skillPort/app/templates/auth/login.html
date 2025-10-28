@@ -14,7 +14,11 @@ content %}
       />
     </div>
 
-    <form class="login-form" method="post" action="{{url_for('index')}}">
+    <form
+      class="login-form"
+      method="post"
+      action="{{url_for('auth.login_check')}}"
+    >
       <input
         class="form-group"
         type="text"
@@ -30,11 +34,14 @@ content %}
         name="password"
         placeholder="パスワード"
       />
-
+      <div class="error">{{errmsg}}</div>
+      <br />
       <button type="submit" class="submit-btn">ログイン</button>
     </form>
 
-    <a href="account_register.html" class="link-option">新規アカウントを作成</a>
+    <a href="{{ url_for('account.register_form')}}" class="link-option"
+      >新規アカウントを作成</a
+    >
     <a href="password_reset.html" class="link-option">ログイン情報を忘れた</a>
   </div>
 </div>

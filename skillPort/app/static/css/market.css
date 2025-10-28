@@ -10,8 +10,8 @@
 
 /* Main Content Layout */
 .main-content {
-  padding: 30px 0;
-  margin-top: 20px;
+  padding: 0 0 15px 0; /* (!!! 変更 !!!) ページ上部の padding を 0 に */
+  margin-top: 0;      /* (!!! 変更 !!!) ページ上部の margin を 0 に */
 }
 
 .main-container {
@@ -20,13 +20,23 @@
   padding: 0 20px;
 }
 
+/* !!! 変更 !!! ページヘッダー (タイトルと検索バーとボタンを整列) */
+.page-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-bottom: 30px; 
+  gap: 20px; 
+}
+
 .page-title {
   font-size: 32px;
   font-weight: bold;
-  margin-bottom: 30px;
+  margin-bottom: 0; 
   border-bottom: 3px solid #333;
   display: inline-block;
   padding-bottom: 5px;
+  flex-shrink: 0; /* タイトルが縮まないように */
 }
 
 .content-wrapper {
@@ -44,6 +54,27 @@
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
 }
 
+/* 「絞り込み」タイトルのスタイル */
+.sidebar-title {
+  width: 100%; 
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 15px;
+  background-color: #f0f0f0; 
+  border: none; 
+  border-radius: 8px;
+  font-weight: bold;
+  font-size: 16px;
+  margin-bottom: 10px; /* 「更新」ボタンとの間隔 */
+  text-align: left;
+  box-sizing: border-box;
+}
+
+.sidebar-title .filter-icon {
+  font-size: 14px;
+}
+
 /* 更新ボタン */
 .filter-btn {
   width: 100%;
@@ -53,43 +84,13 @@
   border-radius: 8px;
   cursor: pointer;
   font-size: 16px;
-  margin-bottom: 10px; /* 間隔を少し詰める */
+  margin-bottom: 10px; /* 下のフィルターとの間隔 */
+  box-sizing: border-box;
 }
 
 .filter-btn.active {
   background-color: #e0e0e0;
 }
-
-/* !!! 変更 !!! (旧: .sidebar-title)
-  新しい「絞り込み」ボタンのスタイル
-*/
-.sidebar-toggle-btn {
-  width: 100%; /* 幅を100%に */
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 12px 15px;
-  background-color: #f0f0f0; /* デザイン に合わせる */
-  border: none; /* 枠線なし */
-  border-radius: 8px;
-  font-weight: bold;
-  font-size: 16px;
-  margin-bottom: 10px; /* 下のフィルターとの間隔 */
-  cursor: pointer; /* クリック可能を示す */
-  text-align: left; /* テキストを左揃え */
-}
-
-.sidebar-toggle-btn .filter-icon {
-  font-size: 14px;
-  transition: transform 0.2s ease; /* アイコンの回転アニメーション */
-}
-
-/* 展開時のアイコン回転 (JSでクラス 'open' を追加) */
-.sidebar-toggle-btn.open .filter-icon {
-  transform: rotate(180deg);
-}
-/* !!! 変更ここまで !!! */
-
 
 /* フィルターセクション (コンテナ内の各項目) */
 
@@ -106,9 +107,10 @@
   align-items: center;
   font-size: 16px;
   margin-top: 10px; /* 各フィルター間の上マージン */
+  box-sizing: border-box;
 }
 /* 最初のフィルター項目は上マージン不要 */
-#filterSectionsContainer > .filter-section:first-child > .filter-item {
+.sidebar > .filter-section:first-child > .filter-item {
     margin-top: 0;
 }
 
@@ -172,20 +174,20 @@
 /* Products Area */
 .products-area {
   flex: 1;
+  padding-top: 20px;
 }
 
+/* !!! 変更 !!! ボタンが上に移動したため、高さを調整 */
 .products-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 30px;
-  gap: 20px;
+  display: none;
 }
 
+/* !!! 変更 !!! 検索バーは .page-header に移動 */
 .search-bar {
-  flex: 1;
-  max-width: 500px;
+  flex: 1; /* 残りのスペースをすべて取る */
+  max-width: 500px; /* 最大幅を指定 */
   position: relative;
+  margin-left: 0; /* (!!! 変更 !!!) gapで管理するため 0 に */
 }
 
 .search-icon {
@@ -207,7 +209,17 @@
 .action-buttons {
   display: flex;
   gap: 15px;
+  flex-shrink: 0; /* ボタンが縮まないように */
 }
+
+/* (!!! 新規 !!!) ログアウト時にボタンのスペースを確保するプレースホルダー */
+.action-buttons-placeholder {
+  /* 実際のボタン2個分 + gap のおおよその幅で予約 */
+  /* (この値は、実際のボタン幅に合わせて微調整してください) */
+  width: 275px; 
+  flex-shrink: 0; /* 縮まないようにする */
+}
+
 
 .btn {
   padding: 12px 25px;
@@ -386,19 +398,39 @@
 
 /* Responsive */
 @media (max-width: 768px) {
+  /* !!! 新規 !!! ページヘッダーのレスポンシブ */
+  .page-header {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 15px;
+  }
+  .search-bar {
+    max-width: 100%;
+    margin-left: 0;
+  }
+  
+  /* (!!!) 変更: プレースホルダーとボタンも画面幅いっぱいに */
+  .action-buttons, .action-buttons-placeholder {
+    width: 100%;
+    gap: 10px;
+  }
+  .action-buttons .btn {
+    flex: 1; /* ボタンを均等幅にする */
+  }
+
+
   .content-wrapper {
     flex-direction: column;
   }
   .sidebar {
     width: 100%;
   }
+  
   .products-header {
-    flex-direction: column;
-    align-items: stretch;
+    /* (!!!) 変更: products-header が空になったため、小画面では非表示に */
+    display: none; 
   }
-  .search-bar {
-    max-width: 100%;
-  }
+
   .product-grid {
     grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
   }

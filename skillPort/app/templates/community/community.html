@@ -1,169 +1,147 @@
-{% extends "base.html" %} {% block title %}コミュニティー{% endblock %} {% block
+{% extends "base.html" %} {% block title %}プロフィール{% endblock %} {% block
   content %}
-  <head>
-    <link rel="stylesheet" href="../../static/css/community.css" />
-  </head>
-  <main>
-    <div class="profile-section">
-      <img
-        src="https://images.unsplash.com/photo-1540573133985-87b6da6d54a9?w=300&h=300&fit=crop"
-        alt="プロフィール画像"
-        class="profile-image"
-      />
-  
-      <div class="profile-info">
-        <div class="profile-header">
-          <div>
-            <h1 class="profile-name">しょうごくん</h1>
-            <div class="profile-tags">
-              <span class="tag">#プログラマー</span>
-              <span class="tag">#デザイナー</span>
-              <span class="tag">#シェフ</span>
-            </div>
-            <div class="profile-stats">
-              <div class="stat">
-                フォロワー<span class="stat-number">403</span>
-              </div>
-              <div class="stat">フォロー<span class="stat-number">219</span></div>
-              <div class="rating">★★★★☆</div>
-            </div>
-          </div>
-          <div class="profile-actions">
-            <a href="{{ url_for('my_page.my_page_top')}}"
-              ><button class="action-btn">マイページ</button></a
-            >
-  
-            <button class="action-btn">編集</button>
-          </div>
+<link rel="stylesheet" href="../../static/css/community.css">
+<!-- reccomended container ------------------------------------------ -->
+<div class="reccomended_and_feed">
+
+  <!-- 左側：おすすめ動画 -->
+  <div class="reccomended">
+    <h2>おすすめ動画</h2>
+
+    <a class="video_card" href="video-1.html" aria-label="動画1の詳細を開く">
+      <img src="../static/media/1.jpeg" alt="動画1">
+      <h3>タイトル</h3>
+      <p>しょうごくんと楽しくイラストレーションを学びましょう！</p>
+    </a>
+
+    <a class="video_card" href="video-2.html" aria-label="動画2の詳細を開く">
+      <img src="../static/media/1.jpeg" alt="動画2">
+      <h3>タイトル</h3>
+      <p>しょうごくんと楽しく機能を学びましょう！</p>
+    </a>
+
+    <a class="video_card" href="video-3.html" aria-label="動画3の詳細を開く">
+      <img src="../static/media/1.jpeg" alt="動画3">
+      <h3>タイトル</h3>
+      <p>しょうごくんと楽しくプログラミングを学びましょう！</p>
+    </a>
+
+    <a class="video_card" href="video-4.html" aria-label="動画4の詳細を開く">
+      <img src="../static/media/1.jpeg" alt="動画4">
+      <h3>タイトル</h3>
+      <p>しょうごくんと楽しくフィットネスを学びましょう！</p>
+    </a>
+  </div>
+
+  <!-- 右側：投稿フィード -->
+  <div class="feed">
+    <h2>投稿フィード</h2>
+
+
+    <div class="post-list">
+      <div class="post">
+        <div class="user">
+          <img class="avatar" src="../../static/media/1.jpeg" alt="ユーザー">
+          <span class="username">username</span>
         </div>
-        <div class="profile-bio">よろしくお願いします！</div>
+        <p>あああああああああああああああああああああああああ</p>
+        <div class="actions">
+          <button>編集</button>
+        </div>
+      </div>
+
+      <div class="post">
+        <div class="user">
+          <img class="avatar" src="../../static/media/2.webp" alt="ユーザー">
+          <span class="username">username</span>
+        </div>
+        <img class="contents" src="../../static/media/3.jpg" alt="">
+        <p>あああああああああああああああああああああ</p>
+        <div class="actions">
+          <button>編集</button>
+        </div>
       </div>
     </div>
   
-    <div class="content-sections">
-      <div class="section">
-        <h2 class="section-title">動画</h2>
-  
-        <div class="video-card">
-          <div class="video-thumbnail">
-            <div class="play-icon">▶</div>
-          </div>
-          <div class="video-title">
-            しょうごくんと楽しくイラストレーションずびしましょう！
-          </div>
+    <div class="new-post">
+      <img class="avatar" src="../../static/media/Bgitjwkld6Qc_1722765180.jpg" alt="ユーザー">
+      <div class="input-area">
+        <div class="textbox">
+          <div class="attachment"></div>
+          <input class="text" type="text" placeholder="テキストを追加">
         </div>
-  
-        <div class="video-card">
-          <div class="video-thumbnail blue">
-            <div class="play-icon">▶</div>
-          </div>
-          <div class="video-title">
-            しょうごくんと楽しくプログラミングを学びましょう！
-          </div>
+        <div class="buttons">
+          <button class="add">＋</button>
+          <button class="send">▶</button>
         </div>
-  
-        <div class="video-card">
-          <div class="video-thumbnail">
-            <div class="play-icon">▶</div>
-          </div>
-          <div class="video-title">
-            しょうごくんと楽しくイラストレーションずびしましょう！
-          </div>
-        </div>
-  
-        <div class="video-card">
-          <div class="video-thumbnail blue">
-            <div class="play-icon">▶</div>
-          </div>
-          <div class="video-title">
-            しょうごくんと楽しくプログラミングを学びましょう！
-          </div>
-        </div>
-  
-        <div class="video-card">
-          <div class="video-thumbnail">
-            <div class="play-icon">▶</div>
-          </div>
-          <div class="video-title">
-            しょうごくんと楽しくイラストレーションずびしましょう！
-          </div>
-        </div>
-      </div>
-  
-      <div class="section">
-        <h2 class="section-title">投稿</h2>
-  
-        <div class="post-card">
-          <div class="post-header">
-            <img
-              src="https://images.unsplash.com/photo-1540573133985-87b6da6d54a9?w=80&h=80&fit=crop"
-              alt="ユーザー"
-              class="post-avatar"
-            />
-            <div class="post-user-info">
-              <div class="post-username">
-                okura_masato0721
-                <span style="font-size: 12px; color: #666">フォロバする</span>
-                <span style="font-size: 12px">🔥</span>
-              </div>
-            </div>
-          </div>
-          <img
-            src="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=600&h=600&fit=crop"
-            alt="投稿画像"
-            class="post-image"
-          />
-          <div class="post-text">
-            ああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああ
-          </div>
-        </div>
-  
-        <div class="post-card">
-          <div class="post-header">
-            <img
-              src="https://images.unsplash.com/photo-1540573133985-87b6da6d54a9?w=80&h=80&fit=crop"
-              alt="ユーザー"
-              class="post-avatar"
-            />
-            <div class="post-user-info">
-              <div class="post-username">
-                okura_masato0721
-                <span style="font-size: 12px; color: #666">フォロバする</span>
-                <span style="font-size: 12px">🔥</span>
-              </div>
-            </div>
-          </div>
-          <div class="post-text">
-            ああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああ
-          </div>
-        </div>
-  
-        <div class="post-card">
-          <div class="post-header">
-            <img
-              src="https://images.unsplash.com/photo-1540573133985-87b6da6d54a9?w=80&h=80&fit=crop"
-              alt="ユーザー"
-              class="post-avatar"
-            />
-            <div class="post-user-info">
-              <div class="post-username">
-                okura_masato0721
-                <span style="font-size: 12px; color: #666">フォロバする</span>
-                <span style="font-size: 12px">🔥</span>
-              </div>
-            </div>
-          </div>
-          <img
-            src="https://images.unsplash.com/photo-1540573133985-87b6da6d54a9?w=600&h=600&fit=crop"
-            alt="投稿画像"
-            class="post-image"
-          />
-          <div class="post-text">
-            ああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああ
-          </div>
-        </div>
+        <input class="filepick" type="file" accept="image/*,video/*" hidden>
       </div>
     </div>
-  </main>
-  {% endblock %}
-  
+  </div>
+
+  <div class="reccomended reccomended--right">
+    <h2>おすすめ商品</h2>
+
+    <a class="video_card" href="trend-1.html" aria-label="トレンド1の詳細を開く">
+      <img src="../static/media/1.jpeg" alt="トレンド1">
+      <h3>タイトルA</h3>
+      <p>今みんなが見ている投稿をチェックしよう。</p>
+    </a>
+
+    <a class="video_card" href="trend-2.html" aria-label="トレンド2の詳細を開く">
+      <img src="../static/media/1.jpeg" alt="トレンド2">
+      <h3>タイトルB</h3>
+      <p>ホットな話題をまとめてキャッチ。</p>
+    </a>
+
+    <a class="video_card" href="trend-3.html" aria-label="トレンド3の詳細を開く">
+      <img src="../static/media/1.jpeg" alt="トレンド3">
+      <h3>タイトルC</h3>
+      <p>学びにも息抜きにもグッド。</p>
+    </a>
+  </div>
+</div>
+<!-- reccomended container ------------------------------------------ -->
+
+<!--編集popup --------------------------------------- -->
+<div id="editModal" class="modal" aria-hidden="true" role="dialog" aria-modal="true">
+  <div class="modal__overlay" data-close="true"></div>
+
+  <div class="modal__panel" role="document">
+    <header class="modal__header">
+      <h3>投稿を編集</h3>
+      <button class="modal__close" type="button" aria-label="閉じる" data-close="true">×</button>
+    </header>
+
+    <main class="modal__body">
+      <label class="modal__label" for="editText">テキスト</label>
+      <textarea id="editText" class="modal__textarea" rows="5" placeholder="テキストを入力"></textarea>
+
+      <div class="modal__media">
+        <div class="modal__media-top">
+          <label class="modal__label">メディア</label>
+          <div class="modal__media-actions">
+            <button id="btnPickMedia" class="btn btn--ghost" type="button">画像 / 動画を選択</button>
+            <button id="btnRemoveMedia" class="btn btn--ghost" type="button">メディアを削除</button>
+            <input id="editFile" type="file" accept="image/*,video/*" hidden>
+          </div>
+        </div>
+
+        <div id="mediaPreview" class="modal__preview">
+          <!-- 現在の画像/動画 or 新しい選択がここに表示 -->
+        </div>
+      </div>
+    </main>
+
+    <footer class="modal__footer">
+      <button class="btn btn--ghost" type="button" data-close="true">キャンセル</button>
+      <button id="btnSaveEdit" class="btn btn--primary" type="button">保存</button>
+    </footer>
+  </div>
+</div>
+
+{% endblock %}
+
+<script src="../static/js/community.js"></script>
+</body>
+</html>
