@@ -39,7 +39,9 @@ content %}
       <button type="submit" class="submit-btn">ログイン</button>
     </form>
 
-    <a href="account_register.html" class="link-option">新規アカウントを作成</a>
+    <a href="{{ url_for('account.register_form')}}" class="link-option"
+      >新規アカウントを作成</a
+    >
     <a href="password_reset.html" class="link-option">ログイン情報を忘れた</a>
   </div>
 </div>
