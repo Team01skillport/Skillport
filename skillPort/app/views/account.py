@@ -25,6 +25,10 @@ def register_userinfo():
 def user_profile():
     return render_template('account/profile.html')
 
+@account_bp.route('/edit_profile', methods=["GET"])
+def edit_profile():
+    return render_template('profile/profile_edit.html')
+
 @account_bp.route('/my_page_top', methods=["GET"])
 def my_page_top():
     return render_template('my_page/mp_top.html')
