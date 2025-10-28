@@ -4,7 +4,7 @@
 
 {% block content %}
 <head>
-  <link rel="stylesheet" href="../../static/css/register.css" />
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/register.css') }}" />
 </head>
 
 <div class="register-wrapper">
@@ -32,12 +32,12 @@
         type="tel"
         name="tel"
         placeholder="電話番号（ハイフンなし 11桁）"
-        class="form-input form-tel"
+        class="form-input"
         required
       />
       
       <input
-        type="text"
+        type="password"
         name="password"
         placeholder="パスワード（8〜32文字）"
         class="form-input"
@@ -83,26 +83,26 @@
       <input
         type="text"
         name="prefecture"
-        placeholder="住所 - 都道府県（例：東京都）"
+        placeholder="住所 - 都道府県"
         class="form-input"
       />
       
       <input
         type="text"
         name="city"
-        placeholder="住所 - 市区町村（例：渋谷区）"
+        placeholder="住所 - 市区町村"
         class="form-input"
       />
 
       <input
         type="text"
         name="address_detail"
-        placeholder="住所 - 番地・建物名 (文字数制限: 1〜100)"
+        placeholder="住所 - 番地・建物名 (任意)"
         class="form-input"
       />
 
       <div class="form-gender-group">
-        <label>性別:</label>
+        <label class="gender-label-title">性別:</label>
         <label><input type="radio" name="gender" value="male" /> 男性</label>
         <label><input type="radio" name="gender" value="female" /> 女性</label>
         <label><input type="radio" name="gender" value="other" /> その他</label>
@@ -117,7 +117,8 @@
 
       <button type="submit" class="submit-btn">アカウント作成</button>
     </form>
-    <p><a href="{{url_for('auth.login_form')}}">ログイン画面に戻る</a></p>
+    
+    <p class="login-link"><a href="login.html">ログイン画面に戻る</a></p>
   </div>
 </div>
 {% endblock %}

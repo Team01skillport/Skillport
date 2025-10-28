@@ -1,26 +1,48 @@
 /* ------------------------------------- */
-/* 基礎樣式 */
+/* 基礎樣式 - 負責頁面置中和背景 (修正置中問題) */
 /* ------------------------------------- */
 body {
     font-family: 'Hiragino Sans', 'Hiragino Kaku Gothic ProN', Arial, sans-serif;
-    background-color: #f0f0f5; /* 輕微的灰色背景 */
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    background-color: #f0f0f5; 
     min-height: 100vh;
     margin: 0;
-    padding: 20px;
+    padding: 0; 
+    
+    /* 確保 body 是塊級元素，不被 flex/grid 影響 */
+    display: block; 
+    box-sizing: border-box;
 }
 
-/* 註冊卡片容器 */
+/* 核心修正：註冊頁面內容的最外層包裝器，用於置中 */
+.register-wrapper {
+    /* 使用 Flexbox 進行內容置中 */
+    display: flex;
+    justify-content: center; /* 水平置中 */
+    align-items: flex-start; /* 讓內容從頂部開始對齊 (對長表單友好) */
+    
+    width: 100%;
+    /* 確保 wrapper 至少和視窗一樣高，這樣置中才有意義 */
+    min-height: 100vh; 
+    padding: 40px 20px; 
+    box-sizing: border-box;
+    
+    /* 針對可能有的父級浮動干擾，進行清除 */
+    clear: both; 
+    overflow: auto; 
+}
+
+/* 註冊卡片容器 - 負責卡片外觀 */
 .register-container {
     width: 100%;
-    max-width: 400px; /* 根據圖 4 估計的卡片寬度 */
+    max-width: 400px; /* 限制卡片最大寬度 */
     background-color: white;
     padding: 40px 30px;
-    border-radius: 15px; /* 圓角 */
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1); /* 柔和的陰影 */
+    border-radius: 15px; 
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1); 
     text-align: center;
+    
+    flex-shrink: 0; 
+    margin: 0 auto; 
 }
 
 .register-title {
@@ -36,7 +58,7 @@ body {
 .register-form {
     display: flex;
     flex-direction: column;
-    gap: 15px; /* 輸入框之間的間距 */
+    gap: 15px; 
 }
 
 .form-input,
@@ -53,20 +75,14 @@ body {
 
 .form-input:focus,
 .form-textarea:focus {
-    border-color: #226cff; /* 聚焦時藍色邊框 */
+    border-color: #226cff; 
     box-shadow: 0 0 5px rgba(34, 108, 255, 0.3);
     outline: none;
 }
 
 .form-textarea {
-    resize: vertical; /* 允許垂直調整大小 */
+    resize: vertical; 
     min-height: 80px;
-}
-
-/* 特殊欄位樣式 */
-.form-tel {
-    /* 如果電話號碼輸入框需要與其他欄位有不同寬度或排版，可以在這裡調整。 
-       根據圖 4，它似乎與其他輸入框一樣寬 */
 }
 
 
@@ -77,28 +93,31 @@ body {
     text-align: left;
     font-size: 14px;
     color: #555;
-    padding-top: 5px;
+    padding: 10px 0;
     border-top: 1px solid #eee;
+    border-bottom: 1px solid #eee;
+    margin: 10px 0;
+}
+
+.gender-label-title {
+    font-weight: bold;
+    color: #333;
+    margin-right: 15px;
 }
 
 .form-gender-group label {
     display: inline-block;
-    margin-right: 15px;
+    margin-right: 10px;
     font-weight: normal;
 }
 
-.form-gender-group label:first-child {
-    font-weight: bold;
-    color: #333;
-    margin-right: 10px;
-}
 
 /* ------------------------------------- */
 /* 按鈕和連結樣式 */
 /* ------------------------------------- */
 
 .submit-btn {
-    background-color: #226cff; /* 圖 4 的藍色按鈕 */
+    background-color: #226cff; 
     color: white;
     border: none;
     padding: 12px;
@@ -112,7 +131,7 @@ body {
 }
 
 .submit-btn:hover {
-    background-color: #4e89ff; /* 略微變淺 */
+    background-color: #4e89ff; 
 }
 
 .login-link {
@@ -128,4 +147,21 @@ body {
 
 .login-link a:hover {
     text-decoration: underline;
+}
+
+/* 確保整個頁面在小螢幕上也有良好的響應 */
+@media (max-width: 480px) {
+    .register-container {
+        padding: 30px 20px;
+    }
+    
+    .form-gender-group {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 5px;
+    }
+
+    .form-gender-group label {
+        margin-right: 5px;
+    }
 }
