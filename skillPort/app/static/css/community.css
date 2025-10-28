@@ -1,14 +1,159 @@
-
+body{
+  font-family: sans-serif;
+  margin: 0;
+}
+ 
+/* 右上プロファイルのやつ----------------------------------------------- */
+ 
+#profile {
+  display: flex;            
+  align-items: center;
+  position: absolute;
+  right: 0;
+  margin-right: 1vw;
+  margin-top: .5vw;
+}
+ 
+#profile ul {
+  display: flex;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  font-weight: bold;
+  font-size: 12px;
+}
+ 
+#profile ul li {
+  padding: 0 10px;
+}
+ 
+#profile ul li:not(:last-child) {
+  border-right: 2px solid black;
+}
+ 
+#profile li a {
+  text-decoration: none;
+  color: #333;
+}
+ 
+#profile img {
+  width: 25px;   
+}
+ 
+/* ------------------------------------------------------------------ */
+ 
+/* ヘッダ------------------------------------------------------------ */
+ 
+#header_cap{
+  padding-top: 35px;
+}
+ 
+#header {
+  display: flex;
+  align-items: center;   
+  justify-content: center;
+  position: sticky;
+  top: 5px;
+  z-index: 100;
+}
+ 
+#header img {
+  width: 7vw;
+  max-width: 115px;
+}
+ 
+#header .container {
+  display: flex;
+  align-items: center;
+  margin-left: 2vw;   
+  gap: 2vw;  
+  background-color: #226CFF;
+  height: 4vw;
+  width: 75vw;
+  border-radius: 50px;
+  justify-content: center;
+  overflow: hidden;
+  max-height: 70px;
+}
+ 
+#header ul {
+  display: flex;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  font-size: 1.5vw;
+  font-weight: bolder;
+  height: 100%;
+}
+ 
+#header ul li {
+  /* margin-right: 2.5vw; */
+  height: 100%;
+}
+ 
+#header ul li a {
+  display: flex;
+  align-items: center;
+  height: 100%;
+  text-decoration: none;
+  color: white;
+  padding: 0 1.7vw;
+  white-space: nowrap;
+}
+ 
+ 
+#header ul li a:hover{
+  background-color: #4e89ff;
+}
+ 
+#header ul li a.is-active {
+  background-color: #4e89ff;
+}
+ 
+/* Search form */
+#header .search {
+  display: flex;
+  align-items: center;
+  gap: 0.5vw;
+}
+ 
+#header .search input {
+  padding: 5px 10px;
+  font-size: 1vw;
+  border: 1px solid #ccc;
+  border-radius: 20px;
+  /* margin-left: 50px; */
+ 
+}
+ 
+#header .search button {
+  padding: 5px 12px;
+  font-size: 1vw;
+  font-weight: bold;
+  /* font-size: clamp(10px, 1vw, 100px); */
+  cursor: pointer;
+  background-color: rgba(255, 255, 255, 0);
+  border: 1.5px solid #ffffff;
+  color: white;
+  border-radius: 5px;
+}
+ 
+#header .search button:hover {
+  background: white;  
+  color: #5d5d5d;        
+}
+ 
+ 
 /* dropdown-------------------------------------------- */
-
+ 
 #header .container {
 overflow: visible;
 }
-
+ 
 #header .dropdown {
 position: relative;
 }
-
+ 
 #header .dropdown-menu {
 display: none;
 position: absolute;
@@ -19,12 +164,12 @@ box-shadow: 0 4px 10px rgba(0,0,0,0.1);
 z-index: 1000;
 height: auto;
 }
-
+ 
 /* #header .dropdown-menu li:not(:last-child){
 line-height: 2.2;
 } */
-
-
+ 
+ 
 #header .dropdown-menu li a {
 display: block;
 padding: 8px 12px;
@@ -33,18 +178,18 @@ text-decoration: none;
 background: #fff;
 line-height: 2;
 }
-
+ 
 #header .dropdown-menu li a:hover {
 background: #e6e6e6;
 }
-
+ 
 #header .dropdown.open > .dropdown-menu {
 display: block;
 }
   
 /* header ------------------------------------------------------------------ */
-
-
+ 
+ 
 h1{
   margin: 4vw 4.5vw 2vw;
   font-size: 3vw;
@@ -59,9 +204,9 @@ h1{
   width: 40%;
   min-width: 200px;
 }
-
+ 
 /* reccomended and feed -------------------------------------------------- */
-
+ 
 .reccomended_and_feed {
   display: grid;
   grid-template-columns: 230px 1fr;
@@ -70,23 +215,24 @@ h1{
   /* height: 700px; */
   max-width: 1100px;
   margin: 0 auto;
+  padding-top: 40px;
   box-sizing: border-box;
 }
-
+ 
 .video_card{
   padding-bottom: 3vw;
 }
-
+ 
 .reccomended,
 .feed {
-  min-width: 0; 
+  min-width: 0;
   height: 100%;
 }
-
+ 
 /* ===== CHANGED: split margin rule so .reccomended has no left offset ===== */
 /* .reccomended > *:not(h2),
 .feed > *:not(h2) {
-  margin-left: 20px; 
+  margin-left: 20px;
 } */
 .feed > *:not(h2) {              /* UPDATED */
   margin-left: 20px;
@@ -95,7 +241,7 @@ h1{
   margin-left: 0;
 }
 /* ======================================================================== */
-
+ 
 .reccomended img,
 .feed img,
 .feed video {
@@ -103,24 +249,24 @@ h1{
   height: auto;
   display: block;
 }
-
+ 
 .feed {
   overflow-wrap: anywhere;
 }
-
+ 
 .post{
   padding-bottom: 3vw;
 }
-
+ 
 .post p{
   margin-left: 49px;
 }
-
-
+ 
+ 
 .post .contents{
   margin-left: 49px;
 }
-
+ 
 .feed .post img.contents,
 .feed .post video.contents {
   /* keep layout width-friendly but capped */
@@ -128,99 +274,137 @@ h1{
   max-height: 360px;
   display: block;
   border-radius: 8px;
-
+ 
   /* avoid distortion for tall/wide assets */
   object-fit: contain;
 }
-
-
+ 
+ 
 .post button{
   margin-left: 49px;
 }
-
+ 
 .post .user {
   display: flex;
   align-items: center;
   gap: 10px;              /* space between img and username */
   margin-bottom: 8px;     /* space below header before post text */
 }
-
+ 
 .post .avatar {
   width: 40px;
   height: 40px;
   border-radius: 50%;     /* circle */
   object-fit: cover;      /* crop image nicely */
 }
-
+ 
 .post .username {
   font-size: 15px;
   font-weight: 700;
   color: #111;
 }
-
-
+ 
+ 
 /* --- New Post composer (desktop) --- */
+ 
+ 
 .new-post {
-  position: sticky;
-  bottom: 0;                     /* sticks to bottom of .feed */
-  background: white;              /* white background layer */
-  /* padding: 10px 12px; */
-  /* box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.05);  */
-  z-index: 10;                    /* keep above feed content */
-  }
-   
-  /* Inner layout tweaks for looks */
-  .new-post .input-area {
-    display: flex;
-    align-items: center; /* <— this centers the buttons vertically */
-    gap: 8px;
-    width: 100%;
-  }
-   
-  .new-post .textbox {
-  background: #fff;
-  border: 1.5px solid #ddd;
-  border-radius: 10px;
   display: flex;
-  align-items: center;
-  padding: 8px 12px;
-  }
-   
-  .new-post .textbox input.text {
-  background: transparent;
-  border: none;
-  outline: none;
-  width: 100%;
-  font-size: 16px;
-  }
-   
-  .new-post .buttons {
-    display: flex;
-    flex-direction: row; /* <— switched! */
-    gap: 6px;
-    width: auto;
-    padding: 0;
-    justify-content: center;
-  }
-   
-  .new-post .buttons button {
-  border: none;
-  background: #226CFF;
-  color: white;
-  font-size: 18px;
-  font-weight: bold;
+  align-items: flex-start;
+  gap: 12px;
+  width: 30vw;
+}
+ 
+/* avatar column */
+.new-post .avatar {
+  width: 40px;
+  height: 40px;
   border-radius: 50%;
+  object-fit: cover;
+  margin-top: 7px;
+}
+ 
+/* input + buttons in a ROW */
+.new-post .input-area {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  width: 100%;
+  padding: 0;
+}
+ 
+/* textbox grows to fill line */
+.new-post .textbox {
+  flex: 1;
+  border: 1.5px solid #ddd;
+  border-radius: 12px;
+  padding: 12px 14px 0;
+  display: grid;
+  row-gap: 10px;
+  background: #fff;
+}
+ 
+/* inner text input */
+.new-post .textbox .text {
+  width: 100%;
+  height: 36px;
+  border: 0;
+  outline: none;
+  font-size: 16px;
+  padding: 0;
+}
+ 
+.new-post .textbox .text::placeholder {
+  color: #b9b9b9;
+}
+ 
+/* small attachment preview space */
+.new-post .textbox .attachment {
+  position: relative;
+  display: none;
+  margin-top: 8px;
+}
+ 
+.new-post .textbox.has-attachment .attachment {
+  display: block;
+}
+ 
+.new-post .textbox .attachment video {
+  width: 100%;
+  max-height: 220px;
+  border-radius: 8px;
+  display: block;
+}
+ 
+/* BUTTONS on the RIGHT */
+.new-post .buttons {
+  display: flex;
+  flex-direction: column; /* + on top, ▶ below */
+  gap: 6px;
+  width: 45vw;
+  padding: 0;
+  justify-content: center;
+}
+ 
+.new-post .add,
+.new-post .send {
+  background: none;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+  line-height: 1;
+  color: #111;
   width: 36px;
   height: 36px;
-  cursor: pointer;
-  transition: 0.2s;
-  }
-   
-  .new-post .buttons button:hover {
-  background: #4e89ff;
-  transform: translateY(-1px);
-  }
-
+  display: inline-grid;
+  place-items: center;
+  border-radius: 8px;
+}
+ 
+.new-post .add:hover,
+.new-post .send:hover {
+  color: #007bff;
+}
 /* video preview */
 .new-post .textbox .attachment video {
   width: 100%;
@@ -228,7 +412,7 @@ h1{
   border-radius: 8px;
   display: block;
 }
-
+ 
 /*  remove button */
 .new-post .textbox .attachment .remove-btn {
   position: absolute;
@@ -247,15 +431,15 @@ h1{
   justify-content: center;
   line-height: 1;
 }
-
+ 
 .new-post .textbox .attachment .remove-btn:hover {
   background: rgba(0, 0, 0, 0.9);
 }
-
-
-
-
-
+ 
+ 
+ 
+ 
+ 
 /* STEP 1: independent scroll layout */
 /* reccomended and feed - unified 3-column layout */
 .reccomended_and_feed {
@@ -269,8 +453,8 @@ h1{
   overflow: hidden;       /* keep parent from scrolling */
   box-sizing: border-box;
 }
-
-
+ 
+ 
 /* STEP 2: scroll each side independently */
 .reccomended, .feed {
 overflow-y: auto;
@@ -278,7 +462,7 @@ height: 100%;
 scrollbar-gutter: stable;
 padding-right: 8px;
 }
-
+ 
 /* optional: make scrollbars look clean */
 .reccomended::-webkit-scrollbar,
 .feed::-webkit-scrollbar {
@@ -293,21 +477,21 @@ border-radius: 4px;
 .feed::-webkit-scrollbar-track {
 background: #f3f3f3;
 }
-
-
+ 
+ 
 /* === Auto-hide scrollbars === */
 .reccomended, .feed {
 scrollbar-width: thin;           /* Firefox: thin bar */
 scrollbar-color: #bbb transparent;
 }
-
+ 
 /* WebKit browsers */
 .reccomended::-webkit-scrollbar,
 .feed::-webkit-scrollbar {
 width: 8px;
 transition: opacity 0.3s ease;
 }
-
+ 
 /* Default hidden */
 .reccomended::-webkit-scrollbar-thumb,
 .feed::-webkit-scrollbar-thumb {
@@ -316,18 +500,18 @@ border-radius: 4px;
 opacity: 0;                      /* hide by default */
 transition: opacity 0.3s ease;
 }
-
+ 
 /* Show when hovering or scrolling */
 .reccomended:hover::-webkit-scrollbar-thumb,
 .feed:hover::-webkit-scrollbar-thumb {
 opacity: 1;
 }
-
+ 
 /* === Sticky new-post composer === */
 .feed {
 position: relative;  /* for positioning context */
 }
-
+ 
 /* The composer area */
 .new-post {
 position: sticky;
@@ -337,14 +521,15 @@ background: white;              /* white background layer */
 /* box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.05);  */
 z-index: 10;                    /* keep above feed content */
 }
-
+ 
 /* Inner layout tweaks for looks */
 .new-post .input-area {
-background: white;
-border-radius: 10px;
-padding: 8px 8px 0;
+  display: flex;
+  align-items: center; /* <— this centers the buttons vertically */
+  gap: 8px;
+  width: 100%;
 }
-
+ 
 .new-post .textbox {
 background: #fff;
 border: 1.5px solid #ddd;
@@ -353,7 +538,7 @@ display: flex;
 align-items: center;
 padding: 8px 12px;
 }
-
+ 
 .new-post .textbox input.text {
 background: transparent;
 border: none;
@@ -361,14 +546,16 @@ outline: none;
 width: 100%;
 font-size: 16px;
 }
-
+ 
 .new-post .buttons {
-display: flex;
-justify-content: flex-end;
-gap: 10px;
-margin-top: 8px;
+  display: flex;
+  flex-direction: row; /* <— switched! */
+  gap: 6px;
+  width: auto;
+  padding: 0;
+  justify-content: center;
 }
-
+ 
 .new-post .buttons button {
 border: none;
 background: #226CFF;
@@ -381,12 +568,12 @@ height: 36px;
 cursor: pointer;
 transition: 0.2s;
 }
-
+ 
 .new-post .buttons button:hover {
 background: #4e89ff;
 transform: translateY(-1px);
 }
-
+ 
 /* === Sticky section headers === */
 .reccomended h2,
 .feed h2 {
@@ -396,18 +583,18 @@ background: white;
 padding: 10px 0 ;
 margin-top: 0;
 z-index: 5;
-
+ 
 }
-
-
-
-
-
-
+ 
+ 
+ 
+ 
+ 
+ 
 /* reccomended and feed -------------------------------------------------- */
-
+ 
 /*編集popup ------------------------------- */
-
+ 
 /* ===== 編集ポップアップ (FULL SECTION) ===== */
 .modal {
 position: fixed;
@@ -416,14 +603,14 @@ display: none;              /* toggled via .is-open */
 z-index: 2000;
 }
 .modal.is-open { display: block; }
-
+ 
 .modal__overlay {
 position: absolute;
 inset: 0;
 background: rgba(0,0,0,.45);
 backdrop-filter: blur(2px);
 }
-
+ 
 .modal__panel {
 position: absolute;
 left: 50%;
@@ -438,7 +625,7 @@ overflow: hidden;
 display: grid;
 grid-template-rows: auto 1fr auto;
 }
-
+ 
 .modal__header {
 padding: 14px 18px;
 border-bottom: 1px solid #eee;
@@ -450,7 +637,7 @@ justify-content: space-between;
 margin: 0;
 font-size: 18px;
 }
-
+ 
 .modal__close {
 border: 0;
 background: transparent;
@@ -460,19 +647,19 @@ border-radius: 8px;
 padding: 6px 8px;
 }
 .modal__close:hover { background: #f2f2f2; }
-
+ 
 .modal__body {
 padding: 16px 18px;
 overflow: auto;
 background: #fff;           /* ensure no tint */
 }
-
+ 
 .modal__label {
 display: block;
 font-weight: 700;
 margin: 0 0 8px 0;
 }
-
+ 
 .modal__textarea {
 width: 96%;
 min-height: 120px;
@@ -487,7 +674,7 @@ background: #fff;
 border-color: #888;         /* neutral focus */
 box-shadow: 0 0 0 3px rgba(0,0,0,0.08);
 }
-
+ 
 /* media area inside the modal */
 .modal__media { margin-top: 16px; }
 .modal__media-top {
@@ -498,7 +685,7 @@ gap: 10px;
 margin-bottom: 10px;
 }
 .modal__media-actions { display: flex; gap: 8px; flex-wrap: wrap; }
-
+ 
 .modal__preview {
 border: 1.5px dashed #ddd;
 border-radius: 10px;
@@ -517,7 +704,7 @@ max-height: 300px;
 border-radius: 8px;
 display: block;
 }
-
+ 
 /* Footer & buttons */
 .modal__footer {
 padding: 12px 18px 16px;
@@ -527,7 +714,7 @@ gap: 10px;
 justify-content: flex-end;
 background: #fff;           /* keep footer white (no blue strip) */
 }
-
+ 
 .btn {
 padding: 8px 14px;
 border-radius: 10px;
@@ -535,7 +722,7 @@ border: 1.5px solid transparent;
 font-weight: 800;
 cursor: pointer;
 }
-
+ 
 /* neutral buttons (no blue) */
 .btn--ghost {
 background: #fff;
@@ -550,12 +737,12 @@ background-color: red;
 color: white;
 border: none;
 }
-
+ 
 #btnRemoveMedia:hover{
 background-color: rgb(255, 61, 61);
 color: white;
 }
-
+ 
 .btn--primary {
 background: #226CFF;     /* neutral dark */
 color: #fff;
@@ -564,7 +751,7 @@ border: none;
 .btn--primary:hover {
 background: #4e89ff;
 }
-
+ 
 /* optional: make in-feed edit buttons match the neutral style */
 .post .actions button {
 cursor: pointer;
@@ -580,16 +767,26 @@ background: #f7f7f7;
 box-shadow: 0 2px 10px rgba(0,0,0,.08);
 }
 .post .actions button:active { transform: translateY(1px); }
-
-
-
-
-
-
-
-
+ 
+ 
+ 
+ 
+ 
+ 
+/*フッター ------------------------------------------------------------ */
+ 
+footer{
+  background-color: #226CFF;
+  color: white;
+  text-align: center;
+  margin-top: 5vw;
+  }
+  
+  /* ------------------------------------------------------------------ */
+ 
+ 
 /* ======================== ADDED: Clickable cards ======================== */
-
+ 
 /* Make the left column lay out cards cleanly (no margin-left) */
 .reccomended {                          /* UPDATED (new block) */
 display: grid;
@@ -597,7 +794,7 @@ grid-template-columns: 1fr;           /* single column; adjust via media query i
 gap: 14px;
 padding: 0 12px 12px;
 }
-
+ 
 /* Turn each .video_card anchor into a card */
 .reccomended .video_card {              /* UPDATED (new block) */
 display: block;                       /* anchors behave like cards */
@@ -609,7 +806,7 @@ background: #fff;
 padding: 12px;
 transition: transform .12s ease, box-shadow .12s ease, border-color .12s ease;
 }
-
+ 
 .reccomended .video_card:hover,
 .reccomended .video_card:focus-visible { /* UPDATED (new block) */
 transform: translateY(-2px);
@@ -617,7 +814,7 @@ box-shadow: 0 8px 20px rgba(0,0,0,.08);
 border-color: #d0d0d0;
 outline: none;
 }
-
+ 
 /* Card content */
 .reccomended .video_card img {          /* UPDATED (new block) */
 width: 100%;
@@ -636,5 +833,5 @@ margin: 0;
 color: #555;
 font-size: .92rem;
 }
-
+ 
 /* ====================================================================== */
