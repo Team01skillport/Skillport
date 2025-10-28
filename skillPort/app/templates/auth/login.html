@@ -1,14 +1,14 @@
 {% extends "base.html" %} {% block title %}ログイン{% endblock %} {% block
 content %}
 <head>
-  <link rel="stylesheet" href="../../static/css/login.css" />
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/login.css') }}" />
 </head>
 
 <div class="page-center-wrapper">
   <div class="login-card">
     <div class="logo-area">
       <img
-        src="../static/media/skill-port-logo.png"
+        src="{{ url_for('static', filename='media/skill-port-logo.png') }}"
         alt="SkillPort Logo"
         class="logo-image"
       />
@@ -17,7 +17,7 @@ content %}
     <form
       class="login-form"
       method="post"
-      action="{{url_for('auth.login_check')}}"
+      action="{{url_for('auth.login')}}"
     >
       <input
         class="form-group"
@@ -34,14 +34,14 @@ content %}
         name="password"
         placeholder="パスワード"
       />
-      <div class="error">{{errmsg}}</div>
+      {% if errmsg %}
+        <div class="error">{{errmsg}}</div>
+      {% endif %}
       <br />
       <button type="submit" class="submit-btn">ログイン</button>
     </form>
 
-    <a href="{{ url_for('account.register_form')}}" class="link-option"
-      >新規アカウントを作成</a
-    >
+    <a href="account_register.html" class="link-option">新規アカウントを作成</a>
     <a href="password_reset.html" class="link-option">ログイン情報を忘れた</a>
   </div>
 </div>
