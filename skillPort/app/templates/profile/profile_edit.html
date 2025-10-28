@@ -1,0 +1,34 @@
+{% extends "base.html" %} {% block title %}プロフィール{% endblock %} {% block
+content %}
+<head>
+  <link rel="stylesheet" href="../../static/css/profile_edit.css" />
+</head>
+<main>
+    <!-- プロフィール設定 -->
+    <div class="profile-set-info">
+        <h1 class="profile-set-text">プロフィール設定</h1>
+        <div class="profile-set-main">
+            <img class="profile-set-img"
+                src="https://images.unsplash.com/photo-1540573133985-87b6da6d54a9?w=300&h=300&fit=crop"
+                alt="プロフィール画像"
+                class="profile-image"
+            />
+            <div class="profile-set-mintext">
+                <p>専門分野<br></p>
+                <input type="text" name="specialty" required class="profile-set-textbox">
+                <p>ユーザー名<br></p>
+                <input type="text" name="user-name" required class="profile-set-textbox">
+                <p>自己紹介<br></p>
+                <input type="text" name="self-introduction" required class="profile-set-textbox">
+            </div>
+        </div>
+    </div>
+    
+    <!-- 個人情報設定 -->
+    <div class="personal-information ">
+
+    </div>
+
+</main>
+{% endblock %}
+</html>
