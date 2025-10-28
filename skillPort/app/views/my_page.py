@@ -33,7 +33,8 @@ def favorites_list():
 
 @my_page_bp.route('/password_reset', methods=["GET"])
 def password_reset():
-    return render_template('my_page/mp_password_reset.html')
+    mode = request.args.get("mode", "normal")
+    return render_template('my_page/mp_password_reset.html', mode=mode)
 
 @my_page_bp.route('/payment_history', methods=["GET"])
 def payment_history():

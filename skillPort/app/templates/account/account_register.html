@@ -6,12 +6,28 @@ content %}
 <body>
   <div class="login-container">
     <h1>アカウントの新規登録</h1>
-    <form action="{{url_for('account.register_userlogin')}}" method="POST">
-      <input type="text" name="username" placeholder="ユーザー名" /><br />
-      <input type="password" name="password" placeholder="パスワード" /><br />
+    <form
+      action="{{url_for('account.register_userlogin')}}"
+      method="POST"
+      class="login-form"
+    >
+      <input
+        type="text"
+        name="username"
+        id="userId"
+        placeholder="ユーザー名"
+      /><br />
+      <input
+        type="text"
+        id="password"
+        name="password"
+        placeholder="パスワード"
+      /><br />
       <input type="submit" value="アカウント作成" />
     </form>
     <p><a href="login.html">ログイン画面に戻る</a></p>
   </div>
+  <script src="{{url_for('static', filename='js/jquery-3.7.0.min.js')}}"></script>
+  <script src="{{url_for('static', filename='js/login.js')}}"></script>
 </body>
 {% endblock %}
