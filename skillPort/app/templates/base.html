@@ -47,18 +47,22 @@
           </li>
           <!-- before: <li><a href="#">カテゴリ一</a></li> -->
           <li class="dropdown" id="nav-category">
-            <a
-              href="{{ url_for('category.category_list')}}"
+            <a href="{{ url_for('category.category_list', name='アニメーション') }}"
               class="dropdown-toggle"
               >カテゴリ一</a
             >
             <ul class="dropdown-menu">
-              <li><a href="#" name="animation">アニメーション</a></li>
-              <li><a href="#">音楽</a></li>
-              <li><a href="#">カメラ</a></li>
-              <li><a href="#">フィットネス</a></li>
-              <li><a href="#">英語</a></li>
-              <li><a href="#">プログラミング</a></li>
+              <li>
+                <a
+                  href="{{ url_for('category.category_list', name="animation") }}"
+                  >アニメーション</a
+                >
+              </li>
+              <li><a href="{{ url_for('category.category_list', name='音楽') }}">音楽</a></li>
+              <li><a href="{{ url_for('category.category_list', name='カメラ') }}">カメラ</a></li>
+              <li><a href="{{ url_for('category.category_list', name='フィットネス') }}">フィットネス</a></li>
+              <li><a href="{{ url_for('category.category_list', name='英語') }}">英語</a></li>
+              <li><a href="{{ url_for('category.category_list', name='プログラミング') }}">プログラミング</a></li>
             </ul>
           </li>
         </ul>

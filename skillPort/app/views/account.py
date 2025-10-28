@@ -7,13 +7,13 @@ account_bp = Blueprint('account', __name__, url_prefix='/account')
 @account_bp.route('/register', methods=["GET"])
 def register_form():
     
-    return render_template('account/register.html')
+    return render_template('account/account_register.html')
 
 @account_bp.route('/register_userlogin', methods=["POST"])
 def register_userlogin():
     username = request.form.get("username")
     password = request.form.get("password")
-    return render_template('account/profile.html', username=username, password=password)
+    return render_template('account/user_register.html', username=username, password=password)
 
 @account_bp.route('/register_userinfo', methods=["POST"])
 def register_userinfo():

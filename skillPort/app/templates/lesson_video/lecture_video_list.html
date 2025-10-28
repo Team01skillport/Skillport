@@ -1,315 +1,354 @@
-<!DOCTYPE html> 
-<html lang="ja"> 
-  <head> 
-    <meta charset="UTF-8"> 
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
-    <title>アニメーション | SkillPort</title> 
-    <link rel="stylesheet" href="../../static/css/lecture_video.css"> 
-  </head> 
-  <body> 
-    <div id="profile"> 
-      <ul> 
-        <li><a href="register.html">アカウント登録</a></li> 
-        <li><a href="login.html">ログイン</a></li> 
-      </ul> 
-      <a href="#"><img src="../static/media/profile_icon.png"></a> 
-    </div> 
+{% extends "base.html" %} {% block title %}{{cat_name}}{% endblock %} {% block
+content %}
+<head>
+  <link rel="stylesheet" href="../../static/css/lecture_video.css" />
+</head>
+<body>
+  <div class="category-page">
+    <div class="category-header">
+      <h1>{{cat_name}}</h1>
+      <button class="upload-video-btn">動画をアップロード</button>
+    </div>
 
-    <div id="header_cap"></div> 
-
-    <div id="header"> 
-      <a href="index.html"> 
-        <img src="../static/media/skill-port-logo.png" alt="logo"> 
+    <div class="item-grid">
+      <a href="#" class="item-card">
+        <div class="item-image-container">
+          <img
+            src="../static/media/anime_placeholder.jpg"
+            alt="動畫課程封面"
+            class="item-image"
+          />
+          <div class="play-button">
+            <svg viewBox="0 0 24 24" fill="white" width="48px" height="48px">
+              <path d="M8 5v14l11-7z" />
+            </svg>
+          </div>
+          <p class="image-label">動画コース</p>
+        </div>
+        <div class="item-details">
+          <h2 class="item-title">
+            しょうごくんと楽しくイラストレーション学びましょう！
+          </h2>
+          <p class="item-description">
+            この動画では、初心者向けにデジタルイラストの基本から応用までを丁寧に解説します。ツールの使い方や色の選び方を実践的に学べます。
+          </p>
+          <p class="item-price">¥7,800</p>
+        </div>
       </a>
-      <div class="container"> 
-        <ul> 
-          <li><a href="#">プロフィール</a></li> 
-          <li><a href="#">マーケット</a></li> 
-          <li><a href="#">コミュニティー</a></li> 
-          <li class="dropdown" id="nav-category"> 
-            <a href="#" class="dropdown-toggle">カテゴリ一</a> 
-            <ul class="dropdown-menu"> 
-              <li><a href="#">アニメーション</a></li> 
-              <li><a href="#">音楽</a></li> 
-              <li><a href="#">カメラ</a></li> 
-              <li><a href="#">フィットネス</a></li> 
-              <li><a href="#">英語</a></li> 
-              <li><a href="#">プログラミング</a></li> 
-            </ul> 
-          </li> 
-        </ul> 
-        <form action="/search" method="get" class="search"> 
-          <input type="text" name="q" placeholder="検索..." /> 
-          <button type="submit">検索</button> 
-        </form> 
-      </div> 
-    </div> 
 
-    <div class="category-page">
-        <div class="category-header">
-            <h1>アニメーション</h1>
-            <button class="upload-video-btn">動画をアップロード</button>
+      <a href="#" class="item-card">
+        <div class="item-image-container">
+          <img
+            src="../static/media/camera_placeholder.jpg"
+            alt="攝影課程封面"
+            class="item-image"
+          />
+          <div class="play-button">
+            <svg viewBox="0 0 24 24" fill="white" width="48px" height="48px">
+              <path d="M8 5v14l11-7z" />
+            </svg>
+          </div>
+          <p class="image-label">カメラ操作</p>
         </div>
-
-        <div class="item-grid">
-            <a href="#" class="item-card">
-                <div class="item-image-container">
-                    <img src="../static/media/anime_placeholder.jpg" alt="動畫課程封面" class="item-image">
-                    <div class="play-button">
-                        <svg viewBox="0 0 24 24" fill="white" width="48px" height="48px">
-                            <path d="M8 5v14l11-7z"/>
-                        </svg>
-                    </div>
-                    <p class="image-label">動画コース</p>
-                </div>
-                <div class="item-details">
-                    <h2 class="item-title">しょうごくんと楽しくイラストレーション学びましょう！</h2>
-                    <p class="item-description">この動画では、初心者向けにデジタルイラストの基本から応用までを丁寧に解説します。ツールの使い方や色の選び方を実践的に学べます。</p>
-                    <p class="item-price">¥7,800</p>
-                </div>
-            </a>
-            
-            <a href="#" class="item-card">
-                <div class="item-image-container">
-                    <img src="../static/media/camera_placeholder.jpg" alt="攝影課程封面" class="item-image">
-                    <div class="play-button">
-                        <svg viewBox="0 0 24 24" fill="white" width="48px" height="48px">
-                            <path d="M8 5v14l11-7z"/>
-                        </svg>
-                    </div>
-                    <p class="image-label">カメラ操作</p>
-                </div>
-                <div class="item-details">
-                    <h2 class="item-title">ミラーレス一眼で始める写真撮影の基礎と応用テクニック！</h2>
-                    <p class="item-description">絞り、シャッタースピード、ISO感度の関係を理解し、日常の風景をドラマチックに変える撮影テクニックをマスターしましょう。</p>
-                    <p class="item-price">¥7,800</p>
-                </div>
-            </a>
-
-            <a href="#" class="item-card">
-                <div class="item-image-container">
-                    <img src="../static/media/anime_placeholder.jpg" alt="動畫課程封面" class="item-image">
-                    <div class="play-button">
-                        <svg viewBox="0 0 24 24" fill="white" width="48px" height="48px">
-                            <path d="M8 5v14l11-7z"/>
-                        </svg>
-                    </div>
-                    <p class="image-label">アニメーション制作</p>
-                </div>
-                <div class="item-details">
-                    <h2 class="item-title">【After Effects】モーションタイポグラフィ制作の完全ガイド</h2>
-                    <p class="item-description">文字を魅力的に動かす方法を学びます。キーフレームやエフェクトを駆使した、プロレベルのモーショングラフィックススキルが身につきます。</p>
-                    <p class="item-price">¥7,800</p>
-                </div>
-            </a>
-            
-            <a href="#" class="item-card">
-                <div class="item-image-container">
-                    <img src="../static/media/camera_placeholder.jpg" alt="攝影課程封面" class="item-image">
-                    <div class="play-button">
-                        <svg viewBox="0 0 24 24" fill="white" width="48px" height="48px">
-                            <path d="M8 5v14l11-7z"/>
-                        </svg>
-                    </div>
-                    <p class="image-label">ポートレート</p>
-                </div>
-                <div class="item-details">
-                    <h2 class="item-title">自然光を活かす！美しいポートレート写真のレタッチ術</h2>
-                    <p class="item-description">PhotoshopとLightroomを使った、肌の質感や色の補正方法を徹底解説。被写体の魅力を最大限に引き出すレタッチスキルを習得できます。</p>
-                    <p class="item-price">¥7,800</p>
-                </div>
-            </a>
-
-            <a href="#" class="item-card">
-                <div class="item-image-container">
-                    <img src="../static/media/anime_placeholder.jpg" alt="動畫課程封面" class="item-image">
-                    <div class="play-button">
-                        <svg viewBox="0 0 24 24" fill="white" width="48px" height="48px">
-                            <path d="M8 5v14l11-7z"/>
-                        </svg>
-                    </div>
-                    <p class="image-label">描畫技術</p>
-                </div>
-                <div class="item-details">
-                    <h2 class="item-title">デジタルで描く風景イラスト：雲と水の表現テクニック</h2>
-                    <p class="item-description">デジタルペイントでリアルな雲や水のテクスチャを描く方法を解説します。光と影の表現を強化し、作品のクオリティを高めましょう。</p>
-                    <p class="item-price">¥7,800</p>
-                </div>
-            </a>
-            
-            <a href="#" class="item-card">
-                <div class="item-image-container">
-                    <img src="../static/media/camera_placeholder.jpg" alt="攝影課程封面" class="item-image">
-                    <div class="play-button">
-                        <svg viewBox="0 0 24 24" fill="white" width="48px" height="48px">
-                            <path d="M8 5v14l11-7z"/>
-                        </svg>
-                    </div>
-                    <p class="image-label">動画編集</p>
-                </div>
-                <div class="item-details">
-                    <h2 class="item-title">Premiere Pro入門：Vlog編集の効率化とテロップ作成</h2>
-                    <p class="item-description">Vlog制作に必要なカット編集、BGM調整、そして視聴者を引きつけるテロップの入れ方を、実践的なプロジェクトを通じて習得します。</p>
-                    <p class="item-price">¥7,800</p>
-                </div>
-            </a>
-
-            <a href="#" class="item-card">
-                <div class="item-image-container">
-                    <img src="../static/media/anime_placeholder.jpg" alt="動畫課程封面" class="item-image">
-                    <div class="play-button">
-                        <svg viewBox="0 0 24 24" fill="white" width="48px" height="48px">
-                            <path d="M8 5v14l11-7z"/>
-                        </svg>
-                    </div>
-                    <p class="image-label">デザイン基礎</p>
-                </div>
-                <div class="item-details">
-                    <h2 class="item-title">Adobe Illustrator基礎：ロゴと図形の美しいデザイン方法</h2>
-                    <p class="item-description">Illustratorの基本操作から、曲線やベジェ曲線を使いこなす方法、さらには目を引くロゴデザインの原則までを体系的に学びます。</p>
-                    <p class="item-price">¥7,800</p>
-                </div>
-            </a>
-
-            <a href="#" class="item-card">
-                <div class="item-image-container">
-                    <img src="../static/media/camera_placeholder.jpg" alt="攝影課程封面" class="item-image">
-                    <div class="play-button">
-                        <svg viewBox="0 0 24 24" fill="white" width="48px" height="48px">
-                            <path d="M8 5v14l11-7z"/>
-                        </svg>
-                    </div>
-                    <p class="image-label">ライティング</p>
-                </div>
-                <div class="item-details">
-                    <h2 class="item-title">ストロボ入門：一灯ライティングでプロの質感を実現する方法</h2>
-                    <p class="item-description">外部ストロボを導入したい初心者向け。ポートレート撮影における光の向き、強さ、質をコントロールする実用的な方法を学びます。</p>
-                    <p class="item-price">¥7,800</p>
-                </div>
-            </a>
-            
-            <a href="#" class="item-card">
-                <div class="item-image-container">
-                    <img src="../static/media/anime_placeholder.jpg" alt="動畫課程封面" class="item-image">
-                    <div class="play-button">
-                        <svg viewBox="0 0 24 24" fill="white" width="48px" height="48px">
-                            <path d="M8 5v14l11-7z"/>
-                        </svg>
-                    </div>
-                    <p class="image-label">キャラクター</p>
-                </div>
-                <div class="item-details">
-                    <h2 class="item-title">魅力的なキャラクターデザイン：感情を伝える表情とポーズ</h2>
-                    <p class="item-description">キャラクターに命を吹き込むための、感情表現、ポーズ設計、そして個性的なファッションデザインの考え方を学びます。</p>
-                    <p class="item-price">¥7,800</p>
-                </div>
-            </a>
-
+        <div class="item-details">
+          <h2 class="item-title">
+            ミラーレス一眼で始める写真撮影の基礎と応用テクニック！
+          </h2>
+          <p class="item-description">
+            絞り、シャッタースピード、ISO感度の関係を理解し、日常の風景をドラマチックに変える撮影テクニックをマスターしましょう。
+          </p>
+          <p class="item-price">¥7,800</p>
         </div>
+      </a>
 
-        <div class="pagination">
-            <a href="#" class="page-link active">1</a>
-            <a href="#" class="page-link">2</a>
-            <a href="#" class="page-link">3</a>
-            <a href="#" class="page-link">4</a>
-            <a href="#" class="page-link">5</a>
-            <a href="#" class="page-link">6</a>
+      <a href="#" class="item-card">
+        <div class="item-image-container">
+          <img
+            src="../static/media/anime_placeholder.jpg"
+            alt="動畫課程封面"
+            class="item-image"
+          />
+          <div class="play-button">
+            <svg viewBox="0 0 24 24" fill="white" width="48px" height="48px">
+              <path d="M8 5v14l11-7z" />
+            </svg>
+          </div>
+          <p class="image-label">アニメーション制作</p>
         </div>
+        <div class="item-details">
+          <h2 class="item-title">
+            【After Effects】モーションタイポグラフィ制作の完全ガイド
+          </h2>
+          <p class="item-description">
+            文字を魅力的に動かす方法を学びます。キーフレームやエフェクトを駆使した、プロレベルのモーショングラフィックススキルが身につきます。
+          </p>
+          <p class="item-price">¥7,800</p>
+        </div>
+      </a>
+
+      <a href="#" class="item-card">
+        <div class="item-image-container">
+          <img
+            src="../static/media/camera_placeholder.jpg"
+            alt="攝影課程封面"
+            class="item-image"
+          />
+          <div class="play-button">
+            <svg viewBox="0 0 24 24" fill="white" width="48px" height="48px">
+              <path d="M8 5v14l11-7z" />
+            </svg>
+          </div>
+          <p class="image-label">ポートレート</p>
+        </div>
+        <div class="item-details">
+          <h2 class="item-title">
+            自然光を活かす！美しいポートレート写真のレタッチ術
+          </h2>
+          <p class="item-description">
+            PhotoshopとLightroomを使った、肌の質感や色の補正方法を徹底解説。被写体の魅力を最大限に引き出すレタッチスキルを習得できます。
+          </p>
+          <p class="item-price">¥7,800</p>
+        </div>
+      </a>
+
+      <a href="#" class="item-card">
+        <div class="item-image-container">
+          <img
+            src="../static/media/anime_placeholder.jpg"
+            alt="動畫課程封面"
+            class="item-image"
+          />
+          <div class="play-button">
+            <svg viewBox="0 0 24 24" fill="white" width="48px" height="48px">
+              <path d="M8 5v14l11-7z" />
+            </svg>
+          </div>
+          <p class="image-label">描畫技術</p>
+        </div>
+        <div class="item-details">
+          <h2 class="item-title">
+            デジタルで描く風景イラスト：雲と水の表現テクニック
+          </h2>
+          <p class="item-description">
+            デジタルペイントでリアルな雲や水のテクスチャを描く方法を解説します。光と影の表現を強化し、作品のクオリティを高めましょう。
+          </p>
+          <p class="item-price">¥7,800</p>
+        </div>
+      </a>
+
+      <a href="#" class="item-card">
+        <div class="item-image-container">
+          <img
+            src="../static/media/camera_placeholder.jpg"
+            alt="攝影課程封面"
+            class="item-image"
+          />
+          <div class="play-button">
+            <svg viewBox="0 0 24 24" fill="white" width="48px" height="48px">
+              <path d="M8 5v14l11-7z" />
+            </svg>
+          </div>
+          <p class="image-label">動画編集</p>
+        </div>
+        <div class="item-details">
+          <h2 class="item-title">
+            Premiere Pro入門：Vlog編集の効率化とテロップ作成
+          </h2>
+          <p class="item-description">
+            Vlog制作に必要なカット編集、BGM調整、そして視聴者を引きつけるテロップの入れ方を、実践的なプロジェクトを通じて習得します。
+          </p>
+          <p class="item-price">¥7,800</p>
+        </div>
+      </a>
+
+      <a href="#" class="item-card">
+        <div class="item-image-container">
+          <img
+            src="../static/media/anime_placeholder.jpg"
+            alt="動畫課程封面"
+            class="item-image"
+          />
+          <div class="play-button">
+            <svg viewBox="0 0 24 24" fill="white" width="48px" height="48px">
+              <path d="M8 5v14l11-7z" />
+            </svg>
+          </div>
+          <p class="image-label">デザイン基礎</p>
+        </div>
+        <div class="item-details">
+          <h2 class="item-title">
+            Adobe Illustrator基礎：ロゴと図形の美しいデザイン方法
+          </h2>
+          <p class="item-description">
+            Illustratorの基本操作から、曲線やベジェ曲線を使いこなす方法、さらには目を引くロゴデザインの原則までを体系的に学びます。
+          </p>
+          <p class="item-price">¥7,800</p>
+        </div>
+      </a>
+
+      <a href="#" class="item-card">
+        <div class="item-image-container">
+          <img
+            src="../static/media/camera_placeholder.jpg"
+            alt="攝影課程封面"
+            class="item-image"
+          />
+          <div class="play-button">
+            <svg viewBox="0 0 24 24" fill="white" width="48px" height="48px">
+              <path d="M8 5v14l11-7z" />
+            </svg>
+          </div>
+          <p class="image-label">ライティング</p>
+        </div>
+        <div class="item-details">
+          <h2 class="item-title">
+            ストロボ入門：一灯ライティングでプロの質感を実現する方法
+          </h2>
+          <p class="item-description">
+            外部ストロボを導入したい初心者向け。ポートレート撮影における光の向き、強さ、質をコントロールする実用的な方法を学びます。
+          </p>
+          <p class="item-price">¥7,800</p>
+        </div>
+      </a>
+
+      <a href="#" class="item-card">
+        <div class="item-image-container">
+          <img
+            src="../static/media/anime_placeholder.jpg"
+            alt="動畫課程封面"
+            class="item-image"
+          />
+          <div class="play-button">
+            <svg viewBox="0 0 24 24" fill="white" width="48px" height="48px">
+              <path d="M8 5v14l11-7z" />
+            </svg>
+          </div>
+          <p class="image-label">キャラクター</p>
+        </div>
+        <div class="item-details">
+          <h2 class="item-title">
+            魅力的なキャラクターデザイン：感情を伝える表情とポーズ
+          </h2>
+          <p class="item-description">
+            キャラクターに命を吹き込むための、感情表現、ポーズ設計、そして個性的なファッションデザインの考え方を学びます。
+          </p>
+          <p class="item-price">¥7,800</p>
+        </div>
+      </a>
     </div>
 
-    <div id="uploadModal" class="modal">
-        <div class="modal__backdrop"></div>
-        <div class="modal__card">
-            <button class="modal__close" aria-label="Close modal">×</button>
-            <div class="modal__content">
-                <div class="upload-fields">
-                    <div class="file-preview-group">
-                        <div class="file-button-container">
-                            <label class="file-label file-button thumbnail-button">
-                                ファイルを選択
-                                <input type="file" id="videoFile" accept="video/mp4,video/quicktime">
-                            </label>
+    <div class="pagination">
+      <a href="#" class="page-link active">1</a>
+      <a href="#" class="page-link">2</a>
+      <a href="#" class="page-link">3</a>
+      <a href="#" class="page-link">4</a>
+      <a href="#" class="page-link">5</a>
+      <a href="#" class="page-link">6</a>
+    </div>
+  </div>
 
-                            <label class="file-label file-button thumbnail-button">
-                                サムイルを選択
-                                <input type="file" id="thumbnailFile" accept="image/*">
-                            </label>
-                            
-                            <span id="fileName" class="file-name-display">animation.mp4</span>
-                        </div>
-                        
-                        <div class="thumbnail-image-preview">
-                            <img src="../static/media/default_thumbnail.jpg" alt="プレビュー画像">
-                        </div>
-                    </div>
-                    
-                    <label for="videoTitle" class="form-label">タイトル</label>
-                    <input type="text" id="videoTitle" class="form-input" placeholder="">
+  <div id="uploadModal" class="modal">
+    <div class="modal__backdrop"></div>
+    <div class="modal__card">
+      <button class="modal__close" aria-label="Close modal">×</button>
+      <div class="modal__content">
+        <div class="upload-fields">
+          <div class="file-preview-group">
+            <div class="file-button-container">
+              <label class="file-label file-button thumbnail-button">
+                ファイルを選択
+                <input
+                  type="file"
+                  id="videoFile"
+                  accept="video/mp4,video/quicktime"
+                />
+              </label>
 
-                    <label for="videoDescription" class="form-label">概要欄</label>
-                    <textarea id="videoDescription" class="form-textarea"></textarea>
-                    
-                    <div class="modal__actions">
-                        <button class="btn btn--primary">アップ...</button>
-                        <div class="member-setting">
-                            <span>メンバー限定</span>
-                            <span class="dot">•</span>
-                        </div>
-                    </div>
-                </div>
+              <label class="file-label file-button thumbnail-button">
+                サムイルを選択
+                <input type="file" id="thumbnailFile" accept="image/*" />
+              </label>
+
+              <span id="fileName" class="file-name-display">animation.mp4</span>
             </div>
+
+            <div class="thumbnail-image-preview">
+              <img
+                src="../static/media/default_thumbnail.jpg"
+                alt="プレビュー画像"
+              />
+            </div>
+          </div>
+
+          <label for="videoTitle" class="form-label">タイトル</label>
+          <input
+            type="text"
+            id="videoTitle"
+            class="form-input"
+            placeholder=""
+          />
+
+          <label for="videoDescription" class="form-label">概要欄</label>
+          <textarea id="videoDescription" class="form-textarea"></textarea>
+
+          <div class="modal__actions">
+            <button class="btn btn--primary">アップ...</button>
+            <div class="member-setting">
+              <span>メンバー限定</span>
+              <span class="dot">•</span>
+            </div>
+          </div>
         </div>
+      </div>
     </div>
+  </div>
+  <script>
+    // JavaScript 簡單控制邏輯 (處理 Modal 打開與關閉)
 
+    const uploadBtn = document.querySelector(".upload-video-btn");
+    const modal = document.getElementById("uploadModal");
+    // 由於 Modal 結構已恢復，這裡的查找會成功
+    const closeBtn = modal ? modal.querySelector(".modal__close") : null;
+    const backdrop = modal ? modal.querySelector(".modal__backdrop") : null;
+    const videoFileInput = document.getElementById("videoFile");
+    const fileNameDisplay = modal
+      ? modal.querySelector(".file-name-display")
+      : null;
 
-    <footer>©copyright SkillPort2025</footer> 
-    
-    <script>
-        // JavaScript 簡單控制邏輯 (處理 Modal 打開與關閉)
+    function openModal() {
+      if (modal) {
+        modal.classList.add("is-open");
+        document.body.classList.add("modal-open");
+      }
+    }
 
-        const uploadBtn = document.querySelector('.upload-video-btn');
-        const modal = document.getElementById('uploadModal');
-        // 由於 Modal 結構已恢復，這裡的查找會成功
-        const closeBtn = modal ? modal.querySelector('.modal__close') : null;
-        const backdrop = modal ? modal.querySelector('.modal__backdrop') : null;
-        const videoFileInput = document.getElementById('videoFile');
-        const fileNameDisplay = modal ? modal.querySelector('.file-name-display') : null;
+    function closeModal() {
+      if (modal) {
+        modal.classList.remove("is-open");
+        document.body.classList.remove("modal-open");
+      }
+    }
 
-        function openModal() {
-            if (modal) {
-                modal.classList.add('is-open');
-                document.body.classList.add('modal-open');
-            }
+    if (uploadBtn) uploadBtn.addEventListener("click", openModal);
+    if (closeBtn) closeBtn.addEventListener("click", closeModal);
+    if (backdrop) backdrop.addEventListener("click", closeModal);
+
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape" && modal && modal.classList.contains("is-open")) {
+        closeModal();
+      }
+    });
+
+    // 更新檔案名稱顯示
+    if (videoFileInput && fileNameDisplay) {
+      videoFileInput.addEventListener("change", () => {
+        if (videoFileInput.files.length > 0) {
+          fileNameDisplay.textContent = videoFileInput.files[0].name;
+        } else {
+          fileNameDisplay.textContent = "animation.mp4";
         }
-
-        function closeModal() {
-            if (modal) {
-                modal.classList.remove('is-open');
-                document.body.classList.remove('modal-open');
-            }
-        }
-
-        if (uploadBtn) uploadBtn.addEventListener('click', openModal);
-        if (closeBtn) closeBtn.addEventListener('click', closeModal);
-        if (backdrop) backdrop.addEventListener('click', closeModal);
-
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape' && modal && modal.classList.contains('is-open')) {
-                closeModal();
-            }
-        });
-        
-        // 更新檔案名稱顯示
-        if (videoFileInput && fileNameDisplay) {
-            videoFileInput.addEventListener('change', () => {
-                if (videoFileInput.files.length > 0) {
-                    fileNameDisplay.textContent = videoFileInput.files[0].name;
-                } else {
-                    fileNameDisplay.textContent = 'animation.mp4';
-                }
-            });
-        }
-    </script>
-    
-  </body> 
-</html>
+      });
+    }
+  </script>
+</body>
+{% endblock %}
