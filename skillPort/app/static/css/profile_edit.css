@@ -1,0 +1,32 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.profile-set-main{
+    padding:60 0 0 300px;
+
+}
+
+.profile-set-img {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.profile-set-mintext{
+    padding-top:10px;
+}
+
+p{
+    margin-top: 30px;
+    font-weight: 700;
+    font-size: 20px;
+}
+
+.profile-set-textbox{
+    margin-top: 10px;
+    border-radius: 50px;
+}
