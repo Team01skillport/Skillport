@@ -110,3 +110,7 @@ body {
     box-shadow: none; /* 小螢幕移除陰影，更像全螢幕 APP */
   }
 }
+
+.error {
+  color: red;
+}
