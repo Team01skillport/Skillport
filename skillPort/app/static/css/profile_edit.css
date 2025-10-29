@@ -4,8 +4,8 @@
     box-sizing: border-box;
 }
 
-.profile-set-main{
-    padding:60 0 0 300px;
+.profile-set-contents{
+    padding:60 0 0 700px;
 
 }
 
@@ -29,4 +29,15 @@ p{
 .profile-set-textbox{
     margin-top: 10px;
     border-radius: 50px;
+}
+
+button{
+    margin-left: 560px;
+    margin-top: 100px;
+    font-size: 30px;
+    border: none;          
+    color: white;
+    width: 15em;
+    background-color: #226CFF;
+    border-radius: 50px; 
 }
