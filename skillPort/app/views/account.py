@@ -40,7 +40,6 @@ def register_userinfo():
     address1 = request.form.get("address1")
     address2 = request.form.get("address2")
     introduction = request.form.get("introduction")
-
    
     sql = "INSERT INTO user_tbl ('"+username+"', '"+first_name+"', '"+last_name+"', '"+first_name_katakana+"', '"+last_name_katakana+"', '"+tel_no+"', '"+zip_code+"', '"+prefecture+"', '"+address1+"', '"+address2+"', '"+birthday+"', '"+gender+"', '"+mail+"', '"+password+"', '"+introduction+"') VALUES ();"
     return render_template('account/profile.html')

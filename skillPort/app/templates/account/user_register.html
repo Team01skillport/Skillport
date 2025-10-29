@@ -11,23 +11,25 @@ block content %}
   <div class="register-container">
     <h1 class="register-title">新規アカウント登録</h1>
     <form method="POST" class="register-form">
+      <input type="hidden" name="username" value="{{username}}" />
+      <input type="hidden" name="password" value="{{password}}" />
+
       <fieldset class="form-section">
-        <legend class="section-title">アカウント情報</legend>
-        <input type="hidden" name="username" value="{{username}}" />
-        <input type="hidden" name="password" value="{{password}}" />
+        <legend class="section-title">ユーザー情報</legend>
         <div class="input-group">
           <input type="email" name="email" class="form-input" />
           <label>メールアドレス</label>
         </div>
 
         <div class="input-group">
-          <input type="tel" name="tel" class="form-input" />
-          <label>電話番号（ハイフンなし 11桁）</label>
+          <input
+            type="tel"
+            name="tel"
+            class="form-input"
+            placeholder="ハイフンなし"
+          />
+          <label>電話番号</label>
         </div>
-      </fieldset>
-
-      <fieldset class="form-section">
-        <legend class="section-title">ユーザー情報</legend>
 
         <div class="input-group">
           <input type="text" name="last_name" class="form-input" />
@@ -51,7 +53,7 @@ block content %}
 
         <div class="input-group input-date">
           <input type="date" name="birthday" class="form-input" />
-          <label>生年月日 (YYYY-MM-DD)</label>
+          <label>生年月日 </label>
         </div>
 
         <div class="form-gender-group">
@@ -72,6 +74,16 @@ block content %}
       </fieldset>
 
       <fieldset class="form-section">
+        <div class="input-group">
+          <input
+            type="text"
+            name="zip_code"
+            class="form-input"
+            placeholder="ハイフンなし"
+          />
+          <label>郵便番号</label>
+        </div>
+
         <div class="input-group">
           <input type="text" name="prefecture" class="form-input" />
           <label>住所 - 都道府県</label>
@@ -96,7 +108,9 @@ block content %}
       <button type="submit" class="submit-btn">アカウント作成</button>
     </form>
 
-    <p class="login-link"><a href="login.html">ログイン画面に戻る</a></p>
+    <p class="login-link">
+      <a href="{{ url_for('auth.login')}}">ログイン画面に戻る</a>
+    </p>
   </div>
 </div>
 {% endblock %}
