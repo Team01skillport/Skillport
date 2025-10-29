@@ -1,6 +1,6 @@
 from flask import Blueprint, render_template, request, make_response, session
+from app.db import fetch_query
 
-# Blueprintオブジェクトを作成
 my_page_bp = Blueprint('my_page', __name__, url_prefix='/my_page')
 
 @my_page_bp.route('/top', methods=["GET"])

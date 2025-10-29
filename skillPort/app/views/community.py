@@ -1,6 +1,6 @@
 from flask import Blueprint, render_template, request, make_response, session
+from app.db import fetch_query
 
-# Blueprintオブジェクトを作成
 community_bp = Blueprint('community', __name__, url_prefix='/community')
 
 @community_bp.route('/community/top', methods=["GET"])

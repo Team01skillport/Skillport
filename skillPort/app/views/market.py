@@ -1,23 +1,13 @@
 from flask import Blueprint, render_template
-import mysql.connector
+from app.db import fetch_query
 
 market_bp = Blueprint('market', __name__, url_prefix='/market')
 
 # 1. market.market_top
 @market_bp.route('/', methods=["GET"])
 def market_top():
-    con = mysql.connector.connect(
-    host = "localhost",
-    user = "root",
-    passwd = "",
-    db = "skillport_db"
-    )  
-    
     sql = "SELECT * FROM listing_tbl;"
-    cur = con.cursor(dictionary=True)
-    cur.execute(sql)
-    all_products = cur.fetchall()
-    print(all_products)
+    all_products = fetch_query(sql)
     return render_template('market/market.html', all_products=all_products)
 
 # 2.

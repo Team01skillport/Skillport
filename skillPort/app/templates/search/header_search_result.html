@@ -1,4 +1,4 @@
-{% extends "base.html" %} {% block title %}アカウント登録{% endblock %} {% block
+{% extends "base.html" %} {% block title %}検索結果{% endblock %} {% block
 content %}
 <head>
   <link
@@ -26,16 +26,16 @@ content %}
       </div>
       <div class="item-details">
         <div class="title-and-user">
-            <h2 class="item-title">{{item.video_title}}</h2>
-            <p class="upload_user">{{item.video_uploader_id}}</p>
+          <h2 class="item-title">{{item.video_title}}</h2>
+          <p class="upload_user">{{item.video_uploader_id}}</p>
         </div>
-        
+
         <p class="item-description">{{item.video_description_section}}</p>
-        
+
         <div class="stats-row">
-            <p class="view-count">再生回数：{{item.view_count}}</p>
-            <p class="like-count">いいね数：{{item.like_count}}</p>
-            <p class="comment-cunt">コメント数：{{item.comment_count}}</p>
+          <p class="view-count">再生回数：{{item.view_count}}</p>
+          <p class="like-count">いいね数：{{item.like_count}}</p>
+          <p class="comment-cunt">コメント数：{{item.comment_count}}</p>
         </div>
       </div>
     </a>

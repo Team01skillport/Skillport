@@ -1,5 +1,5 @@
 from flask import Blueprint, render_template, request, make_response, session
-import mysql.connector
+from app.db import fetch_query
 
 account_bp = Blueprint('account', __name__, url_prefix='/account')
 
@@ -18,13 +18,6 @@ def register_userlogin():
 
 @account_bp.route('/register_success', methods=["POST"])
 def register_userinfo():
-    con = mysql.connector.connect(
-    host = "localhost",
-    user = "root",
-    passwd = "",
-    db = "skillport_db"
-    )  
-
     username = request.form.get("username")
     password = request.form.get("password")
     mail = request.form.get("email")
@@ -42,6 +35,7 @@ def register_userinfo():
     introduction = request.form.get("introduction")
    
     sql = "INSERT INTO user_tbl ('"+username+"', '"+first_name+"', '"+last_name+"', '"+first_name_katakana+"', '"+last_name_katakana+"', '"+tel_no+"', '"+zip_code+"', '"+prefecture+"', '"+address1+"', '"+address2+"', '"+birthday+"', '"+gender+"', '"+mail+"', '"+password+"', '"+introduction+"') VALUES ();"
+    # create_user = fetch_query(sql)
     return render_template('account/profile.html')
 
 @account_bp.route('/profile', methods=["GET"])
