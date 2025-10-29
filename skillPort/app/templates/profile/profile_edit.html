@@ -14,12 +14,14 @@ content %}
                     alt="プロフィール画像"
                     class="profile-image"
                 />
-                <p>専門分野<br></p>
-                <input type="text" name="specialty" required class="profile-set-textbox">
-                <p>ユーザー名<br></p>
-                <input type="text" name="user-name" required class="profile-set-textbox">
-                <p>自己紹介<br></p>
-                <input type="text" name="self-introduction" required class="profile-set-textbox">
+                <div class="profile-set-mintext">
+                    <p>専門分野<br></p>
+                    <input type="text" name="specialty" required class="profile-set-textbox">
+                    <p>ユーザー名<br></p>
+                    <input type="text" name="user-name" required class="profile-set-textbox">
+                    <p>自己紹介<br></p>
+                    <input type="text" name="self-introduction" required class="profile-set-textbox">
+                </div>
             </div>
             <div class="update-button">
                 <button type="button">更新する</button>
@@ -29,7 +31,35 @@ content %}
     
     <!-- 個人情報設定 -->
     <div class="personal-information ">
+        <h1 class="personal-information-text">個人情報設定</h1>
 
+        <div class="profile-set-mintext">
+                <p>姓<br></p>
+                <input type="text" name="last-name" required class="personal-information-textbox">
+                <p>名<br></p>
+                <input type="text" name="first-name" required class="personal-informationtextbox">
+                <p>姓（フリガナ）<br></p>
+                <input type="text" name="last-name-ruby" required class="personal-informationtextbox">
+                <p>名（フリガナ）<br></p>
+                <input type="text" name="first-name-ruby" required class="personal-informationtextbox">
+                <p>住所<br></p>
+                <input type="text" name="address" required class="personal-informationtextbox">
+                <p>生年月日<br></p>
+                <input type="text" name="year" required class="personal-informationtextbox">
+                <input type="text" name="month" required class="personal-informationtextbox">
+                <input type="text" name="day" required class="personal-informationtextbox">
+                <p>電話<br></p>
+                <input type="text" name="phone-num" required class="personal-informationtextbox">
+                <p>支払い（クレジットカード）<br></p>
+                <input type="text" name="card-num" required class="personal-informationtextbox">
+                <input type="text" name="curd-name" required class="personal-informationtextbox">
+                <input type="text" name="cvv" required class="personal-informationtextbox">
+                <input type="text" name="expiration-date" required class="personal-informationtextbox">
+        </div>
+
+        <div class="update-button">
+            <button type="button">更新する</button>
+        </div>
     </div>
 
 </main>

@@ -4,8 +4,9 @@
     box-sizing: border-box;
 }
 
+/* プロフィール設定 */
 .profile-set-contents{
-    padding:60 0 0 700px;
+    padding:60 0 0 400px;
 
 }
 
@@ -16,17 +17,15 @@
     object-fit: cover;
 }
 
-.profile-set-mintext{
-    padding-top:10px;
-}
-
 p{
+    
     margin-top: 30px;
     font-weight: 700;
     font-size: 20px;
 }
 
 .profile-set-textbox{
+    padding-left: 50px;
     margin-top: 10px;
     border-radius: 50px;
 }
@@ -41,3 +40,7 @@ button{
     background-color: #226CFF;
     border-radius: 50px; 
 }
+
+
+
+/* 個人情報設定 */
