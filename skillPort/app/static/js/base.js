@@ -29,3 +29,26 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 });
+
+const menu = document.querySelector("#header");
+const highlight = document.createElement("div");
+highlight.classList.add("highlight");
+menu.appendChild(highlight);
+
+const links = document.querySelectorAll("#header > .container > ul > li > a");
+
+links.forEach((link) => {
+  link.addEventListener("mouseenter", (e) => {
+    const rect = e.target.getBoundingClientRect();
+    const menuRect = menu.getBoundingClientRect();
+    highlight.style.width = `${rect.width}px`;
+    highlight.style.height = `${rect.height}px`;
+    highlight.style.left = `${rect.left - menuRect.left}px`;
+    highlight.style.top = `${rect.top - menuRect.top}px`;
+    highlight.style.opacity = "0.15";
+  });
+});
+
+menu.addEventListener("mouseleave", () => {
+  highlight.style.opacity = "0";
+});

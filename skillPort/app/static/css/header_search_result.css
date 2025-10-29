@@ -12,7 +12,7 @@ body {
   margin: 30px auto 50px auto;
   padding: 0 20px;
 }
-h2{
+h2 {
   margin-left: 170px;
 }
 .category-header {
@@ -52,10 +52,9 @@ h2{
 .item-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 30px 40px;   /* ここはvideo 上下左右のsize*/
+  gap: 30px 40px; /* ここはvideo 上下左右のsize*/
   margin: 0 150px 0 150px;
   padding: 20px;
-
 }
 
 .item-card {
@@ -128,11 +127,11 @@ h2{
 
 /* 修正 1: 標題和投稿人並列容器 (用於推到最右邊) */
 .title-and-user {
-    display: flex;
-    justify-content: space-between; /* 核心修正：將標題推到最左，投稿人推到最右 */
-    align-items: baseline; /* 讓文字基線對齊 */
-    gap: 10px; 
-    margin-bottom: 5px; 
+  display: flex;
+  justify-content: space-between; /* 核心修正：將標題推到最左，投稿人推到最右 */
+  align-items: baseline; /* 讓文字基線對齊 */
+  gap: 10px;
+  margin-bottom: 5px;
 }
 
 /* 修正 2: 標題樣式調整 */
@@ -141,29 +140,29 @@ h2{
   font-weight: bold;
   line-height: 1.4;
   color: #333;
-  margin: 0; 
+  margin: 0;
   flex-grow: 1; /* 允許標題佔用剩餘空間 */
   max-width: 85%; /* 限制標題最大寬度，避免擠壓投稿人名字 */
-  
+
   /* 超出文字處理 */
   display: block;
-  overflow: hidden; 
+  overflow: hidden;
   white-space: nowrap; /* 確保文字在一行內 */
   text-overflow: ellipsis; /* 文字超出時顯示省略號 */
-  
+
   height: auto;
   -webkit-box-orient: unset;
 }
 
 /* 修正 3: 投稿人名字 (user000x) 樣式 */
 .upload_user {
-    font-size: 11px; /* 小字體 */
-    color: #666;
-    font-weight: normal;
-    margin: 0;
-    white-space: nowrap; /* 防止用戶名換行 */
-    flex-shrink: 0; /* 確保用戶名不會被壓縮 */
-    text-align: right; 
+  font-size: 11px; /* 小字體 */
+  color: #666;
+  font-weight: normal;
+  margin: 0;
+  white-space: nowrap; /* 防止用戶名換行 */
+  flex-shrink: 0; /* 確保用戶名不會被壓縮 */
+  text-align: right;
 }
 
 /* 修正 4: 影片說明 (保持在標題下方) */
@@ -182,21 +181,20 @@ h2{
 
 /* 修正 5: 統計數據並列排開的新容器 */
 .stats-row {
-    display: flex;
-    gap: 10px; /* 數據之間的間距 */
-    flex-wrap: wrap; 
+  display: flex;
+  gap: 10px; /* 數據之間的間距 */
+  flex-wrap: wrap;
 }
 
 /* 修正 6: 統計數據 (再生回数, いいね数, コメント数) 樣式 */
 .view-count,
 .like-count,
 .comment-cunt {
-    font-size: 11px; /* 小字體 */
-    color: #999;
-    margin: 0; 
-    white-space: nowrap;
+  font-size: 11px; /* 小字體 */
+  color: #999;
+  margin: 0;
+  white-space: nowrap;
 }
-
 
 .item-price {
   font-size: 16px;
@@ -495,4 +493,8 @@ body.modal-open {
     margin-left: 0;
     text-align: center;
   }
+}
+
+.item-grid li {
+  list-style: none;
 }

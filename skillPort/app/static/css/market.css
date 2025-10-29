@@ -11,7 +11,7 @@
 /* Main Content Layout */
 .main-content {
   padding: 0 0 15px 0; /* (!!! 変更 !!!) ページ上部の padding を 0 に */
-  margin-top: 0;      /* (!!! 変更 !!!) ページ上部の margin を 0 に */
+  margin-top: 0; /* (!!! 変更 !!!) ページ上部の margin を 0 に */
 }
 
 .main-container {
@@ -25,14 +25,14 @@
   display: flex;
   justify-content: space-between;
   align-items: flex-end;
-  margin-bottom: 30px; 
-  gap: 20px; 
+  margin-bottom: 30px;
+  gap: 20px;
 }
 
 .page-title {
   font-size: 32px;
   font-weight: bold;
-  margin-bottom: 0; 
+  margin-bottom: 0;
   border-bottom: 3px solid #333;
   display: inline-block;
   padding-bottom: 5px;
@@ -56,13 +56,12 @@
 
 /* 「絞り込み」タイトルのスタイル */
 .sidebar-title {
-  width: 100%; 
+  width: 100%;
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 12px 15px;
-  background-color: #f0f0f0; 
-  border: none; 
+  border: none;
   border-radius: 8px;
   font-weight: bold;
   font-size: 16px;
@@ -86,10 +85,16 @@
   font-size: 16px;
   margin-bottom: 10px; /* 下のフィルターとの間隔 */
   box-sizing: border-box;
+  transition: 0.3s;
 }
 
 .filter-btn.active {
   background-color: #e0e0e0;
+}
+
+.sidebar button:hover {
+  background-color: #007bff;
+  color: #f0f0f0;
 }
 
 /* フィルターセクション (コンテナ内の各項目) */
@@ -111,9 +116,8 @@
 }
 /* 最初のフィルター項目は上マージン不要 */
 .sidebar > .filter-section:first-child > .filter-item {
-    margin-top: 0;
+  margin-top: 0;
 }
-
 
 .filter-item:hover {
   background-color: #f9f9f9;
@@ -127,7 +131,6 @@
 .filter-item.open .arrow {
   transform: rotate(90deg);
 }
-
 
 /* カテゴリーリストのスタイル */
 .filter-list-container {
@@ -169,7 +172,6 @@
 .filter-list-item .arrow {
   font-size: 12px;
 }
-
 
 /* Products Area */
 .products-area {
@@ -216,10 +218,9 @@
 .action-buttons-placeholder {
   /* 実際のボタン2個分 + gap のおおよその幅で予約 */
   /* (この値は、実際のボタン幅に合わせて微調整してください) */
-  width: 275px; 
+  width: 275px;
   flex-shrink: 0; /* 縮まないようにする */
 }
-
 
 .btn {
   padding: 12px 25px;
@@ -321,7 +322,6 @@
   background-color: #f5f5f0;
 }
 
-
 /* フィルターUI用の追加スタイル */
 .filter-content {
   border-top: 1px solid #e0e0e0;
@@ -383,7 +383,7 @@
 
 .btn-apply-price {
   padding: 8px 12px;
-  background-color: #226CFF; /* サイトのテーマカラー */
+  background-color: #226cff; /* サイトのテーマカラー */
   color: white;
   border: none;
   border-radius: 4px;
@@ -408,9 +408,10 @@
     max-width: 100%;
     margin-left: 0;
   }
-  
+
   /* (!!!) 変更: プレースホルダーとボタンも画面幅いっぱいに */
-  .action-buttons, .action-buttons-placeholder {
+  .action-buttons,
+  .action-buttons-placeholder {
     width: 100%;
     gap: 10px;
   }
@@ -418,17 +419,16 @@
     flex: 1; /* ボタンを均等幅にする */
   }
 
-
   .content-wrapper {
     flex-direction: column;
   }
   .sidebar {
     width: 100%;
   }
-  
+
   .products-header {
     /* (!!!) 変更: products-header が空になったため、小画面では非表示に */
-    display: none; 
+    display: none;
   }
 
   .product-grid {

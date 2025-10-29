@@ -1,6 +1,6 @@
 from flask import Blueprint, render_template, request, make_response, session
+from app.db import fetch_query
 
-# Blueprintオブジェクトを作成
 category_bp = Blueprint('category', __name__, url_prefix='/category')
 
 @category_bp.route('/_list', methods=["GET"])

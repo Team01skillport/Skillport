@@ -14,7 +14,7 @@ content %}
     <div class="profile-info">
       <div class="profile-header">
         <div>
-          <h1 class="profile-name">しょうごくん</h1>
+          <h1 class="profile-name">{{user_name}}</h1>
           <div class="profile-tags">
             <span class="tag">#プログラマー</span>
             <span class="tag">#デザイナー</span>
@@ -33,7 +33,9 @@ content %}
             ><button class="action-btn">マイページ</button></a
           >
 
-          <button class="action-btn">編集</button>
+          <a href="{{ url_for('account.edit_profile')}}"
+            ><button class="action-btn">編集</button></a
+          >
         </div>
       </div>
       <div class="profile-bio">よろしくお願いします！</div>

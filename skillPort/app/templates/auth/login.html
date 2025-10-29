@@ -1,7 +1,10 @@
 {% extends "base.html" %} {% block title %}ログイン{% endblock %} {% block
 content %}
 <head>
-  <link rel="stylesheet" href="{{ url_for('static', filename='css/login.css') }}" />
+  <link
+    rel="stylesheet"
+    href="{{ url_for('static', filename='css/login.css') }}"
+  />
 </head>
 
 <div class="page-center-wrapper">
@@ -14,11 +17,7 @@ content %}
       />
     </div>
 
-    <form
-      class="login-form"
-      method="post"
-      action="{{url_for('auth.login')}}"
-    >
+    <form class="login-form" method="post" action="{{url_for('auth.login')}}">
       <input
         class="form-group"
         type="text"
@@ -35,14 +34,18 @@ content %}
         placeholder="パスワード"
       />
       {% if errmsg %}
-        <div class="error">{{errmsg}}</div>
+      <div class="error">{{errmsg}}</div>
       {% endif %}
       <br />
       <button type="submit" class="submit-btn">ログイン</button>
     </form>
 
-    <a href="account_register.html" class="link-option">新規アカウントを作成</a>
-    <a href="password_reset.html" class="link-option">ログイン情報を忘れた</a>
+    <a href="{{url_for('account.register_form')}}" class="link-option"
+      >新規アカウントを作成</a
+    >
+    <a href="{{url_for('my_page.password_reset', mode="fromlogin")}}" class="link-option"
+      >ログイン情報を忘れた</a
+    >
   </div>
 </div>
 <script src="{{url_for('static', filename='js/jquery-3.7.0.min.js')}}"></script>

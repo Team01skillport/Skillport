@@ -11,42 +11,25 @@ block content %}
   <div class="register-container">
     <h1 class="register-title">新規アカウント登録</h1>
     <form method="POST" class="register-form">
+      <input type="hidden" name="username" value="{{username}}" />
+      <input type="hidden" name="password" value="{{password}}" />
+
       <fieldset class="form-section">
-        <legend class="section-title">アカウント情報</legend>
-
+        <legend class="section-title">ユーザー情報</legend>
         <div class="input-group">
-          <input type="text" name="nickname" required class="form-input" />
-          <label>ユーザー名 (ニックネーム)</label>
-        </div>
-
-        <div class="input-group">
-          <input type="email" name="email" required class="form-input" />
+          <input type="email" name="email" class="form-input" />
           <label>メールアドレス</label>
         </div>
 
         <div class="input-group">
-          <input type="tel" name="tel" required class="form-input" />
-          <label>電話番号（ハイフンなし 11桁）</label>
-        </div>
-
-        <div class="input-group">
-          <input type="password" name="password" required class="form-input" />
-          <label>パスワード（8〜32文字）</label>
-        </div>
-
-        <div class="input-group">
           <input
-            type="password"
-            name="password_confirm"
-            required
+            type="tel"
+            name="tel"
             class="form-input"
+            placeholder="ハイフンなし"
           />
-          <label>パスワード (確認)</label>
+          <label>電話番号</label>
         </div>
-      </fieldset>
-
-      <fieldset class="form-section">
-        <legend class="section-title">ユーザー情報</legend>
 
         <div class="input-group">
           <input type="text" name="last_name" class="form-input" />
@@ -59,13 +42,18 @@ block content %}
         </div>
 
         <div class="input-group">
-          <input type="text" name="furigana" class="form-input" />
-          <label>フリガナ (カタカナ)</label>
+          <input type="text" name="last_name_furigana" class="form-input" />
+          <label>姓フリガナ (カタカナ)</label>
+        </div>
+
+        <div class="input-group">
+          <input type="text" name="first_name_furigana" class="form-input" />
+          <label>名フリガナ (カタカナ)</label>
         </div>
 
         <div class="input-group input-date">
-          <input type="date" name="birthdate" class="form-input" />
-          <label>生年月日 (YYYY-MM-DD)</label>
+          <input type="date" name="birthday" class="form-input" />
+          <label>生年月日 </label>
         </div>
 
         <div class="form-gender-group">
@@ -87,22 +75,32 @@ block content %}
 
       <fieldset class="form-section">
         <div class="input-group">
+          <input
+            type="text"
+            name="zip_code"
+            class="form-input"
+            placeholder="ハイフンなし"
+          />
+          <label>郵便番号</label>
+        </div>
+
+        <div class="input-group">
           <input type="text" name="prefecture" class="form-input" />
           <label>住所 - 都道府県</label>
         </div>
 
         <div class="input-group">
-          <input type="text" name="city" class="form-input" />
+          <input type="text" name="address1" class="form-input" />
           <label>住所 - 市区町村</label>
         </div>
 
         <div class="input-group">
-          <input type="text" name="address_detail" class="form-input" />
+          <input type="text" name="address2" class="form-input" />
           <label>住所 - 番地・建物名</label>
         </div>
 
         <div class="input-group">
-          <textarea name="bio" class="form-textarea"></textarea>
+          <textarea name="introduction" class="form-textarea"></textarea>
           <label>自己紹介 (任意、1〜300文字以内)</label>
         </div>
       </fieldset>
@@ -110,7 +108,9 @@ block content %}
       <button type="submit" class="submit-btn">アカウント作成</button>
     </form>
 
-    <p class="login-link"><a href="login.html">ログイン画面に戻る</a></p>
+    <p class="login-link">
+      <a href="{{ url_for('auth.login')}}">ログイン画面に戻る</a>
+    </p>
   </div>
 </div>
 {% endblock %}
