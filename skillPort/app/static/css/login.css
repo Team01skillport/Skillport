@@ -48,6 +48,11 @@ body {
 .form-group {
   margin-bottom: 15px; /* 輸入框間距 */
   width: 100%;
+  transition: 0.2s;
+}
+
+.form-group:focus {
+  padding: 15px;
 }
 
 /* 輸入框樣式 */
@@ -75,6 +80,7 @@ body {
 .submit-btn {
   width: 100%;
   padding: 15px 0;
+  margin-top: 10px;
   border: none;
   border-radius: 5px;
   background-color: #427df0;
@@ -82,17 +88,18 @@ body {
   font-size: 18px;
   font-weight: bold;
   cursor: pointer;
-  transition: background-color 0.2s;
+  transition: background-color 0.2s ease;
 }
 
 .submit-btn:hover {
   background-color: #5d93ff;
+  transform: translateY(-1px);
 }
 
 /* 底部連結區 */
 .link-option {
   display: block;
-  margin-top: 10px;
+  margin-top: 20px;
   font-size: 13px;
   color: #427df0;
   text-decoration: none;
@@ -101,6 +108,7 @@ body {
 
 .link-option:hover {
   opacity: 0.8;
+  font-size: 82%;
 }
 
 /* 響應式調整 */

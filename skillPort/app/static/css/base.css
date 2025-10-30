@@ -141,7 +141,11 @@ body {
   font-size: 1vw;
   border: 1px solid #ccc;
   border-radius: 10px;
-  /* margin-left: 50px; */
+  transition: 0.2s;
+}
+
+#header .search input:focus {
+  padding: 9px 11px;
 }
 
 #header .search button {
@@ -160,6 +164,7 @@ body {
 #header .search button:hover {
   background: white;
   color: #5d5d5d;
+  transform: translateY(-1px);
 }
 
 .error {
