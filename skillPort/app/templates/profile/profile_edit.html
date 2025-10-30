@@ -15,16 +15,22 @@ content %}
                     class="profile-image"
                 />
                 <div class="profile-set-mintext">
-                    <p>専門分野<br></p>
-                    <input type="text" name="specialty" required class="profile-set-textbox">
-                    <p>ユーザー名<br></p>
-                    <input type="text" name="user-name" required class="profile-set-textbox">
-                    <p>自己紹介<br></p>
-                    <input type="text" name="self-introduction" required class="profile-set-textbox">
+                    <div class="specialt">
+                        <p>専門分野<br></p>
+                        <input type="text" value="元の情報を載せます" name="specialty" required class="specialt-textbox">
+                    </div>
+                    <div class="user-name">
+                        <p>ユーザー名<br></p>
+                        <input type="text" value="元の情報を載せます" name="user-name" required class="user-name-textbox">
+                    </div>
+                    <div class="self-introduction">
+                        <p>自己紹介<br></p>
+                        <input type="text" value="元の情報を載せます" name="self-introduction" required class="self-introduction-textbox">
+                    </div>
                 </div>
             </div>
             <div class="update-button">
-                <button type="button">更新する</button>
+                <button type="submit">更新する</button>
             </div>
         </div>
     </div>
@@ -33,28 +39,28 @@ content %}
     <div class="personal-information ">
         <h1 class="personal-information-text">個人情報設定</h1>
 
-        <div class="profile-set-mintext">
+        <div class="information-set-contents">
                 <p>姓<br></p>
-                <input type="text" name="last-name" required class="personal-information-textbox">
+                <input type="text" value="元の情報を載せます" name="last-name" required class="last-name-textbox">
                 <p>名<br></p>
-                <input type="text" name="first-name" required class="personal-informationtextbox">
+                <input type="text" value="元の情報を載せます" name="first-name" required class="first-name-textbox">
                 <p>姓（フリガナ）<br></p>
-                <input type="text" name="last-name-ruby" required class="personal-informationtextbox">
+                <input type="text" value="元の情報を載せます" name="last-name-ruby" required class="last-name-ruby-textbox">
                 <p>名（フリガナ）<br></p>
-                <input type="text" name="first-name-ruby" required class="personal-informationtextbox">
+                <input type="text" value="元の情報を載せます" name="first-name-ruby" required class="first-name-ruby-textbox">
                 <p>住所<br></p>
-                <input type="text" name="address" required class="personal-informationtextbox">
+                <input type="text" value="元の情報を載せます" name="address" required class="address-textbox">
                 <p>生年月日<br></p>
-                <input type="text" name="year" required class="personal-informationtextbox">
-                <input type="text" name="month" required class="personal-informationtextbox">
-                <input type="text" name="day" required class="personal-informationtextbox">
+                <input type="text" value="年" name="year" required class="year-textbox">
+                <input type="text" value="月" name="month" required class="month-textbox">
+                <input type="text" value="日" name="day" required class="day-textbox">
                 <p>電話<br></p>
-                <input type="text" name="phone-num" required class="personal-informationtextbox">
+                <input type="text" value="元の情報を載せます" name="phone-num" required class="phone-num-textbox">
                 <p>支払い（クレジットカード）<br></p>
-                <input type="text" name="card-num" required class="personal-informationtextbox">
-                <input type="text" name="curd-name" required class="personal-informationtextbox">
-                <input type="text" name="cvv" required class="personal-informationtextbox">
-                <input type="text" name="expiration-date" required class="personal-informationtextbox">
+                <input type="text" value="カード番号" name="card-num" required class="card-num-textbox"><br>
+                <input type="text" value="カード名義" name="curd-name" required class="curd-name-textbox"><br>
+                <input type="text" value="CVV" name="cvv" required class="cvv-textbox">
+                <input type="text" value="有効期限" name="expiration-date" required class="expiration-date-textbox">
         </div>
 
         <div class="update-button">

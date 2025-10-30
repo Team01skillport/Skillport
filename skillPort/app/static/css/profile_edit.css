@@ -5,8 +5,13 @@
 }
 
 /* プロフィール設定 */
+.profile-set-text{
+    padding:50 0 0 100px ;
+}
+
+
 .profile-set-contents{
-    padding:60 0 0 400px;
+    padding:50 0 0 400px;
 
 }
 
@@ -18,25 +23,43 @@
 }
 
 p{
-    
     margin-top: 30px;
     font-weight: 700;
     font-size: 20px;
 }
 
-.profile-set-textbox{
+.specialt-textbox{
     padding-left: 50px;
     margin-top: 10px;
     border-radius: 50px;
+    height: 30px;
+    width: 250px;
 }
 
+.user-name-textbox{
+    padding-left: 50px;
+    margin-top: 10px;
+    border-radius: 50px;
+    height: 30px;
+    width: 400px;
+}
+
+.self-introduction-textbox{
+    padding-left: 50px;
+    margin-top: 10px;
+    border-radius: 50px;
+    height: 70px;
+    width: 700px;
+}
+
+
 button{
-    margin-left: 560px;
+    margin-left: 400px;
     margin-top: 100px;
     font-size: 30px;
     border: none;          
     color: white;
-    width: 15em;
+    width: 25em;
     background-color: #226CFF;
     border-radius: 50px; 
 }
@@ -44,3 +67,117 @@ button{
 
 
 /* 個人情報設定 */
+.personal-information-text{
+    padding:100 0 0 100px ;
+}
+
+.information-set-contents{
+    padding:30 0 0 400px;
+}
+
+.last-name-textbox{
+    padding-left: 50px;
+    margin-top: 10px;
+    border-radius: 50px;
+    height: 40px;
+    width: 700px;
+}
+
+.first-name-textbox{
+    padding-left: 50px;
+    margin-top: 10px;
+    border-radius: 50px;
+    height: 40px;
+    width: 700px;
+}
+
+.last-name-ruby-textbox{
+    padding-left: 50px;
+    margin-top: 10px;
+    border-radius: 50px;
+    height: 40px;
+    width: 700px;
+}
+
+.first-name-ruby-textbox{
+    padding-left: 50px;
+    margin-top: 10px;
+    border-radius: 50px;
+    height: 40px;
+    width: 700px;
+}
+
+.address-textbox{
+    padding-left: 50px;
+    margin-top: 10px;
+    border-radius: 50px;
+    height: 40px;
+    width: 700px;
+}
+
+.year-textbox{
+    padding-left: 50px;
+    margin-right: 30px;
+    margin-top: 10px;
+    border-radius: 50px;
+    height: 40px;
+    width: 100px;
+}
+
+.month-textbox{
+    padding-left: 50px;
+    margin-right: 30px;
+    margin-top: 10px;
+    border-radius: 50px;
+    height: 40px;
+    width: 100px;
+}
+
+.day-textbox{
+    padding-left: 50px;
+    margin-top: 10px;
+    border-radius: 50px;
+    height: 40px;
+    width: 100px;
+}
+
+.phone-num-textbox{
+    padding-left: 50px;
+    margin-top: 10px;
+    border-radius: 50px;
+    height: 40px;
+    width: 400px;
+}
+
+.card-num-textbox{
+    padding-left: 50px;
+    margin-top: 10px;
+    border-radius: 50px;
+    height: 40px;
+    width: 400px;
+}
+
+.curd-name-textbox{
+    padding-left: 50px;
+    margin-top: 30px;
+    border-radius: 50px;
+    height: 40px;
+    width: 400px;
+}
+
+.cvv-textbox{
+    padding-left: 50px;
+    margin-top: 30px;
+    margin-right: 95px;
+    border-radius: 50px;
+    height: 40px;
+    width: 100px;
+}
+
+.expiration-date-textbox{
+    padding-left: 50px;
+    margin-top: 30px;
+    border-radius: 50px;
+    height: 40px;
+    width: 200px;
+}
