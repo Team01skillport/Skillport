@@ -1,23 +1,24 @@
-{% extends "base.html" %} {# === ページのタイトル === #} {% block title
-%}マーケット{% endblock %} {# === ページ固有のCSS === #} {% block styles %}
+{% extends "base.html" %} {% block title %}マーケット検索結果{% endblock %} {%
+block content %}
 <link
   rel="stylesheet"
   href="{{ url_for('static', filename='css/market.css') }}"
 />
-{% endblock %} {# === メインコンテンツ === #} {% block content %}
 <main class="main-content">
   <div class="main-container">
     <div class="page-header">
       <h2 class="page-title">マーケット</h2>
 
       <div class="search-bar">
-        <span class="search-icon">🔍</span>
-        <input
-          type="text"
-          name="market_search"
-          placeholder="検索バー"
-          class="product-search"
-        />
+        <form action="{{ url_for('search.market_search')}}">
+          <button type="submit" class="search-icon">🔍</button>
+          <input
+            type="text"
+            name="market_search"
+            placeholder="検索バー"
+            class="product-search"
+          />
+        </form>
       </div>
 
       {% if 'user_id' in session %}
@@ -144,17 +145,15 @@
         <div class="products-header"></div>
 
         <div class="product-grid" id="productGrid">
-          {% for product in all_products %}
+          {% for result in search_results %}
           <a
-            href="{{url_for('market.product_detail', product_id=product.product_id)}}"
+            href="{{url_for('market.product_detail', product_id=result.product_id)}}"
             ><div class="product-container">
-              <h1>{{product.product_id}}</h1>
+              <h1>{{result.product_id}}</h1>
               <h5>画像ここ</h5>
-              <h3>{{product.product_name}}</h3>
-              <p>
-                {{product.product_price}}円 ｜ {{product.product_condition}}
-              </p>
-              <p>{{product.listing_date.strftime('%Y-%m-%d')}}</p>
+              <h3>{{result.product_name}}</h3>
+              <p>{{result.product_price}}円 ｜ {{result.product_condition}}</p>
+              <p>{{result.listing_date.strftime('%Y-%m-%d')}}</p>
             </div></a
           >
 

@@ -3,9 +3,8 @@ import mysql.connector
 def connect_db():
     con = mysql.connector.connect(
     host="localhost",
-    port=8889,
     user = "root",
-    passwd = "root",
+    passwd = "",
     db = "skillport_db"
     )
     return con

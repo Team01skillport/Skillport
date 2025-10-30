@@ -16,6 +16,7 @@ def header_search():
 @search_bp.route('/market_search', methods=["GET"])
 def market_search():
     keyword = request.args.get("market_search")
-    sql = "SELECT * FROM listing_tbl WHERE product_name OR product_category LIKE %'"+keyword+"';"
-
-    return render_template('search/market_search_result.html')
+    sql = "SELECT * FROM listing_tbl WHERE product_name OR product_category LIKE '%"+keyword+"%';"
+    search_results = fetch_query(sql)
+    print(search_results)
+    return render_template('search/market_search_result.html', search_results=search_results)
