@@ -9,19 +9,22 @@ body{
 
 }
 
+/* プロフィール設定 */
 .edit-container{
     background-color: white;
-    width: ;
+    width: 60%;
+    margin-left: 450px;
+    padding-bottom: 50px
 }
 
-/* プロフィール設定 */
+
 .profile-set-text{
     padding:50 0 0 100px ;
 }
 
 
 .profile-set-contents{
-    padding:50 0 0 400px;
+    padding:50 0 0 100px;
 
 }
 
@@ -62,9 +65,9 @@ p{
     width: 700px;
 }
 
-
+/* 更新するボタン */
 button{
-    margin-left: 400px;
+    margin-left: 100px;
     margin-top: 100px;
     font-size: 30px;
     border: none;          
@@ -82,7 +85,7 @@ button{
 }
 
 .information-set-contents{
-    padding:30 0 0 400px;
+    padding:30 0 0 100px;
 }
 
 .last-name-textbox{
