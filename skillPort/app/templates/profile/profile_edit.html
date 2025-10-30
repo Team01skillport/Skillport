@@ -3,44 +3,45 @@ content %}
 <head>
   <link rel="stylesheet" href="../../static/css/profile_edit.css" />
 </head>
-<main>
-    <!-- プロフィール設定 -->
-    <div class="profile-set-info">
-        <h1 class="profile-set-text">プロフィール設定</h1>
-        <div class="profile-set-main">
-            <div class="profile-set-contents">
-                <img class="profile-set-img"
+<body>
+    <div class="edit-container">
+        <!-- プロフィール設定 -->
+        <div class="profile-set-info">
+            <h1 class="profile-set-text">プロフィール設定</h1>
+            <div class="profile-set-main">
+                <div class="profile-set-contents">
+                    <img class="profile-set-img"
                     src="https://images.unsplash.com/photo-1540573133985-87b6da6d54a9?w=300&h=300&fit=crop"
                     alt="プロフィール画像"
                     class="profile-image"
-                />
-                <input type="file">
-                <div class="profile-set-mintext">
-                    <div class="specialt">
-                        <p>専門分野<br></p>
-                        <input type="text" value="元の情報を載せます" name="specialty" required class="specialt-textbox">
-                    </div>
-                    <div class="user-name">
-                        <p>ユーザー名<br></p>
-                        <input type="text" value="元の情報を載せます" name="user-name" required class="user-name-textbox">
-                    </div>
-                    <div class="self-introduction">
-                        <p>自己紹介<br></p>
-                        <input type="text" value="元の情報を載せます" name="self-introduction" required class="self-introduction-textbox">
+                    />
+                    <input type="file">
+                    <div class="profile-set-mintext">
+                        <div class="specialt">
+                            <p>専門分野<br></p>
+                            <input type="text" value="元の情報を載せます" name="specialty" required class="specialt-textbox">
+                        </div>
+                        <div class="user-name">
+                            <p>ユーザー名<br></p>
+                            <input type="text" value="元の情報を載せます" name="user-name" required class="user-name-textbox">
+                        </div>
+                        <div class="self-introduction">
+                            <p>自己紹介<br></p>
+                            <input type="text" value="元の情報を載せます" name="self-introduction" required class="self-introduction-textbox">
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="update-button">
-                <button type="submit">更新する</button>
+                <div class="update-button">
+                    <button type="submit">更新する</button>
+                </div>
             </div>
         </div>
-    </div>
-    
-    <!-- 個人情報設定 -->
-    <div class="personal-information ">
-        <h1 class="personal-information-text">個人情報設定</h1>
 
-        <div class="information-set-contents">
+        <!-- 個人情報設定 -->
+        <div class="personal-information ">
+            <h1 class="personal-information-text">個人情報設定</h1>
+
+            <div class="information-set-contents">
                 <p>姓<br></p>
                 <input type="text" value="元の情報を載せます" name="last-name" required class="last-name-textbox">
                 <p>名<br></p>
@@ -62,13 +63,14 @@ content %}
                 <input type="text" value="カード名義" name="curd-name" required class="curd-name-textbox"><br>
                 <input type="text" value="CVV" name="cvv" required class="cvv-textbox">
                 <input type="text" value="有効期限" name="expiration-date" required class="expiration-date-textbox">
-        </div>
+            </div>
 
+        </div>
         <div class="update-button">
             <button type="button">更新する</button>
         </div>
     </div>
 
-</main>
+</body>
 {% endblock %}
 </html>
