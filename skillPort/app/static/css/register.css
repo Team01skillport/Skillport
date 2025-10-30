@@ -246,3 +246,10 @@ input::placeholder {
 .login-link a:hover {
   text-decoration: underline;
 }
+
+.error {
+  position: relative;
+  text-align: left;
+  font-size: 12px;
+  margin-top: 3px;
+}

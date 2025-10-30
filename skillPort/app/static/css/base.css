@@ -146,6 +146,7 @@ body {
 
 #header .search input:focus {
   padding: 9px 11px;
+  outline: none;
 }
 
 #header .search button {
