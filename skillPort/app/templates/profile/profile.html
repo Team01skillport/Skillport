@@ -16,9 +16,9 @@ content %}
         <div>
           <h1 class="profile-name">{{user_name}}</h1>
           <div class="profile-tags">
-            <span class="tag">#プログラマー</span>
-            <span class="tag">#デザイナー</span>
-            <span class="tag">#シェフ</span>
+            {% for p in tag %}
+            <span class="tag">#{{p}}</span>
+            {% endfor %}
           </div>
           <div class="profile-stats">
             <div class="stat">
@@ -38,7 +38,7 @@ content %}
           >
         </div>
       </div>
-      <div class="profile-bio">よろしくお願いします！</div>
+      <div class="profile-bio">{{introduction}}</div>
     </div>
   </div>
 

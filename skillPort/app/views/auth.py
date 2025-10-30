@@ -1,18 +1,8 @@
 from flask import Blueprint, render_template, request, make_response, session, redirect, url_for, flash
-import mysql.connector
+from app.db import fetch_query
 
 # Blueprintオブジェクトを作成
 auth_bp = Blueprint('auth', __name__, url_prefix='/auth')
-
-def get_db_connection():
-    return mysql.connector.connect(
-        host="localhost",
-
-        # 自分のMySQLのユーザー名とパスワードを指定してくだいさい
-        user="root",
-        passwd="",
-        db="skillport_db"
-    )
 
 @auth_bp.route('/login', methods=["GET", "POST"])
 def login():
@@ -20,15 +10,8 @@ def login():
         username = request.form.get("userId")
         password = request.form.get("password")
 
-        con = get_db_connection()
-        cur = con.cursor(dictionary=True)
-
-        sql = "SELECT id, user_name FROM user_tbl WHERE user_name = %s AND password = %s"
-        cur.execute(sql, (username, password))
-        user_info = cur.fetchone()
-        
-        cur.close()
-        con.close()
+        sql = "SELECT id, user_name FROM user_tbl WHERE user_name = '"+username+"' AND password = '"+password+"';"
+        user_info = fetch_query(sql, True)
         
         if user_info:
             session['user_id'] = user_info['id']
@@ -47,7 +30,17 @@ def login():
 @auth_bp.route('/profile', methods=["GET"])
 def view_profile():
     if 'user_id' in session:
-        return render_template('profile/profile.html', user_name=session['user_name'])
+        user_id = session['user_id']
+        sql = "SELECT * FROM user_tbl WHERE id = '"+str(user_id)+"';"
+        user_info = fetch_query(sql, True)
+        print(user_info)
+
+        introduction = user_info['introduction']
+        
+        # ユーザーのタグ文字列をとって、カンマに区切る
+        user_tags = user_info['user_tags']
+        tag = [tag.strip() for tag in user_tags.split(",")]
+        return render_template('profile/profile.html', user_name=session['user_name'], introduction=introduction, tag=tag)
     else:
         return redirect(url_for('auth.login'))
 
