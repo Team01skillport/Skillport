@@ -1,4 +1,4 @@
-body{
+body {
   top: 0px;
   position: absolute;
 }
@@ -48,14 +48,24 @@ body{
   position: absolute;
   inset: 0; /* 全体を覆う */
   background:
-    /* 下方向の白フェード */
-    linear-gradient(to bottom, rgba(255,255,255,0) 70%, rgba(255,255,255,1) 100%),
+    /* 下方向の白フェード */ linear-gradient(
+      to bottom,
+      rgba(255, 255, 255, 0) 70%,
+      rgba(255, 255, 255, 1) 100%
+    ),
     /* 左右の白フェード */
-    linear-gradient(to left, rgba(255,255,255,0) 90%, rgba(255,255,255,1) 100%),
-    linear-gradient(to right, rgba(255,255,255,0) 90%, rgba(255,255,255,1) 100%);
+      linear-gradient(
+        to left,
+        rgba(255, 255, 255, 0) 90%,
+        rgba(255, 255, 255, 1) 100%
+      ),
+    linear-gradient(
+      to right,
+      rgba(255, 255, 255, 0) 90%,
+      rgba(255, 255, 255, 1) 100%
+    );
   pointer-events: none;
 }
-
 
 .slide.active {
   display: block;
@@ -67,6 +77,13 @@ body{
 
 .slide.active h2 {
   opacity: 1;
+  color: white;
+  position: absolute;
+  bottom: 0;
+  background: transparent;
+  font-size: 8rem;
+  font-style: italic;
+  filter: drop-shadow(0 0 0.75rem rgb(0, 0, 0));
 }
 
 .dots {

@@ -138,21 +138,26 @@
       <div class="products-area">
         <div class="products-header"></div>
 
-        <div class="product-grid" id="productGrid"></div>
+        <div class="product-grid" id="productGrid">
+          {% for product in all_products %}
+          <a href=""
+            ><div class="product-container">
+              <h5>画像ここ</h5>
+              <h3>{{product.product_name}}</h3>
+              <p>
+                {{product.product_price}}円 ｜ {{product.product_condition}}
+              </p>
+              <p>{{product.listing_date}}</p>
+            </div></a
+          >
+
+          {% endfor %}
+        </div>
 
         <button class="load-more">もっと見る</button>
       </div>
     </div>
   </div>
 </main>
-{% endblock %} {# === ページ固有のJS === #} {% block scripts %}
-<script>
-  /* なぜ？: JSファイル は 'url_for' を実行できないため、
-            HTML側でFlaskのパスを生成し、JSに渡す必要がある。*/
-  var STATIC_MEDIA_URL = "{{ url_for('static', filename='media/') }}";
-  var PRODUCT_DETAIL_URL_BASE =
-    "{{ url_for('market.product_detail', product_id=0) }}".replace("0", "");
-</script>
 
-<script src="{{ url_for('static', filename='js/market.js') }}" defer></script>
 {% endblock %}

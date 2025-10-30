@@ -8,6 +8,7 @@ market_bp = Blueprint('market', __name__, url_prefix='/market')
 def market_top():
     sql = "SELECT * FROM listing_tbl;"
     all_products = fetch_query(sql)
+    print(all_products)
     return render_template('market/market.html', all_products=all_products)
 
 # 2.
