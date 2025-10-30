@@ -11,15 +11,13 @@
       <h2 class="page-title">マーケット</h2>
 
       <div class="search-bar">
-        <form action="{{ url_for('search.market_search')}}">
-          <button type="submit" class="search-icon">🔍</button>
-          <input
-            type="text"
-            name="market_search"
-            placeholder="検索バー"
-            class="product-search"
-          />
-        </form>
+        <span class="search-icon">🔍</span>
+        <input
+          type="text"
+          name="market_search"
+          placeholder="検索バー"
+          class="product-search"
+        />
       </div>
 
       {% if 'user_id' in session %}

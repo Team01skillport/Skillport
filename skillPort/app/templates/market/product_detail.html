@@ -1,34 +1,40 @@
-{% extends "base.html" %}
-
-{# ================= ページのタイトル ================= #}
-{% block title %}
-商品詳細 | SkillPort
-{% endblock %}
-
-{# ================= ページ固有のCSS ================= #}
-{% block styles %}
-{{ super() }} {# base.html のCSSを継承する場合 #}
-<link rel="stylesheet" href="{{ url_for('static', filename='css/product_detail.css') }}">
-<link rel="stylesheet" href="{{ url_for('static', filename='css/popup_report.css') }}">
-{% endblock %}
-
-{# ================= メインコンテンツ ================= #}
-{% block content %}
+{% extends "base.html" %} {% block title %}商品詳細画面{% endblock %} {% block
+content %}
+<link
+  rel="stylesheet"
+  href="{{ url_for('static', filename='css/product_detail.css') }}"
+/>
+<link
+  rel="stylesheet"
+  href="{{ url_for('static', filename='css/popup_report.css') }}"
+/>
 <div class="page-wrap">
   <main class="product-section">
     <div class="image-area">
       <div class="thumbnails">
-        <img src="{{ url_for('static', filename='media/book.jpg') }}" class="thumb active" alt="サムネイル1">
-        <img src="{{ url_for('static', filename='media/bookback.jpg') }}" class="thumb" alt="サムネイル2">
+        <img
+          src="{{ url_for('static', filename='media/book.jpg') }}"
+          class="thumb active"
+          alt="サムネイル1"
+        />
+        <img
+          src="{{ url_for('static', filename='media/bookback.jpg') }}"
+          class="thumb"
+          alt="サムネイル2"
+        />
       </div>
       <div class="main-image">
-        <img id="mainImage" src="{{ url_for('static', filename='media/book.jpg') }}" alt="メイン商品画像">
+        <img
+          id="mainImage"
+          src="{{ url_for('static', filename='media/book.jpg') }}"
+          alt="メイン商品画像"
+        />
       </div>
     </div>
 
     <div class="info-area">
-      <h1>国史教科書 第7版 検定合格 市販 中学校社会用</h1>
-      <p class="price">¥1,700(税込)</p>
+      <h1>{{info.product_name}}</h1>
+      <p class="price">¥{{info.product_price}}(税込)</p>
 
       <div class="action-buttons">
         <a href="#" class="btn">♡ お気に入り</a>
@@ -37,21 +43,18 @@
         <a href="#" class="btn" id="reportBtn">通報</a>
       </div>
 
-      <a href="#" class="buy-btn">購入手続きへ</a>
+      <a href="#" class="buy-btn">購入</a>
 
       <div class="desc">
         <h2>商品の説明</h2>
-        <p>「国史教科書 第7版 検定合格 市販版 中学校社会用」</p>
+        <p>{{info.product_description}}</p>
       </div>
 
       <div class="detail">
         <h2>商品の情報</h2>
         <ul>
-          <li>商品の状態</li>
-          <li>配送料の負担</li>
-          <li>配送の方法</li>
-          <li>配送元の地域</li>
-          <li>発送までの日数</li>
+          <li>商品の状態：<b>{{info.product_condition}}</b></li>
+          <li>配送元の地域：<b>{{info.shipping_area}}</b></li>
         </ul>
       </div>
     </div>
@@ -62,17 +65,44 @@
       <button class="comment-btn">コメント投稿</button>
       <h3>コメント一覧</h3>
       <ul>
-        <li><img src="{{ url_for('static', filename='media/profile_icon.png') }}" alt=""><div class="bubble">ふふはは</div></li>
-        <li><img src="{{ url_for('static', filename='media/profile_icon.png') }}" alt=""><div class="bubble">ググがが</div></li>
-        <li><img src="{{ url_for('static', filename='media/profile_icon.png') }}" alt=""><div class="bubble">ううわわ</div></li>
-        <li><img src="{{ url_for('static', filename='media/profile_icon.png') }}" alt=""><div class="bubble">ちちがが</div></li>
+        <li>
+          <img
+            src="{{ url_for('static', filename='media/profile_icon.png') }}"
+            alt=""
+          />
+          <div class="bubble">ふふはは</div>
+        </li>
+        <li>
+          <img
+            src="{{ url_for('static', filename='media/profile_icon.png') }}"
+            alt=""
+          />
+          <div class="bubble">ググがが</div>
+        </li>
+        <li>
+          <img
+            src="{{ url_for('static', filename='media/profile_icon.png') }}"
+            alt=""
+          />
+          <div class="bubble">ううわわ</div>
+        </li>
+        <li>
+          <img
+            src="{{ url_for('static', filename='media/profile_icon.png') }}"
+            alt=""
+          />
+          <div class="bubble">ちちがが</div>
+        </li>
       </ul>
     </div>
 
     <div class="seller-box">
       <h3>出品者</h3>
       <div class="seller-info">
-        <img src="{{ url_for('static', filename='media/profile_icon.png') }}" alt="大頭貼">
+        <img
+          src="{{ url_for('static', filename='media/profile_icon.png') }}"
+          alt="大頭貼"
+        />
         <div class="text">
           <h4><a href="#">しょうごくん</a></h4>
           <p>#プログラマー　#デザイナー　#シェフ</p>
@@ -88,12 +118,28 @@
   <div class="modal-content">
     <h2>通報</h2>
     <form id="reportForm">
-      <label><input type="radio" name="reason" value="不適切"> 公序良俗に反する内容を含む</label><br>
-      <label><input type="radio" name="reason" value="違法商品"> 違法・禁止商品の出品</label><br>
-      <label><input type="radio" name="reason" value="著作権侵害"> 著作権・商標権の侵害</label><br>
-      <label><input type="radio" name="reason" value="虚偽"> 商品説明が虚偽</label><br>
-      <label><input type="radio" name="reason" value="その他"> その他</label><br>
-      <textarea name="detail" rows="4" placeholder="詳細内容を入力してください"></textarea>
+      <label
+        ><input type="radio" name="reason" value="不適切" />
+        公序良俗に反する内容を含む</label
+      ><br />
+      <label
+        ><input type="radio" name="reason" value="違法商品" />
+        違法・禁止商品の出品</label
+      ><br />
+      <label
+        ><input type="radio" name="reason" value="著作権侵害" />
+        著作権・商標権の侵害</label
+      ><br />
+      <label
+        ><input type="radio" name="reason" value="虚偽" /> 商品説明が虚偽</label
+      ><br />
+      <label><input type="radio" name="reason" value="その他" /> その他</label
+      ><br />
+      <textarea
+        name="detail"
+        rows="4"
+        placeholder="詳細内容を入力してください"
+      ></textarea>
       <div class="modal-buttons">
         <button type="button" id="closeModal">キャンセル</button>
         <button type="submit" id="submitReport">報告</button>
@@ -101,11 +147,5 @@
     </form>
   </div>
 </div>
-{% endblock %}
 
-{# ================= ページ固有のJS ================= #}
-{% block scripts %}
-{{ super() }} {# base.html のJSを継承する場合 #}
-<script src="{{ url_for('static', filename='js/product_detail.js') }}" defer></script>
-<script src="{{ url_for('static', filename='js/popup_report.js') }}" defer></script>
 {% endblock %}
