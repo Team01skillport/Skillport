@@ -3,24 +3,26 @@ import mysql.connector
 def connect_db():
     con = mysql.connector.connect(
     host="localhost",
+    port = 8889,
     user = "root",
-    passwd = "",
+    passwd = "root",
     db = "skillport_db"
     )
     return con
     
-def fetch_query(sql, fetch_one=False):
+def fetch_query(sql,params=None,fetch_one=False):
     try:
         con = connect_db()
         cur = con.cursor(dictionary=True)
-        cur.execute(sql)
+        cur.execute(sql, params)
         if fetch_one == False:
             result = cur.fetchall()
         else:
             result = cur.fetchone()
         cur.close()
         con.close()
-    except:
+    except Exception as e:
+        print(f"データベースエラー: {e}")
         result = None
     return result
 

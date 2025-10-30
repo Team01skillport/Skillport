@@ -10,7 +10,8 @@ from app.views.market import market_bp
 from app.views.community import community_bp
 from app.views.category import category_bp
 from app.views.search import search_bp
-from app.views.account import account_bp 
+from app.views.account import account_bp
+from app.views.lesson_video import lesson_video_bp
 
 app = Flask(__name__)
 app.secret_key = 'your_secret_key' 
@@ -21,6 +22,7 @@ app.register_blueprint(community_bp)
 app.register_blueprint(category_bp)
 app.register_blueprint(search_bp)
 app.register_blueprint(account_bp)
+app.redirect_blueprint(lesson_video_bp)
 
 @app.route("/")
 def index():

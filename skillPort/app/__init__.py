@@ -17,7 +17,7 @@ def create_app():
     # --- Blueprintの登録 ---
     # viewsパッケージからproductsとauthのBlueprintをインポート
     # （）
-    from.views import auth, market, account, community, my_page, search, category
+    from.views import auth, market, account, community, my_page, search, category, lesson_video
     app.register_blueprint(auth.auth_bp)
     app.register_blueprint(market.market_bp)
     app.register_blueprint(account.account_bp)
@@ -25,6 +25,7 @@ def create_app():
     app.register_blueprint(my_page.my_page_bp)
     app.register_blueprint(search.search_bp)
     app.register_blueprint(category.category_bp)
+    app.register_blueprint(lesson_video.lesson_video_bp)
 
 
     # --- トップページのルートをここで定義 ---
