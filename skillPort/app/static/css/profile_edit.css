@@ -12,19 +12,24 @@ body{
 /* プロフィール設定 */
 .edit-container{
     background-color: white;
-    width: 60%;
-    margin-left: 300px;
-    padding-bottom: 50px
+    width: 40%;
+    border-radius: 12px;
+    margin: 60 0 0 500px;
+    padding-bottom: 60px;
 }
 
+.profile-set-info{
+
+}
 
 .profile-set-text{
-    padding:50 0 0 100px ;
+    padding-top:50px ;
+    text-align: center;
 }
 
 
 .profile-set-contents{
-    padding:50 0 0 100px;
+    padding:50 0 0 50px;
 
 }
 
@@ -46,7 +51,7 @@ p{
     margin-top: 10px;
     border-radius: 50px;
     height: 30px;
-    width: 250px;
+    width: 200px;
 }
 
 .user-name-textbox{
@@ -54,7 +59,7 @@ p{
     margin-top: 10px;
     border-radius: 50px;
     height: 30px;
-    width: 400px;
+    width: 300px;
 }
 
 .self-introduction-textbox{
@@ -62,17 +67,17 @@ p{
     margin-top: 10px;
     border-radius: 50px;
     height: 70px;
-    width: 700px;
+    width: 500px;
 }
 
 /* 更新するボタン */
 button{
-    margin-left: 100px;
-    margin-top: 100px;
+    margin-left: 50px;
+    margin-top: 80px;
     font-size: 30px;
     border: none;          
     color: white;
-    width: 25em;
+    width: 500px;
     background-color: #226CFF;
     border-radius: 50px; 
 }
@@ -81,11 +86,12 @@ button{
 
 /* 個人情報設定 */
 .personal-information-text{
-    padding:100 0 0 100px ;
+    padding-top:100px ;
+    text-align: center;
 }
 
 .information-set-contents{
-    padding:30 0 0 100px;
+    padding:30 0 0 50px;
 }
 
 .last-name-textbox{
@@ -93,7 +99,7 @@ button{
     margin-top: 10px;
     border-radius: 50px;
     height: 40px;
-    width: 700px;
+    width: 250px;
 }
 
 .first-name-textbox{
@@ -101,7 +107,7 @@ button{
     margin-top: 10px;
     border-radius: 50px;
     height: 40px;
-    width: 700px;
+    width: 250px;
 }
 
 .last-name-ruby-textbox{
@@ -109,7 +115,7 @@ button{
     margin-top: 10px;
     border-radius: 50px;
     height: 40px;
-    width: 700px;
+    width: 250px;
 }
 
 .first-name-ruby-textbox{
@@ -117,7 +123,7 @@ button{
     margin-top: 10px;
     border-radius: 50px;
     height: 40px;
-    width: 700px;
+    width: 250px;
 }
 
 .address-textbox{
@@ -125,7 +131,7 @@ button{
     margin-top: 10px;
     border-radius: 50px;
     height: 40px;
-    width: 700px;
+    width: 500px;
 }
 
 .year-textbox{
