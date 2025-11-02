@@ -43,7 +43,7 @@ content %}
         <a href="#" class="btn" id="reportBtn">通報</a>
       </div>
 
-      <a href="#" class="buy-btn">購入</a>
+      <a href="{{ url_for('market.checkout_page', product_id=info.product_id) }}" class="buy-btn">購入</a>
 
       <div class="desc">
         <h2>商品の説明</h2>
@@ -96,23 +96,26 @@ content %}
       </ul>
     </div>
 
-    <div class="seller-box">
+<div class="seller-box">
       <h3>出品者</h3>
       <div class="seller-info">
-        <img
-          src="{{ url_for('static', filename='media/profile_icon.png') }}"
-          alt="大頭貼"
-        />
+        
+        {% if info.seller_icon %}
+          <img src="{{ url_for('static', filename=info.seller_icon[1:]) }}" alt="出品者アイコン">
+        {% else %}
+          <img src="{{ url_for('static', filename='media/profile_icon.png') }}" alt="デフォルトアイコン">
+        {% endif %}
+
         <div class="text">
-          <h4><a href="#">しょうごくん</a></h4>
-          <p>#プログラマー　#デザイナー　#シェフ</p>
-          <p>フォロワー：403　フォロー：219　⭐️⭐️⭐️⭐️☆</p>
+          <h4><a href="#">{{ info.seller_name }}</a></h4>
+          
+          <p>{{ info.seller_tags }}</p>
+
+          <p>⭐️⭐️⭐️⭐️☆ (評価は後で実装)</p>
         </div>
         <a href="#" class="follow-btn">フォローする</a>
       </div>
     </div>
-  </section>
-</div>
 
 <div id="reportModal" class="modal hidden">
   <div class="modal-content">

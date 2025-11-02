@@ -26,12 +26,18 @@ def fetch_query(sql,params=None,fetch_one=False):
         result = None
     return result
 
-def create_user(sql):
+def create_user(sql, params=None):
     try:
         con = connect_db()
         cur = con.cursor(dictionary=True)
-        cur.execute(sql)
+        cur.execute(sql, params)
+        con.commit()
         cur.close()
         con.close()
-    except:
+        return True 
+    except Exception as e: 
+        print(f"データベースエラー: {e}")
+        con.rollback()
+        cur.close()
+        con.close()
         return None

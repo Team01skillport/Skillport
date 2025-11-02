@@ -25,10 +25,6 @@
 
         <div class="pd-image-grid" id="imageGrid">
           <div class="pd-thumb">
-            {# 
-              注意: 这里的图片路径也需要用 url_for 修正 
-              'media/monkey.png' 只是一个例子
-            #}
             <img src="{{ url_for('static', filename='media/monkey.png') }}" alt="thumb">
           </div>
           <div class="pd-thumb">

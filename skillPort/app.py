@@ -22,7 +22,7 @@ app.register_blueprint(community_bp)
 app.register_blueprint(category_bp)
 app.register_blueprint(search_bp)
 app.register_blueprint(account_bp)
-app.redirect_blueprint(lesson_video_bp)
+app.register_blueprint(lesson_video_bp)
 
 @app.route("/")
 def index():

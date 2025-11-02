@@ -337,80 +337,6 @@
   background-color: #f5f5f0;
 }
 
-/* フィルターUI用の追加スタイル */
-.filter-content {
-  border-top: 1px solid #e0e0e0;
-  padding-top: 15px;
-  margin-top: 10px;
-  padding-left: 5px; /* 左側に少し余白 */
-}
-
-/* チェックボックスグループのスタイル */
-.filter-checkbox-group {
-  display: flex;
-  flex-direction: column; /* 縦に並べる */
-  gap: 12px; /* 各項目の間隔 */
-}
-
-.filter-checkbox-group label {
-  display: flex;
-  align-items: center;
-  font-size: 14px;
-  color: #333;
-  cursor: pointer;
-}
-
-.filter-checkbox-group label:hover {
-  color: #007bff; /* ホバー時の色 */
-}
-
-.filter-checkbox-group input {
-  margin-right: 8px; /* チェックボックスとテキストの間隔 */
-}
-
-/* 価格フィルター専用のスタイル */
-.price-filter-content {
-  display: flex;
-  flex-direction: column;
-  gap: 10px; /* 入力欄とボタンの間隔 */
-}
-
-.price-inputs {
-  display: flex;
-  align-items: center;
-  gap: 5px; /* Min, '-', Max の間隔 */
-}
-
-.price-input {
-  width: 100%;
-  padding: 8px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  font-size: 14px;
-  -moz-appearance: textfield;
-  appearance: textfield;
-}
-.price-input::-webkit-outer-spin-button,
-.price-input::-webkit-inner-spin-button {
-  -webkit-appearance: none;
-  margin: 0;
-}
-
-.btn-apply-price {
-  padding: 8px 12px;
-  background-color: #226cff; /* サイトのテーマカラー */
-  color: white;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  font-weight: bold;
-  text-align: center;
-  transition: background-color 0.2s ease;
-}
-.btn-apply-price:hover {
-  background-color: #4e89ff;
-}
-
 /* Responsive */
 @media (max-width: 768px) {
   /* !!! 新規 !!! ページヘッダーのレスポンシブ */
@@ -465,4 +391,138 @@
 
 .product-container:hover {
   transform: translateY(-2px);
+}
+
+/* ======================================== */
+/* ===== フィルター内コンテンツの追加スタイル ===== */
+/* ======================================== */
+
+/* ▼ フィルター共通 ▼ */
+.filter-content {
+  border-top: 1px solid #e0e0e0;
+  padding: 15px 5px; /* 上下のpaddingを調整 */
+  margin-top: 10px;
+}
+
+/* ▼ チェックボックスグループのスタイル ▼ */
+.filter-checkbox-group {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.filter-checkbox-group label {
+  display: flex;
+  align-items: center;
+  font-size: 14px;
+  color: #333;
+  cursor: pointer;
+  padding-left: 5px;
+}
+
+.filter-checkbox-group label:hover {
+  color: #007bff;
+}
+
+.filter-checkbox-group input {
+  margin-right: 8px;
+  cursor: pointer;
+}
+
+/* ▼ 出品者検索のスタイル ▼ */
+.filter-search-input {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 14px;
+  box-sizing: border-box;
+}
+
+/* ▼ 価格スライダーのスタイル START ▼ */
+.price-slider-container {
+  margin-bottom: 15px;
+}
+
+.price-slider {
+  width: 100%;
+  -webkit-appearance: none;
+  appearance: none;
+  height: 8px;
+  background: #ddd;
+  outline: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+/* Chrome, Safari, Edge */
+.price-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 18px;
+  height: 18px;
+  background: #007bff;
+  border-radius: 50%;
+  cursor: pointer;
+}
+/* Firefox */
+.price-slider::-moz-range-thumb {
+  width: 18px;
+  height: 18px;
+  background: #007bff;
+  border-radius: 50%;
+  cursor: pointer;
+  border: none;
+}
+
+.price-display {
+  text-align: right;
+  font-size: 14px;
+  font-weight: bold;
+  margin-top: 8px;
+  color: #333;
+}
+/* ▲ 価格スライダーのスタイル END ▲ */
+
+
+/* 既存の価格フィルターのスタイル調整 */
+.price-filter-content {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.price-inputs {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.price-input {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 14px;
+  -moz-appearance: textfield;
+  appearance: textfield;
+}
+.price-input::-webkit-outer-spin-button,
+.price-input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.btn-apply-price {
+  padding: 8px 12px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: bold;
+  text-align: center;
+  transition: background-color 0.2s ease;
+}
+.btn-apply-price:hover {
+  background-color: #0056b3;
 }

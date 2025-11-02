@@ -1,125 +1,10 @@
 // --- グローバル変数・定数 ---------------------------------
-
-/** サンプル商品データ */
-const allProducts = [
-    { id: 1, title: "ChatGPTと学ぶPython入門", price: 1100, image: "monkey-selfie-david-slater.jpg" },
-    { id: 2, title: "キャラクターデザイン講座", price: 2500, image: "monkey-selfie-david-slater.jpg" },
-    { id: 3, title: "ウェブサイト制作チュートリアル", price: 1800, image: "monkey-selfie-david-slater.jpg" },
-    { id: 4, title: "最新アニメ技術解説", price: 3200, image: "monkey-selfie-david-slater.jpg" },
-    { id: 5, title: "音楽制作の基礎", price: 1500, image: "monkey-selfie-david-slater.jpg" },
-    { id: 6, title: "野生動物の撮影テクニック", price: 2800, image: "monkey-selfie-david-slater.jpg" },
-    { id: 7, title: "ChatGPTと学ぶPython入門", price: 1100, image: "monkey-selfie-david-slater.jpg" },
-    { id: 8, title: "キャラクターデザイン講座", price: 2500, image: "monkey-selfie-david-slater.jpg" },
-    { id: 9, title: "ウェブサイト制作チュートリアル", price: 1800, image: "monkey-selfie-david-slater.jpg" },
-    { id: 10, title: "最新アニメ技術解説", price: 3200, image: "monkey-selfie-david-slater.jpg" },
-    { id: 11, title: "音楽制作の基礎", price: 1500, image: "monkey-selfie-david-slater.jpg" },
-    { id: 12, title: "野生動物の撮影テクニック", price: 2800, image: "monkey-selfie-david-slater.jpg" },
-    { id: 13, title: "追加の商品A", price: 1000, image: "monkey-selfie-david-slater.jpg" },
-    { id: 14, title: "追加の商品B", price: 2000, image: "monkey-selfie-david-slater.jpg" },
-    { id: 15, title: "追加の商品C", price: 3000, image: "monkey-selfie-david-slater.jpg" },
-    { id: 16, title: "追加の商品D", price: 4000, image: "monkey-selfie-david-slater.jpg" },
-    { id: 17, title: "最後の商品E", price: 5000, image: "monkey-selfie-david-slater.jpg" }
-];
-
-/** サンプルカテゴリーデータ */
-const learningCategories = [
-    { id: 1, name: "本・雑誌・漫画" }, { id: 2, name: "資格・学習参考書" },
-    { id: 3, name: "PC・タブレット・周辺機器" }, { id: 4, name: "カメラ・オーディオ・楽器" },
-    { id: 5, name: "スポーツ・フィットネス" }, { id: 6, name: "趣味・ホビー" }
-];
-
-// ページネーション設定
-const ITEMS_PER_PAGE = 8;
-let currentPage = 1;
-
-// DOM要素 (グローバル)
-let productGrid = null;
-let loadMoreBtn = null;
-let categoryListContainer = null;
-// (!!! 削除 !!!) 以下の2行は不要 (中文: 这两行不再需要)
-// let toggleFiltersBtn = null;
-// let filterSectionsContainer = null;
-
+let categories_from_db = []; // 初期値を空配列に設定
 
 // --- 関数定義 --------------------------------------------
 
-/** 商品カードHTML生成 */
-function createProductCard(product) {
-    /* なぜ？: HTML [cite: team01skillport/skillport/Skillport-0e62dfe777015eee6d944c147dd2e8e9acf9b7f4/skillPort/app/templates/market/market.html] 側で定義されたグローバル変数から
-             静的ファイル（画像）への正しいパスを取得する。*/
-    const imageUrl = `${STATIC_MEDIA_URL}${product.image}`;
-    const detailUrl = `${PRODUCT_DETAIL_URL_BASE}${product.id}`;
-    
-    return `
-        <a href="${detailUrl}" class="product-card-link">
-            <div class="product-card" data-id="${product.id}">
-                <img src="${imageUrl}" alt="${product.title}" class="product-image">
-                <div class="product-info">
-                    <div class="product-title">${product.title}</div>
-                    <div class="product-price">¥${product.price}</div>
-                </div>
-            </div>
-        </a>
-    `;
-}
-
-/** 指定ページの商品を描画 */
-function renderProducts(page) {
-    const start = (page - 1) * ITEMS_PER_PAGE;
-    const end = start + ITEMS_PER_PAGE;
-    const productsToRender = allProducts.slice(start, end);
-
-    if (productsToRender.length > 0) {
-        /* なぜ `+=`？: `innerHTML = ...` は上書き。
-                        `innerHTML += ...` は「追加」するため。*/
-        productGrid.innerHTML += productsToRender.map(createProductCard).join('');
-    }
-
-    if (end >= allProducts.length) {
-        loadMoreBtn.style.display = 'none';
-    } else {
-        loadMoreBtn.style.display = 'block';
-    }
-}
-
-/** 「もっと見る」ボタン処理 */
-function handleLoadMoreClick() {
-    currentPage++;
-    renderProducts(currentPage);
-}
-
-/** カテゴリーリスト生成 */
-function renderCategories(categories) {
-    categoryListContainer.innerHTML = '';
-    const html = categories.map(cat => `
-        <button class="filter-list-item" data-category-id="${cat.id}">
-            <span>${cat.name}</span>
-            <span class="arrow">＞</span>
-        </button>
-    `).join('');
-    categoryListContainer.innerHTML = html;
-    categoryListContainer.querySelectorAll('.filter-list-item').forEach(item => {
-        item.addEventListener('click', handleCategoryClick);
-    });
-}
-
-/** カテゴリー項目クリック処理 */
-function handleCategoryClick(event) {
-    /* なぜ？: 選択された項目をハイライトし、
-             そのカテゴリーで商品をフィルター（再描画）するため。*/
-    categoryListContainer.querySelectorAll('.filter-list-item').forEach(item => {
-        item.classList.remove('selected');
-    });
-    event.currentTarget.classList.add('selected');
-    const selectedCategoryId = event.currentTarget.dataset.categoryId;
-    console.log(`選択された親カテゴリID: ${selectedCategoryId}`);
-    // TODO: 商品フィルターロジック
-}
-
 /**
- * フィルターセクション「内部」の展開/折りたたみを処理
- * (これは保持されます)
- * (中文: 这个函数处理过滤器 *内部* 的点击，比如点击“カテゴリー”)
+ * 各フィルターセクションの展開/折りたたみを処理
  * @param {Event} event - クリックイベント
  */
 function handleFilterToggle(event) {
@@ -129,67 +14,140 @@ function handleFilterToggle(event) {
 
     if (!content) return;
 
-    button.classList.toggle('open');
-    
-    if (content.style.display === 'none') {
+    const isOpen = button.classList.contains('open');
+
+    // すべてのセクションを閉じる
+    document.querySelectorAll('.filter-section .filter-content').forEach(otherContent => {
+        otherContent.style.display = 'none';
+        otherContent.closest('.filter-section').querySelector('.toggle-filter-btn').classList.remove('open');
+    });
+
+    // もしクリックしたセクションが閉じていたら、開く
+    if (!isOpen) {
+        button.classList.add('open');
         content.style.display = 'block';
-        /* なぜチェック？: 「カテゴリー」フィルターを開いた時だけ、
-                         中身が空であれば動的に「親カテゴリー」を生成するため。*/
-        if (filterSection.id === 'categoryFilter' && categoryListContainer.innerHTML === '') {
-            renderCategories(learningCategories);
+        
+        if (filterSection.id === 'categoryFilter' && content.innerHTML.trim() === '') {
+            renderCategories(categories_from_db, content);
         }
-    } else {
-        content.style.display = 'none';
     }
 }
 
+
 /**
- * (!!! 削除 !!!)
- * 「絞り込み」ボタンクリックでフィルター全体を表示/非表示にする機能は
- * 要件変更により削除されました。
- * (中文: “筛选”按钮的全局切换功能已被移除)
+ * カテゴリーリストをHTMLとして生成・描画
+ * @param {Array<{id: string, name: string}>} categories - カテゴリーデータの配列
+ * @param {HTMLElement} container - 描画先のコンテナ要素
  */
-// function handleToggleAllFilters() { ... }
+function renderCategories(categories, container) {
+    
+    // カテゴリーが null や空配列でないか確認
+    if (!Array.isArray(categories) || categories.length === 0) {
+        container.innerHTML = '<p style="font-size: 13px; color: #777; padding-left: 5px;">カテゴリーが見つかりません。</p>';
+        return; // クラッシュを防ぐ
+    }
+
+    const checkboxGroup = document.createElement('div');
+    checkboxGroup.className = 'filter-checkbox-group';
+    
+    const html = categories.map(cat => `
+        <label>
+            <input type="checkbox" name="category" value="${cat.id}" /> ${cat.name}
+        </label>
+    `).join('');
+    
+    checkboxGroup.innerHTML = html;
+    container.appendChild(checkboxGroup);
+}
+
+// ▼ 価格スライダーの処理 START ▼
+/**
+ * 価格スライダーの値が変更されたときに表示を更新
+ * [変更] スライダーの値を「最大価格」の入力欄にも反映する
+ * @param {Event} event - inputイベント
+ */
+function updatePriceDisplay(event) {
+    const priceValueSpan = document.getElementById('priceValue');
+    // [新] Maxの入力欄を取得
+    const maxPriceInput = document.querySelector('.price-inputs input[name="max_price"]'); 
+    
+    const numericValue = parseInt(event.target.value);
+    const formattedValue = numericValue.toLocaleString(); // 3桁区切りのカンマ
+
+    if (priceValueSpan) {
+        priceValueSpan.textContent = formattedValue;
+    }
+    if (maxPriceInput) {
+        maxPriceInput.value = numericValue; // [新] Maxの入力欄に値を設定
+    }
+}
+// ▲ 価格スライダーの処理 END ▲
+
 
 /**
  * マーケットページの初期化処理
  */
 function initMarketPage() {
-    // DOM要素の取得
-    productGrid = document.getElementById('productGrid');
-    loadMoreBtn = document.querySelector('.load-more');
-    categoryListContainer = document.getElementById('categoryListContainer');
     
-    // (!!! 削除 !!!) toggleFiltersBtn と filterSectionsContainer は不要 (中文: 不再需要这些)
-    
-    // 各フィルターセクション「内部」のトグルボタンを取得
-    const allInnerToggleButtons = document.querySelectorAll('.toggle-filter-btn');
-
-    /* なぜチェック？: 必須要素が見つからない場合にエラーを防ぐため。*/
-    if (!productGrid || !loadMoreBtn || !categoryListContainer) { 
-        console.error('Market page critical elements not found.');
-        return;
+    // 1. HTML (form.sidebar) から 'data-categories' 属性を読み込む
+    const sidebarElement = document.querySelector('.sidebar');
+    if (sidebarElement && sidebarElement.dataset.categories) {
+        try {
+            const parsedData = JSON.parse(sidebarElement.dataset.categories);
+            // 2. 変換後のデータが 'null' や 'undefined' ではなく、配列であることを確認
+            if (Array.isArray(parsedData)) {
+                categories_from_db = parsedData; // グローバル変数に格納
+            } else {
+                categories_from_db = []; // 'null' などの場合は空配列をセット
+            }
+        } catch (e) {
+            console.error("カテゴリーデータの読み込みに失敗しました:", e);
+            categories_from_db = []; // エラーの場合は空にする
+        }
     }
 
-    /* なぜクリア？: ブラウザの「戻る」で表示が重複するのを防ぐため。*/
-    productGrid.innerHTML = ''; 
-    currentPage = 1;
-    renderProducts(currentPage);
+    // 各フィルターセクションのトグルボタンを取得
+    const allToggleButtons = document.querySelectorAll('.toggle-filter-btn');
 
-    // 「もっと見る」ボタンのイベント
-    loadMoreBtn.addEventListener('click', handleLoadMoreClick);
-
-    // (!!! 削除 !!!) 「絞り込み」ボタンのイベントは削除
+    // ▼ 価格スライダーの要素を取得 ▼
+    const priceRangeSlider = document.getElementById('priceRange');
     
-    // (!!! 保持 !!!) 
-    // 各フィルターセクション「内部」のトグルイベントを設定
-    // (中文: 保持内部过滤器点击事件)
-    allInnerToggleButtons.forEach(button => {
+    // --- [▼▼▼ 新增代码 ▼▼▼] ---
+    // ページ読み込み時に、スライダーの初期値をMin/Max入力欄に設定する
+    const minPriceInput = document.querySelector('.price-inputs input[name="min_price"]');
+    const maxPriceInput = document.querySelector('.price-inputs input[name="max_price"]');
+    // --- [▲▲▲ 新增代码 ▲▲▲] ---
+
+
+    // 各フィルターセクションの展開/折りたたみイベントを設定
+    allToggleButtons.forEach(button => {
+        button.type = 'button'; 
         button.addEventListener('click', handleFilterToggle);
     });
-}
 
+    // ▼ 価格スライダーのイベントを設定 ▼
+    if (priceRangeSlider) {
+        const priceValueSpan = document.getElementById('priceValue');
+        const initialNumericValue = parseInt(priceRangeSlider.value);
+        
+        if (priceValueSpan) {
+            priceValueSpan.textContent = initialNumericValue.toLocaleString();
+        }
+
+        // --- [▼▼▼ 新增代码 ▼▼▼] ---
+        // 1. Min入力欄にスライダーの最小値を設定
+        if (minPriceInput && minPriceInput.value === '') { // ユーザーが既に入力していない場合
+            minPriceInput.value = priceRangeSlider.min;
+        }
+        // 2. Max入力欄にスライダーの現在の値を設定
+        if (maxPriceInput && maxPriceInput.value === '') {
+            maxPriceInput.value = initialNumericValue;
+        }
+        // --- [▲▲▲ 新增代码 ▲▲▲] ---
+
+        priceRangeSlider.addEventListener('input', updatePriceDisplay);
+    }
+}
 
 // --- 実行 --------------------------------------------------
 document.addEventListener('DOMContentLoaded', initMarketPage);
-
