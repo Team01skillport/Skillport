@@ -140,8 +140,8 @@
   </div>
 </div>
 
-{% endblock %}
-
-<script src="../static/js/community.js"></script>
+<script src="{{ url_for('static', filename='js/community.js') }}"></script>
 </body>
 </html>
+
+{% endblock %}
