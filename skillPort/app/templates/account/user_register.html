@@ -10,7 +10,11 @@ block content %}
 <div class="register-wrapper">
   <div class="register-container">
     <h1 class="register-title">新規アカウント登録</h1>
-    <form method="POST" class="register-form">
+    <form
+      method="POST"
+      class="register-form"
+      action="{{ url_for('account.user_register_complete') }}"
+    >
       <input type="hidden" name="username" value="{{username}}" />
       <input type="hidden" name="password" value="{{password}}" />
 

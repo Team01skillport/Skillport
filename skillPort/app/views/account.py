@@ -1,5 +1,5 @@
 from flask import Blueprint, render_template, request, make_response, session
-from app.db import fetch_query
+from app.db import create_user
 
 account_bp = Blueprint('account', __name__, url_prefix='/account')
 
@@ -18,14 +18,19 @@ def register_userlogin():
 
 @account_bp.route('/register_success', methods=["POST"])
 def register_userinfo():
+    
+    return render_template('account/profile.html')
+
+@account_bp.route('/user_register_complete', methods=["POST"])
+def user_register_complete():
     username = request.form.get("username")
     password = request.form.get("password")
     mail = request.form.get("email")
     tel_no = request.form.get("tel")
     last_name = request.form.get("last_name")
     first_name = request.form.get("first_name")
-    last_name_katakana = request.form.get("last_name_katakana")
-    first_name_katakana = request.form.get("first_name_katana")
+    last_name_furigana = request.form.get("last_name_furigana")
+    first_name_furigana = request.form.get("first_name_furigana")
     birthday = request.form.get("birthday")
     gender = request.form.get("gender")
     zip_code = request.form.get("zip_code")
@@ -33,14 +38,26 @@ def register_userinfo():
     address1 = request.form.get("address1")
     address2 = request.form.get("address2")
     introduction = request.form.get("introduction")
+    print(username)
+    print(password)
+    print(mail)
+    print(tel_no)
+    print(last_name)
+    print(first_name)
+    print(first_name_furigana)
+    print(last_name_furigana)
+    print(birthday)
+    print(gender)
+    print(zip_code)
+    print(prefecture)
+    print(address1)
+    print(address2)
+    print(introduction)
    
-    sql = "INSERT INTO user_tbl ('"+username+"', '"+first_name+"', '"+last_name+"', '"+first_name_katakana+"', '"+last_name_katakana+"', '"+tel_no+"', '"+zip_code+"', '"+prefecture+"', '"+address1+"', '"+address2+"', '"+birthday+"', '"+gender+"', '"+mail+"', '"+password+"', '"+introduction+"') VALUES ();"
-    # create_user = fetch_query(sql)
-    return render_template('account/profile.html')
-
-@account_bp.route('/profile', methods=["GET"])
-def user_profile():
-    return render_template('account/profile.html')
+    sql = "INSERT INTO user_tbl (user_name, first_name, last_name, first_name_katakana, last_name_katakana, tel_no, zip_code, prefecture, address1, address2, birthday, gender, mail, password, introduction) VALUES ('"+username+"', '"+first_name+"', '"+last_name+"', '"+first_name_furigana+"', '"+last_name_furigana+"', '"+tel_no+"', '"+zip_code+"', '"+prefecture+"', '"+address1+"', '"+address2+"', '"+birthday+"', '"+gender+"', '"+mail+"', '"+password+"', '"+introduction+"');"
+    touroku_dekita = create_user(sql)
+    print(touroku_dekita)
+    return render_template('account/user_register_success.html')
 
 @account_bp.route('/edit_profile', methods=["GET"])
 def edit_profile():

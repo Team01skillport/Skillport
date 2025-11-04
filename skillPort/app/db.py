@@ -3,9 +3,8 @@ import mysql.connector
 def connect_db():
     con = mysql.connector.connect(
     host="localhost",
-    port = 8889,
     user = "root",
-    passwd = "root",
+    passwd = "",
     db = "skillport_db"
     )
     return con
@@ -34,10 +33,11 @@ def create_user(sql, params=None):
         con.commit()
         cur.close()
         con.close()
-        return True 
+        touroku_dekita = True
     except Exception as e: 
         print(f"データベースエラー: {e}")
         con.rollback()
         cur.close()
         con.close()
-        return None
+        touroku_dekita = False
+    return touroku_dekita
