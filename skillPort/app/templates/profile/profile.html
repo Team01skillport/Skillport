@@ -54,7 +54,9 @@ content %}
   <div class="content-sections">
     <div class="section">
       <h2 class="section-title">動画</h2>
-      {% for video in user_videos %}
+      {% if user_videos == [] %}
+      <h3 id="novid_msg">{{novid_msg}}</h3>
+      {% endif %} {% for video in user_videos %}
       <a href="#">
         <div class="video-card">
           <div class="video-thumbnail">
@@ -74,7 +76,9 @@ content %}
 
     <div class="section">
       <h2 class="section-title">投稿</h2>
-
+      {% if user_posts == [] %}
+      <h3 id="nopost_msg">{{nopost_msg}}</h3>
+      {% endif %} {% for post in user_posts %}
       <div class="post-card">
         <div class="post-header">
           <img
@@ -83,11 +87,7 @@ content %}
             class="post-avatar"
           />
           <div class="post-user-info">
-            <div class="post-username">
-              okura_masato0721
-              <span style="font-size: 12px; color: #666">フォロバする</span>
-              <span style="font-size: 12px">🔥</span>
-            </div>
+            <div class="post-username">{{user_name}}</div>
           </div>
         </div>
         <img
@@ -95,55 +95,9 @@ content %}
           alt="投稿画像"
           class="post-image"
         />
-        <div class="post-text">
-          ああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああ
-        </div>
+        <div class="post-text">{{post.post_text}}</div>
       </div>
-
-      <div class="post-card">
-        <div class="post-header">
-          <img
-            src="https://images.unsplash.com/photo-1540573133985-87b6da6d54a9?w=80&h=80&fit=crop"
-            alt="ユーザー"
-            class="post-avatar"
-          />
-          <div class="post-user-info">
-            <div class="post-username">
-              okura_masato0721
-              <span style="font-size: 12px; color: #666">フォロバする</span>
-              <span style="font-size: 12px">🔥</span>
-            </div>
-          </div>
-        </div>
-        <div class="post-text">
-          ああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああ
-        </div>
-      </div>
-
-      <div class="post-card">
-        <div class="post-header">
-          <img
-            src="https://images.unsplash.com/photo-1540573133985-87b6da6d54a9?w=80&h=80&fit=crop"
-            alt="ユーザー"
-            class="post-avatar"
-          />
-          <div class="post-user-info">
-            <div class="post-username">
-              okura_masato0721
-              <span style="font-size: 12px; color: #666">フォロバする</span>
-              <span style="font-size: 12px">🔥</span>
-            </div>
-          </div>
-        </div>
-        <img
-          src="https://images.unsplash.com/photo-1540573133985-87b6da6d54a9?w=600&h=600&fit=crop"
-          alt="投稿画像"
-          class="post-image"
-        />
-        <div class="post-text">
-          ああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああ
-        </div>
-      </div>
+      {% endfor %}
     </div>
   </div>
 </main>

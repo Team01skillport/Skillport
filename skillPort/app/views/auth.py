@@ -11,7 +11,7 @@ def login():
         password = request.form.get("password")
         
         sql = "SELECT id, user_name FROM user_tbl WHERE user_name = '"+username+"' AND password = '"+password+"';"
-        user_info = fetch_query(sql, True)
+        user_info = fetch_query(sql, params=None, fetch_one=True)
         print(user_info)
         if user_info:
             session['user_id'] = user_info['id']
@@ -63,8 +63,11 @@ def view_profile():
         # ユーザーがアップした動画を表示する
         sql = "SELECT v.* FROM video_tbl v INNER JOIN user_tbl u ON v.video_uploader_id = u.id WHERE u.id = '"+str(user_id)+"';"
         user_videos = fetch_query(sql)
-            
-        return render_template('profile/profile.html', user_name=session['user_name'], introduction=introduction, tag=tag, rating_stars=rating_stars, user_videos=user_videos)
+        
+        # ユーザーがアップした投稿を表示する
+        sql = "SELECT p.* FROM post_tbl p INNER JOIN user_tbl u ON p.user_id = u.id WHERE u.id = '"+str(user_id)+"';"
+        user_posts = fetch_query(sql)
+        return render_template('profile/profile.html', user_name=session['user_name'], introduction=introduction, tag=tag, rating_stars=rating_stars, user_videos=user_videos, user_posts=user_posts, novid_msg="このユーザーは動画をアップしていません", nopost_msg="このユーザーは投稿をアップしていません")
     else:
         return redirect(url_for('auth.login'))
 
