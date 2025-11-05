@@ -10,8 +10,8 @@
 
 /* Main Content Layout */
 .main-content {
-  padding: 0 0 15px 0; /* (!!! 変更 !!!) ページ上部の padding を 0 に */
-  margin-top: 0; /* (!!! 変更 !!!) ページ上部の margin を 0 に */
+  padding: 0 0 15px 0; 
+  margin-top: 0; 
 }
 
 .main-container {
@@ -20,7 +20,6 @@
   padding: 0 20px;
 }
 
-/* !!! 変更 !!! ページヘッダー (タイトルと検索バーとボタンを整列) */
 .page-header {
   display: flex;
   justify-content: space-between;
@@ -36,7 +35,7 @@
   border-bottom: 3px solid #333;
   display: inline-block;
   padding-bottom: 5px;
-  flex-shrink: 0; /* タイトルが縮まないように */
+  flex-shrink: 0; 
 }
 
 .content-wrapper {
@@ -65,7 +64,7 @@
   border-radius: 8px;
   font-weight: bold;
   font-size: 16px;
-  margin-bottom: 10px; /* 「更新」ボタンとの間隔 */
+  margin-bottom: 10px; 
   text-align: left;
   box-sizing: border-box;
 }
@@ -83,7 +82,7 @@
   border-radius: 8px;
   cursor: pointer;
   font-size: 16px;
-  margin-bottom: 10px; /* 下のフィルターとの間隔 */
+  margin-bottom: 10px; 
   box-sizing: border-box;
   transition: 0.3s;
 }
@@ -100,6 +99,7 @@
 
 /* フィルターセクション (コンテナ内の各項目) */
 
+/* === [ここからアニメーション対応版] === */
 /* 各フィルター項目を開くボタン */
 .filter-item {
   width: 100%;
@@ -112,8 +112,9 @@
   justify-content: space-between;
   align-items: center;
   font-size: 16px;
-  margin-top: 10px; /* 各フィルター間の上マージン */
+  margin-top: 10px; 
   box-sizing: border-box;
+  transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease;
 }
 /* 最初のフィルター項目は上マージン不要 */
 .sidebar > .filter-section:first-child > .filter-item {
@@ -126,12 +127,22 @@
 
 .arrow {
   color: #999;
-  transition: transform 0.2s ease;
+  transition: transform 0.3s ease; 
+}
+
+/* [変更] .open クラスが付与された時のスタイル */
+.filter-item.open {
+  background-color: #f0f7ff; 
+  border-color: #007bff;     
+  color: #007bff;           
 }
 
 .filter-item.open .arrow {
   transform: rotate(90deg);
+  color: #007bff; 
 }
+/* === [ここまでアニメーション対応版] === */
+
 
 /* カテゴリーリストのスタイル */
 .filter-list-container {
@@ -180,17 +191,15 @@
   padding-top: 20px;
 }
 
-/* !!! 変更 !!! ボタンが上に移動したため、高さを調整 */
 .products-header {
   display: none;
 }
 
-/* !!! 変更 !!! 検索バーは .page-header に移動 */
 .search-bar {
-  flex: 1; /* 残りのスペースをすべて取る */
-  max-width: 500px; /* 最大幅を指定 */
+  flex: 1; 
+  max-width: 500px; 
   position: relative;
-  margin-left: 0; /* (!!! 変更 !!!) gapで管理するため 0 に */
+  margin-left: 0; 
 }
 
 .search-icon {
@@ -212,15 +221,12 @@
 .action-buttons {
   display: flex;
   gap: 15px;
-  flex-shrink: 0; /* ボタンが縮まないように */
+  flex-shrink: 0; 
 }
 
-/* (!!! 新規 !!!) ログアウト時にボタンのスペースを確保するプレースホルダー */
 .action-buttons-placeholder {
-  /* 実際のボタン2個分 + gap のおおよその幅で予約 */
-  /* (この値は、実際のボタン幅に合わせて微調整してください) */
   width: 275px;
-  flex-shrink: 0; /* 縮まないようにする */
+  flex-shrink: 0; 
 }
 
 .btn {
@@ -310,7 +316,7 @@
   font-size: 14px;
   margin-bottom: 8px;
   line-height: 1.4;
-  height: 40px; /* 2行分の高さを確保 */
+  height: 40px; 
   overflow: hidden;
 }
 
@@ -339,7 +345,6 @@
 
 /* Responsive */
 @media (max-width: 768px) {
-  /* !!! 新規 !!! ページヘッダーのレスポンシブ */
   .page-header {
     flex-direction: column;
     align-items: stretch;
@@ -350,14 +355,13 @@
     margin-left: 0;
   }
 
-  /* (!!!) 変更: プレースホルダーとボタンも画面幅いっぱいに */
   .action-buttons,
   .action-buttons-placeholder {
     width: 100%;
     gap: 10px;
   }
   .action-buttons .btn {
-    flex: 1; /* ボタンを均等幅にする */
+    flex: 1; 
   }
 
   .content-wrapper {
@@ -368,7 +372,6 @@
   }
 
   .products-header {
-    /* (!!!) 変更: products-header が空になったため、小画面では非表示に */
     display: none;
   }
 
@@ -397,12 +400,32 @@
 /* ===== フィルター内コンテンツの追加スタイル ===== */
 /* ======================================== */
 
+/* === [ここからアニメーション対応版] === */
 /* ▼ フィルター共通 ▼ */
 .filter-content {
+  max-height: 0;
+  opacity: 0;
+  overflow: hidden;
+  padding-top: 0;
+  padding-bottom: 0;
+  margin-top: 0; 
+  border-top: none; 
+  transition: max-height 0.4s ease-out, 
+              opacity 0.3s ease-out, 
+              padding 0.4s ease-out, 
+              margin 0.4s ease-out,
+              border 0.4s ease-out;
+}
+
+.toggle-filter-btn.open + .filter-content {
+  max-height: 500px; 
+  opacity: 1;
   border-top: 1px solid #e0e0e0;
-  padding: 15px 5px; /* 上下のpaddingを調整 */
+  padding: 15px 5px;
   margin-top: 10px;
 }
+/* === [ここまでアニメーション対応版] === */
+
 
 /* ▼ チェックボックスグループのスタイル ▼ */
 .filter-checkbox-group {
@@ -463,6 +486,8 @@
   background: #007bff;
   border-radius: 50%;
   cursor: pointer;
+  /* [変更] 色とサイズの変更をアニメーションさせる */
+  transition: background-color 0.2s ease, transform 0.2s ease;
 }
 /* Firefox */
 .price-slider::-moz-range-thumb {
@@ -472,7 +497,22 @@
   border-radius: 50%;
   cursor: pointer;
   border: none;
+  /* [変更] 色とサイズの変更をアニメーションさせる */
+  transition: background-color 0.2s ease, transform 0.2s ease;
 }
+
+/* [▼▼▼ 新規追加 ▼▼▼] */
+/* クリック中（アクティブ）のスタイル */
+.price-slider.slider-active::-webkit-slider-thumb {
+  background-color: #0056b3; /* 濃い青色に変更 */
+  transform: scale(1.2);    /* 少し大きくする */
+}
+.price-slider.slider-active::-moz-range-thumb {
+  background-color: #0056b3; /* 濃い青色に変更 */
+  transform: scale(1.2);    /* 少し大きくする */
+}
+/* [▲▲▲ 新規追加 ▲▲▲] */
+
 
 .price-display {
   text-align: right;

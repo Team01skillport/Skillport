@@ -18,11 +18,11 @@ def connect_db():
         )
     return con
     
-def fetch_query(sql,fetch_one=False):
+def fetch_query(sql,params=None,fetch_one=False):
     try:
         con = connect_db()
         cur = con.cursor(dictionary=True)
-        cur.execute(sql)
+        cur.execute(sql, params)
         if fetch_one == False:
             result = cur.fetchall()
         else:
@@ -42,11 +42,10 @@ def create_user(sql, params=None):
         con.commit()
         cur.close()
         con.close()
-        touroku_dekita = True
+        return True 
     except Exception as e: 
         print(f"データベースエラー: {e}")
         con.rollback()
         cur.close()
         con.close()
-        touroku_dekita = False
-    return touroku_dekita
+        return None
