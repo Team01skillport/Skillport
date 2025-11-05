@@ -1,7 +1,10 @@
 {% extends "base.html" %} {% block title %}プロフィール{% endblock %} {% block
 content %}
 <head>
-  <link rel="stylesheet" href="../../static/css/profile.css" />
+  <link
+    rel="stylesheet"
+    href="{{url_for('static', filename='css/profile.css')}}"
+  />
 </head>
 <main>
   <div class="profile-section">
@@ -52,18 +55,20 @@ content %}
     <div class="section">
       <h2 class="section-title">動画</h2>
       {% for video in user_videos %}
-      <div class="video-card">
-        <div class="video-thumbnail">
-          <div class="play-icon">▶</div>
+      <a href="#">
+        <div class="video-card">
+          <div class="video-thumbnail">
+            <div class="play-icon">▶</div>
+          </div>
+          <div class="video-title">{{video.video_title}}</div>
+          <p>{{video.video_description_section}}</p>
+          <p>投稿日：{{video.video_upload_date}}</p>
+          <p>#{{video.video_tag}}</p>
+          <p>再生回数：{{video.view_count}}</p>
+          <p>いいね数：{{video.like_count}}</p>
+          <p>コメント数：{{video.comment_count}}</p>
         </div>
-        <div class="video-title">{{video.video_title}}</div>
-        <p>{{video.video_description_section}}</p>
-        <p>投稿日：{{video.video_upload_date}}</p>
-        <p>#{{video.video_tag}}</p>
-        <p>再生回数：{{video.view_count}}</p>
-        <p>いいね数：{{video.like_count}}</p>
-        <p>コメント数：{{video.comment_count}}</p>
-      </div>
+      </a>
       {% endfor %}
     </div>
 

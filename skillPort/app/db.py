@@ -1,5 +1,6 @@
 from flask import Blueprint, render_template, request, make_response
 import mysql.connector
+from mysql.connector import Error
 def connect_db():
     try:
         con = mysql.connector.connect(
@@ -8,7 +9,15 @@ def connect_db():
         passwd = "",
         db = "skillport_db"
         )
-    except:
+        
+        if con.is_connected():
+            print("Windows設定で接続完了")
+            return con
+        
+    except Error as e:
+        print("Windows設定で接続失敗", e)
+        
+    try:
         con = mysql.connector.connect(
         host="localhost",
         port = 8889,
@@ -16,8 +25,15 @@ def connect_db():
         passwd = "root",
         db = "skillport_db"
         )
-    return con
-    
+        
+        if con.is_connected():
+            print("MAC設定で接続完了")
+            return con
+    except Error as e:
+        print("MAC設定で接続失敗", e)
+        
+    raise ConnectionError("DBへの接続失敗")
+        
 def fetch_query(sql,params=None,fetch_one=False):
     try:
         con = connect_db()

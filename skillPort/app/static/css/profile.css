@@ -125,6 +125,11 @@ main {
   flex: 1;
 }
 
+.section a {
+  text-decoration: none;
+  color: black;
+}
+
 .section-title {
   font-size: 28px;
   font-weight: 700;

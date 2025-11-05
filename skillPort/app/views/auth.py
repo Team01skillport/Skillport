@@ -32,12 +32,16 @@ def view_profile():
     if 'user_id' in session:
         user_id = session['user_id']
         sql = "SELECT * FROM user_tbl WHERE id = '"+str(user_id)+"';"
-        user_info = fetch_query(sql, True)
-        print(user_info)
-        introduction = user_info['introduction']
+        user_info = fetch_query(sql, params=None, fetch_one=True)
+        
+        try:
+            introduction = user_info['introduction']
+        except:
+            introduction = ""
         
         # ユーザーの評価をとって、スターで表示する
         user_rating = int(user_info['user_rating'])
+        
         rating_stars = []
         full_rating = 5
         if user_rating == 0:
@@ -48,7 +52,6 @@ def view_profile():
             if i < full_rating:
                 for j in range(full_rating - i - 1):
                     rating_stars.append("☆")
-        print(rating_stars)
         
         # ユーザーのタグ文字列をとって、カンマに区切る
         try:
