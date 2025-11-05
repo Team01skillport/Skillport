@@ -39,28 +39,26 @@
 
 
     <div class="post-list">
-      <div class="post">
-        <div class="user">
-          <img class="avatar" src="../../static/media/1.jpeg" alt="ユーザー">
-          <span class="username">username</span>
-        </div>
-        <p>あああああああああああああああああああああああああ</p>
-        <div class="actions">
-          <button>編集</button>
-        </div>
-      </div>
 
+     
+      {% for post in all_posts %}
       <div class="post">
         <div class="user">
-          <img class="avatar" src="../../static/media/2.webp" alt="ユーザー">
-          <span class="username">username</span>
+          <img class="avatar" src="{{post.profile_icon}}" alt="ユーザーアイコン">
+          <p class="username">{{post.user_name}}</p>
         </div>
-        <img class="contents" src="../../static/media/3.jpg" alt="">
-        <p>あああああああああああああああああああああ</p>
+        <img src="{{post.post_media}}">メディアがあればここ</img>
+        <p>{{post.post_text}}</p>
+        <p>{{post.post_update_date}}</p>
+        {% if post.user_id == user_id %}
         <div class="actions">
           <button>編集</button>
         </div>
+        {% endif %}
+        <hr>
       </div>
+      {% endfor %}
+  
     </div>
   
     <div class="new-post">
