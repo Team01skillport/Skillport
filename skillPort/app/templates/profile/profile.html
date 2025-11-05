@@ -9,7 +9,7 @@ content %}
 <main>
   <div class="profile-section">
     <img
-      src="https://images.unsplash.com/photo-1540573133985-87b6da6d54a9?w=300&h=300&fit=crop"
+      src="{{url_for('static', filename='media/user' + user_icon)}}"
       alt="プロフィール画像"
       class="profile-image"
     />
@@ -82,8 +82,8 @@ content %}
       <div class="post-card">
         <div class="post-header">
           <img
-            src="https://images.unsplash.com/photo-1540573133985-87b6da6d54a9?w=80&h=80&fit=crop"
-            alt="ユーザー"
+            src="{{url_for('static', filename='media/user' + user_icon)}}"
+            alt="プロフィール画像"
             class="post-avatar"
           />
           <div class="post-user-info">
