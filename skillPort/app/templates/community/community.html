@@ -1,4 +1,4 @@
-{% extends "base.html" %} {% block title %}プロフィール{% endblock %} {% block
+{% extends "base.html" %} {% block title %}コミュニティー{% endblock %} {% block
   content %}
 <link rel="stylesheet" href="{{ url_for('static', filename='css/community.css') }}">
 <!-- reccomended container ------------------------------------------ -->
@@ -36,18 +36,16 @@
   <!-- 右側：投稿フィード -->
   <div class="feed">
     <h2>投稿フィード</h2>
-
-
     <div class="post-list">
-
-     
       {% for post in all_posts %}
       <div class="post">
         <div class="user">
-          <img class="avatar" src="{{post.profile_icon}}" alt="ユーザーアイコン">
+          <img class="avatar" src="{{url_for('static', filename='media/user' + post.profile_icon)}}" alt="ユーザーアイコン">
           <p class="username">{{post.user_name}}</p>
         </div>
+        {% if post.post_media != None %}
         <img src="{{post.post_media}}">メディアがあればここ</img>
+        {% endif %}
         <p>{{post.post_text}}</p>
         <p>{{post.post_update_date}}</p>
         {% if post.user_id == user_id %}
@@ -63,7 +61,7 @@
     <form action="{{url_for('community.upload_post')}}" class="upload_post" method="post"></form>
       <div class="new-post">
         <!-- バグるから一旦コメント↓ -->
-        <!-- <img class="user_icon" src="../../static/media/Bgitjwkld6Qc_1722765180.jpg" alt="ユーザーアイコン"> -->
+        <!-- <img class="user_icon" src="{{url_for('static', filename='media/user' + profile_icon)}}" alt="ユーザーアイコン"> -->
           <div class="input-area">
             <div class="textbox">
               <div class="attachment"></div>
