@@ -7,7 +7,7 @@ lesson_video_bp = Blueprint('lesson_video', __name__, url_prefix='/lesson_video'
 
 # 2. 動画再生ページのルートを定義します
 # market.py の product_detail と同じように、URLに <int:video_id> を含めます
-@lesson_video_bp.route('/<int:video_id>')
+@lesson_video_bp.route('play_video//<int:video_id>')
 def video_player(video_id):
     """
     指定されたIDの動画データをデータベースから取得し、
