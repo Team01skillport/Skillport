@@ -25,7 +25,13 @@ content %}
               フォロワー<span class="stat-number">403</span>
             </div>
             <div class="stat">フォロー<span class="stat-number">219</span></div>
-            <div class="rating">★★★★☆</div>
+
+            <div class="rating">
+              {% for star in rating_stars %}
+              <p>{{star}}</p>
+
+              {% endfor %}
+            </div>
           </div>
         </div>
         <div class="profile-actions">

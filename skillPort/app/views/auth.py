@@ -34,8 +34,20 @@ def view_profile():
         sql = "SELECT * FROM user_tbl WHERE id = '"+str(user_id)+"';"
         user_info = fetch_query(sql, True)
         print(user_info)
-
         introduction = user_info['introduction']
+        user_rating = int(user_info['user_rating'])
+        rating_stars = []
+        full_rating = 5
+        print(user_rating)
+        if user_rating == 0:
+            rating_stars.append("☆☆☆☆☆")
+        else:
+            for i in range(user_rating):
+                rating_stars.append("★")
+            if i < full_rating:
+                for j in range(full_rating - i - 1):
+                    rating_stars.append("☆")
+        print(rating_stars)
         
         # ユーザーのタグ文字列をとって、カンマに区切る
         try:
@@ -44,7 +56,7 @@ def view_profile():
         except:
             tag = ""
             
-        return render_template('profile/profile.html', user_name=session['user_name'], introduction=introduction, tag=tag)
+        return render_template('profile/profile.html', user_name=session['user_name'], introduction=introduction, tag=tag, rating_stars=rating_stars)
     else:
         return redirect(url_for('auth.login'))
 

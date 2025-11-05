@@ -1,7 +1,10 @@
 {% extends "base.html" %} {% block title %}{{cat_name}}{% endblock %} {% block
 content %}
 <head>
-  <link rel="stylesheet" href="../../static/css/lecture_video.css" />
+  <link
+    rel="stylesheet"
+    href="{{url_for('static', filename='css/lecture_video.css')}}"
+  />
 </head>
 <body>
   <div class="category-page">
@@ -10,231 +13,29 @@ content %}
       <button class="upload-video-btn">動画をアップロード</button>
     </div>
 
-    <div class="item-grid">
-      <a href="#" class="item-card">
-        <div class="item-image-container">
-          <img
-            src="../static/media/anime_placeholder.jpg"
-            alt="動畫課程封面"
-            class="item-image"
-          />
-          <div class="play-button">
-            <svg viewBox="0 0 24 24" fill="white" width="48px" height="48px">
-              <path d="M8 5v14l11-7z" />
-            </svg>
+    <div>
+      <ul class="item-grid">
+        {% for video in category_videos %}
+        <li class="item-card">
+          <div class="item-image-container">
+            <img
+              src="../static/media/anime_placeholder.jpg"
+              alt="画像ここ"
+              class="item-image"
+            />
+            <!-- <div class="play-button">
+              <svg viewBox="0 0 24 24" fill="white" width="48px" height="48px">
+                <path d="M8 5v14l11-7z" />
+              </svg>
+            </div> -->
+            <p class="image-label">動画コース</p>
           </div>
-          <p class="image-label">動画コース</p>
-        </div>
-        <div class="item-details">
-          <h2 class="item-title">
-            しょうごくんと楽しくイラストレーション学びましょう！
-          </h2>
-          <p class="item-description">
-            この動画では、初心者向けにデジタルイラストの基本から応用までを丁寧に解説します。ツールの使い方や色の選び方を実践的に学べます。
-          </p>
-          <p class="item-price">¥7,800</p>
-        </div>
-      </a>
-
-      <a href="#" class="item-card">
-        <div class="item-image-container">
-          <img
-            src="../static/media/camera_placeholder.jpg"
-            alt="攝影課程封面"
-            class="item-image"
-          />
-          <div class="play-button">
-            <svg viewBox="0 0 24 24" fill="white" width="48px" height="48px">
-              <path d="M8 5v14l11-7z" />
-            </svg>
-          </div>
-          <p class="image-label">カメラ操作</p>
-        </div>
-        <div class="item-details">
-          <h2 class="item-title">
-            ミラーレス一眼で始める写真撮影の基礎と応用テクニック！
-          </h2>
-          <p class="item-description">
-            絞り、シャッタースピード、ISO感度の関係を理解し、日常の風景をドラマチックに変える撮影テクニックをマスターしましょう。
-          </p>
-          <p class="item-price">¥7,800</p>
-        </div>
-      </a>
-
-      <a href="#" class="item-card">
-        <div class="item-image-container">
-          <img
-            src="../static/media/anime_placeholder.jpg"
-            alt="動畫課程封面"
-            class="item-image"
-          />
-          <div class="play-button">
-            <svg viewBox="0 0 24 24" fill="white" width="48px" height="48px">
-              <path d="M8 5v14l11-7z" />
-            </svg>
-          </div>
-          <p class="image-label">アニメーション制作</p>
-        </div>
-        <div class="item-details">
-          <h2 class="item-title">
-            【After Effects】モーションタイポグラフィ制作の完全ガイド
-          </h2>
-          <p class="item-description">
-            文字を魅力的に動かす方法を学びます。キーフレームやエフェクトを駆使した、プロレベルのモーショングラフィックススキルが身につきます。
-          </p>
-          <p class="item-price">¥7,800</p>
-        </div>
-      </a>
-
-      <a href="#" class="item-card">
-        <div class="item-image-container">
-          <img
-            src="../static/media/camera_placeholder.jpg"
-            alt="攝影課程封面"
-            class="item-image"
-          />
-          <div class="play-button">
-            <svg viewBox="0 0 24 24" fill="white" width="48px" height="48px">
-              <path d="M8 5v14l11-7z" />
-            </svg>
-          </div>
-          <p class="image-label">ポートレート</p>
-        </div>
-        <div class="item-details">
-          <h2 class="item-title">
-            自然光を活かす！美しいポートレート写真のレタッチ術
-          </h2>
-          <p class="item-description">
-            PhotoshopとLightroomを使った、肌の質感や色の補正方法を徹底解説。被写体の魅力を最大限に引き出すレタッチスキルを習得できます。
-          </p>
-          <p class="item-price">¥7,800</p>
-        </div>
-      </a>
-
-      <a href="#" class="item-card">
-        <div class="item-image-container">
-          <img
-            src="../static/media/anime_placeholder.jpg"
-            alt="動畫課程封面"
-            class="item-image"
-          />
-          <div class="play-button">
-            <svg viewBox="0 0 24 24" fill="white" width="48px" height="48px">
-              <path d="M8 5v14l11-7z" />
-            </svg>
-          </div>
-          <p class="image-label">描畫技術</p>
-        </div>
-        <div class="item-details">
-          <h2 class="item-title">
-            デジタルで描く風景イラスト：雲と水の表現テクニック
-          </h2>
-          <p class="item-description">
-            デジタルペイントでリアルな雲や水のテクスチャを描く方法を解説します。光と影の表現を強化し、作品のクオリティを高めましょう。
-          </p>
-          <p class="item-price">¥7,800</p>
-        </div>
-      </a>
-
-      <a href="#" class="item-card">
-        <div class="item-image-container">
-          <img
-            src="../static/media/camera_placeholder.jpg"
-            alt="攝影課程封面"
-            class="item-image"
-          />
-          <div class="play-button">
-            <svg viewBox="0 0 24 24" fill="white" width="48px" height="48px">
-              <path d="M8 5v14l11-7z" />
-            </svg>
-          </div>
-          <p class="image-label">動画編集</p>
-        </div>
-        <div class="item-details">
-          <h2 class="item-title">
-            Premiere Pro入門：Vlog編集の効率化とテロップ作成
-          </h2>
-          <p class="item-description">
-            Vlog制作に必要なカット編集、BGM調整、そして視聴者を引きつけるテロップの入れ方を、実践的なプロジェクトを通じて習得します。
-          </p>
-          <p class="item-price">¥7,800</p>
-        </div>
-      </a>
-
-      <a href="#" class="item-card">
-        <div class="item-image-container">
-          <img
-            src="../static/media/anime_placeholder.jpg"
-            alt="動畫課程封面"
-            class="item-image"
-          />
-          <div class="play-button">
-            <svg viewBox="0 0 24 24" fill="white" width="48px" height="48px">
-              <path d="M8 5v14l11-7z" />
-            </svg>
-          </div>
-          <p class="image-label">デザイン基礎</p>
-        </div>
-        <div class="item-details">
-          <h2 class="item-title">
-            Adobe Illustrator基礎：ロゴと図形の美しいデザイン方法
-          </h2>
-          <p class="item-description">
-            Illustratorの基本操作から、曲線やベジェ曲線を使いこなす方法、さらには目を引くロゴデザインの原則までを体系的に学びます。
-          </p>
-          <p class="item-price">¥7,800</p>
-        </div>
-      </a>
-
-      <a href="#" class="item-card">
-        <div class="item-image-container">
-          <img
-            src="../static/media/camera_placeholder.jpg"
-            alt="攝影課程封面"
-            class="item-image"
-          />
-          <div class="play-button">
-            <svg viewBox="0 0 24 24" fill="white" width="48px" height="48px">
-              <path d="M8 5v14l11-7z" />
-            </svg>
-          </div>
-          <p class="image-label">ライティング</p>
-        </div>
-        <div class="item-details">
-          <h2 class="item-title">
-            ストロボ入門：一灯ライティングでプロの質感を実現する方法
-          </h2>
-          <p class="item-description">
-            外部ストロボを導入したい初心者向け。ポートレート撮影における光の向き、強さ、質をコントロールする実用的な方法を学びます。
-          </p>
-          <p class="item-price">¥7,800</p>
-        </div>
-      </a>
-
-      <a href="#" class="item-card">
-        <div class="item-image-container">
-          <img
-            src="../static/media/anime_placeholder.jpg"
-            alt="動畫課程封面"
-            class="item-image"
-          />
-          <div class="play-button">
-            <svg viewBox="0 0 24 24" fill="white" width="48px" height="48px">
-              <path d="M8 5v14l11-7z" />
-            </svg>
-          </div>
-          <p class="image-label">キャラクター</p>
-        </div>
-        <div class="item-details">
-          <h2 class="item-title">
-            魅力的なキャラクターデザイン：感情を伝える表情とポーズ
-          </h2>
-          <p class="item-description">
-            キャラクターに命を吹き込むための、感情表現、ポーズ設計、そして個性的なファッションデザインの考え方を学びます。
-          </p>
-          <p class="item-price">¥7,800</p>
-        </div>
-      </a>
+          <p class="item-title">{{ video.video_title }}</p>
+          <p class="item-description">{{ video.video_description_section }}</p>
+          <p>{{ video.video_upload_date }}</p>
+        </li>
+        {% endfor %}
+      </ul>
     </div>
 
     <div class="pagination">
