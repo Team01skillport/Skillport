@@ -35,10 +35,11 @@ def view_profile():
         user_info = fetch_query(sql, True)
         print(user_info)
         introduction = user_info['introduction']
+        
+        # ユーザーの評価をとって、スターで表示する
         user_rating = int(user_info['user_rating'])
         rating_stars = []
         full_rating = 5
-        print(user_rating)
         if user_rating == 0:
             rating_stars.append("☆☆☆☆☆")
         else:
@@ -56,7 +57,11 @@ def view_profile():
         except:
             tag = ""
             
-        return render_template('profile/profile.html', user_name=session['user_name'], introduction=introduction, tag=tag, rating_stars=rating_stars)
+        # ユーザーがアップした動画を表示する
+        sql = "SELECT v.* FROM video_tbl v INNER JOIN user_tbl u ON v.video_uploader_id = u.id WHERE u.id = '"+str(user_id)+"';"
+        user_videos = fetch_query(sql)
+            
+        return render_template('profile/profile.html', user_name=session['user_name'], introduction=introduction, tag=tag, rating_stars=rating_stars, user_videos=user_videos)
     else:
         return redirect(url_for('auth.login'))
 
