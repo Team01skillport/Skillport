@@ -9,11 +9,11 @@ def connect_db():
     )
     return con
     
-def fetch_query(sql,params=None,fetch_one=False):
+def fetch_query(sql,fetch_one=False):
     try:
         con = connect_db()
         cur = con.cursor(dictionary=True)
-        cur.execute(sql, params)
+        cur.execute(sql)
         if fetch_one == False:
             result = cur.fetchall()
         else:

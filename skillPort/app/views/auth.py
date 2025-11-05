@@ -9,10 +9,10 @@ def login():
     if request.method == 'POST':
         username = request.form.get("userId")
         password = request.form.get("password")
-
+        
         sql = "SELECT id, user_name FROM user_tbl WHERE user_name = '"+username+"' AND password = '"+password+"';"
         user_info = fetch_query(sql, True)
-        
+        print(user_info)
         if user_info:
             session['user_id'] = user_info['id']
             session['user_name'] = user_info['user_name']
