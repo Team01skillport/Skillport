@@ -38,8 +38,12 @@ def view_profile():
         introduction = user_info['introduction']
         
         # ユーザーのタグ文字列をとって、カンマに区切る
-        user_tags = user_info['user_tags']
-        tag = [tag.strip() for tag in user_tags.split(",")]
+        try:
+            user_tags = user_info['user_tags']
+            tag = [tag.strip() for tag in user_tags.split(",")]
+        except:
+            tag = ""
+            
         return render_template('profile/profile.html', user_name=session['user_name'], introduction=introduction, tag=tag)
     else:
         return redirect(url_for('auth.login'))
