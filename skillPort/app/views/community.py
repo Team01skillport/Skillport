@@ -5,18 +5,29 @@ community_bp = Blueprint('community', __name__, url_prefix='/community')
 
 @community_bp.route('/community/top', methods=["GET"])
 def community_top():
-    sql = "select p.*, u.id AS user_id, u.user_name, u.profile_icon from post_tbl p INNER JOIN user_tbl u ON p.user_id = u.id ORDER BY post_update_date ASC;"
+    sql = "select p.*, u.id AS user_id, u.user_name, u.profile_icon from post_tbl p INNER JOIN user_tbl u ON p.user_id = u.id ORDER BY post_update_date DESC;"
     all_posts = fetch_query(sql)
     
     sql = "select * FROM video_tbl ORDER"
-    if 'user_id' in session:
+    try:
         user_id = session['user_id']
+    except:
+        user_id = "guest"
     return render_template('community/community.html', all_posts=all_posts, user_id=user_id)
 
 @community_bp.route('/community/upload_post', methods=["POST"])
 def upload_post():
-    sql = "select p.*, u.id AS user_id, u.user_name, u.profile_icon from post_tbl p INNER JOIN user_tbl u ON p.user_id = u.id ORDER BY post_update_date ASC;"
+    sql = "select p.*, u.id AS user_id, u.user_name, u.profile_icon from post_tbl p INNER JOIN user_tbl u ON p.user_id = u.id ORDER BY post_update_date DESC;"
     all_posts = fetch_query(sql)
-    up_post_text = request.form.get("post_text")
-    print(up_post_text)
-    return render_template('community/community.html', all_posts=all_posts)
+    if 'user_id' in session:
+        user_id = session['user_id']
+        up_post_text = request.form.get("post_text")
+        if post_media == "":
+            post_media = None
+        sql = "INSERT INTO post_tbl (user_id, post_text, post_media) VALUES ("+ str(user_id)+", '"+up_post_text+"', '"+post_media+"');" 
+        errmsg = ""
+    else:
+        errmsg = "投稿するのにアカウントが必要です"
+    return render_template('community/community.html', all_posts=all_posts, errmsg=errmsg)
+    
+    

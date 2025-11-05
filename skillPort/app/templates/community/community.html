@@ -58,10 +58,11 @@
       {% endfor %}
     </div>
 
-    <form action="{{url_for('community.upload_post')}}" class="upload_post" method="post"></form>
       <div class="new-post">
+          <form action="{{url_for('community.upload_post')}}" class="upload_post" method="post">
+
         <!-- バグるから一旦コメント↓ -->
-        <!-- <img class="user_icon" src="{{url_for('static', filename='media/user' + profile_icon)}}" alt="ユーザーアイコン"> -->
+        <!-- <img class="user_icon" src="{{url_for('static', filename='media/user')}}" alt="ユーザーアイコン"> -->
           <div class="input-area">
             <div class="textbox">
               <div class="attachment"></div>
@@ -72,10 +73,10 @@
               <button class="send">▶</button>
             </div>
             <input class="filepick" type="file" accept="image/*,video/*" hidden>
-            <input type="submit" value="送信">
+            <button type="submit">送信</button>
           </div>
+        </form>
       </div>
-    </form>
   </div>
 
   <div class="reccomended reccomended--right">
