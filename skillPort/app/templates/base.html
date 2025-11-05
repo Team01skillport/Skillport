@@ -45,7 +45,11 @@
       <div class="container">
         <ul>
           <li>
-            <a href="{{ url_for('auth.view_profile')}}">プロフィール</a>
+            {% if 'user_id' in session %}
+            <a href="{{ url_for('auth.view_profile', user_id=session['user_id']) }}">プロフィール</a>
+            {% else %}
+            <a href="{{ url_for('auth.login') }}">プロフィール</a>
+            {% endif %}
           </li>
           <li><a href="{{ url_for('market.market_top')}}">マーケット</a></li>
           <li>

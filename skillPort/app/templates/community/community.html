@@ -41,7 +41,7 @@
       <div class="post">
         <div class="user">
           <img class="avatar" src="{{url_for('static', filename='media/user' + post.profile_icon)}}" alt="ユーザーアイコン">
-          <p class="username">{{post.user_name}}</p>
+          <a href="{{url_for('auth.view_profile', user_id=post.user_id)}}" class="username">{{post.user_name}}</a>
         </div>
         {% if post.post_media != None %}
         <img src="{{post.post_media}}">メディアがあればここ</img>

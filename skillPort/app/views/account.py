@@ -16,10 +16,7 @@ def register_userlogin():
     print(password)
     return render_template('account/user_register.html', username=username, password=password)
 
-@account_bp.route('/register_success', methods=["POST"])
-def register_userinfo():
-    
-    return render_template('account/profile.html')
+
 
 @account_bp.route('/user_register_complete', methods=["POST"])
 def user_register_complete():
