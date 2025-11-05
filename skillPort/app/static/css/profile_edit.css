@@ -1,4 +1,4 @@
-* {
+*{
     margin: 0;
     padding: 0;
     box-sizing: border-box;
@@ -6,15 +6,14 @@
 
 body{
     background-color: #f0f0f0;
-
 }
 
 /* プロフィール設定 */
 .edit-container{
     background-color: white;
-    width: 40%;
+    width: 60%;
     border-radius: 12px;
-    margin: 60 0 0 500px;
+    margin-left: 350px;
     padding-bottom: 60px;
 }
 
@@ -26,9 +25,8 @@ body{
 }
 
 
-.profile-set-contents{
-    padding:50 0 0 50px;
-
+.profile-set-main{
+    padding:50px 0px 0px 150px;
 }
 
 .profile-set-img {
@@ -77,7 +75,7 @@ p{
 }
 
 /* 更新するボタン */
-button{
+#update-button{
     margin-left: 50px;
     margin-top: 80px;
     font-size: 30px;
@@ -96,8 +94,8 @@ button{
     text-align: center;
 }
 
-.information-set-contents{
-    padding:30 0 0 50px;
+.personal-information-set-main{
+    padding:30px 0px 0px 150px;
 }
 
 .last-name-textbox{
