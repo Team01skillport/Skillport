@@ -70,7 +70,7 @@ def market_top():
         sql_products += " AND l.product_price <= %s"
         params.append(int(max_price))
 
-    all_products = fetch_query(sql_products)
+    all_products = fetch_query(sql_products, tuple(params))
     
     sql_categories = """
         SELECT DISTINCT 

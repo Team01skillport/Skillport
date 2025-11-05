@@ -38,7 +38,7 @@ content %}
 
     <div class="content-wrapper">
       
-      <form action="{{ url_for('market.market_top') }}" method="GET" class="sidebar" data-categories="{{ all_categories | tojson | safe }}">
+      <form action="{{ url_for('market.market_top') }}" method="GET" class="sidebar">
         <aside>
           <button type="submit" class="filter-btn active">更新</button>
 
@@ -50,14 +50,27 @@ content %}
             <button type="button" class="filter-item toggle-filter-btn">
               <span>カテゴリー</span><span class="arrow">＞</span>
             </button>
-            <div class="filter-content" id="categoryListContainer" style="display: none">
+            
+            <div class="filter-content" id="categoryListContainer">
+              <div class="filter-checkbox-group">
+                {% if all_categories %}
+                  {% for cat in all_categories %}
+                  <label>
+                    <input type="checkbox" name="category" value="{{ cat.id }}" /> {{ cat.name }}
+                  </label>
+                  {% endfor %}
+                {% else %}
+                  <p style="font-size: 13px; color: #777; padding-left: 5px;">カテゴリーが見つかりません。</p>
+                {% endif %}
               </div>
+            </div>
+            
           </div>
           <div class="filter-section" id="statusFilter">
             <button type="button" class="filter-item toggle-filter-btn">
               <span>販売状況</span><span class="arrow">＞</span>
             </button>
-            <div class="filter-content" style="display: none">
+            <div class="filter-content">
               <div class="filter-checkbox-group">
                 <label><input type="checkbox" name="sale_status" value="on_sale" /> 販売中</label>
                 <label><input type="checkbox" name="sale_status" value="sold_out" /> 売り切れ</label>
@@ -68,7 +81,7 @@ content %}
             <button type="button" class="filter-item toggle-filter-btn">
               <span>出品者</span><span class="arrow">＞</span>
             </button>
-            <div class="filter-content" style="display: none">
+            <div class="filter-content">
               <input type="text" name="seller_name" class="filter-search-input" placeholder="出品者名で検索...">
             </div>
           </div>
@@ -77,7 +90,7 @@ content %}
             <button type="button" class="filter-item toggle-filter-btn">
               <span>商品の状態</span><span class="arrow">＞</span>
             </button>
-            <div class="filter-content" style="display: none">
+            <div class="filter-content">
               <div class="filter-checkbox-group">
                 <label><input type="checkbox" name="condition" value="new" /> 新品</label>
                 <label><input type="checkbox" name="condition" value="used" /> 中古</label>
@@ -89,7 +102,7 @@ content %}
             <button type="button" class="filter-item toggle-filter-btn">
               <span>価格</span><span class="arrow">＞</span>
             </button>
-            <div class="filter-content price-filter-content" style="display: none">
+            <div class="filter-content price-filter-content">
               <div class="price-slider-container">
                   <input type="range" id="priceRange" class="price-slider" min="100" max="100000" value="50000" step="100">
                   <div class="price-display">¥ <span id="priceValue">50,000</span></div>
@@ -99,8 +112,7 @@ content %}
                 <span>-</span>
                 <input type="number" name="max_price" placeholder="¥ Max" class="price-input" min="0" />
               </div>
-              <!-- <button type="button" class="btn-apply-price">適用</button> -->
-            </div>
+              </div>
           </div>
           </aside>
       </form>
