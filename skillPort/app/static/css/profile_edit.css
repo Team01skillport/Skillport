@@ -18,9 +18,7 @@ body{
     padding-bottom: 60px;
 }
 
-.profile-set-info{
 
-}
 
 .profile-set-text{
     padding-top:50px ;
@@ -52,6 +50,14 @@ p{
     border-radius: 50px;
     height: 30px;
     width: 200px;
+}
+
+.tag-textbox{
+    padding-left: 50px;
+    margin-top: 10px;
+    border-radius: 50px;
+    height: 30px;
+    width: 300px;
 }
 
 .user-name-textbox{
