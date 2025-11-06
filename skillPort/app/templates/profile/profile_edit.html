@@ -17,7 +17,13 @@ block styles %}
             alt="プロフィール画像"
           />
           <label for="fileInput" class="upload-btn">画像をアップロード</label>
-          <input type="file" id="fileInput" accept="image/*" hidden />
+          <input
+            type="file"
+            id="fileInput"
+            accept="image/*"
+            name="profile_icon"
+            hidden
+          />
         </div>
 
         <div class="profile-inputs-group">
@@ -43,15 +49,22 @@ block styles %}
             >
           </div>
         </div>
-        <div class="form-actions">
-          <button type="submit" class="primary-btn">プロフィールを更新</button>
-        </div>
       </form>
     </section>
 
     <section class="personal-info-section">
       <h1 class="section-title">個人情報設定</h1>
       <form id="personalInfoForm" class="personal-info-form">
+        <div class="form-group">
+          <label for="mailAdd">メールアドレス</label>
+          <input
+            type="text"
+            id="mailAdd"
+            value="{{info['mail']}}"
+            name="email"
+            required
+          />
+        </div>
         <div class="form-row">
           <div class="form-group half">
             <label for="lastNameInput">姓</label>
