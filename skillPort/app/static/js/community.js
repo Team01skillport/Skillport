@@ -356,65 +356,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // ---- CREATE MODE ----
-    const list = document.querySelector('.post-list');
-    if (!list) { closeModal(); return; }
-
-    const post = document.createElement('div');
-    post.className = 'post';
-
-    const user = document.createElement('div');
-    user.className = 'user';
-    const av = document.createElement('img');
-    av.className = 'avatar';
-    av.alt = 'ユーザー';
-    av.src = createContext?.avatarSrc || '../static/media/1.jpeg';
-    const uname = document.createElement('span');
-    uname.className = 'username';
-    uname.textContent = createContext?.username || 'You';
-    user.appendChild(av);
-    user.appendChild(uname);
-    post.appendChild(user);
-
-    if (!removeMedia && replaceFile) {
-      const isImg = replaceFile.type.startsWith('image/');
-      const isVid = replaceFile.type.startsWith('video/');
-      if (isImg || isVid) {
-        const media = document.createElement(isImg ? 'img' : 'video');
-        media.className = 'contents';
-        media.style.marginLeft = '49px';
-        if (!objectUrl) objectUrl = URL.createObjectURL(replaceFile);
-        media.src = objectUrl;
-        if (isVid) media.controls = true;
-        keepObjectUrl = true;
-        post.appendChild(media);
-      }
-    }
-
-    const p = document.createElement('p');
-    p.textContent = textVal;
-    p.style.marginLeft = '49px';
-    post.appendChild(p);
-
-    const actions = document.createElement('div');
-    actions.className = 'actions';
-    const editBtn = document.createElement('button');
-    editBtn.textContent = '編集';
-    actions.appendChild(editBtn);
-    post.appendChild(actions);
-
-    list.prepend(post);
-
-    const composer = document.querySelector('.new-post');
-    if (composer) {
-      const cText = composer.querySelector('.textbox .text');
-      const cAttach = composer.querySelector('.textbox .attachment');
-      const cPick = composer.querySelector('.filepick');
-      const cBox = composer.querySelector('.textbox');
-      if (cText) cText.value = '';
-      if (cAttach) cAttach.innerHTML = '';
-      if (cPick) cPick.value = '';
-      if (cBox) cBox.classList.remove('has-attachment');
-    }
+    
 
     closeModal();
   });
