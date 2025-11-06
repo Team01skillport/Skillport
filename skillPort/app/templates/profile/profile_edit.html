@@ -1,81 +1,116 @@
-{% extends "base.html" %} {% block title %}プロフィール{% endblock %} {% block
-content %}
-<head>
-  <link rel="stylesheet" href="../../static/css/profile_edit.css" />
-</head>
-<body>
-    <!-- プロフィール設定 -->
+{% extends "base.html" %} 
+
+{% block title %}プロフィール設定{% endblock %} 
+
+{% block styles %}
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/profile_edit.css') }}">
+{% endblock %}
+
+{% block content %}
+<main class="profile-edit-main">
     <div class="edit-container">
-        <div class="profile-set-info">
-            <h1 class="profile-set-text">プロフィール設定</h1>
-            <div class="profile-set-main">
-                <div class="profile-set-contents">
+        
+        <section class="profile-set-section">
+            <h1 class="section-title">プロフィール設定</h1>
+            <form id="profileForm" class="profile-form">
+                <div class="profile-image-upload">
                     <img class="profile-set-img"
-                    src="https://images.unsplash.com/photo-1540573133985-87b6da6d54a9?w=300&h=300&fit=crop"
-                    alt="プロフィール画像"
-                    class="profile-image"
+                        src="https://images.unsplash.com/photo-1540573133985-87b6da6d54a9?w=300&h=300&fit=crop"
+                        alt="プロフィール画像"
                     />
-                    <input type="file">
-                    <div class="profile-set-mintext">
-                        <div class="specialt">
-                            <p>専門分野<br></p>
-                            <input type="text" value="元の情報を載せます" name="specialty" required class="specialt-textbox">
-                        </div>
-                        <div class="tag">
-                            <p>タグ<br></p>
-                            <input type="text" value="元の情報を載せます" name="specialty" required class="tag-textbox">
-                        </div>
-                        <div class="user-name">
-                            <p>ユーザー名<br></p>
-                            <input type="text" value="元の情報を載せます" name="user-name" required class="user-name-textbox">
-                        </div>
-                        <div class="self-introduction">
-                            <p>自己紹介<br></p>
-                            <input type="text" value="元の情報を載せます" name="self-introduction" required class="self-introduction-textbox">
-                        </div>
+                    <label for="fileInput" class="upload-btn">画像をアップロード</label>
+                    <input type="file" id="fileInput" accept="image/*" hidden>
+                </div>
+
+                <div class="profile-inputs-group">
+                    <!-- <div class="form-group">
+                        <label for="specialtyInput">専門分野</label>
+                        <input type="text" id="specialtyInput" value="元の情報を載せます" name="specialty" required>
+                    </div> -->
+                    <div class="form-group">
+                        <label for="tagInput">タグ</label>
+                        <input type="text" id="tagInput" value="元の情報を載せます" name="tags" placeholder="例: Web開発, Python, UI/UX" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="userNameInput">ユーザー名</label>
+                        <input type="text" id="userNameInput" value="元の情報を載せます" name="user_name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="selfIntroInput">自己紹介</label>
+                        <textarea id="selfIntroInput" name="self_introduction" rows="4">元の情報を載せます</textarea>
                     </div>
                 </div>
-                <div class="update-button">
-                    <button type="submit" id="update-button">更新する</button>
+                <div class="form-actions">
+                    <button type="submit" class="primary-btn">プロフィールを更新</button>
                 </div>
-            </div>
-        </div>
+            </form>
+        </section>
 
-        <!-- 個人情報設定 -->
-        <div class="personal-information">
-            <h1 class="personal-information-text">個人情報設定</h1>
-            <div class="personal-information-set-main">
-                <div class="information-set-contents">
-                <p>姓<br></p>
-                    <input type="text" value="元の情報を載せます" name="last-name" required class="last-name-textbox">
-                    <p>名<br></p>
-                    <input type="text" value="元の情報を載せます" name="first-name" required class="first-name-textbox">
-                    <p>姓（フリガナ）<br></p>
-                    <input type="text" value="元の情報を載せます" name="last-name-ruby" required class="last-name-ruby-textbox">
-                    <p>名（フリガナ）<br></p>
-                    <input type="text" value="元の情報を載せます" name="first-name-ruby" required class="first-name-ruby-textbox">
-                    <p>住所<br></p>
-                    <input type="text" value="元の情報を載せます" name="address" required class="address-textbox">
-                    <p>生年月日<br></p>
-                    <input type="text" value="年" name="year" required class="year-textbox">
-                    <input type="text" value="月" name="month" required class="month-textbox">
-                    <input type="text" value="日" name="day" required class="day-textbox">
-                    <p>電話<br></p>
-                    <input type="text" value="元の情報を載せます" name="phone-num" required class="phone-num-textbox">
-                    <p>支払い（クレジットカード）<br></p>
-                    <input type="text" value="カード番号" name="card-num" required class="card-num-textbox"><br>
-                    <input type="text" value="カード名義" name="curd-name" required class="curd-name-textbox"><br>
-                    <input type="text" value="CVV" name="cvv" required class="cvv-textbox">
-                    <input type="text" value="有効期限" name="expiration-date" required class="expiration-date-textbox">
+        <section class="personal-info-section">
+            <h1 class="section-title">個人情報設定</h1>
+            <form id="personalInfoForm" class="personal-info-form">
+                <div class="form-row">
+                    <div class="form-group half">
+                        <label for="lastNameInput">姓</label>
+                        <input type="text" id="lastNameInput" value="元の情報を載せます" name="last_name" required>
+                    </div>
+                    <div class="form-group half">
+                        <label for="firstNameInput">名</label>
+                        <input type="text" id="firstNameInput" value="元の情報を載せます" name="first_name" required>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group half">
+                        <label for="lastNameRubyInput">姓（フリガナ）</label>
+                        <input type="text" id="lastNameRubyInput" value="元の情報を載せます" name="last_name_ruby" required>
+                    </div>
+                    <div class="form-group half">
+                        <label for="firstNameRubyInput">名（フリガナ）</label>
+                        <input type="text" id="firstNameRubyInput" value="元の情報を載せます" name="first_name_ruby" required>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="addressInput">住所</label>
+                    <input type="text" id="addressInput" value="元の情報を載せます" name="address" required>
+                </div>
+                
+                <div class="form-group">
+                    <label>生年月日</label>
+                    <div class="date-inputs">
+                        <input type="number" id="yearInput" value="年" name="year" placeholder="年" min="1900" max="2100">
+                        <span class="date-sep">/</span>
+                        <input type="number" id="monthInput" value="月" name="month" placeholder="月" min="1" max="12">
+                        <span class="date-sep">/</span>
+                        <input type="number" id="dayInput" value="日" name="day" placeholder="日" min="1" max="31">
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="phoneNumInput">電話番号</label>
+                    <input type="tel" id="phoneNumInput" value="元の情報を載せます" name="phone_num" placeholder="090-1234-5678">
+                </div>
+                
+                <div class="form-group">
+                    <label>支払い（クレジットカード）</label>
+                    <input type="text" id="cardNumberInput" value="カード番号" name="card_number" placeholder="xxxx xxxx xxxx xxxx"><br>
+                    <input type="text" id="cardNameInput" value="カード名義" name="card_name" placeholder="名義人名"><br>
+                    <div class="form-row">
+                        <input type="text" id="cvvInput" value="CVV" name="cvv" placeholder="CVV" class="half">
+                        <input type="text" id="expirationDateInput" value="有効期限" name="expiration_date" placeholder="MM/YY" class="half">
+                    </div>
                 </div>
 
-                <div class="update-button">
-                    <button type="button" id="update-button">更新する</button>
+                <div class="form-actions">
+                    <button type="submit" class="primary-btn">個人情報を更新</button>
                 </div>
-            </div>
-        </div>
+            </form>
+        </section>
+
     </div>
-
-</body>
+</main>
 {% endblock %}
-</html>
+
+{% block scripts %}
+  <script src="{{ url_for('static', filename='js/profile_edit.js') }}" defer></script>
+{% endblock %}

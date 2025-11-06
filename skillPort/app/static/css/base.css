@@ -217,6 +217,11 @@ body {
   display: block;
 }
 
+.profile_icon {
+  margin-right: 10px;
+  margin-top: 5px;
+}
+
 /*フッター ------------------------------------------------------------ */
 
 footer {

@@ -24,10 +24,11 @@
         {% endif %}
       </ul>
       <a href="{{ url_for('auth.view_profile', user_id=session['user_id']) if 'user_id' in session else url_for('auth.login') }}">
-        <img
-          src="{{ url_for('static', filename='media/profile_icon.png') }}"
+        <!-- <img
+          src="{{url_for('static', filename='media/user/icons/default_icon.png')}}"
           alt="profile icon"
-        />
+          class="profile_icon"
+        /> -->
       </a>
     </div>
 

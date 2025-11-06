@@ -9,13 +9,14 @@ content %}
     <div class="page-header">
       <h2 class="page-title">マーケット</h2>
       <div class="search-bar">
-        <form action="{{ url_for('search.market_search')}}">
-          <button type="submit" class="search-icon">🔍</button>
+        <form action="{{ url_for('market.market_top')}}" method="GET">
+          <button type="submit" class="search-icon"></button>
           <input
             type="text"
-            name="market_search"
-            placeholder="検索バー"
+            name="keyword"
+            placeholder="🔍商品名で検索..."
             class="product-search"
+            value="{{ request.args.get('keyword', '') }}"
           />
         </form>
       </div>
