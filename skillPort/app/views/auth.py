@@ -29,19 +29,18 @@ def login():
 
 @auth_bp.route('/profile/<user_id>', methods=["GET"])
 def view_profile(user_id):
-    try:
-        user_id = session['user_id']
-    except:
-        user_id = user_id
     sql = "SELECT * FROM user_tbl WHERE id = '"+str(user_id)+"';"
     user_info = fetch_query(sql, params=None, fetch_one=True)
     user_name = user_info['user_name']
     if user_info is None:
         return "ユーザーは存在しない"
+    
+    # ユーザーのアイコン取得
     user_icon = user_info['profile_icon']
     if user_icon == None:
         user_icon = "/icons/default_icon.png"
-    print(user_icon)
+   
+#    ユーザーの自己紹介文の取得
     try:
         introduction = user_info['introduction']
     except:
