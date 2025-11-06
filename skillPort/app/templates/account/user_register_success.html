@@ -1,4 +1,54 @@
-{% extends "base.html" %} {% block title %}アカウント登録成功{% endblock %} {%
-block content %}
-<h1>登録成功</h1>
-{% endblock %}
+{% extends "base.html" %} {% block title %}ログイン{% endblock %} {% block
+    content %}
+    <head>
+      <link
+        rel="stylesheet"
+        href="{{ url_for('static', filename='css/user_register_success.css') }}"
+      />
+    </head>
+    <div class="page-center-wrapper">
+      <div class="login-card">
+        <div class="logo-area">
+          <img
+            src="{{ url_for('static', filename='media/skill-port-logo.png') }}"
+            alt="SkillPort Logo"
+            class="logo-image"
+          />
+        </div>
+        
+        <form class="login-form" method="post" action="{{url_for('auth.login')}}">
+            <p>ご登録ありがとうございます！<br>ログインへお進みください。</p>
+          <!-- <input
+            class="form-group"
+            type="text"
+            id="userId"
+            name="userId"
+            placeholder="ユーザーID"
+          />
+    
+          <input
+            class="form-group"
+            type="password"
+            id="password"
+            name="password"
+            placeholder="パスワード"
+          /> -->
+          {% if errmsg %}
+          <div class="error">{{errmsg}}</div>
+          {% endif %}
+          <br />
+          <button type="submit" class="submit-btn">ログイン</button>
+        </form>
+    
+        <!-- <a href="{{url_for('account.register_form')}}" class="link-option"
+          >新規アカウントを作成</a
+        >
+        <a href="{{url_for('my_page.password_reset', mode="fromlogin")}}" class="link-option"
+          >ログイン情報を忘れた</a
+        > -->
+      </div>
+    </div>
+    <script src="{{url_for('static', filename='js/jquery-3.7.0.min.js')}}"></script>
+    <script src="{{url_for('static', filename='js/login.js')}}"></script>
+    {% endblock %}
+    
