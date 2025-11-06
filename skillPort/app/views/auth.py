@@ -17,13 +17,13 @@ def login():
             session['user_id'] = user_info['id']
             session['user_name'] = user_info['user_name']
             
-            return redirect(url_for('auth.view_profile'))
+            return redirect(url_for('auth.view_profile', user_id=session['user_id']))
         else:
             errmsg = "ユーザーIDまたはパスワードが正しくありません。"
             return render_template('auth/login.html', errmsg=errmsg)
 
     if 'user_id' in session:
-        return redirect(url_for('auth.view_profile'))
+        return redirect(url_for('auth.view_profile', user_id=session['user_id']))
         
     return render_template('auth/login.html', errmsg="")
 

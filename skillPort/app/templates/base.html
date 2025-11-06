@@ -15,8 +15,7 @@
 <div id="profile">
       <ul>
         {% if 'user_id' in session %}
-          <li><span>こんにちは, {{ session.user_name }} さん</span></li>
-          <!-- <li><a href="{{ url_for('auth.view_profile') }}">プロフィール</a></li> -->
+          <li><a href="{{ url_for('auth.view_profile', user_id=session.user_id) }}">こんにちは, {{ session.user_name }} さん</a></li>
           <li><a href="{{ url_for('auth.logout') }}">ログアウト</a></li>
 
         {% else %}
@@ -24,7 +23,7 @@
           <li><a href="{{ url_for('auth.login') }}">ログイン</a></li>
         {% endif %}
       </ul>
-      <a href="{{ url_for('auth.view_profile') if 'user_id' in session else url_for('auth.login') }}">
+      <a href="{{ url_for('auth.view_profile', user_id=session['user_id']) if 'user_id' in session else url_for('auth.login') }}">
         <img
           src="{{ url_for('static', filename='media/profile_icon.png') }}"
           alt="profile icon"
