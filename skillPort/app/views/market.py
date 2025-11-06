@@ -10,7 +10,8 @@ market_bp = Blueprint('market', __name__, url_prefix='/market')
 
 @market_bp.route('/', methods=["GET"])
 def market_top():
-    
+
+    keyword = request.args.get('keyword')
     categories_filter = request.args.getlist('category')
     sale_status = request.args.getlist('sale_status')
     conditions = request.args.getlist('condition')
@@ -31,6 +32,9 @@ def market_top():
     """
     params = []
 
+    if keyword:
+        sql_products += " AND l.product_name LIKE %s"
+        params.append(f"%{keyword}%")
     if categories_filter:
         placeholders = ','.join(['%s'] * len(categories_filter))
         sql_products += f" AND l.product_category IN ({placeholders})"
@@ -145,4 +149,7 @@ def manage_products_page():
 
 @market_bp.route('/product/<product_id>/checkout', methods=["GET"])
 def checkout_page(product_id):
-    return render_template('order/checkout.html')
+    sql = "SELECT * from listing_tbl WHERE product_id = '"+product_id+"';"
+    product_info = fetch_query(sql, params=None, fetch_one=True)
+    print(product_info)
+    return render_template('order/checkout.html', product=product_info)

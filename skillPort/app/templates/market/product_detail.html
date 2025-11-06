@@ -4,10 +4,6 @@ content %}
   rel="stylesheet"
   href="{{ url_for('static', filename='css/product_detail.css') }}"
 />
-<link
-  rel="stylesheet"
-  href="{{ url_for('static', filename='css/popup_report.css') }}"
-/>
 <div class="page-wrap">
   <main class="product-section">
     <div class="image-area">
@@ -43,7 +39,11 @@ content %}
         <a href="#" class="btn" id="reportBtn">通報</a>
       </div>
 
-      <a href="{{ url_for('market.checkout_page', product_id=info.product_id) }}" class="buy-btn">購入</a>
+      <a
+        href="{{ url_for('market.checkout_page', product_id=info.product_id) }}"
+        class="buy-btn"
+        >購入</a
+      >
 
       <div class="desc">
         <h2>商品の説明</h2>
@@ -96,19 +96,24 @@ content %}
       </ul>
     </div>
 
-<div class="seller-box">
+    <div class="seller-box">
       <h3>出品者</h3>
       <div class="seller-info">
-        
         {% if info.seller_icon %}
-          <img src="{{ url_for('static', filename=info.seller_icon[1:]) }}" alt="出品者アイコン">
+        <img
+          src="{{ url_for('static', filename=info.seller_icon[1:]) }}"
+          alt="出品者アイコン"
+        />
         {% else %}
-          <img src="{{ url_for('static', filename='media/profile_icon.png') }}" alt="デフォルトアイコン">
+        <img
+          src="{{ url_for('static', filename='media/profile_icon.png') }}"
+          alt="デフォルトアイコン"
+        />
         {% endif %}
 
         <div class="text">
           <h4><a href="#">{{ info.seller_name }}</a></h4>
-          
+
           <p>{{ info.seller_tags }}</p>
 
           <p>⭐️⭐️⭐️⭐️☆ (評価は後で実装)</p>
@@ -117,38 +122,42 @@ content %}
       </div>
     </div>
 
-<div id="reportModal" class="modal hidden">
-  <div class="modal-content">
-    <h2>通報</h2>
-    <form id="reportForm">
-      <label
-        ><input type="radio" name="reason" value="不適切" />
-        公序良俗に反する内容を含む</label
-      ><br />
-      <label
-        ><input type="radio" name="reason" value="違法商品" />
-        違法・禁止商品の出品</label
-      ><br />
-      <label
-        ><input type="radio" name="reason" value="著作権侵害" />
-        著作権・商標権の侵害</label
-      ><br />
-      <label
-        ><input type="radio" name="reason" value="虚偽" /> 商品説明が虚偽</label
-      ><br />
-      <label><input type="radio" name="reason" value="その他" /> その他</label
-      ><br />
-      <textarea
-        name="detail"
-        rows="4"
-        placeholder="詳細内容を入力してください"
-      ></textarea>
-      <div class="modal-buttons">
-        <button type="button" id="closeModal">キャンセル</button>
-        <button type="submit" id="submitReport">報告</button>
+    <div id="reportModal" class="modal hidden">
+      <div class="modal-content">
+        <h2>通報</h2>
+        <form id="reportForm">
+          <label
+            ><input type="radio" name="reason" value="不適切" />
+            公序良俗に反する内容を含む</label
+          ><br />
+          <label
+            ><input type="radio" name="reason" value="違法商品" />
+            違法・禁止商品の出品</label
+          ><br />
+          <label
+            ><input type="radio" name="reason" value="著作権侵害" />
+            著作権・商標権の侵害</label
+          ><br />
+          <label
+            ><input type="radio" name="reason" value="虚偽" />
+            商品説明が虚偽</label
+          ><br />
+          <label
+            ><input type="radio" name="reason" value="その他" /> その他</label
+          ><br />
+          <textarea
+            name="detail"
+            rows="4"
+            placeholder="詳細内容を入力してください"
+          ></textarea>
+          <div class="modal-buttons">
+            <button type="button" id="closeModal">キャンセル</button>
+            <button type="submit" id="submitReport">報告</button>
+          </div>
+        </form>
       </div>
-    </form>
-  </div>
-</div>
+    </div>
 
-{% endblock %}
+    {% endblock %}
+  </section>
+</div>

@@ -42,7 +42,7 @@ content %}
             ><button class="action-btn">マイページ</button></a
           >
 
-          <a href="{{ url_for('account.edit_profile')}}"
+          <a href="{{ url_for('account.edit_profile', user_name=user_name)}}"
             ><button class="action-btn">編集</button></a
           >
         </div>
