@@ -1,87 +1,139 @@
+/* --------------------------------------------------------- */
+/* 基礎設定 (與 Login.css 保持一致) */
+/* --------------------------------------------------------- */
 body {
   font-family: sans-serif;
   margin: 0;
+  /* 統一為淺灰色背景 */
+  background-color: #f0f0f0; 
 }
 
-body {
-  background-color: #e4e4e4;
-  font-family: "Segoe UI", sans-serif;
-  margin: 0;
-  padding: 0;
-  height: 90vh;
-}
-
-main {
+/* --------------------------------------------------------- */
+/* 置中容器與卡片樣式 */
+/* --------------------------------------------------------- */
+.page-center-wrapper {
+  /* 全局居中容器 (負責內容在螢幕中央) */
   display: flex;
+  justify-content: center;
   align-items: center;
-  justify-content: center;
-  max-height: 71vh;
-  height: 100%;
+  /* 確保在沒有 base.html 干擾時，內容能垂直置中 */
+  /* min-height: calc(100vh - 80px); 假設 header/footer 高度，確保內容居中 */
+  padding: 68px 0 68px 0 ; 
+  box-sizing: border-box;
 }
 
-.login-container {
-  background-color: rgb(255, 255, 255);
-  color: rgb(0, 0, 0);
-  width: 90%;
-  max-width: 400px;
-  padding: 20px 30px;
-  border-radius: 12px;
-  box-shadow: 0 0 30px rgba(255, 255, 255, 0.05);
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
-  align-content: center;
-  justify-content: center;
-}
-
-.login-container h1 {
-  text-align: center;
-  margin-bottom: 10px;
-}
-
-/* Input fields */
-.login-container input[type="text"],
-.login-container input[type="password"] {
-  width: 95%;
-  height: 40px;
-  margin-bottom: 25px;
-  border-radius: 6px;
-  padding: 0 10px;
-  font-size: 16px;
-  color: rgb(82, 82, 82);
-  border: 2px solid #969696;
-}
-
-.login-container input[type="submit"] {
+.login-card {
+  /* 登入/註冊卡片盒子 */
   width: 100%;
-  height: 40px;
-  border: none;
-  border-radius: 6px;
-  background-color: #226cff;
-  color: rgb(255, 255, 255);
-  font-weight: bold;
-  font-size: 20px;
-  cursor: pointer;
+  max-width: 350px; /* 統一卡片寬度 */
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  padding: 40px 30px;
+  text-align: center; 
+  
+}
+
+/* Logo 區域 */
+.logo-area {
+  margin-bottom: 30px;
+}
+
+.logo-image {
+  width: 150px; 
+  height: auto;
+}
+
+/* 標題 */
+.card-title {
+    font-size: 20px;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 25px;
+}
+
+
+/* --------------------------------------------------------- */
+/* 表單與輸入框樣式 */
+/* --------------------------------------------------------- */
+.login-form {
+  width: 100%;
+}
+
+.form-group {
+  margin-bottom: 15px; /* 輸入框間距 */
+  width: 100%;
+  transition: 0.2s;
+}
+
+/* 輸入框樣式 */
+.login-form input[type="text"],
+.login-form input[type="password"] {
+  width: 100%;
+  padding: 12px 15px;
+  border: 1px solid #ccc;
+  border-radius: 5px; /* 輕微圓角 */
+  box-sizing: border-box;
+  font-size: 16px;
+  text-align: left; 
+}
+
+.login-form input:focus {
+  border-color: #226cff;
+  outline: none;
+}
+
+
+/* --------------------------------------------------------- */
+/* 登入按鈕 (確保 <button> 元素被正確樣式化) */
+/* --------------------------------------------------------- */
+.submit-btn {
+  width: 100%;
+  padding: 15px 0;
   margin-top: 10px;
-  transition: background-color 0.3s ease;
+  border: none;
+  border-radius: 5px;
+  /* 統一為登入頁面的藍色 */
+  background-color: #427df0; 
+  color: white;
+  font-size: 18px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
 }
 
-.login-container input[type="submit"]:hover {
-  background-color: #4e89ff;
+.submit-btn:hover {
+  background-color: #5d93ff;
+  transform: translateY(-1px);
 }
 
-/* Error message */
-.login-container p {
-  margin: 0;
-  font-size: 14px;
-  text-align: center;
-}
-
-.login-container a {
-  color: #4cafef;
+/* --------------------------------------------------------- */
+/* 底部連結區 (統一連結樣式) */
+/* --------------------------------------------------------- */
+.link-option {
+  display: block;
+  margin-top: 20px;
+  font-size: 13px;
+  color: #427df0;
   text-decoration: none;
+  transition: opacity 0.2s;
 }
 
-.login-container a:hover {
-  text-decoration: none;
+.link-option:hover {
+  opacity: 0.8;
+  text-decoration: underline; /* 調整 hover 效果 */
+}
+
+.login-card p {
+    /* 確保 p 標籤內的連結繼承 link-option 樣式 */
+    margin-top: 20px;
+    text-align: center;
+}
+
+/* 響應式調整 */
+@media (max-width: 450px) {
+  .login-card {
+    padding: 30px 20px;
+    box-shadow: none; 
+  }
 }

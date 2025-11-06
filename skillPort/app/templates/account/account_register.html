@@ -1,33 +1,56 @@
-{% extends "base.html" %} {% block title %}アカウント登録{% endblock %} {% block
-content %}
+{% extends "base.html" %} 
+
+{% block title %}アカウント登録{% endblock %} 
+
+{% block content %}
 <head>
   <link rel="stylesheet" href="../../static/css/account_register.css" />
 </head>
-<body>
-  <div class="login-container">
-    <h1>アカウントの新規登録</h1>
+
+<div class="page-center-wrapper">
+  <div class="login-card">
+    
+    <div class="logo-area">
+      <img
+        src="{{ url_for('static', filename='media/skill-port-logo.png') }}"
+        alt="SkillPort Logo"
+        class="logo-image"
+      />
+    </div>
+
+    <h1 class="card-title">アカウントの新規登録</h1>
+    
     <form
       action="{{url_for('account.register_userlogin')}}"
       method="POST"
       class="login-form"
     >
       <input
+        class="form-group"
         type="text"
         name="username"
         id="userId"
         placeholder="ユーザー名"
-      /><br />
+        required
+      />
+
       <input
-        type="text"
+        class="form-group"
+        type="password"
         id="password"
         name="password"
         placeholder="パスワード"
-      /><br />
-      <input type="submit" value="アカウント作成" />
+        required
+      />
+      
+      <button type="submit" class="submit-btn">アカウント作成</button>
     </form>
-    <p><a href="{{ url_for('auth.login')}}">ログイン画面に戻る</a></p>
+    
+    <p><a href="{{ url_for('auth.login')}}" class="link-option">ログイン画面に戻る</a></p>
+    
   </div>
-  <script src="{{url_for('static', filename='js/jquery-3.7.0.min.js')}}"></script>
-  <script src="{{url_for('static', filename='js/login.js')}}"></script>
-</body>
+</div>
+
+<script src="{{url_for('static', filename='js/jquery-3.7.0.min.js')}}"></script>
+<script src="{{url_for('static', filename='js/login.js')}}"></script>
 {% endblock %}
