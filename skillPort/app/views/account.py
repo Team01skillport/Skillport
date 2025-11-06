@@ -1,5 +1,5 @@
 from flask import Blueprint, render_template, request, make_response, session
-from app.db import create_user
+from app.db import create_user, fetch_query
 
 account_bp = Blueprint('account', __name__, url_prefix='/account')
 
@@ -41,9 +41,11 @@ def user_register_complete():
     print(touroku_dekita)
     return render_template('account/user_register_success.html')
 
-@account_bp.route('/edit_profile', methods=["GET"])
-def edit_profile():
-    return render_template('profile/profile_edit.html')
+@account_bp.route('/edit_profile/<user_name>', methods=["GET"])
+def edit_profile(user_name):
+    sql = "SELECT * FROM user_tbl WHERE user_name = '"+str(user_name)+"';"
+    user_info = fetch_query(sql, params=None, fetch_one=True)
+    return render_template('profile/profile_edit.html', info=user_info)
 
 @account_bp.route('/my_page_top', methods=["GET"])
 def my_page_top():
