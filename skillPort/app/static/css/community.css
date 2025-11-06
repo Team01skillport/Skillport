@@ -4,7 +4,7 @@ body{
 }
  
 /* 右上プロファイルのやつ----------------------------------------------- */
- 
+
 #profile {
   display: flex;            
   align-items: center;
@@ -705,7 +705,16 @@ max-height: 300px;
 border-radius: 8px;
 display: block;
 }
- 
+/* 投稿削除ボタン */
+.btn--danger {
+  background: red;
+  color: #fff;
+  border: none;
+}
+.btn--danger:hover {
+  background-color: rgb(255, 61, 61);
+} 
+
 /* Footer & buttons */
 .modal__footer {
 padding: 12px 18px 16px;

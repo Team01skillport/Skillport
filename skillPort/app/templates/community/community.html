@@ -71,6 +71,7 @@
             <div class="buttons">
               <button class="add">＋</button>
               <button class="send">▶</button>
+              <button class="send" type="submit">▶</button>
             </div>
             <input class="filepick" type="file" accept="image/*,video/*" name="upload_media" hidden>
             <button type="submit">送信</button>
@@ -135,12 +136,13 @@
 
     <footer class="modal__footer">
       <button class="btn btn--ghost" type="button" data-close="true">キャンセル</button>
+      <button id="btnDeletePost" class="btn btn--danger" type="button" style="display:none">削除</button>
       <button id="btnSaveEdit" class="btn btn--primary" type="button">保存</button>
     </footer>
   </div>
 </div>
 
-<script src="{{ url_for('static', filename='js/community.js') }}"></script>
+<!-- <script src="{{ url_for('static', filename='js/community.js') }}"></script> -->
 </body>
 </html>
 
