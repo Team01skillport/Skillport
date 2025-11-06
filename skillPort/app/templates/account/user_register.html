@@ -1,15 +1,32 @@
-{% extends "base.html" %} {% block title %}ユーザー情報登録{% endblock %} {%
-block content %}
+{% extends "base.html" %} 
+
+{% block title %}ユーザー情報登録{% endblock %} 
+
+{% block content %}
 <head>
+  <!-- 注意: 連結到新的 CSS 檔案 -->
   <link
     rel="stylesheet"
     href="{{ url_for('static', filename='css/register.css') }}"
   />
 </head>
 
-<div class="register-wrapper">
-  <div class="register-container">
-    <h1 class="register-title">新規アカウント登録</h1>
+<!-- 使用與登入頁面一致的置中 wrapper -->
+<div class="page-center-wrapper">
+  <div class="login-card registration-card">
+    
+    <!-- 為了排版一致，增加 Logo 區域 -->
+    <div class="logo-area">
+      <img
+        src="{{ url_for('static', filename='media/skill-port-logo.png') }}"
+        alt="SkillPort Logo"
+        class="logo-image"
+      />
+    </div>
+
+    <!-- 標題調整 -->
+    <h1 class="card-title">アカウント登録情報入力</h1>
+    
     <form
       method="POST"
       class="register-form"
@@ -18,8 +35,11 @@ block content %}
       <input type="hidden" name="username" value="{{username}}" />
       <input type="hidden" name="password" value="{{password}}" />
 
+      <!-- 帳號資訊 (保留原有的 fieldset 結構) -->
       <fieldset class="form-section">
         <legend class="section-title">ユーザー情報</legend>
+        
+        <!-- メールアドレス -->
         <div class="input-group">
           <input
             type="email"
@@ -30,6 +50,7 @@ block content %}
           <label>メールアドレス</label>
         </div>
 
+        <!-- 電話番号 -->
         <div class="input-group">
           <input
             type="tel"
@@ -40,6 +61,7 @@ block content %}
           <label>電話番号</label>
         </div>
 
+        <!-- 氏名：姓 (漢字/ひらがな/英字) -->
         <div class="input-group">
           <input
             type="text"
@@ -50,6 +72,7 @@ block content %}
           <label>姓 (漢字/ひらがな/英字)</label>
         </div>
 
+        <!-- 氏名：名 (漢字/ひらがな/英字) -->
         <div class="input-group">
           <input
             type="text"
@@ -60,6 +83,7 @@ block content %}
           <label>名 (漢字/ひらがな/英字)</label>
         </div>
 
+        <!-- フリガナ：姓フリガナ (カタカナ) -->
         <div class="input-group">
           <input
             type="text"
@@ -70,6 +94,7 @@ block content %}
           <label>姓フリガナ (カタカナ)</label>
         </div>
 
+        <!-- フリガナ：名フリガナ (カタカナ) -->
         <div class="input-group">
           <input
             type="text"
@@ -80,11 +105,13 @@ block content %}
           <label>名フリガナ (カタカナ)</label>
         </div>
 
+        <!-- 生年月日 -->
         <div class="input-group input-date">
           <input type="date" name="birthday" class="form-input" />
           <label>生年月日 </label>
         </div>
 
+        <!-- 性別 (ラジオボタン) -->
         <div class="form-gender-group">
           <span class="gender-label-title">性別:</span>
           <label class="custom-radio">
@@ -102,7 +129,11 @@ block content %}
         </div>
       </fieldset>
 
+      <!-- 地址與自我介紹 -->
       <fieldset class="form-section">
+        <legend class="section-title">住所情報・自己紹介</legend>
+
+        <!-- 郵便番号 -->
         <div class="input-group">
           <input
             type="text"
@@ -113,6 +144,7 @@ block content %}
           <label>郵便番号</label>
         </div>
 
+        <!-- 住所 - 都道府県 -->
         <div class="input-group">
           <input
             type="text"
@@ -123,6 +155,7 @@ block content %}
           <label>住所 - 都道府県</label>
         </div>
 
+        <!-- 住所 - 市区町村 -->
         <div class="input-group">
           <input
             type="text"
@@ -133,6 +166,7 @@ block content %}
           <label>住所 - 市区町村</label>
         </div>
 
+        <!-- 住所 - 番地・建物名 -->
         <div class="input-group">
           <input
             type="text"
@@ -142,18 +176,20 @@ block content %}
           />
           <label>住所 - 番地・建物名</label>
         </div>
-
+        
+        <!-- 自己紹介 -->
         <div class="input-group">
           <textarea name="introduction" class="form-textarea"></textarea>
           <label>自己紹介 (任意、1〜300文字以内)</label>
         </div>
       </fieldset>
 
+      <!-- 按鈕 (使用與登入頁面一致的 submit-btn 樣式) -->
       <button type="submit" class="submit-btn">アカウント作成</button>
     </form>
 
     <p class="login-link">
-      <a href="{{ url_for('auth.login')}}">ログイン画面に戻る</a>
+      <a href="{{ url_for('auth.login')}}" class="link-option">ログイン画面に戻る</a>
     </p>
   </div>
 </div>

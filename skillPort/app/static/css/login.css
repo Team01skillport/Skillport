@@ -14,9 +14,10 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  max-height: 90vh;
-  padding: 20px 0 0 0;
+  /* min-height: calc(100vh - 80px);  */
+  padding: 68px 0 68px 0;
   box-sizing: border-box;
+  
 }
 
 .login-card {
@@ -28,6 +29,7 @@ body {
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
   padding: 40px 30px;
   text-align: center; /* 讓內部區塊居中 */
+  
 }
 
 /* Logo 區 */
