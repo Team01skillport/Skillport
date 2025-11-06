@@ -40,7 +40,7 @@ def user_register_complete():
     sql = "INSERT INTO user_tbl (user_name, first_name, last_name, first_name_katakana, last_name_katakana, tel_no, zip_code, prefecture, address1, address2, birthday, gender, mail, password, introduction, profile_icon) VALUES ('"+username+"', '"+first_name+"', '"+last_name+"', '"+first_name_furigana+"', '"+last_name_furigana+"', '"+tel_no+"', '"+zip_code+"', '"+prefecture+"', '"+address1+"', '"+address2+"', '"+birthday+"', '"+gender+"', '"+mail+"', '"+password+"', '"+introduction+"', '/icons/default_icon.png');"
     touroku_dekita = create_user(sql)
     print(touroku_dekita)
-    return render_template('account/user_register_success.html')
+    return render_template('account/user_register_success.html', username=username, password=password)
 
 @account_bp.route('/edit_profile/<user_name>', methods=["GET"])
 def edit_profile(user_name):
