@@ -145,4 +145,7 @@ def manage_products_page():
 
 @market_bp.route('/product/<product_id>/checkout', methods=["GET"])
 def checkout_page(product_id):
-    return render_template('order/checkout.html')
+    sql = "SELECT * from listing_tbl WHERE product_id = '"+product_id+"';"
+    product_info = fetch_query(sql, params=None, fetch_one=True)
+    print(product_info)
+    return render_template('order/checkout.html', product=product_info)

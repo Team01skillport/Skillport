@@ -59,7 +59,7 @@
     </div>
 
       <div class="new-post">
-          <form action="{{url_for('community.upload_post')}}" class="upload_post" method="post">
+        <form action="{{url_for('community.upload_post')}}" class="upload_post" method="post">
 
         <!-- バグるから一旦コメント↓ -->
         <!-- <img class="user_icon" src="{{url_for('static', filename='media/user')}}" alt="ユーザーアイコン"> -->
@@ -72,7 +72,7 @@
               <button class="add">＋</button>
               <button class="send">▶</button>
             </div>
-            <input class="filepick" type="file" accept="image/*,video/*" hidden>
+            <input class="filepick" type="file" accept="image/*,video/*" name="upload_media" hidden>
             <button type="submit">送信</button>
           </div>
         </form>

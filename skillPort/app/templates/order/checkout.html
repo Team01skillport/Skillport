@@ -1,116 +1,126 @@
-{% extends "base.html" %}
+{% extends "base.html" %} {# ================= ページのタイトル
+================= #} {% block title %} 購入手続き{% endblock %} {#
+================= ページ固有のCSS ================= #} {% block styles %} {#
+ページ専用CSSのパスを url_for を使って修正 #}
+<link
+  rel="stylesheet"
+  href="{{ url_for('static', filename='css/checkout.css') }}"
+/>
+{% endblock %} {# ================= メインコンテンツ ================= #} {%
+block content %}
+<main class="page">
+  <h1 class="page-title">購入手続き</h1>
 
-{# ================= ページのタイトル ================= #}
-{% block title %}
-購入手続き | SkillPort
-{% endblock %}
+  <div class="grid">
+    <section class="left">
+      <div class="product-row">
+        <img
+          src="{{ url_for('static', filename='media/book.jpg') }}"
+          alt="商品画像"
+          class="thumb"
+        />
+        <div class="meta">
+          <p class="title">{{product['product_name']}}</p>
+          <p class="price">¥{{product['product_price']}}(税込)</p>
+        </div>
+        {# product_detail へのリンクを修正 #}
+      </div>
 
-{# ================= ページ固有のCSS ================= #}
-{% block styles %}
-  {# ページ専用CSSのパスを url_for を使って修正 #}
-  <link rel="stylesheet" href="{{ url_for('static', filename='css/checkout.css') }}" />
-{% endblock %}
-
-{# ================= メインコンテンツ ================= #}
-{% block content %}
-  <main class="page">
-    <h1 class="page-title">購入手続き</h1>
-
-    <div class="grid">
-      <section class="left">
-        <div class="product-row">
-          {# 
-            注意: 静的パスとリンクを url_for ヘルパーで修正。
-            実際にはここの '1' や 'book.jpg' は、
-            ルーティング関数から渡される商品オブジェクトの変数に置き換えます。
-          #}
-          <img src="{{ url_for('static', filename='media/book.jpg') }}" alt="商品画像" class="thumb">
-          <div class="meta">
-            <p class="title">国史教科書 第7版 検定合格 市販版 中学校社会用</p>
-            <p class="price">¥1,700(税込)</p>
-          </div>
-          {# product_detail へのリンクを修正 #}
-          <a class="link-edit" href="{{ url_for('market.product_detail', product_id=1) }}">変更</a>
+      <div class="block">
+        <div class="block-head">
+          <h2>支払い方法</h2>
         </div>
 
-        <div class="block">
-          <div class="block-head">
-            <h2>支払い方法</h2>
-            <button class="link-edit small" type="button" id="btnEditPayment">変更</button>
-          </div>
+        <div class="select-wrap">
+          <select id="paymentSelect" aria-label="支払い方法を選択">
+            <option value="クレジットカード">クレジットカード</option>
+            <option value="銀行振込">銀行振込</option>
+          </select>
+          <span class="select-icon">▾</span>
+        </div>
 
-          <div class="select-wrap">
-            <select id="paymentSelect" aria-label="支払い方法を選択">
-              <option value="クレジットカード">クレジットカード</option>
-              <option value="コンビニ払い">コンビニ払い</option>
-              <option value="銀行振込">銀行振込</option>
-              <option value="PayPay">PayPay</option>
-            </select>
-            <span class="select-icon">▾</span>
-          </div>
-
-          <form class="card-form" id="cardForm">
-            <label>カード番号
-              <input type="text" inputmode="numeric" placeholder="1234 5678 9012 3456" maxlength="19">
+        <form class="card-form" id="cardForm">
+          <label
+            >カード番号
+            <input
+              type="text"
+              inputmode="numeric"
+              placeholder="1234 5678 9012 3456"
+              maxlength="19"
+            />
+          </label>
+          <div class="row-2">
+            <label
+              >有効期限(MM/YY)
+              <input
+                type="text"
+                inputmode="numeric"
+                placeholder="12/29"
+                maxlength="5"
+              />
             </label>
-            <div class="row-2">
-              <label>有効期限(MM/YY)
-                <input type="text" inputmode="numeric" placeholder="12/29" maxlength="5">
-              </label>
-              <label>セキュリティコード
-                <input type="password" inputmode="numeric" placeholder="123" maxlength="4">
-              </label>
-            </div>
-            <label>名義人
-              <input type="text" placeholder="TARO YAMADA">
+            <label
+              >セキュリティコード
+              <input
+                type="password"
+                inputmode="numeric"
+                placeholder="123"
+                maxlength="4"
+              />
             </label>
-          </form>
+          </div>
+          <label
+            >名義人
+            <input type="text" placeholder="TARO YAMADA" />
+          </label>
+        </form>
+      </div>
+
+      <div class="block">
+        <div class="block-head">
+          <h2>配送先</h2>
+          <button class="link-edit small" type="button" id="btnEditAddress">
+            変更
+          </button>
         </div>
 
-        <div class="block">
-          <div class="block-head">
-            <h2>配送先</h2>
-            <button class="link-edit small" type="button" id="btnEditAddress">変更</button>
-          </div>
+        <address class="address">
+          木下昇悟（キノシタ　ショウゴ）<br />
+          〒532-0011<br />
+          大阪府大阪市淀川区西中島 5-88-88<br />
+          なんとなビル 3階
+        </address>
+      </div>
+    </section>
 
-          <address class="address">
-            木下昇悟（キノシタ　ショウゴ）<br>
-            〒532-0011<br>
-            大阪府大阪市淀川区西中島 5-88-88<br>
-            なんとなビル 3階
-          </address>
+    <aside class="right">
+      <div class="summary">
+        <div class="row">
+          <span>商品代金</span>
+          <strong id="sumSubtotal">¥1,700</strong>
         </div>
-      </section>
-
-      <aside class="right">
-        <div class="summary">
-          <div class="row">
-            <span>商品代金</span>
-            <strong id="sumSubtotal">¥1,700</strong>
-          </div>
-          <div class="row">
-            <span>送料</span>
-            <strong id="sumShipping">無料</strong>
-          </div>
-          <div class="row total">
-            <span>支払い金額</span>
-            <strong id="sumTotal">¥1,700</strong>
-          </div>
-          <div class="row">
-            <span>支払い方法</span>
-            <strong id="sumPayment">クレジットカード</strong>
-          </div>
+        <div class="row">
+          <span>送料</span>
+          <strong id="sumShipping">無料</strong>
         </div>
+        <div class="row total">
+          <span>支払い金額</span>
+          <strong id="sumTotal">¥1,700</strong>
+        </div>
+        <div class="row">
+          <span>支払い方法</span>
+          <strong id="sumPayment">クレジットカード</strong>
+        </div>
+      </div>
 
-        <button class="btn-primary" id="btnPurchase">購入する</button>
-        <p class="note">「購入する」ボタンを押すことで、利用規約およびプライバシーポリシーに同意したものとみなします。</p>
-      </aside>
-    </div>
-  </main>
-{% endblock %}
-
-{# ================= ページ固有のJS ================= #}
-{% block scripts %}
-  {# ページ専用JSのパスを url_for を使って修正 #}
-  <script src="{{ url_for('static', filename='js/checkout.js') }}" defer></script>
+      <button class="btn-primary" id="btnPurchase">購入する</button>
+      <p class="note">
+        「購入する」ボタンを押すことで、利用規約およびプライバシーポリシーに同意したものとみなします。
+      </p>
+    </aside>
+  </div>
+</main>
+{% endblock %} {# ================= ページ固有のJS ================= #} {% block
+scripts %} {# ページ専用JSのパスを url_for を使って修正 #}
+<script src="{{ url_for('static', filename='js/checkout.js') }}" defer></script>
 {% endblock %}
