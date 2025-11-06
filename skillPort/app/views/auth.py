@@ -16,9 +16,8 @@ def login():
         if user_info:
             session['user_id'] = user_info['id']
             session['user_name'] = user_info['user_name']
-            session['profile_icon'] = user_info['profile_icon']
             
-            return redirect(url_for('auth.view_profile', user_id=session['user_id'], profile_icon=session['profile_icon']))
+            return redirect(url_for('auth.view_profile', user_id=session['user_id']))
         else:
             errmsg = "ユーザーIDまたはパスワードが正しくありません。"
             return render_template('auth/login.html', errmsg=errmsg)
