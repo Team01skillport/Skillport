@@ -52,3 +52,39 @@ links.forEach((link) => {
 menu.addEventListener("mouseleave", () => {
   highlight.style.opacity = "0";
 });
+
+//slideshow -----------------------------------------------------------------
+ 
+let slideIndex = 0;
+const slides = document.querySelectorAll(".slide");
+const dots   = document.querySelectorAll(".dot");
+const title  = document.getElementById("slideshow-title");
+ 
+const titles = ["First Title", "Second Title", "Third Title"];
+ 
+function showSlide(n) {
+  slides.forEach((slide, i) => {
+    slide.classList.remove("active");
+    dots[i].classList.remove("active");
+  });
+ 
+  slides[n].classList.add("active");
+  dots[n].classList.add("active");
+ 
+  if (title) {
+    title.style.opacity = 0;
+    setTimeout(() => {
+      title.textContent = titles[n];
+      title.style.opacity = 1;
+    }, 1000);
+  }
+}
+ 
+function nextSlide() {
+  slideIndex = (slideIndex + 1) % slides.length;
+  showSlide(slideIndex);
+}
+ 
+// init
+showSlide(slideIndex);
+setInterval(nextSlide, 5000);
