@@ -27,5 +27,9 @@ def video_player(video_id):
     
     comment_sql = "SELECT * FROM video_tbl v LEFT JOIN video_comment_tbl vc ON v.id = vc.video_id LEFT JOIN user_tbl u ON vc.commentor_id = u.id WHERE v.id = %s"
     comment_data = fetch_query(comment_sql, (video_id,), fetch_one=False)
-    print(comment_data)
-    return render_template('lesson_video/video_player.html', video = video_data, comments=comment_data)
+    
+    
+    rec_sql = f"SELECT * FROM video_tbl WHERE video_category LIKE '%{video_data['video_category']}%';"
+    rec_data = fetch_query(rec_sql, params=None, fetch_one=False)
+    
+    return render_template('lesson_video/video_player.html', video = video_data, comments=comment_data, rec_vids=rec_data)

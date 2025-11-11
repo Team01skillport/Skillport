@@ -64,20 +64,19 @@ endblock %} {% block styles %}
   <aside class="right">
     <h3>おすすめ動画</h3>
     <div class="recommend">
+      {% for vid in rec_vids %}
       <div class="video-card">
-        <img
-          src="{{ url_for('static', filename='media/book.jpg') }}"
-          alt="Recommended Video 1"
-        />
-        <p>「のからギタをやろう」<br /><span>かっこいいしょうごくん</span></p>
+        <a href="{{url_for('lesson_video.video_player', video_id = vid.id)}}">
+          <img
+            src="{{ url_for('static', filename='media/' + vid.thumbnail_path) }}"
+            alt="Recommended Video 1"
+          />
+          <h5>{{vid.video_title}}</h5>
+          <p>{{vid.video_description_section}}</p>
+          <p>{{vid.video_upload_date}}</p>
+        </a>
       </div>
-      <div class="video-card">
-        <img
-          src="{{ url_for('static', filename='media/bookback.jpg') }}"
-          alt="Recommended Video 2"
-        />
-        <p>「からギタをやろう」<br /><span>しょうごくん</span></p>
-      </div>
+      {% endfor %}
     </div>
   </aside>
 </main>
