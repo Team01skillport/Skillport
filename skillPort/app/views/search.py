@@ -9,7 +9,7 @@ def header_search():
     search_word = request.args.get("headersearch")
     
     sql = "SELECT * FROM video_tbl WHERE video_title LIKE '%"+search_word+"%';"
-    search_results = fetch_query(sql)
+    search_results = fetch_query(sql,params=None,fetch_one=False)
     print(search_results[0])
     return render_template('search/header_search_result.html', search_word=search_word, search_results=search_results)
     

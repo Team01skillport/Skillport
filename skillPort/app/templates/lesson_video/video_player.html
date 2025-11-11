@@ -1,27 +1,29 @@
-{% extends "base.html" %}
-
-{% block title %}{{ video.video_title }} | SkillPort{% endblock %}
-
-{% block styles %}
-  <link rel="stylesheet" href="{{ url_for('static', filename='css/lecture.css') }}">
-  <link rel="stylesheet" href="{{ url_for('static', filename='css/popup_report.css') }}">
-{% endblock %}
-
-{% block content %}
+{% extends "base.html" %} {% block title %}{{ video.video_title }} | SkillPort{%
+endblock %} {% block styles %}
+<link
+  rel="stylesheet"
+  href="{{ url_for('static', filename='css/lecture.css') }}"
+/>
+<link
+  rel="stylesheet"
+  href="{{ url_for('static', filename='css/popup_report.css') }}"
+/>
+{% endblock %} {% block content %}
 <main class="main-grid">
   <section class="left">
     <div class="video-area">
       <video controls class="video-frame">
-        <source src="{{ url_for('static', filename=video.file_path[1:]) }}" type="video/mp4">
+        <source
+          src="{{ url_for('static', filename=video.file_path[1:]) }}"
+          type="video/mp4"
+        />
         ブラウザは動画再生に対応していません。
       </video>
     </div>
 
     <h2 class="video-title">{{ video.video_title }}</h2>
-    
-    <p class="video-desc">
-      {{ video.video_description_section }}
-    </p>
+
+    <p class="video-desc">{{ video.video_description_section }}</p>
 
     <div class="video-stats">
       <span>👍 {{ video.like_count }}</span>
@@ -30,24 +32,39 @@
     </div>
 
     <div class="uploader">
-      <img src="{{ url_for('static', filename=video.uploader_icon[1:]) }}" alt="Uploader Icon">
+      <img
+        src="{{ url_for('static', filename=video.profile_icon[1:]) }}"
+        alt="Uploader Icon"
+      />
       <p>{{ video.uploader_name }}</p>
     </div>
 
     <h3>コメント</h3>
     <div class="comment-form">
-      <input type="text" placeholder="コメント投稿">
+      <input type="text" placeholder="コメント投稿" />
       <button>投稿する</button>
     </div>
 
     <ul class="comment-list">
       <li>
-        <img src="{{ url_for('static', filename='media/profile_icon.png') }}" alt="Commenter Icon">
-        <div><strong>okura_masato0721</strong><p>すごい動画でした！ありがとうございます！</p></div>
+        <img
+          src="{{ url_for('static', filename='media/profile_icon.png') }}"
+          alt="Commenter Icon"
+        />
+        <div>
+          <strong>okura_masato0721</strong>
+          <p>すごい動画でした！ありがとうございます！</p>
+        </div>
       </li>
       <li>
-        <img src="{{ url_for('static', filename='media/profile_icon.png') }}" alt="Commenter Icon">
-        <div><strong>okura_masato0721</strong><p>ああああああああああああああ</p></div>
+        <img
+          src="{{ url_for('static', filename='media/profile_icon.png') }}"
+          alt="Commenter Icon"
+        />
+        <div>
+          <strong>okura_masato0721</strong>
+          <p>ああああああああああああああ</p>
+        </div>
       </li>
     </ul>
   </section>
@@ -56,12 +73,18 @@
     <h3>おすすめ動画</h3>
     <div class="recommend">
       <div class="video-card">
-        <img src="{{ url_for('static', filename='media/book.jpg') }}" alt="Recommended Video 1">
-        <p>「のからギタをやろう」<br><span>かっこいいしょうごくん</span></p>
+        <img
+          src="{{ url_for('static', filename='media/book.jpg') }}"
+          alt="Recommended Video 1"
+        />
+        <p>「のからギタをやろう」<br /><span>かっこいいしょうごくん</span></p>
       </div>
       <div class="video-card">
-        <img src="{{ url_for('static', filename='media/bookback.jpg') }}" alt="Recommended Video 2">
-        <p>「からギタをやろう」<br><span>しょうごくん</span></p>
+        <img
+          src="{{ url_for('static', filename='media/bookback.jpg') }}"
+          alt="Recommended Video 2"
+        />
+        <p>「からギタをやろう」<br /><span>しょうごくん</span></p>
       </div>
     </div>
   </aside>
@@ -71,12 +94,29 @@
   <div class="modal-content">
     <h2>通報</h2>
     <form id="reportForm">
-      <label><input type="radio" name="reason" value="ガイドライン違反"> ガイドラインに反する内容</label><br>
-      <label><input type="radio" name="reason" value="暴力表現"> 暴力的または不快感を与える表現</label><br>
-      <label><input type="radio" name="reason" value="虚偽"> 虚偽情報・スパムコンテンツ</label><br>
-      <label><input type="radio" name="reason" value="著作権侵害"> 著作権侵害・違法動画の投稿</label><br>
-      <label><input type="radio" name="reason" value="その他"> その他</label><br>
-      <textarea name="detail" rows="4" placeholder="詳細内容を入力してください"></textarea>
+      <label
+        ><input type="radio" name="reason" value="ガイドライン違反" />
+        ガイドラインに反する内容</label
+      ><br />
+      <label
+        ><input type="radio" name="reason" value="暴力表現" />
+        暴力的または不快感を与える表現</label
+      ><br />
+      <label
+        ><input type="radio" name="reason" value="虚偽" />
+        虚偽情報・スパムコンテンツ</label
+      ><br />
+      <label
+        ><input type="radio" name="reason" value="著作権侵害" />
+        著作権侵害・違法動画の投稿</label
+      ><br />
+      <label><input type="radio" name="reason" value="その他" /> その他</label
+      ><br />
+      <textarea
+        name="detail"
+        rows="4"
+        placeholder="詳細内容を入力してください"
+      ></textarea>
       <div class="modal-buttons">
         <button type="button" id="closeModal">キャンセル</button>
         <button type="submit" id="submitReport">報告</button>
@@ -84,9 +124,10 @@
     </form>
   </div>
 </div>
-{% endblock %}
-
-{% block scripts %}
-  <script src="{{ url_for('static', filename='js/lecture.js') }}" defer></script>
-  <script src="{{ url_for('static', filename='js/popup_report.js') }}" defer></script>
+{% endblock %} {% block scripts %}
+<script src="{{ url_for('static', filename='js/lecture.js') }}" defer></script>
+<script
+  src="{{ url_for('static', filename='js/popup_report.js') }}"
+  defer
+></script>
 {% endblock %}
