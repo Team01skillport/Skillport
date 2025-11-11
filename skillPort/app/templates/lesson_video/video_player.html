@@ -14,13 +14,12 @@ endblock %} {% block styles %}
     <div class="video-area">
       <video controls class="video-frame">
         <source
-          src="{{ url_for('static', filename=video.file_path[1:]) }}"
+          src="{{ url_for('static', filename='media/' + video.file_path[1:]) }}"
           type="video/mp4"
         />
         ブラウザは動画再生に対応していません。
       </video>
     </div>
-
     <h2 class="video-title">{{ video.video_title }}</h2>
 
     <p class="video-desc">{{ video.video_description_section }}</p>

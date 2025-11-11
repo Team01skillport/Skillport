@@ -19,8 +19,6 @@ def video_player(video_id):
     # fetch_query を使ってクエリを実行します。SQLインジェクション対策のため、
     # video_idはパラメータとして渡します。 (video_id,) のカンマを忘れないでください。
     video_data = fetch_query(sql, (video_id,), fetch_one=True)
-    print(video_id)
-    print(video_data)
 
     # もし動画が見つからなかった場合（結果が空の場合）、404エラーを表示します
     if not video_data:
