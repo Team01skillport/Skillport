@@ -1,13 +1,13 @@
 /* ===========================
-* Header active state
-* =========================== */
+ * Header active state
+ * =========================== */
 document.addEventListener('DOMContentLoaded', () => {
   const container = document.querySelector('#header .container');
   if (!container) return;
   const links = container.querySelectorAll('ul li a');
- 
+
   function clearActive() { links.forEach(a => a.classList.remove('is-active')); }
- 
+
   links.forEach(a => {
     a.addEventListener('click', (e) => {
       e.preventDefault();
@@ -16,39 +16,39 @@ document.addEventListener('DOMContentLoaded', () => {
       if (!wasActive) a.classList.add('is-active');
     });
   });
- 
+
   document.addEventListener('click', (e) => {
     if (!container.contains(e.target)) clearActive();
   });
 });
- 
+
 /* ===========================
-* Dropdown (カテゴリ)
-* =========================== */
+ * Dropdown (カテゴリ)
+ * =========================== */
 document.addEventListener("DOMContentLoaded", () => {
   const dropdown = document.getElementById("nav-category");
   if (!dropdown) return;
   const toggle = dropdown.querySelector(".dropdown-toggle");
   if (!toggle) return;
- 
+
   toggle.addEventListener("click", (e) => {
     e.preventDefault();
     dropdown.classList.toggle("open");
   });
- 
+
   document.addEventListener("click", (e) => {
     if (!dropdown.contains(e.target)) dropdown.classList.remove("open");
   });
 });
- 
+
 /* ===========================
-* Helpers (CSRF, file -> dataURL)
-* =========================== */
+ * Helpers (CSRF, file -> dataURL)
+ * =========================== */
 function getCsrfToken() {
   const meta = document.querySelector('meta[name="csrf-token"]');
   return meta ? meta.getAttribute('value') || meta.getAttribute('content') : null;
 }
- 
+
 function fileToDataURL(file) {
   return new Promise((resolve, reject) => {
     if (!file) return resolve('');
@@ -58,14 +58,14 @@ function fileToDataURL(file) {
     reader.readAsDataURL(file);  // "data:image/...;base64,xxx"
   });
 }
- 
+
 /* ===========================
-* New Post composer (+ preview)
-* =========================== */
+ * New Post composer (+ preview)
+ * =========================== */
 document.addEventListener('DOMContentLoaded', () => {
   const newPost = document.querySelector('.new-post');
   if (!newPost) return;
- 
+
   const btnAdd     = newPost.querySelector('.add');
   const btnSend    = newPost.querySelector('.send');
   const inputText  = newPost.querySelector('.textbox .text');
@@ -73,12 +73,12 @@ document.addEventListener('DOMContentLoaded', () => {
   const attachment = newPost.querySelector('.textbox .attachment');
   const textbox    = newPost.querySelector('.textbox');
   const avatarEl   = newPost.querySelector('.avatar');
- 
+
   // Safety: avoid accidental submit
   if (btnSend) btnSend.setAttribute('type', 'button');
- 
+
   let objectUrl = null;
- 
+
   // ＋ -> ファイル選択
   if (btnAdd) {
     btnAdd.addEventListener('click', (e) => {
@@ -86,19 +86,19 @@ document.addEventListener('DOMContentLoaded', () => {
       if (filePick) filePick.click();
     });
   }
- 
+
   // プレビュー表示
   if (filePick) {
     filePick.addEventListener('change', () => {
       const file = filePick.files && filePick.files[0];
       if (!file) return;
- 
+
       if (objectUrl) URL.revokeObjectURL(objectUrl);
       objectUrl = URL.createObjectURL(file);
- 
+
       const isImg = file.type.startsWith('image/');
       const isVid = file.type.startsWith('video/');
- 
+
       if (isImg) {
         attachment.innerHTML = `
           <img src="${objectUrl}" style="width:100%;max-height:220px;border-radius:8px;display:block;">
@@ -115,9 +115,9 @@ document.addEventListener('DOMContentLoaded', () => {
           <button class="remove-btn" title="削除">✖</button>
         `;
       }
- 
+
       textbox.classList.add('has-attachment');
- 
+
       const removeBtn = attachment.querySelector('.remove-btn');
       if (removeBtn) {
         removeBtn.addEventListener('click', () => {
@@ -129,12 +129,12 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     });
   }
- 
+
   // ▶ 投稿 -> 「新規投稿」モードでモーダルを開く
   if (btnSend) {
     btnSend.addEventListener('click', async (e) => {
       e.preventDefault();
- 
+
       // モーダルAPIが用意できていない場合のフォールバック
       if (!window.CommunityModal || typeof window.CommunityModal.openForCreate !== 'function') {
         const fallback = document.getElementById('editModal');
@@ -151,9 +151,9 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         return;
       }
- 
+
       const file = filePick && filePick.files && filePick.files[0] ? filePick.files[0] : null;
- 
+
       window.CommunityModal.openForCreate({
         text: inputText ? inputText.value.trim() : '',
         file,
@@ -162,32 +162,32 @@ document.addEventListener('DOMContentLoaded', () => {
       });
     });
   }
- 
+
   // GC
   window.addEventListener('beforeunload', () => {
     if (objectUrl) URL.revokeObjectURL(objectUrl);
   });
 });
- 
+
 /* ===========================
-* 編集/作成 共通ポップアップ（Flask連携版）
-* =========================== */
+ * 編集/作成 共通ポップアップ（Flask連携版）
+ * =========================== */
 (function(){
   const modal        = document.getElementById('editModal');
   if (!modal) return;
- 
+
   const ta           = modal.querySelector('#editText');
   const fileInput    = modal.querySelector('#editFile');
   const btnPick      = modal.querySelector('#btnPickMedia');
   const btnRemove    = modal.querySelector('#btnRemoveMedia');
   const preview      = modal.querySelector('#mediaPreview');
- 
+
   // 分離ボタン
   const btnSave      = modal.querySelector('#btnSaveEdit');     // 編集用
   const btnPost      = modal.querySelector('#btnPostSubmit');   // 新規用
   const btnDelete    = modal.querySelector('#btnDeletePost');
   const closeEls     = modal.querySelectorAll('[data-close="true"]');
- 
+
   let activePost     = null;   // 編集対象。新規は null
   let lastFocus      = null;
   let objectUrl      = null;
@@ -195,9 +195,9 @@ document.addEventListener('DOMContentLoaded', () => {
   let removeMedia    = false;
   let keepObjectUrl  = false;
   let createContext  = null;
- 
+
   const POST_URL = '/community/upload_post'; // Flask 側のエンドポイント
- 
+
   function getPostParts(post){
     const actions = post.querySelector('.actions');
     let textEl = actions ? actions.previousElementSibling : null;
@@ -205,30 +205,30 @@ document.addEventListener('DOMContentLoaded', () => {
     let mediaEl = post.querySelector('.contents');
     return { textEl, mediaEl, actions };
   }
- 
+
   /* ------- 表示切替 ------- */
   function showForEditMode(){
     modal.querySelector('.modal__header h3').textContent = '投稿を編集';
     if (btnSave)   btnSave.style.display   = 'inline-block';
     if (btnPost)   btnPost.style.display   = 'none';
     if (btnDelete) btnDelete.style.display = 'inline-block';
- 
+
     if (btnSave)   btnSave.onclick   = handleSaveEdit;
     if (btnPost)   btnPost.onclick   = null;
     if (btnDelete) btnDelete.onclick = handleDeletePost;
   }
- 
+
   function showForCreateMode(){
     modal.querySelector('.modal__header h3').textContent = '本当に投稿しますか';
     if (btnSave)   btnSave.style.display   = 'none';
     if (btnPost)   btnPost.style.display   = 'inline-block';
     if (btnDelete) btnDelete.style.display = 'none';
- 
+
     if (btnSave)   btnSave.onclick   = null;
     if (btnPost)   btnPost.onclick   = handleCreatePostViaFlask;
     if (btnDelete) btnDelete.onclick = null;
   }
- 
+
   /* ------- Open: 編集 ------- */
   function openModalFor(post){
     activePost    = post;
@@ -238,19 +238,19 @@ document.addEventListener('DOMContentLoaded', () => {
     removeMedia   = false;
     keepObjectUrl = false;
     if (objectUrl){ URL.revokeObjectURL(objectUrl); objectUrl = null; }
- 
+
     const { textEl, mediaEl } = getPostParts(post);
     ta.value = textEl ? (textEl.textContent || '').trim() : '';
- 
+
     renderPreview(mediaEl ? mediaEl.tagName.toLowerCase() : null, mediaEl ? mediaEl.getAttribute('src') : null);
- 
+
     showForEditMode();
- 
+
     modal.classList.add('is-open');
     setTimeout(()=>ta.focus(), 0);
     document.addEventListener('keydown', onKeydown);
   }
- 
+
   /* ------- Open: 新規 ------- */
   function openModalForNew(draft){
     activePost    = null;
@@ -263,44 +263,44 @@ document.addEventListener('DOMContentLoaded', () => {
     removeMedia   = false;
     keepObjectUrl = false;
     if (objectUrl){ URL.revokeObjectURL(objectUrl); objectUrl = null; }
- 
+
     ta.value = (draft?.text || '').trim();
- 
+
     if (replaceFile) {
       objectUrl = URL.createObjectURL(replaceFile);
     }
- 
+
     renderPreview(null, null);
     showForCreateMode();
- 
+
     modal.classList.add('is-open');
     setTimeout(()=>ta.focus(), 0);
     document.addEventListener('keydown', onKeydown);
   }
- 
+
   // 外部API
   window.CommunityModal = {
     openForEdit:   openModalFor,
     openForCreate: openModalForNew
   };
- 
+
   /* ------- Close ------- */
   function closeModal(){
     modal.classList.remove('is-open');
     document.removeEventListener('keydown', onKeydown);
     if (lastFocus && typeof lastFocus.focus === 'function') lastFocus.focus();
- 
+
     activePost    = null;
     replaceFile   = null;
     removeMedia   = false;
     createContext = null;
- 
+
     if (objectUrl && !keepObjectUrl){ URL.revokeObjectURL(objectUrl); }
     objectUrl     = null;
     keepObjectUrl = false;
     preview.innerHTML = '';
   }
- 
+
   function onKeydown(e){
     if (e.key === 'Escape'){ e.preventDefault(); closeModal(); }
     if (e.key === 'Tab'){
@@ -312,7 +312,7 @@ document.addEventListener('DOMContentLoaded', () => {
       else if (!e.shiftKey && document.activeElement === last){ e.preventDefault(); first.focus(); }
     }
   }
- 
+
   /* ------- Preview ------- */
   function renderPreview(kind, src){
     preview.innerHTML = '';
@@ -344,7 +344,7 @@ document.addEventListener('DOMContentLoaded', () => {
       preview.appendChild(p);
     }
   }
- 
+
   /* ------- Modal 内ファイル操作 ------- */
   if (btnPick) {
     btnPick.addEventListener('click', ()=> fileInput && fileInput.click());
@@ -365,7 +365,7 @@ document.addEventListener('DOMContentLoaded', () => {
       renderPreview(null, null);
     });
   }
- 
+
   if (btnRemove) {
     btnRemove.addEventListener('click', ()=>{
       removeMedia = true;
@@ -374,7 +374,7 @@ document.addEventListener('DOMContentLoaded', () => {
       renderPreview(null, null);
     });
   }
- 
+
   /* ==========================================================
    * Flaskへ送信（新規投稿）
    *   - endpoint: POST /community/upload_post
@@ -395,15 +395,15 @@ document.addEventListener('DOMContentLoaded', () => {
         dataUrl = '';
       }
     }
- 
+
     const params = new URLSearchParams();
     params.set('post_text', textVal);
     params.set('upload_media', dataUrl || ""); // Flask側："" のとき None 扱い
- 
+
     const headers = { 'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8' };
     const csrf = getCsrfToken();
     if (csrf) headers['X-CSRFToken'] = csrf;
- 
+
     try {
       const res = await fetch('/community/upload_post', {
         method: 'POST',
@@ -425,7 +425,7 @@ document.addEventListener('DOMContentLoaded', () => {
       closeModal();
     }
   }
- 
+
   /* ------- 既存の編集はクライアント内だけ更新（バックエンド未提供のため） ------- */
   function handleDeletePost(){
     if (!activePost) return;
@@ -434,13 +434,13 @@ document.addEventListener('DOMContentLoaded', () => {
     activePost.remove();
     closeModal();
   }
- 
+
   function handleSaveEdit(){
     const textVal = ta.value.trim();
     if (!activePost){ closeModal(); return; }
- 
+
     const { textEl, mediaEl, actions } = getPostParts(activePost);
- 
+
     if (textEl) textEl.textContent = textVal;
     else {
       const p = document.createElement('p');
@@ -449,14 +449,14 @@ document.addEventListener('DOMContentLoaded', () => {
       if (actions) activePost.insertBefore(p, actions);
       else activePost.appendChild(p);
     }
- 
+
     if (removeMedia) {
       if (mediaEl) mediaEl.remove();
     } else if (replaceFile) {
       const isImg  = replaceFile.type.startsWith('image/');
       const isVid  = replaceFile.type.startsWith('video/');
       if (!isImg && !isVid) { closeModal(); return; }
- 
+
       let target = mediaEl;
       if (!target){
         target = document.createElement(isImg ? 'img' : 'video');
@@ -481,10 +481,10 @@ document.addEventListener('DOMContentLoaded', () => {
       target.src = objectUrl || target.src;
       if (isVid) target.controls = true;
     }
- 
+
     closeModal();
   }
- 
+
   /* ------- フィード内「編集」から編集モード起動 ------- */
   document.addEventListener('click', (e)=>{
     const btn = e.target.closest('.post .actions button');
@@ -493,11 +493,11 @@ document.addEventListener('DOMContentLoaded', () => {
     if (!post) return;
     openModalFor(post);
   });
- 
+
   /* ------- 閉じる ------- */
   closeEls.forEach(el => el.addEventListener('click', closeModal));
   modal.addEventListener('click', (e)=>{ if (e.target.dataset && e.target.dataset.close === 'true') closeModal(); });
- 
+
   /* ------- GC ------- */
   window.addEventListener('beforeunload', ()=>{
     if (objectUrl && !keepObjectUrl) URL.revokeObjectURL(objectUrl);
