@@ -85,8 +85,10 @@ def product_detail(product_id):
     thumbnail_sql = "SELECT image_path FROM listing_images_tbl WHERE product_id = %s AND is_thumbnail = 1"
     thumbnail_img = fetch_query(thumbnail_sql, (product_id,), fetch_one=True)
     thumbnail_img = thumbnail_img['image_path']
-
-    return render_template('market/product_detail.html', info=product_info, other_images=other_images, thumbnail_img=thumbnail_img)
+    uploader_sql = "SELECT u.id FROM user_tbl u INNER JOIN listing_tbl l ON u.user_name = l.product_upload_user WHERE l.product_id = %s;"
+    uploader_id = fetch_query(uploader_sql, (product_id,), fetch_one=True)
+    uploader_id = uploader_id['id']
+    return render_template('market/product_detail.html', info=product_info, other_images=other_images, thumbnail_img=thumbnail_img, uploader_id=uploader_id)
 
 
 # --- [修改] 新建和编辑的路由分离 ---

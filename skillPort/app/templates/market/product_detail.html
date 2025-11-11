@@ -112,7 +112,11 @@ content %}
         {% endif %}
 
         <div class="text">
-          <h4><a href="#">{{ info.seller_name }}</a></h4>
+          <h4>
+            <a href="{{url_for('auth.view_profile', user_id=uploader_id)}}"
+              >{{ info.seller_name }}</a
+            >
+          </h4>
 
           <p>{{ info.seller_tags }}</p>
 
