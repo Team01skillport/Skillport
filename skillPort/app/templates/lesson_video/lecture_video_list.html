@@ -19,7 +19,7 @@ content %}
         <li class="item-card">
           <div class="item-image-container">
             <img
-              src="../static/media/anime_placeholder.jpg"
+              src="{{ url_for('static', filename='media' + video.thumbnail_path)}}"
               alt="画像ここ"
               class="item-image"
             />
