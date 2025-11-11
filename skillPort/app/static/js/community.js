@@ -1,513 +1,509 @@
 // ============================
-// Utilities for current user
-// ============================
-function resolveCurrentUser() {
-  const composer = document.querySelector('.new-post');
-  const dataName = composer?.dataset?.username;
-  const dataIcon = composer?.dataset?.avatar;
 
-  const win = window.CURRENT_USER || {};
-  const name = (dataName || win.name || 'ユーザー').trim();
-  const icon = (dataIcon || win.icon || '/static/img/profile_icon.png').trim();
-
-  return { name, icon };
-}
-
-// ============================
 // Header active state
+
 // ============================
+
 document.addEventListener('DOMContentLoaded', () => {
+
   const container = document.querySelector('#header .container');
+
   if (!container) return;
+
   const links = container.querySelectorAll('ul li a');
-
+ 
   function clearActive() { links.forEach(a => a.classList.remove('is-active')); }
-
+ 
   links.forEach(a => {
+
     a.addEventListener('click', (e) => {
+
       e.preventDefault();
+
       const wasActive = a.classList.contains('is-active');
+
       clearActive();
+
       if (!wasActive) a.classList.add('is-active');
-    });
-  });
 
+    });
+
+  });
+ 
   document.addEventListener('click', (e) => {
+
     if (!container.contains(e.target)) clearActive();
-  });
-});
 
+  });
+
+});
+ 
 // ============================
+
 // Dropdown (カテゴリ)
+
 // ============================
+
 document.addEventListener("DOMContentLoaded", () => {
+
   const dropdown = document.getElementById("nav-category");
+
   if (!dropdown) return;
+
   const toggle = dropdown.querySelector(".dropdown-toggle");
+
   if (!toggle) return;
-
+ 
   toggle.addEventListener("click", (e) => {
+
     e.preventDefault();
+
     dropdown.classList.toggle("open");
-  });
 
+  });
+ 
   document.addEventListener("click", (e) => {
+
     if (!dropdown.contains(e.target)) dropdown.classList.remove("open");
+
   });
+
 });
+ 
+// ============================
+
+// New Post composer (+ preview only; no posting)
 
 // ============================
-// New Post composer (+ preview)
-// ============================
+
 document.addEventListener('DOMContentLoaded', () => {
+
   const newPost = document.querySelector('.new-post');
+
   if (!newPost) return;
-
-  const { name: CURRENT_NAME, icon: CURRENT_ICON } = resolveCurrentUser();
-
+ 
   const btnAdd     = newPost.querySelector('.add');
-  const btnSend    = newPost.querySelector('.send');
+
+  const btnSend    = newPost.querySelector('.send'); // acts as "open create popup"
+
   const inputText  = newPost.querySelector('.textbox .text');
+
   const filePick   = newPost.querySelector('.filepick');
+
   const attachment = newPost.querySelector('.textbox .attachment');
+
   const textbox    = newPost.querySelector('.textbox');
-  const avatarEl   = newPost.querySelector('.avatar');
-
-  // Ensure the composer avatar shows the *real* icon
-  if (avatarEl) {
-    avatarEl.src = CURRENT_ICON;
-    avatarEl.alt = CURRENT_NAME;
-  }
-
-  // 明示的に type="button" を付与（フォーム送信誤発火対策）
+ 
   if (btnSend) btnSend.setAttribute('type', 'button');
-
+ 
   let objectUrl = null;
-
+ 
   // ＋ -> ファイル選択
+
   if (btnAdd) {
+
     btnAdd.addEventListener('click', (e) => {
-      e.preventDefault();
-      if (filePick) filePick.click();
-    });
-  }
 
-  // メディア選択プレビュー
+      e.preventDefault();
+
+      filePick?.click();
+
+    });
+
+  }
+ 
+  // 選択ファイルのプレビュー（1ファイル）
+
   if (filePick) {
+
     filePick.addEventListener('change', () => {
-      const file = filePick.files && filePick.files[0];
+
+      const file = filePick.files?.[0];
+
       if (!file) return;
-
+ 
       if (objectUrl) URL.revokeObjectURL(objectUrl);
+
       objectUrl = URL.createObjectURL(file);
-
+ 
       const isImg = file.type.startsWith('image/');
+
       const isVid = file.type.startsWith('video/');
-
+ 
       if (isImg) {
+
         attachment.innerHTML = `
-          <img src="${objectUrl}" style="width:100%;max-height:220px;border-radius:8px;display:block;">
-          <button class="remove-btn" title="削除">✖</button>
+<img src="${objectUrl}" style="width:100%;max-height:220px;border-radius:8px;display:block;">
+<button class="remove-btn" title="削除">✖</button>
+
         `;
+
       } else if (isVid) {
+
         attachment.innerHTML = `
-          <video controls src="${objectUrl}" style="width:100%;max-height:220px;border-radius:8px;display:block;"></video>
-          <button class="remove-btn" title="削除">✖</button>
+<video controls src="${objectUrl}" style="width:100%;max-height:220px;border-radius:8px;display:block;"></video>
+<button class="remove-btn" title="削除">✖</button>
+
         `;
+
       } else {
+
         attachment.innerHTML = `
-          <div>このファイル形式はプレビューできません</div>
-          <button class="remove-btn" title="削除">✖</button>
+<div>このファイル形式はプレビューできません</div>
+<button class="remove-btn" title="削除">✖</button>
+
         `;
-      }
 
+      }
+ 
       textbox.classList.add('has-attachment');
-
+ 
       const removeBtn = attachment.querySelector('.remove-btn');
-      if (removeBtn) {
-        removeBtn.addEventListener('click', () => {
-          attachment.innerHTML = '';
-          textbox.classList.remove('has-attachment');
-          filePick.value = '';
-          if (objectUrl) { URL.revokeObjectURL(objectUrl); objectUrl = null; }
-        });
-      }
-    });
-  }
 
-  // ▶ 投稿 -> 「新規投稿」モードでモーダルを開く
-  if (btnSend) {
-    btnSend.addEventListener('click', (e) => {
-      e.preventDefault();
+      removeBtn?.addEventListener('click', () => {
 
-      if (!window.CommunityModal || typeof window.CommunityModal.openForCreate !== 'function') {
-        console.warn('[Community] Modal API not ready. Showing minimal fallback.');
-        const fallback = document.getElementById('editModal');
-        if (fallback) {
-          const h = fallback.querySelector('.modal__header h3');
-          if (h) h.textContent = '本当に投稿しますか';
-          const postBtn = fallback.querySelector('#btnPostSubmit');
-          const saveBtn = fallback.querySelector('#btnSaveEdit');
-          const delBtn  = fallback.querySelector('#btnDeletePost');
-          if (postBtn) postBtn.style.display = 'inline-block';
-          if (saveBtn) saveBtn.style.display = 'none';
-          if (delBtn)  delBtn.style.display  = 'none';
+        attachment.innerHTML = '';
 
-          fallback.classList.add('is-open');
-        }
-        return;
-      }
+        textbox.classList.remove('has-attachment');
 
-      const file = filePick && filePick.files && filePick.files[0] ? filePick.files[0] : null;
+        filePick.value = '';
 
-      window.CommunityModal.openForCreate({
-        text: inputText ? inputText.value.trim() : '',
-        file,
-        avatarSrc: CURRENT_ICON,   // ← use real icon
-        username: CURRENT_NAME     // ← use real name
+        if (objectUrl) { URL.revokeObjectURL(objectUrl); objectUrl = null; }
+
       });
+
     });
-  }
 
+  }
+ 
+  // ▶ -> 「新規投稿」モードでモーダルを開く（※保存/送信はしない）
+
+  if (btnSend) {
+
+    btnSend.addEventListener('click', (e) => {
+
+      e.preventDefault();
+ 
+      const file = filePick?.files?.[0] || null;
+ 
+      if (!window.CommunityModal?.openForCreate) {
+
+        console.warn('[Community] Modal API not ready.');
+
+        return;
+
+      }
+ 
+      window.CommunityModal.openForCreate({
+
+        text: inputText?.value.trim() || '',
+
+        file
+
+      });
+
+    });
+
+  }
+ 
   // GC
+
   window.addEventListener('beforeunload', () => {
+
     if (objectUrl) URL.revokeObjectURL(objectUrl);
+
   });
+
 });
+ 
+// ============================
+
+// 編集/作成 共通ポップアップ（見た目だけ; no save/post/delete）
 
 // ============================
-// 編集/作成 共通ポップアップ（削除ボタン付き）
-// ============================
+
 (function(){
-  const modal = document.getElementById('editModal');
+
+  const modal     = document.getElementById('editModal');
+
   if (!modal) return;
+ 
+  const ta        = modal.querySelector('#editText');
 
-  const { name: CURRENT_NAME, icon: CURRENT_ICON } = resolveCurrentUser();
+  const fileInput = modal.querySelector('#editFile');
 
-  const ta           = modal.querySelector('#editText');
-  const fileInput    = modal.querySelector('#editFile');
-  const btnPick      = modal.querySelector('#btnPickMedia');
-  const btnRemove    = modal.querySelector('#btnRemoveMedia');
-  const preview      = modal.querySelector('#mediaPreview');
+  const btnPick   = modal.querySelector('#btnPickMedia');
 
-  const btnSave      = modal.querySelector('#btnSaveEdit');     // 編集用
-  const btnPost      = modal.querySelector('#btnPostSubmit');   // 新規用
-  const btnDelete    = modal.querySelector('#btnDeletePost');
-  const closeEls     = modal.querySelectorAll('[data-close="true"]');
+  const btnRemove = modal.querySelector('#btnRemoveMedia');
 
-  let activePost     = null;   // 編集対象。新規は null
-  let lastFocus      = null;
-  let objectUrl      = null;
-  let replaceFile    = null;
-  let removeMedia    = false;
-  let keepObjectUrl  = false;
-  let createContext  = null;
+  const preview   = modal.querySelector('#mediaPreview');
+ 
+  const btnSave   = modal.querySelector('#btnSaveEdit');     // 編集用
 
-  function getPostParts(post){
-    const actions = post.querySelector('.actions');
-    let textEl = actions ? actions.previousElementSibling : null;
-    if (!textEl || textEl.tagName !== 'P') textEl = post.querySelector('p');
-    let mediaEl = post.querySelector('.contents');
-    return { textEl, mediaEl, actions };
-  }
+  const btnPost   = modal.querySelector('#btnPostSubmit');   // 新規用
+
+  const btnDelete = modal.querySelector('#btnDeletePost');   // (表示のみ)
+
+  const closeEls  = modal.querySelectorAll('[data-close="true"], .modal__overlay');
+ 
+  let objectUrl   = null;
+
+  let replaceFile = null;
+
+  let removeMedia = false;
+ 
+  // ------- 表示切替 -------
 
   function showForEditMode(){
-    modal.querySelector('.modal__header h3').textContent = '投稿を編集';
-    if (btnSave)   btnSave.style.display   = 'inline-block';
-    if (btnPost)   btnPost.style.display   = 'none';
-    if (btnDelete) btnDelete.style.display = 'inline-block';
 
-    if (btnSave)   btnSave.onclick   = handleSaveEdit;
-    if (btnPost)   btnPost.onclick   = null;
-    if (btnDelete) btnDelete.onclick = handleDeletePost;
+    modal.querySelector('.modal__header h3').textContent = '投稿を編集';
+
+    btnSave.style.display   = 'inline-block';
+
+    btnPost.style.display   = 'none';
+
+    btnDelete.style.display = 'inline-block';
+
   }
 
   function showForCreateMode(){
-    modal.querySelector('.modal__header h3').textContent = '本当に投稿しますか';
-    if (btnSave)   btnSave.style.display   = 'none';
-    if (btnPost)   btnPost.style.display   = 'inline-block';
-    if (btnDelete) btnDelete.style.display = 'none';
 
-    if (btnSave)   btnSave.onclick   = null;
-    if (btnPost)   btnPost.onclick   = handleCreatePost;
-    if (btnDelete) btnDelete.onclick = null;
+    modal.querySelector('.modal__header h3').textContent = '新規投稿';
+
+    btnSave.style.display   = 'none';
+
+    btnPost.style.display   = 'inline-block';
+
+    btnDelete.style.display = 'none';
+
   }
+ 
+  // ------- API: 外から開く -------
 
-  function openModalFor(post){
-    activePost    = post;
-    createContext = null;
-    lastFocus     = document.activeElement;
-    replaceFile   = null;
-    removeMedia   = false;
-    keepObjectUrl = false;
-    if (objectUrl){ URL.revokeObjectURL(objectUrl); objectUrl = null; }
+  function openForEdit({ text = '', mediaEl = null } = {}){
 
-    const { textEl, mediaEl } = getPostParts(post);
-    ta.value = textEl ? (textEl.textContent || '').trim() : '';
+    ta.value = text;
 
-    renderPreview(mediaEl ? mediaEl.tagName.toLowerCase() : null, mediaEl ? mediaEl.getAttribute('src') : null);
+    replaceFile = null;
 
+    removeMedia = false;
+
+    if (objectUrl) { URL.revokeObjectURL(objectUrl); objectUrl = null; }
+ 
+    // 既存メディアをそのままプレビュー（読み取りのみ）
+
+    preview.innerHTML = '';
+
+    if (mediaEl) {
+
+      if (mediaEl.tagName === 'IMG') {
+
+        const img = document.createElement('img');
+
+        img.src = mediaEl.src;
+
+        preview.appendChild(img);
+
+      } else if (mediaEl.tagName === 'VIDEO') {
+
+        const v = document.createElement('video');
+
+        v.controls = true;
+
+        v.src = mediaEl.currentSrc || mediaEl.src;
+
+        preview.appendChild(v);
+
+      }
+
+    } else {
+
+      const p = document.createElement('div'); p.textContent = '（メディアなし）';
+
+      preview.appendChild(p);
+
+    }
+ 
     showForEditMode();
 
-    modal.classList.add('is-open');
-    setTimeout(()=>ta.focus(), 0);
-    document.addEventListener('keydown', onKeydown);
+    openModal();
+
   }
+ 
+  function openForCreate({ text = '', file = null } = {}){
 
-  function openModalForNew(draft){
-    activePost    = null;
-    createContext = {
-      avatarSrc: draft?.avatarSrc || CURRENT_ICON,
-      username:  draft?.username  || CURRENT_NAME
-    };
-    lastFocus     = document.activeElement;
-    replaceFile   = null;
-    removeMedia   = false;
-    keepObjectUrl = false;
-    if (objectUrl){ URL.revokeObjectURL(objectUrl); objectUrl = null; }
+    ta.value = text;
 
-    ta.value = (draft?.text || '').trim();
+    removeMedia = false;
+ 
+    if (objectUrl) { URL.revokeObjectURL(objectUrl); objectUrl = null; }
 
-    if (draft?.file) {
-      replaceFile = draft.file;
-      objectUrl   = URL.createObjectURL(replaceFile);
+    replaceFile = null;
+ 
+    if (file) {
+
+      replaceFile = file;
+
+      objectUrl = URL.createObjectURL(file);
+
     }
+ 
+    renderPreview();
 
-    renderPreview(null, null);
     showForCreateMode();
 
-    modal.classList.add('is-open');
-    setTimeout(()=>ta.focus(), 0);
-    document.addEventListener('keydown', onKeydown);
-  }
+    openModal();
 
-  window.CommunityModal = {
-    openForEdit:   openModalFor,
-    openForCreate: openModalForNew
-  };
+  }
+ 
+  window.CommunityModal = { openForEdit, openForCreate };
+ 
+  // ------- open/close -------
+
+  function openModal(){
+
+    modal.classList.add('is-open');
+
+    modal.setAttribute('aria-hidden', 'false');
+
+    setTimeout(()=>ta.focus(), 0);
+
+    document.addEventListener('keydown', onEsc);
+
+  }
 
   function closeModal(){
+
     modal.classList.remove('is-open');
-    document.removeEventListener('keydown', onKeydown);
-    if (lastFocus && typeof lastFocus.focus === 'function') lastFocus.focus();
 
-    activePost    = null;
-    replaceFile   = null;
-    removeMedia   = false;
-    createContext = null;
+    modal.setAttribute('aria-hidden', 'true');
 
-    if (objectUrl && !keepObjectUrl){ URL.revokeObjectURL(objectUrl); }
-    objectUrl     = null;
-    keepObjectUrl = false;
+    document.removeEventListener('keydown', onEsc);
+
     preview.innerHTML = '';
+
+    replaceFile = null;
+
+    removeMedia = false;
+
+    if (objectUrl) { URL.revokeObjectURL(objectUrl); objectUrl = null; }
+
   }
 
-  function onKeydown(e){
-    if (e.key === 'Escape'){ e.preventDefault(); closeModal(); }
-    if (e.key === 'Tab'){
-      const f = modal.querySelectorAll('button,[href],input,textarea,select,[tabindex]:not([tabindex="-1"])');
-      const a = Array.from(f).filter(el => !el.disabled);
-      if (!a.length) return;
-      const first = a[0], last = a[a.length-1];
-      if (e.shiftKey && document.activeElement === first){ e.preventDefault(); last.focus(); }
-      else if (!e.shiftKey && document.activeElement === last){ e.preventDefault(); first.focus(); }
-    }
-  }
-
-  function renderPreview(kind, src){
-    preview.innerHTML = '';
-    if (removeMedia){
-      const p = document.createElement('div');
-      p.textContent = '（メディアは削除されます）';
-      preview.appendChild(p);
-      return;
-    }
-    if (replaceFile && objectUrl){
-      if (replaceFile.type.startsWith('image/')){
-        const img = document.createElement('img'); img.src = objectUrl; preview.appendChild(img);
-      }else if (replaceFile.type.startsWith('video/')){
-        const v = document.createElement('video'); v.controls = true; v.src = objectUrl; preview.appendChild(v);
-      }else{
-        const p = document.createElement('div');
-        p.textContent = '（このファイルはプレビューできません）';
-        preview.appendChild(p);
-      }
-      return;
-    }
-    if (src && kind === 'img'){
-      const img = document.createElement('img'); img.src = src; preview.appendChild(img);
-    }else if (src && kind === 'video'){
-      const v = document.createElement('video'); v.controls = true; v.src = src; preview.appendChild(v);
-    }else{
-      const p = document.createElement('div');
-      p.textContent = '（メディアなし）';
-      preview.appendChild(p);
-    }
-  }
-
-  if (btnPick) {
-    btnPick.addEventListener('click', ()=> fileInput && fileInput.click());
-  }
-  if (fileInput) {
-    fileInput.addEventListener('change', ()=>{
-      removeMedia = false;
-      const file = fileInput.files && fileInput.files[0];
-      if (!file) {
-        replaceFile = null;
-        if (objectUrl){URL.revokeObjectURL(objectUrl); objectUrl=null;}
-        renderPreview(null,null);
-        return;
-      }
-      replaceFile = file;
-      if (objectUrl){ URL.revokeObjectURL(objectUrl); }
-      objectUrl = URL.createObjectURL(file);
-      renderPreview(null, null);
-    });
-  }
-
-  if (btnRemove) {
-    btnRemove.addEventListener('click', ()=>{
-      removeMedia = true;
-      replaceFile = null;
-      if (objectUrl){ URL.revokeObjectURL(objectUrl); objectUrl=null; }
-      renderPreview(null, null);
-    });
-  }
-
-  function handleDeletePost(){
-    if (!activePost) return;
-    const ok = window.confirm('この投稿を削除しますか？この操作は取り消せません。');
-    if (!ok) return;
-    activePost.remove();
-    closeModal();
-  }
-
-  function handleSaveEdit(){
-    const textVal = ta.value.trim();
-    if (!activePost){ closeModal(); return; }
-
-    const { textEl, mediaEl, actions } = getPostParts(activePost);
-
-    if (textEl) textEl.textContent = textVal;
-    else {
-      const p = document.createElement('p');
-      p.textContent = textVal;
-      p.style.marginLeft = '49px';
-      if (actions) activePost.insertBefore(p, actions);
-      else activePost.appendChild(p);
-    }
-
-    if (removeMedia) {
-      if (mediaEl) mediaEl.remove();
-    } else if (replaceFile) {
-      const isImg  = replaceFile.type.startsWith('image/');
-      const isVid  = replaceFile.type.startsWith('video/');
-      if (!isImg && !isVid) { closeModal(); return; }
-
-      let target = mediaEl;
-      if (!target){
-        target = document.createElement(isImg ? 'img' : 'video');
-        target.className = 'contents';
-        target.style.marginLeft = '49px';
-        const pAfter = getPostParts(activePost).textEl;
-        if (pAfter) pAfter.insertAdjacentElement('afterend', target);
-        else activePost.prepend(target);
-      } else {
-        const needNew = (isImg && target.tagName.toLowerCase() !== 'img') ||
-                        (isVid && target.tagName.toLowerCase() !== 'video');
-        if (needNew){
-          const newEl = document.createElement(isImg ? 'img' : 'video');
-          newEl.className = 'contents';
-          newEl.style.marginLeft = '49px';
-          target.replaceWith(newEl);
-          target = newEl;
-        }
-      }
-      target.src = objectUrl || target.src;
-      if (isVid) target.controls = true;
-    }
-
-    closeModal();
-  }
-
-  function handleCreatePost(){
-    const textVal = ta.value.trim();
-
-    const list = document.querySelector('.post-list');
-    if (!list) { closeModal(); return; }
-
-    const post = document.createElement('div');
-    post.className = 'post';
-
-    const user = document.createElement('div');
-    user.className = 'user';
-    const av = document.createElement('img');
-    av.className = 'avatar';
-    av.alt = (createContext?.username || CURRENT_NAME);
-    av.src = (createContext?.avatarSrc || CURRENT_ICON);
-    const uname = document.createElement('span');
-    uname.className = 'username';
-    uname.textContent = (createContext?.username || CURRENT_NAME);
-    user.appendChild(av);
-    user.appendChild(uname);
-    post.appendChild(user);
-
-    if (!removeMedia && replaceFile) {
-      const isImg = replaceFile.type.startsWith('image/');
-      const isVid = replaceFile.type.startsWith('video/');
-      if (isImg || isVid) {
-        const media = document.createElement(isImg ? 'img' : 'video');
-        media.className = 'contents';
-        media.style.marginLeft = '49px';
-        if (!objectUrl) objectUrl = URL.createObjectURL(replaceFile);
-        media.src = objectUrl;
-        if (isVid) media.controls = true;
-        keepObjectUrl = true;
-        post.appendChild(media);
-      }
-    }
-
-    const p = document.createElement('p');
-    p.textContent = textVal;
-    p.style.marginLeft = '49px';
-    post.appendChild(p);
-
-    const actions = document.createElement('div');
-    actions.className = 'actions';
-    const editBtn = document.createElement('button');
-    editBtn.textContent = '編集';
-    actions.appendChild(editBtn);
-    post.appendChild(actions);
-
-    list.prepend(post);
-
-    const composer = document.querySelector('.new-post');
-    if (composer) {
-      const cText   = composer.querySelector('.textbox .text');
-      const cAttach = composer.querySelector('.textbox .attachment');
-      const cPick   = composer.querySelector('.filepick');
-      const cBox    = composer.querySelector('.textbox');
-      if (cText)   cText.value = '';
-      if (cAttach) cAttach.innerHTML = '';
-      if (cPick)   cPick.value = '';
-      if (cBox)    cBox.classList.remove('has-attachment');
-    }
-
-    closeModal();
-  }
-
-  document.addEventListener('click', (e)=>{
-    const btn = e.target.closest('.post .actions button');
-    if (!btn) return;
-    const post = btn.closest('.post');
-    if (!post) return;
-    openModalFor(post);
-  });
+  function onEsc(e){ if (e.key === 'Escape') closeModal(); }
 
   closeEls.forEach(el => el.addEventListener('click', closeModal));
-  modal.addEventListener('click', (e)=>{ if (e.target.dataset && e.target.dataset.close === 'true') closeModal(); });
+ 
+  // ------- プレビュー -------
 
-  window.addEventListener('beforeunload', ()=>{
-    if (objectUrl && !keepObjectUrl) URL.revokeObjectURL(objectUrl);
+  function renderPreview(){
+
+    preview.innerHTML = '';
+
+    if (removeMedia) {
+
+      const p = document.createElement('div'); p.textContent = '（メディアは削除されます）';
+
+      preview.appendChild(p);
+
+      return;
+
+    }
+
+    if (replaceFile && objectUrl){
+
+      if (replaceFile.type.startsWith('image/')){
+
+        const img = document.createElement('img'); img.src = objectUrl; preview.appendChild(img);
+
+      } else if (replaceFile.type.startsWith('video/')){
+
+        const v = document.createElement('video'); v.controls = true; v.src = objectUrl; preview.appendChild(v);
+
+      } else {
+
+        const p = document.createElement('div'); p.textContent = '（このファイルはプレビューできません）';
+
+        preview.appendChild(p);
+
+      }
+
+      return;
+
+    }
+
+    const p = document.createElement('div'); p.textContent = '（メディアなし）';
+
+    preview.appendChild(p);
+
+  }
+ 
+  // ------- モーダル内ファイル操作（選択/削除） -------
+
+  btnPick?.addEventListener('click', () => fileInput?.click());
+
+  fileInput?.addEventListener('change', () => {
+
+    removeMedia = false;
+
+    const file = fileInput.files?.[0] || null;
+
+    replaceFile = file;
+
+    if (objectUrl) { URL.revokeObjectURL(objectUrl); objectUrl = null; }
+
+    if (file) objectUrl = URL.createObjectURL(file);
+
+    renderPreview();
+
   });
+
+  btnRemove?.addEventListener('click', () => {
+
+    removeMedia = true;
+
+    replaceFile = null;
+
+    if (objectUrl) { URL.revokeObjectURL(objectUrl); objectUrl = null; }
+
+    renderPreview();
+
+  });
+ 
+  // ------- ボタン動作（見た目だけ・処理なし） -------
+
+  btnSave?.addEventListener('click', () => { /* no-op */ closeModal(); });
+
+  btnPost?.addEventListener('click', () => { /* no-op */ closeModal(); });
+
+  btnDelete?.addEventListener('click', () => { /* no-op */ closeModal(); });
+ 
+  // ------- フィード内「編集」ボタン -> 編集モードで開く（見た目だけ） -------
+
+  document.addEventListener('click', (e)=>{
+
+    const btn = e.target.closest('.post .actions button');
+
+    if (!btn) return;
+
+    const post = btn.closest('.post');
+
+    if (!post) return;
+
+    const textEl  = post.querySelector('p');
+
+    const mediaEl = post.querySelector('img.contents, video.contents');
+
+    openForEdit({
+
+      text: textEl ? (textEl.textContent || '').trim() : '',
+
+      mediaEl
+
+    });
+
+  });
+
 })();
+
+ 
