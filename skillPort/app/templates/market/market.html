@@ -38,8 +38,11 @@ content %}
     </div>
 
     <div class="content-wrapper">
-      
-      <form action="{{ url_for('market.market_top') }}" method="GET" class="sidebar">
+      <form
+        action="{{ url_for('market.market_top') }}"
+        method="GET"
+        class="sidebar"
+      >
         <aside>
           <button type="submit" class="filter-btn active">更新</button>
 
@@ -51,21 +54,21 @@ content %}
             <button type="button" class="filter-item toggle-filter-btn">
               <span>カテゴリー</span><span class="arrow">＞</span>
             </button>
-            
+
             <div class="filter-content" id="categoryListContainer">
               <div class="filter-checkbox-group">
-                {% if all_categories %}
-                  {% for cat in all_categories %}
-                  <label>
-                    <input type="checkbox" name="category" value="{{ cat.id }}" /> {{ cat.name }}
-                  </label>
-                  {% endfor %}
-                {% else %}
-                  <p style="font-size: 13px; color: #777; padding-left: 5px;">カテゴリーが見つかりません。</p>
+                {% if all_categories %} {% for cat in all_categories %}
+                <label>
+                  <input type="checkbox" name="category" value="{{ cat.id }}" />
+                  {{ cat.name }}
+                </label>
+                {% endfor %} {% else %}
+                <p style="font-size: 13px; color: #777; padding-left: 5px">
+                  カテゴリーが見つかりません。
+                </p>
                 {% endif %}
               </div>
             </div>
-            
           </div>
           <div class="filter-section" id="statusFilter">
             <button type="button" class="filter-item toggle-filter-btn">
@@ -73,8 +76,14 @@ content %}
             </button>
             <div class="filter-content">
               <div class="filter-checkbox-group">
-                <label><input type="checkbox" name="sale_status" value="on_sale" /> 販売中</label>
-                <label><input type="checkbox" name="sale_status" value="sold_out" /> 売り切れ</label>
+                <label
+                  ><input type="checkbox" name="sale_status" value="on_sale" />
+                  販売中</label
+                >
+                <label
+                  ><input type="checkbox" name="sale_status" value="sold_out" />
+                  売り切れ</label
+                >
               </div>
             </div>
           </div>
@@ -83,7 +92,12 @@ content %}
               <span>出品者</span><span class="arrow">＞</span>
             </button>
             <div class="filter-content">
-              <input type="text" name="seller_name" class="filter-search-input" placeholder="出品者名で検索...">
+              <input
+                type="text"
+                name="seller_name"
+                class="filter-search-input"
+                placeholder="出品者名で検索..."
+              />
             </div>
           </div>
 
@@ -93,29 +107,57 @@ content %}
             </button>
             <div class="filter-content">
               <div class="filter-checkbox-group">
-                <label><input type="checkbox" name="condition" value="new" /> 新品</label>
-                <label><input type="checkbox" name="condition" value="used" /> 中古</label>
+                <label
+                  ><input type="checkbox" name="condition" value="new" />
+                  新品</label
+                >
+                <label
+                  ><input type="checkbox" name="condition" value="used" />
+                  中古</label
+                >
               </div>
             </div>
           </div>
-          
+
           <div class="filter-section" id="priceFilter">
             <button type="button" class="filter-item toggle-filter-btn">
               <span>価格</span><span class="arrow">＞</span>
             </button>
             <div class="filter-content price-filter-content">
               <div class="price-slider-container">
-                  <input type="range" id="priceRange" class="price-slider" min="100" max="100000" value="50000" step="100">
-                  <div class="price-display">¥ <span id="priceValue">50,000</span></div>
+                <input
+                  type="range"
+                  id="priceRange"
+                  class="price-slider"
+                  min="100"
+                  max="100000"
+                  value="50000"
+                  step="100"
+                />
+                <div class="price-display">
+                  ¥ <span id="priceValue">50,000</span>
+                </div>
               </div>
               <div class="price-inputs">
-                <input type="number" name="min_price" placeholder="¥ Min" class="price-input" min="0" />
+                <input
+                  type="number"
+                  name="min_price"
+                  placeholder="¥ Min"
+                  class="price-input"
+                  min="0"
+                />
                 <span>-</span>
-                <input type="number" name="max_price" placeholder="¥ Max" class="price-input" min="0" />
+                <input
+                  type="number"
+                  name="max_price"
+                  placeholder="¥ Max"
+                  class="price-input"
+                  min="0"
+                />
               </div>
-              </div>
+            </div>
           </div>
-          </aside>
+        </aside>
       </form>
       <div class="products-area">
         <div class="products-header"></div>
@@ -126,26 +168,41 @@ content %}
             href="{{url_for('market.product_detail', product_id=product.product_id)}}"
             ><div class="product-container">
               {% if product.image_path %}
-                <img src="{{ url_for('static', filename=product.image_path[1:]) }}" alt="{{product.product_name}}" style="width:100%; height: 150px; object-fit: cover;">
+              <img
+                src="{{ url_for('static', filename='media' + product.image_path)}}"
+                alt="{{product.product_name}}"
+                style="width: 100%; height: 150px; object-fit: cover"
+              />
               {% else %}
-                <div style="width:100%; height: 150px; background-color: #f0f0f0; display:flex; align-items:center; justify-content:center; color: #aaa;">画像ここ</div>
+              <div
+                style="
+                  width: 100%;
+                  height: 150px;
+                  background-color: #f0f0f0;
+                  display: flex;
+                  align-items: center;
+                  justify-content: center;
+                  color: #aaa;
+                "
+              >
+                画像ここ
+              </div>
               {% endif %}
-              
+
               <h3>{{product.product_name}}</h3>
               <p>
-                {{ product.product_price | int | tojson | safe | replace('"', '') }}円 ｜ {{product.product_condition}}
+                {{ product.product_price | int | tojson | safe | replace('"',
+                '') }}円 ｜ {{product.product_condition}}
               </p>
               <p>{{product.listing_date.strftime('%Y-%m-%d')}}</p>
             </div></a
           >
           {% endfor %}
-          </div>
-
         </div>
+      </div>
     </div>
   </div>
 </main>
-{% endblock %}
-{% block scripts %}
-  <script src="{{ url_for('static', filename='js/market.js') }}" defer></script>
+{% endblock %} {% block scripts %}
+<script src="{{ url_for('static', filename='js/market.js') }}" defer></script>
 {% endblock %}

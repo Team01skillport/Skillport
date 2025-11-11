@@ -82,7 +82,11 @@ def product_detail(product_id):
     if not product_info: abort(404)
     sql_images = "SELECT image_path FROM listing_images_tbl WHERE product_id = %s AND is_thumbnail = 0 ORDER BY uploaded_at"
     other_images = fetch_query(sql_images, (product_id,))
-    return render_template('market/product_detail.html', info=product_info, other_images=other_images)
+    thumbnail_sql = "SELECT image_path FROM listing_images_tbl WHERE product_id = %s AND is_thumbnail = 1"
+    thumbnail_img = fetch_query(thumbnail_sql, (product_id,), fetch_one=True)
+    thumbnail_img = thumbnail_img['image_path']
+
+    return render_template('market/product_detail.html', info=product_info, other_images=other_images, thumbnail_img=thumbnail_img)
 
 
 # --- [修改] 新建和编辑的路由分离 ---

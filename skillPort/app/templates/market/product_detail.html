@@ -9,7 +9,7 @@ content %}
     <div class="image-area">
       <div class="thumbnails">
         <img
-          src="{{ url_for('static', filename='media/book.jpg') }}"
+          src="{{ url_for('static', filename='media' + info.image_path) }}"
           class="thumb active"
           alt="サムネイル1"
         />
@@ -22,7 +22,7 @@ content %}
       <div class="main-image">
         <img
           id="mainImage"
-          src="{{ url_for('static', filename='media/book.jpg') }}"
+          src="{{ url_for('static', filename='media' + thumbnail_img) }}"
           alt="メイン商品画像"
         />
       </div>
