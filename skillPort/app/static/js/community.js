@@ -229,14 +229,14 @@ document.addEventListener('DOMContentLoaded', () => {
     if (btnDelete) btnDelete.onclick = null;
   }
 
-  /* ------- Open: 編集 ------- */
+  /* ------- Open: 編集POPUP ------- */
   function openModalFor(post){
-    activePost    = post;
-    createContext = null;
-    lastFocus     = document.activeElement;
-    replaceFile   = null;
-    removeMedia   = false;
-    keepObjectUrl = false;
+    // activePost    = post;
+    // createContext = null;
+    // lastFocus     = document.activeElement;
+    // replaceFile   = null;
+    // removeMedia   = false;
+    // keepObjectUrl = false;
     if (objectUrl){ URL.revokeObjectURL(objectUrl); objectUrl = null; }
 
     const { textEl, mediaEl } = getPostParts(post);
