@@ -49,10 +49,14 @@ def edit_profile(user_name):
     
     birthday = str(user_info['birthday'])
     birthday_cut = birthday.split('-')
+    
+    if user_info['user_tags'] == None:
+        user_info['user_tags'] == ""
     return render_template('profile/profile_edit.html', info=user_info, user_name=user_info['user_name'], birthday=birthday_cut)
 
 @account_bp.route('/edit_profile/<user_name>/success', methods=["POST"])
 def edit_profile_success(user_name):
+    user_tags = request.form.get("tags")
     mail = request.form.get("email")
     tel_no = request.form.get("phone_num")
     last_name = request.form.get("last_name")
@@ -72,18 +76,8 @@ def edit_profile_success(user_name):
     date_string = f"{year}-{month}-{day}"
     if new_profile_icon == "":
         new_profile_icon = "/icons/default_icon.png"
-    print(mail)
-    print(tel_no)
-    print(last_name)
-    print(last_name_furigana)
-    print(zip_code)
-    print(prefecture)
-    print(address1)
-    print(address2)
-    print(new_profile_icon)
-    print(introduction)
-    print(date_string)
-    # sql = "INSERT INTO user_tbl (first_name, last_name, first_name_katakana, last_name_katakana, tel_no, zip_code, prefecture, address1, address2, birthday, mail, introduction, profile_icon) VALUES ('"+first_name+"', '"+last_name+"', '"+first_name_furigana+"', '"+last_name_furigana+"', '"+tel_no+"', '"+zip_code+"', '"+prefecture+"', '"+address1+"', '"+address2+"', '"+date_string+"', '"+mail+"', '"+introduction+"', '"+new_profile_icon+"');"
+    
+
     sql = f"""
     UPDATE user_tbl SET
     first_name = '{first_name}',
@@ -98,6 +92,7 @@ def edit_profile_success(user_name):
     birthday = '{date_string}',
     mail = '{mail}',
     introduction = '{introduction}',
+    user_tags = '{user_tags}',
     profile_icon = '{new_profile_icon}'
     WHERE id = {session['user_id']}
     ;
@@ -107,7 +102,7 @@ def edit_profile_success(user_name):
 
     sql = "SELECT * FROM user_tbl WHERE user_name = '"+str(user_name)+"';"
     user_info = fetch_query(sql, params=None, fetch_one=True)
-    return redirect(url_for('account.edit_profile', user_name = user_name, user_info=user_info))
+    return redirect(url_for('account.edit_profile', user_name = user_name, user_info=user_info, tag_placeholder="複数のタグはカンマ(,)で区切って入力してください（例：映画,歌）"))
 
 @account_bp.route('/my_page_top', methods=["GET"])
 def my_page_top():
