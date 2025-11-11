@@ -73,6 +73,10 @@ body {
   outline: none;
 }
 
+.login-form input:hover{
+  border: 1px solid #6d6d6d;
+}
+
 .form-actions {
   margin-top: 20px;
   margin-bottom: 25px;
