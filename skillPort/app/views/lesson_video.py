@@ -16,16 +16,16 @@ def video_player(video_id):
     ON v.video_uploader_id = u.id
     WHERE v.id = %s;
     """  
-    # fetch_query を使ってクエリを実行します。SQLインジェクション対策のため、
-    # video_idはパラメータとして渡します。 (video_id,) のカンマを忘れないでください。
+
     video_data = fetch_query(sql, (video_id,), fetch_one=True)
 
-    # もし動画が見つからなかった場合（結果が空の場合）、404エラーを表示します
     if not video_data:
         abort(404, "指定された動画は見つかりませんでした。")
         
     if video_data['profile_icon'] == None:
         video_data['profile_icon'] = "/icons/default_icon.png"
     
-    # 4. 取得した動画データ (video) をテンプレートに渡します
-    return render_template('lesson_video/video_player.html', video = video_data)
+    comment_sql = "SELECT * FROM video_tbl v LEFT JOIN video_comment_tbl vc ON v.id = vc.video_id LEFT JOIN user_tbl u ON vc.commentor_id = u.id WHERE v.id = %s"
+    comment_data = fetch_query(comment_sql, (video_id,), fetch_one=False)
+    print(comment_data)
+    return render_template('lesson_video/video_player.html', video = video_data, comments=comment_data)

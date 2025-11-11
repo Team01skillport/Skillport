@@ -45,26 +45,19 @@ endblock %} {% block styles %}
     </div>
 
     <ul class="comment-list">
+      {% for c in comments %} {% if c.profile_icon != None %}
       <li>
         <img
-          src="{{ url_for('static', filename='media/profile_icon.png') }}"
+          src="{{ url_for('static', filename='media/user' + c.profile_icon) }}"
           alt="Commenter Icon"
         />
+
         <div>
-          <strong>okura_masato0721</strong>
-          <p>すごい動画でした！ありがとうございます！</p>
+          <strong>{{c.user_name}}</strong>
+          <p>{{c.comment_text}}</p>
         </div>
       </li>
-      <li>
-        <img
-          src="{{ url_for('static', filename='media/profile_icon.png') }}"
-          alt="Commenter Icon"
-        />
-        <div>
-          <strong>okura_masato0721</strong>
-          <p>ああああああああああああああ</p>
-        </div>
-      </li>
+      {% endif %} {% endfor %}
     </ul>
   </section>
 
