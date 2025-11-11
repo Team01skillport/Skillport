@@ -25,7 +25,7 @@ def login():
     if 'user_id' in session:
         return redirect(url_for('auth.view_profile', user_id=session['user_id']))
         
-    return render_template('auth/login.html', errmsg="", username=username, password=password)
+    return render_template('auth/login.html', errmsg="")
 
 @auth_bp.route('/profile/<user_id>', methods=["GET"])
 def view_profile(user_id):

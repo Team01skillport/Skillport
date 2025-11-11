@@ -35,6 +35,7 @@ def upload_post():
         print(uploaded_post)
     else:
         errmsg = "投稿するのにアカウントが必要です"
+        print(errmsg)
         
     return render_template('community/community.html', all_posts=all_posts, errmsg=errmsg)
     

@@ -9,7 +9,12 @@ block styles %}
   <div class="edit-container">
     <section class="profile-set-section">
       <h1 class="section-title">プロフィール設定</h1>
-      <form id="profileForm" class="profile-form">
+      <form
+        id="profileForm"
+        class="profile-form"
+        action="{{url_for('account.edit_profile_success', user_name = user_name)}}"
+        method="post"
+      >
         <div class="profile-image-upload">
           <img
             class="profile-set-img"
@@ -49,12 +54,11 @@ block styles %}
             >
           </div>
         </div>
-      </form>
+
     </section>
 
     <section class="personal-info-section">
       <h1 class="section-title">個人情報設定</h1>
-      <form id="personalInfoForm" class="personal-info-form">
         <div class="form-group">
           <label for="mailAdd">メールアドレス</label>
           <input
@@ -94,7 +98,7 @@ block styles %}
               type="text"
               id="lastNameRubyInput"
               value="{{info['last_name_katakana']}}"
-              name="last_name_ruby"
+              name="last_name_furigana"
               required
             />
           </div>
@@ -104,7 +108,7 @@ block styles %}
               type="text"
               id="firstNameRubyInput"
               value="{{info['first_name_katakana']}}"
-              name="first_name_ruby"
+              name="first_name_furigana"
               required
             />
           </div>
@@ -116,7 +120,7 @@ block styles %}
             type="text"
             id="addressInput"
             value="{{info['zip_code']}}"
-            name="address"
+            name="zip_code"
             required
           />
         </div>
@@ -126,7 +130,7 @@ block styles %}
             type="text"
             id="addressInput"
             value="{{info['prefecture']}}"
-            name="address"
+            name="prefecture"
             required
           />
         </div>
@@ -136,7 +140,7 @@ block styles %}
             type="text"
             id="addressInput"
             value="{{info['address1']}}"
-            name="address"
+            name="address1"
             required
           />
         </div>
@@ -146,7 +150,7 @@ block styles %}
             type="text"
             id="addressInput"
             value="{{info['address2']}}"
-            name="address"
+            name="address2"
             required
           />
         </div>
@@ -231,7 +235,7 @@ block styles %}
         </div>
 
         <div class="form-actions">
-          <button type="submit" class="primary-btn">個人情報を更新</button>
+          <button type="submit" class="primary-btn">更新</button>
         </div>
       </form>
     </section>
