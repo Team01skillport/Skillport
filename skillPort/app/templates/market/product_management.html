@@ -7,9 +7,52 @@
 
 {# ================= ページ固有のCSS ================= #}
 {% block styles %}
-  {# <link rel="stylesheet" href="{{ url_for('static', filename='css/index.css') }}"> #}
-  
   <link rel="stylesheet" href="{{ url_for('static', filename='css/product_management.css') }}">
+  
+  <style>
+    .no-products-message {
+      grid-column: 1 / -1; /* グリッドの全幅を使用 */
+      text-align: center;
+      padding: 60px 20px;
+      background-color: #f9f9f9;
+      border-radius: 12px;
+      border: 1px dashed #ddd;
+      margin-top: 20px;
+      color: #555;
+    }
+    .no-products-message p {
+      margin: 10px 0;
+      font-size: 1rem;
+    }
+    .no-products-message p.lead {
+      font-size: 1.2rem;
+      font-weight: 600;
+      color: #333;
+    }
+    .badge.sold {
+      background-color: #9ca3af; /* 売り切れバッジの色 (グレー) */
+    }
+    .dummy-thumb {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        height: 100%;
+        background-color: #f0f2f5;
+        color: #9ca3af;
+        text-align: center;
+    }
+    .dummy-thumb span {
+        font-size: 2rem;
+        font-weight: bold;
+    }
+    .dummy-thumb p {
+        font-size: 0.8rem;
+        margin-top: 8px;
+        padding: 0 10px;
+    }
+  </style>
 {% endblock %}
 
 
@@ -20,62 +63,54 @@
       <h2 class="page-title">商品管理</h2>
 
       <div class="toolbar">
-        {# 
-          注意: 我把 "新規商品登録" 按钮从 <button> 改为了 <a> 标签,
-          并链接到我们之前创建的 'create_product_page' 路由。
-        #}
         <a href="{{ url_for('market.create_product_page') }}" class="pill blue">新規商品登録</a>
-        <button class="pill indigo">売上を表示</button>
-        <button class="pill gray">出品済み一覧</button>
       </div>
 
       <section class="grid">
-        <article class="card">
-          <div class="thumb">
-            {# 
-              重要: 
-              1. 修正了图片路径
-              2. 将来在 'for' 循环中, 'monkey.png' 应替换为
-                 像 'product.image_filename' 这样的变量
-            #}
-            <img src="{{ url_for('static', filename='media/monkey.png') }}" alt="item">
-          </div>
-          <div class="ops">
-            <span class="badge">出品中</span>
-            {# 
-              注意: 我把 "編集" 按钮也改为了 <a> 标签,
-              并链接到 'edit_product_page' 路由。
-              'product_id=1' 只是一个占位符。
-            #}
-            <a href="{{ url_for('market.edit_product_page', product_id=1) }}" class="ghost-sm">編集</a>
-          </div>
-        </article>
 
-        <article class="card"><div class="thumb"><img src="{{ url_for('static', filename='media/monkey.png') }}" alt=""></div><div class="ops"><span class="badge">出品中</span><a href="{{ url_for('market.edit_product_page', product_id=1) }}" class="ghost-sm">編集</a></div></article>
-        <article class="card"><div class="thumb"><img src="{{ url_for('static', filename='media/monkey.png') }}" alt=""></div><div class="ops"><span class="badge">出品中</span><a href="{{ url_for('market.edit_product_page', product_id=1) }}" class="ghost-sm">編集</a></div></article>
-        <article class="card"><div class="thumb"><img src="{{ url_for('static', filename='media/monkey.png') }}" alt=""></div><div class="ops"><span class="badge">出品中</span><a href="{{ url_for('market.edit_product_page', product_id=1) }}" class="ghost-sm">編集</a></div></article>
-        <article class="card"><div class="thumb"><img src="{{ url_for('static', filename='media/monkey.png') }}" alt=""></div><div class="ops"><span class="badge">出品中</span><a href="{{ url_for('market.edit_product_page', product_id=1) }}" class="ghost-sm">編集</a></div></article>
-        <article class="card"><div class="thumb"><img src="{{ url_for('static', filename='media/monkey.png') }}" alt=""></div><div class="ops"><span class="badge">出品中</span><a href="{{ url_for('market.edit_product_page', product_id=1) }}" class="ghost-sm">編集</a></div></article>
-        <article class="card"><div class="thumb"><img src="{{ url_for('static', filename='media/monkey.png') }}" alt=""></div><div class="ops"><span class="badge">出品中</span><a href="{{ url_for('market.edit_product_page', product_id=1) }}" class="ghost-sm">編集</a></div></article>
-        <article class="card"><div class="thumb"><img src="{{ url_for('static', filename='media/monkey.png') }}" alt=""></div><div class="ops"><span class="badge">出品中</span><a href="{{ url_for('market.edit_product_page', product_id=1) }}" class="ghost-sm">編集</a></div></article>
-        <article class="card"><div class="thumb"><img src="{{ url_for('static', filename='media/monkey.png') }}" alt=""></div><div class="ops"><span class="badge">出品中</span><a href="{{ url_for('market.edit_product_page', product_id=1) }}" class="ghost-sm">編集</a></div></article>
-        <article class="card"><div class="thumb"><img src="{{ url_for('static', filename='media/monkey.png') }}" alt=""></div><div class="ops"><span class="badge">出品中</span><a href="{{ url_for('market.edit_product_page', product_id=1) }}" class="ghost-sm">編集</a></div></article>
-        <article class="card"><div class="thumb"><img src="{{ url_for('static', filename='media/monkey.png') }}" alt=""></div><div class="ops"><span class="badge">出品中</span><a href="{{ url_for('market.edit_product_page', product_id=1) }}" class="ghost-sm">編集</a></div></article>
-        <article class="card"><div class="thumb"><img src="{{ url_for('static', filename='media/monkey.png') }}" alt=""></div><div class="ops"><span class="badge">出品中</span><a href="{{ url_for('market.edit_product_page', product_id=1) }}" class="ghost-sm">編集</a></div></article>
+        {% if my_products %}
+          {% for product in my_products %}
+          <article class="card">
+            <div class="thumb">
+              {% if product.image_path %}
+                <img src="{{ url_for('static', filename=product.image_path[1:]) }}" alt="{{ product.product_name }}">
+              {% else %}
+                <div class="dummy-thumb">
+                  <span>?</span>
+                  <p>{{ product.product_name | truncate(20) }}</p>
+                </div>
+              {% endif %}
+            </div>
+            <div class="ops">
+              {% if product.sales_status == 'S' %}
+                <span class="badge">出品中</span>
+              {% elif product.sales_status == 'C' %}
+                <span class="badge sold">売切</span>
+              {% else %}
+                <span class="badge gray">不明</span>
+              {% endif %}
+
+              <a href="{{ url_for('market.edit_product_page', product_id=product.product_id) }}" class="ghost-sm">編集</a>
+            </div>
+          </article>
+          {% endfor %}
+
+        {% else %}
+          <div class="no-products-message">
+            <p class="lead">あなたはまだ出品しないねぇ</p>
+            <p>「新規商品登録」ボタンから、最初の商品を登録してみましょう！</p>
+          </div>
+        {% endif %}
 
       </section>
-
-      <div class="more">
+      <!-- <div class="more">
         <button class="more-btn">もっと見る</button>
       </div>
-    </div>
+    </div> -->
   </main>
 {% endblock %}
 
-
 {# ================= ページ固有のJS ================= #}
 {% block scripts %}
-  {# 这个文件 引用了 product_management.js, 但您没有上传它 #}
-  {# 如果它存在, 它将被正确加载 #}
-  <script src="{{ url_for('static', filename='js/product_management.js') }}" defer></script>
+  {# (このページにJSが必要な場合はここに記述) #}
 {% endblock %}

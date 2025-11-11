@@ -114,4 +114,6 @@ body{
   padding:.7rem 1.2rem;
   cursor:pointer;
 }
-.more-btn:active{transform:translateY(1px)}
+.more-btn:active{
+  transform:translateY(1px)
+}

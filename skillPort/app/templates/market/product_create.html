@@ -1,175 +1,165 @@
 {% extends "base.html" %}
 
-{# ================= ページのタイトル ================= #}
-{% block title %}
-出品商品登録 - SkillPort
-{% endblock %}
+{% block title %}出品商品登録 - SkillPort{% endblock %}
 
-{# ================= ページ固有のCSS ================= #}
 {% block styles %}
-  {# <link rel="stylesheet" href="{{ url_for('static', filename='css/index.css') }}"> #}
-  
-  <link rel="stylesheet" href="{{ url_for('static', filename='css/product_create.css') }}">
-{% endblock %}
+  {# CSSは編集ページと共通のものを使うか、専用のものを使うか選べます #}
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/product_detail_edit.css') }}">
+  {% endblock %}
 
-
-{# ================= メインコンテンツ ================= #}
 {% block content %}
-  <main class="pc-main">
-    <div class="pc-container">
+  <main class="pd-main">
+    <form class="pd-container" method="POST" action="{{ url_for('market.create_product_action') }}" enctype="multipart/form-data">
 
-      <h1 class="pc-h1">出品中の商品詳細新規登録</h1>
+      <h1 class="pd-h1">新しい商品を出品する</h1>
 
-      <section class="pc-section">
-        <div class="pc-sec-title">出品画像（最大20枚）</div>
-
-        <div class="pc-image-grid" id="imageGrid">
-          <button class="pc-thumb add-slot" type="button" id="addImageBtn" aria-label="画像を追加">
-            <span>＋</span><small>（画像を追加）</small>
-          </button>
-          <button class="pc-thumb add-slot" type="button" id="addImageBtn2" aria-label="画像を追加">
+      <section class="pd-section">
+        <div class="pd-sec-title">出品画像（最大20枚）</div>
+        <div class="pd-image-grid" id="imageGrid">
+          <button class="pd-thumb add-slot" type="button" id="addImageBtn" aria-label="画像を追加">
             <span>＋</span><small>（画像を追加）</small>
           </button>
         </div>
-
-        <input type="file" id="imageInput" accept="image/*" multiple hidden>
-        <div class="pc-note">※ 画像はドラッグ＆ドロップでも追加できます。最大20枚まで。</div>
+        <input type="file" id="imageInput" name="images" accept="image/*" multiple hidden>
+        <div class="pd-note">※ 画像はドラッグ＆ドロップでも追加できます。最大20枚まで。</div>
       </section>
 
-      <section class="pc-section">
-        <label class="pc-sec-title" for="titleInput">商品名</label>
-        <div class="pc-input-wrap">
-          <input id="titleInput" type="text" placeholder="商品名を入力" maxlength="40" required>
-          <div class="pc-chars"><span id="titleCount">0</span>/40</div>
-        </div>
-        <p class="pc-error" id="titleError" hidden>※ 商品名を入力してください。</p>
-      </section>
-
-      <section class="pc-section">
-        <div class="pc-sec-title">商品の詳細</div>
-
-        <label class="pc-label">カテゴリー</label>
-        <div class="pc-detail-edit">
-          <select id="catLv1" required>
-            <option value="" selected disabled>選択してください</option>
-            <option>書籍</option><option>家電</option><option>楽器</option><option>スポーツ</option>
-          </select>
-          <select id="catLv2" required>
-            <option value="" selected disabled>選択してください</option>
-            <option>教材</option><option>技術書</option><option>写真集</option>
-          </select>
-          <select id="catLv3" required>
-            <option value="" selected disabled>選択してください</option>
-            <option>本</option><option>PDF</option><option>その他</option>
-          </select>
-        </div>
-        <p class="pc-error" id="catError" hidden>※ カテゴリーを選択してください。</p>
-
-        <label class="pc-label">商品の状態</label>
-        <div class="pc-select">
-          <select id="condSelect" required>
-            <option value="" selected disabled>選択してください</option>
-            <option>新品・未使用</option>
-            <option>目立った傷や汚れなし</option>
-            <option>やや傷や汚れあり</option>
-            <option>傷や汚れあり</option>
-            <option>全体的に状態が悪い</option>
-          </select>
-        </div>
-        <p class="pc-error" id="condError" hidden>※ 商品の状態を選択してください。</p>
-      </section>
-
-      <section class="pc-section">
-        <label class="pc-sec-title" for="descInput">商品の説明</label>
-        <textarea id="descInput" rows="8" placeholder="この商品の状態や仕様等の詳細を記載してください。中古の場合は具体的にご記載ください。"></textarea>
-        <div class="pc-help">
-          禁止されている行為及び出品物を必ずご確認ください。出品前に利用規S約及びプライバシーポリシーに同意の上、「登録する」ボタンを押してください。
+      <section class="pd-section">
+        <label class="pd-sec-title" for="titleInput">商品名</label>
+        <div class="pd-input-wrap">
+          <input id="titleInput" name="product_name" type="text" placeholder="商品名を入力" maxlength="40" required>
+          <div class="pd-chars"><span id="titleCount">0</span>/40</div>
         </div>
       </section>
 
-      <section class="pc-section">
-        <div class="pc-sec-title">配送について</div>
+      <section class="pd-section">
+        <div class="pd-sec-title">商品の詳細</div>
 
-        <label class="pc-label">配送料の負担</label>
-        <div class="pc-select">
-          <select id="shipFeeWho" required>
-            <option value="" selected disabled>選択してください</option>
-            <option>出品者負担（送料込み）</option>
-            <option>購入者負担（着払い）</option>
+        <label class="pd-label">カテゴリー</label>
+        <div class="pd-select">
+          <select name="product_category" required>
+            <option value="" disabled selected>選択してください</option>
+            <option value="AI">AI</option>
+            <option value="IT">IT</option>
+            <option value="アウトドア">アウトドア</option>
+            <option value="インテリア">インテリア</option>
+            <option value="エンタメ">エンタメ</option>
+            <option value="コミュニティ">コミュニティ</option>
+            <option value="ソフトウェア">ソフトウェア</option>
+            <option value="デザイン">デザイン</option>
+            <option value="ビジネス">ビジネス</option>
+            <option value="フィットネス">フィットネス</option>
+            <option value="プログラミング">プログラミング</option>
+            <option value="ライティング">ライティング</option>
+            <option value="料理">料理</option>
+            <option value="美容">美容</option>
+            <option value="英語">英語</option>
+            <option value="趣味">趣味</option>
           </select>
         </div>
 
-        <label class="pc-label">配送方法</label>
-        <div class="pc-select">
-          <select id="shipMethod" required>
-            <option value="" selected disabled>選択してください</option>
-            <option>指定なし</option>
-            <option>宅配便</option>
-            <option>メール便</option>
-            <option>ゆうパック</option>
-            <option>クロネコDM便</option>
-          </select>
-        </div>
-
-        <label class="pc-label">配送元の地域</label>
-        <div class="pc-select">
-          <select id="shipFrom" required>
-            <option value="" selected disabled>選択してください</option>
-            <option>大阪府</option>
-            <option>東京都</option>
-            <option>神奈川県</option>
-            <option>福岡県</option>
-            <option>北海道</option>
-          </select>
-        </div>
-
-        <label class="pc-label">発送までの日数</label>
-        <div class="pc-select">
-          <select id="shipDays" required>
-            <option value="" selected disabled>選択してください</option>
-            <option>1〜2日で発送</option>
-            <option>2〜3日で発送</option>
-            <option>4〜7日で発送</option>
+        <label class="pd-label">商品の状態</label>
+        <div class="pd-select">
+          <select name="condition" required>
+            <option value="" disabled selected>選択してください</option>
+            <option value="新品">新品</option>
+            <option value="中古">中古</option>
           </select>
         </div>
       </section>
 
-      <section class="pc-section">
-        <label class="pc-sec-title">販売価格を設定する</label>
+      <section class="pd-section">
+        <label class="pd-sec-title" for="descInput">商品の説明</label>
+        <textarea id="descInput" name="description" rows="8" placeholder="商品の状態や仕様等を記載してください。" required></textarea>
+      </section>
 
-        <div class="pc-price-row">
-          <span class="pc-symbol">¥</span>
-          <input id="priceInput" class="pc-price" type="number" min="0" max="500000" step="10" placeholder="価格を入力" required>
-          <span class="pc-max">5000</span>
+      <section class="pd-section">
+        <div class="pd-sec-title">配送について</div>
+        <label class="pd-label">配送元の地域</label>
+        <div class="pd-select">
+           <select id="shipFrom" name="shipping_from" required>
+            <option value="" disabled selected>選択してください</option>
+            <option value="北海道">北海道</option>
+            <option value="青森県">青森県</option>
+            <option value="岩手県">岩手県</option>
+            <option value="宮城県">宮城県</option>
+            <option value="秋田県">秋田県</option>
+            <option value="山形県">山形県</option>
+            <option value="福島県">福島県</option>
+            <option value="茨城県">茨城県</option>
+            <option value="栃木県">栃木県</option>
+            <option value="群馬県">群馬県</option>
+            <option value="埼玉県">埼玉県</option>
+            <option value="千葉県">千葉県</option>
+            <option value="東京都">東京都</option>
+            <option value="神奈川県">神奈川県</option>
+            <option value="新潟県">新潟県</option>
+            <option value="富山県">富山県</option>
+            <option value="石川県">石川県</option>
+            <option value="福井県">福井県</option>
+            <option value="山梨県">山梨県</option>
+            <option value="長野県">長野県</option>
+            <option value="岐阜県">岐阜県</option>
+            <option value="静岡県">静岡県</option>
+            <option value="愛知県">愛知県</option>
+            <option value="三重県">三重県</option>
+            <option value="滋賀県">滋賀県</option>
+            <option value="京都府">京都府</option>
+            <option value="大阪府">大阪府</option>
+            <option value="兵庫県">兵庫県</option>
+            <option value="奈良県">奈良県</option>
+            <option value="和歌山県">和歌山県</option>
+            <option value="鳥取県">鳥取県</option>
+            <option value="島根県">島根県</option>
+            <option value="岡山県">岡山県</option>
+            <option value="広島県">広島県</option>
+            <option value="山口県">山口県</option>
+            <option value="徳島県">徳島県</option>
+            <option value="香川県">香川県</option>
+            <option value="愛媛県">愛媛県</option>
+            <option value="高知県">高知県</option>
+            <option value="福岡県">福岡県</option>
+            <option value="佐賀県">佐賀県</option>
+            <option value="長崎県">長崎県</option>
+            <option value="熊本県">熊本県</option>
+            <option value="大分県">大分県</option>
+            <option value="宮崎県">宮崎県</option>
+            <option value="鹿児島県">鹿児島県</option>
+            <option value="沖縄県">沖縄県</option>
+           </select>
         </div>
-        <p class="pc-error" id="priceError" hidden>※ 価格を入力してください。</p>
+      </section>
 
-        <div class="pc-fee-profit">
-          <div class="pc-kpi">
-            <div class="pc-kpi-label">販売手数料</div>
-            <div class="pc-kpi-value">¥ <span id="feeValue">0</span></div>
+      <section class="pd-section">
+        <label class="pd-sec-title">販売価格を設定する</label>
+        <div class="pd-price-row">
+          <span class="pd-symbol">¥</span>
+          <input id="priceInput" class="pd-price" name="price" type="number" min="100" max="500000" step="10" placeholder="価格を入力" required>
+          <span class="pd-max">500,000</span>
+        </div>
+        <div class="pd-fee-profit">
+          <div class="pd-kpi">
+            <div class="pd-kpi-label">販売手数料 (<span id="feeRateLabel">...</span>%)</div>
+            <div class="pd-kpi-value">¥ <span id="feeValue">0</span></div>
           </div>
-          <div class="pc-divider"></div>
-          <div class="pc-kpi">
-            <div class="pc-kpi-label">販売利益</div>
-            <div class="pc-kpi-value strong">¥ <span id="profitValue">0</span></div>
+          <div class="pd-divider"></div>
+          <div class="pd-kpi">
+            <div class="pd-kpi-label">販売利益</div>
+            <div class="pd-kpi-value strong">¥ <span id="profitValue">0</span></div>
           </div>
         </div>
-
-        <div class="pc-help small">現在の手数料率：<b id="feeRateLabel">10%</b>（※JSで計算）</div>
       </section>
 
-      <section class="pc-actions">
-        <button class="pc-primary" id="createBtn" type="button">登録する</button>
-        <button class="pc-secondary" id="draftBtn" type="button">下書き保存</button>
-        <button class="pc-danger" id="clearBtn" type="button">入力をクリア</button>
+      <section class="pd-actions">
+        <button class="pd-primary" id="createBtn" type="submit">出品する</button>
+        <a href="{{ url_for('market.manage_products_page') }}" class="pd-secondary" style="text-align: center; text-decoration: none; padding-top: 10px; padding-bottom: 10px;">キャンセル</a>
       </section>
 
-    </div>
+    </form>
   </main>
-{% endblock %}
+{% endblock %} {# <-- 丢失的 endblock 在这里! #}
 
-{# ================= ページ固有のJS ================= #}
 {% block scripts %}
-  <script src="{{ url_for('static', filename='js/product_create.js') }}" defer></script>
+  {# 注意：这里引用的JS文件是 product_detail_edit.js，您可以根据需要改成 product_create.js #}
+  <script src="{{ url_for('static', filename='js/product_detail_edit.js') }}" defer></script>
 {% endblock %}

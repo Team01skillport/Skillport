@@ -1,199 +1,165 @@
 {% extends "base.html" %}
 
-{# ================= ページのタイトル ================= #}
-{% block title %}
-出品中の商品詳細情報 - SkillPort
-{% endblock %}
+{% block title %}商品を編集する - SkillPort{% endblock %}
 
-{# ================= ページ固有のCSS ================= #}
 {% block styles %}
-  {# <link rel="stylesheet" href="{{ url_for('static', filename='css/index.css') }}"> #}
-  
   <link rel="stylesheet" href="{{ url_for('static', filename='css/product_detail_edit.css') }}">
 {% endblock %}
 
-
-{# ================= メインコンテンツ ================= #}
 {% block content %}
   <main class="pd-main">
-    <div class="pd-container">
+    <form class="pd-container" method="POST" action="{{ url_for('market.update_product_action', product_id=product.product_id) }}" enctype="multipart/form-data">
 
-      <h1 class="pd-h1">出品中の商品詳細情報</h1>
+      <h1 class="pd-h1">商品を編集する</h1>
 
       <section class="pd-section">
         <div class="pd-sec-title">出品画像（最大20枚）</div>
-
         <div class="pd-image-grid" id="imageGrid">
-          <div class="pd-thumb">
-            <img src="{{ url_for('static', filename='media/monkey.png') }}" alt="thumb">
-          </div>
-          <div class="pd-thumb">
-            <img src="{{ url_for('static', filename='media/monkey.png') }}" alt="thumb">
-          </div>
-          <div class="pd-thumb">
-            <img src="{{ url_for('static', filename='media/monkey.png') }}" alt="thumb">
-          </div>
-          <div class="pd-thumb">
-            <img src="{{ url_for('static', filename='media/monkey.png') }}" alt="thumb">
-          </div>
-          <div class="pd-thumb">
-            <img src="{{ url_for('static', filename='media/monkey.png') }}" alt="thumb">
-          </div>
-          <div class="pd-thumb">
-            <img src="{{ url_for('static', filename='media/monkey.png') }}" alt="thumb">
-          </div>
-
           <button class="pd-thumb add-slot" type="button" id="addImageBtn" aria-label="画像を追加">
             <span>＋</span><small>（画像を追加）</small>
           </button>
-          <button class="pd-thumb add-slot" type="button" id="addImageBtn2" aria-label="画像を追加">
-            <span>＋</span><small>（画像を追加）</small>
-          </button>
         </div>
-
-        <input type="file" id="imageInput" accept="image/*" multiple hidden>
-        <div class="pd-note">※ 画像はドラッグ＆ドロップでも追加できます。最大20枚まで。</div>
+        <input type="file" id="imageInput" name="images" accept="image/*" multiple hidden>
       </section>
 
       <section class="pd-section">
         <label class="pd-sec-title" for="titleInput">商品名</label>
         <div class="pd-input-wrap">
-          <input id="titleInput" type="text" placeholder="例：国史教材 第7版 検定合格 市販版 中学校社会用" maxlength="40">
+          <input id="titleInput" name="product_name" type="text" maxlength="40" value="{{ product.product_name }}" required>
           <div class="pd-chars"><span id="titleCount">0</span>/40</div>
         </div>
       </section>
 
       <section class="pd-section">
         <div class="pd-sec-title">商品の詳細</div>
-        <div class="pd-detail-row">
-          <div class="pd-detail-pill">
-            <span class="pd-kv"><b>カテゴリー：</b><span id="catText">書籍 ＞ 教材 ＞ 本</span></span>
-          </div>
-          <button class="pd-inline-btn" type="button" id="editCatBtn">変更する</button>
-        </div>
-
-        <div class="pd-detail-edit" id="catEdit" hidden>
-          <select id="catLv1">
-            <option>書籍</option><option>家電</option><option>楽器</option><option>スポーツ</option>
+        <label class="pd-label">カテゴリー</label>
+        <div class="pd-select">
+          <select name="product_category" required>
+            <option value="AI" {% if product.product_category == 'AI' %}selected{% endif %}>AI</option>
+            <option value="IT" {% if product.product_category == 'IT' %}selected{% endif %}>IT</option>
+            <option value="趣味" {% if product.product_category == 'アウトドア' %}selected{% endif %}>アウトドア</option>
+            <option value="趣味" {% if product.product_category == 'インテリア' %}selected{% endif %}>インテリア</option>
+            <option value="趣味" {% if product.product_category == 'エンタメ' %}selected{% endif %}>エンタメ</option>
+            <option value="趣味" {% if product.product_category == 'コミュニティ' %}selected{% endif %}>コミュニティ</option>
+            <option value="趣味" {% if product.product_category == 'ソフトウェア' %}selected{% endif %}>ソフトウェア</option>
+            <option value="趣味" {% if product.product_category == 'デザイン' %}selected{% endif %}>デザイン</option>
+            <option value="趣味" {% if product.product_category == 'ビジネス' %}selected{% endif %}>ビジネス</option>
+            <option value="趣味" {% if product.product_category == 'フィットネス' %}selected{% endif %}>フィットネス</option>
+            <option value="趣味" {% if product.product_category == 'プログラミング' %}selected{% endif %}>プログラミング</option>
+            <option value="趣味" {% if product.product_category == 'ライティング' %}selected{% endif %}>ライティング</option>
+            <option value="趣味" {% if product.product_category == '料理' %}selected{% endif %}>料理</option>
+            <option value="趣味" {% if product.product_category == '美容' %}selected{% endif %}>美容</option>
+            <option value="趣味" {% if product.product_category == '英語' %}selected{% endif %}>英語</option>
+            <option value="趣味" {% if product.product_category == '趣味' %}selected{% endif %}>趣味</option>
           </select>
-          <select id="catLv2">
-            <option>教材</option><option>技術書</option><option>写真集</option>
-          </select>
-          <select id="catLv3">
-            <option>本</option><option>PDF</option><option>その他</option>
-          </select>
-          <button class="pd-save-sm" type="button" id="catSave">保存</button>
         </div>
       </section>
 
       <section class="pd-section">
         <div class="pd-sec-title">商品の状態</div>
-        <div class="pd-detail-row">
-          <div class="pd-detail-pill">
-            <span class="pd-kv"><b>状態：</b><span id="condText">目立った傷や汚れなし・折れや欠損なし・日焼けなし</span></span>
-          </div>
-          <button class="pd-inline-btn" type="button" id="editCondBtn">変更する</button>
-        </div>
-
-        <div class="pd-detail-edit" id="condEdit" hidden>
-          <select id="condSelect">
-            <option>新品・未使用</option>
-            <option selected>目立った傷や汚れなし</option>
-            <option>やや傷や汚れあり</option>
-            <option>傷や汚れあり</option>
-            <option>全体的に状態が悪い</option>
+        <label class="pd-label">状態</label>
+        <div class="pd-select">
+          <select name="condition" required>
+            <option value="新品" {% if product.product_condition == '新品' %}selected{% endif %}>新品</option>
+            <option value="中古" {% if product.product_condition == '中古' %}selected{% endif %}>中古</option>
           </select>
-          <input type="text" id="condMore" placeholder="補足（任意）例：カバーに微小な擦れあり">
-          <button class="pd-save-sm" type="button" id="condSave">保存</button>
         </div>
       </section>
 
       <section class="pd-section">
         <label class="pd-sec-title" for="descInput">商品の説明</label>
-        <textarea id="descInput" rows="8" placeholder="この商品の状態や仕様等の詳細を記載してください。中古の場合は具体的にご記載ください。"></textarea>
-        <div class="pd-help">
-          禁止されている行為及び出品物を必ずご確認ください。出品前に利用規約及びプライバシーポリシーに同意の上、「変更する」ボタンを押してください。
-        </div>
+        <textarea id="descInput" name="description" rows="8" required>{{ product.product_description }}</textarea>
       </section>
 
       <section class="pd-section">
         <div class="pd-sec-title">配送について</div>
-
-        <label class="pd-label">配送料の負担</label>
-        <div class="pd-select">
-          <select id="shipFeeWho">
-            <option selected>出品者負担（送料込み）</option>
-            <option>購入者負担（着払い）</option>
-          </select>
-        </div>
-
-        <label class="pd-label">配送方法</label>
-        <div class="pd-select">
-          <select id="shipMethod">
-            <option>指定なし</option>
-            <option>宅配便</option>
-            <option>メール便</option>
-            <option>ゆうパック</option>
-            <option>クロネコDM便</option>
-          </select>
-        </div>
-
         <label class="pd-label">配送元の地域</label>
         <div class="pd-select">
-          <select id="shipFrom">
-            <option>大阪府</option>
-            <option>東京都</option>
-            <option>神奈川県</option>
-            <option>福岡県</option>
-            <option>北海道</option>
-          </select>
-        </div>
+          <select id="shipFrom" name="shipping_from" required>
+            <option value="" disabled {% if not product %}selected{% endif %}>選択してください</option>
+            
+            <option value="北海道" {% if product and product.shipping_area == '北海道' %}selected{% endif %}>北海道</option>
+            <option value="青森県" {% if product and product.shipping_area == '青森県' %}selected{% endif %}>青森県</option>
+            <option value="岩手県" {% if product and product.shipping_area == '岩手県' %}selected{% endif %}>岩手県</option>
+            <option value="宮城県" {% if product and product.shipping_area == '宮城県' %}selected{% endif %}>宮城県</option>
+            <option value="秋田県" {% if product and product.shipping_area == '秋田県' %}selected{% endif %}>秋田県</option>
+            <option value="山形県" {% if product and product.shipping_area == '山形県' %}selected{% endif %}>山形県</option>
+            <option value="福島県" {% if product and product.shipping_area == '福島県' %}selected{% endif %}>福島県</option>
+            
+            <option value="茨城県" {% if product and product.shipping_area == '茨城県' %}selected{% endif %}>茨城県</option>
+            <option value="栃木県" {% if product and product.shipping_area == '栃木県' %}selected{% endif %}>栃木県</option>
+            <option value="群馬県" {% if product and product.shipping_area == '群馬県' %}selected{% endif %}>群馬県</option>
+            <option value="埼玉県" {% if product and product.shipping_area == '埼玉県' %}selected{% endif %}>埼玉県</option>
+            <option value="千葉県" {% if product and product.shipping_area == '千葉県' %}selected{% endif %}>千葉県</option>
+            <option value="東京都" {% if product and product.shipping_area == '東京都' %}selected{% endif %}>東京都</option>
+            <option value="神奈川県" {% if product and product.shipping_area == '神奈川県' %}selected{% endif %}>神奈川県</option>
 
-        <label class="pd-label">発送までの日数</label>
-        <div class="pd-select">
-          <select id="shipDays">
-            <option>1〜2日で発送</option>
-            <option>2〜3日で発送</option>
-            <option>4〜7日で発送</option>
+            <option value="新潟県" {% if product and product.shipping_area == '新潟県' %}selected{% endif %}>新潟県</option>
+            <option value="富山県" {% if product and product.shipping_area == '富山県' %}selected{% endif %}>富山県</option>
+            <option value="石川県" {% if product and product.shipping_area == '石川県' %}selected{% endif %}>石川県</option>
+            <option value="福井県" {% if product and product.shipping_area == '福井県' %}selected{% endif %}>福井県</option>
+            <option value="山梨県" {% if product and product.shipping_area == '山梨県' %}selected{% endif %}>山梨県</option>
+            <option value="長野県" {% if product and product.shipping_area == '長野県' %}selected{% endif %}>長野県</option>
+            <option value="岐阜県" {% if product and product.shipping_area == '岐阜県' %}selected{% endif %}>岐阜県</option>
+            <option value="静岡県" {% if product and product.shipping_area == '静岡県' %}selected{% endif %}>静岡県</option>
+            <option value="愛知県" {% if product and product.shipping_area == '愛知県' %}selected{% endif %}>愛知県</option>
+
+            <option value="三重県" {% if product and product.shipping_area == '三重県' %}selected{% endif %}>三重県</option>
+            <option value="滋賀県" {% if product and product.shipping_area == '滋賀県' %}selected{% endif %}>滋賀県</option>
+            <option value="京都府" {% if product and product.shipping_area == '京都府' %}selected{% endif %}>京都府</option>
+            <option value="大阪府" {% if product and product.shipping_area == '大阪府' %}selected{% endif %}>大阪府</option>
+            <option value="兵庫県" {% if product and product.shipping_area == '兵庫県' %}selected{% endif %}>兵庫県</option>
+            <option value="奈良県" {% if product and product.shipping_area == '奈良県' %}selected{% endif %}>奈良県</option>
+            <option value="和歌山県" {% if product and product.shipping_area == '和歌山県' %}selected{% endif %}>和歌山県</option>
+
+            <option value="鳥取県" {% if product and product.shipping_area == '鳥取県' %}selected{% endif %}>鳥取県</option>
+            <option value="島根県" {% if product and product.shipping_area == '島根県' %}selected{% endif %}>島根県</option>
+            <option value="岡山県" {% if product and product.shipping_area == '岡山県' %}selected{% endif %}>岡山県</option>
+            <option value="広島県" {% if product and product.shipping_area == '広島県' %}selected{% endif %}>広島県</option>
+            <option value="山口県" {% if product and product.shipping_area == '山口県' %}selected{% endif %}>山口県</option>
+
+            <option value="徳島県" {% if product and product.shipping_area == '徳島県' %}selected{% endif %}>徳島県</option>
+            <option value="香川県" {% if product and product.shipping_area == '香川県' %}selected{% endif %}>香川県</option>
+            <option value="愛媛県" {% if product and product.shipping_area == '愛媛県' %}selected{% endif %}>愛媛県</option>
+            <option value="高知県" {% if product and product.shipping_area == '高知県' %}selected{% endif %}>高知県</option>
+
+            <option value="福岡県" {% if product and product.shipping_area == '福岡県' %}selected{% endif %}>福岡県</option>
+            <option value="佐賀県" {% if product and product.shipping_area == '佐賀県' %}selected{% endif %}>佐賀県</option>
+            <option value="長崎県" {% if product and product.shipping_area == '長崎県' %}selected{% endif %}>長崎県</option>
+            <option value="熊本県" {% if product and product.shipping_area == '熊本県' %}selected{% endif %}>熊本県</option>
+            <option value="大分県" {% if product and product.shipping_area == '大分県' %}selected{% endif %}>大分県</option>
+            <option value="宮崎県" {% if product and product.shipping_area == '宮崎県' %}selected{% endif %}>宮崎県</option>
+            <option value="鹿児島県" {% if product and product.shipping_area == '鹿児島県' %}selected{% endif %}>鹿児島県</option>
+            <option value="沖縄県" {% if product and product.shipping_area == '沖縄県' %}selected{% endif %}>沖縄県</option>
           </select>
         </div>
       </section>
 
       <section class="pd-section">
         <label class="pd-sec-title">販売価格を設定する</label>
-
         <div class="pd-price-row">
           <span class="pd-symbol">¥</span>
-          <input id="priceInput" class="pd-price" type="number" min="0" max="500000" step="10" placeholder="価格を入力">
-          <span class="pd-max">5000</span>
+          <input id="priceInput" class="pd-price" name="price" type="number" min="100" max="500000" value="{{ product.product_price }}" required>
+          <span class="pd-max">500,000</span>
         </div>
-
         <div class="pd-fee-profit">
-          <div class="pd-kpi">
-            <div class="pd-kpi-label">販売手数料</div>
-            <div class="pd-kpi-value">¥ <span id="feeValue">0</span></div>
           </div>
-          <div class="pd-divider"></div>
-          <div class="pd-kpi">
-            <div class="pd-kpi-label">販売利益</div>
-            <div class="pd-kpi-value strong">¥ <span id="profitValue">0</span></div>
-          </div>
-        </div>
-
-        <div class="pd-help small">現在の手数料率：<b id="feeRateLabel">10%</b>（※JSで計算）</div>
       </section>
 
       <section class="pd-actions">
-        <button class="pd-primary" id="saveBtn" type="button">変更する</button>
-        <button class="pd-secondary" id="pauseBtn" type="button">出品を一時停止する</button>
-        <button class="pd-danger" id="deleteBtn" type="button">この商品を削除する</button>
+        <button class="pd-primary" id="saveBtn" type="submit">変更を保存する</button>
+        <a href="{{ url_for('market.manage_products_page') }}" class="pd-secondary">キャンセル</a>
+        <a href="{{ url_for('market.delete_product', product_id=product.product_id) }}" 
+           class="pd-danger" 
+           onclick="return confirm('本当にこの商品を削除しますか？この操作は取り消せません。');">
+           この商品を削除する
+        </a>
       </section>
 
-    </div>
+    </form>
   </main>
 {% endblock %}
 
-{# ================= ページ固有のJS ================= #}
 {% block scripts %}
   <script src="{{ url_for('static', filename='js/product_detail_edit.js') }}" defer></script>
 {% endblock %}
