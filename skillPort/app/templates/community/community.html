@@ -59,7 +59,7 @@
     </div>
 
       <div class="new-post">
-        <form action="{{url_for('community.upload_post')}}" class="upload_post" method="post">
+        
 
         <!-- バグるから一旦コメント↓ -->
         <!-- <img class="user_icon" src="{{url_for('static', filename='media/user')}}" alt="ユーザーアイコン"> -->
@@ -76,7 +76,7 @@
             <input class="filepick" type="file" accept="image/*,video/*" name="upload_media" hidden>
             <!-- <button type="submit">送信</button> -->
           </div>
-        </form>
+        
       </div>
   </div>
 
@@ -142,7 +142,9 @@
       <button id="btnSaveEdit" class="btn btn--primary" type="button" style="display:none;">保存</button>
     
       <!-- 新規投稿用：投稿 -->
+      <form action="{{url_for('community.upload_post')}}" class="upload_post" method="post"></form>
       <button id="btnPostSubmit" class="btn btn--primary" type="button" style="display:none;">投稿</button>
+      </form>
     </footer>
   </div>
 </div>
