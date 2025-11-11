@@ -157,16 +157,52 @@ body{
 .pd-kpi-value.strong{ font-weight:800 }
 .pd-divider{ width:1px; height:28px; background:var(--border) }
 
-/* 操作ボタン群 */
+/* ... 操作ボタンCSS ... */
+
 .pd-actions{
-  display:flex; flex-direction:column; gap:12px; align-items:center; margin:26px 0;
+  display:flex; 
+  flex-direction:column; 
+  gap:12px; 
+  align-items:center; 
+  margin:26px 0;
 }
 .pd-primary{
-  width:min(480px,100%); height:44px;
-  background:#e85a3c; color:#fff; border:0; border-radius:10px; cursor:pointer;
+  width:min(480px,100%); 
+  height:44px;
+  background: #C75E46;
+  color:#fff; 
+  border:0; 
+  border-radius:10px; 
+  cursor:pointer;
+  font-size: 1rem; 
+  font-weight: 600;
 }
+
 .pd-secondary, .pd-danger{
-  width:min(540px,100%); height:42px;
-  border:1px solid var(--border); background:#fff; border-radius:10px; cursor:pointer;
+  /* 基本BOX */
+  display: block;    
+  text-align: center; 
+  width: min(540px, 100%); 
+  height: 42px;
+  
+  /* 样式 */
+  border: 1px solid var(--border); 
+  background: #fff; 
+  border-radius: 10px; 
+  cursor: pointer;
+  text-decoration: none; 
+  
+  /* 垂直居中 */
+  line-height: 42px; 
 }
-.pd-danger{ border-color:#fecaca; color:#b91c1c }
+
+.pd-secondary {
+  color: #5B21B6; 
+  font-weight: 600;
+}
+
+.pd-danger { 
+  border-color:#fecaca; 
+  color:#b91c1c; 
+  font-weight: 600;
+}

@@ -65,3 +65,19 @@ def create_user(sql, params=None):
         cur.close()
         con.close()
         return None
+    
+def execute_query(sql, params=None):
+    try:
+        con = connect_db()
+        cur = con.cursor(dictionary=True)
+        cur.execute(sql, params)
+        con.commit() # 提交
+        cur.close()
+        con.close()
+        return True 
+    except Exception as e: 
+        print(f"データベースエラー: {e}")
+        con.rollback() # 回滚
+        cur.close()
+        con.close()
+        return None
