@@ -86,7 +86,7 @@ def view_profile(user_id):
     #         video_tag = ""
     
     # ユーザーがアップした投稿を表示する
-    sql = "SELECT p.* FROM post_tbl p INNER JOIN user_tbl u ON p.user_id = u.id WHERE u.id = '"+str(user_id)+"';"
+    sql = "SELECT p.* FROM post_tbl p INNER JOIN user_tbl u ON p.user_id = u.id WHERE u.id = '"+str(user_id)+"' ORDER BY post_date DESC;"
     user_posts = fetch_query(sql)
     return render_template('profile/profile.html', user_name=user_name, user_info=user_info, user_icon=user_icon, introduction=introduction, tag=tag, rating_stars=rating_stars, user_videos=user_videos, user_posts=user_posts, novid_msg="このユーザーはまだ動画をアップしていません", nopost_msg="このユーザーはまだ投稿していません")
 

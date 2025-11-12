@@ -98,7 +98,11 @@ content %}
           </div>
         </div>
         {% if post.post_media != None %}
-        <img src="{{post.post_media}}" alt="投稿画像" class="post-image" />
+        <img
+          src="{{url_for('static', filename='media/posts/' + post.post_media)}}"
+          alt="投稿画像"
+          class="post-image"
+        />
         {% endif %}
         <div class="post-text">
           <p>{{post.post_text}}</p>
