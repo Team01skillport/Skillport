@@ -8,9 +8,9 @@ search_bp = Blueprint('search', __name__, url_prefix='/search')
 def header_search():
     search_word = request.args.get("headersearch")
     
-    sql = "SELECT * FROM video_tbl WHERE video_title LIKE '%"+search_word+"%';"
+    sql = "SELECT v.id AS video_id, v.*, u.* FROM video_tbl v LEFT JOIN user_tbl u ON v.video_uploader_id=u.id WHERE video_title LIKE '%"+search_word+"%';"
     search_results = fetch_query(sql,params=None,fetch_one=False)
-    print(search_results[0])
+    print(search_results)
     return render_template('search/header_search_result.html', search_word=search_word, search_results=search_results)
     
 @search_bp.route('/market_search', methods=["GET"])
@@ -18,5 +18,4 @@ def market_search():
     keyword = request.args.get("market_search")
     sql = "SELECT * FROM listing_tbl WHERE product_name OR product_category LIKE '%"+keyword+"%';"
     search_results = fetch_query(sql)
-    print(search_results)
     return render_template('search/market_search_result.html', search_results=search_results)

@@ -52,7 +52,10 @@ body {
   grid-template-columns: repeat(3, 1fr);
   gap: 30px 20px;
 }
-
+.item-grid a {
+  text-decoration: none;
+  color: black;
+}
 .item-card {
   text-decoration: none;
   color: inherit;
@@ -62,7 +65,7 @@ body {
 }
 
 .item-card:hover {
-  transform: scale(1.02);
+  transform: translateY(-2px);
 }
 
 .item-image-container {
@@ -95,30 +98,20 @@ body {
   object-fit: cover;
 }
 
-.play-button {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 25%;
-  height: 25%;
-  background-color: rgba(0, 0, 0, 0.6);
-  border-radius: 50%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  pointer-events: none;
-}
-
-.play-button svg {
-  margin-left: 5px;
-  fill: white;
-  width: 60%;
-  height: 60%;
-}
-
 .item-details {
   padding: 10px 0 0;
+}
+
+.video_stats {
+  display: flex;
+  justify-content: space-between;
+  font-size: 12px;
+  opacity: 0.8;
+}
+
+.video_stats .video_upload_date {
+  font-style: italic;
+  opacity: 0.6;
 }
 
 /* 核心修復：移除行數限制，確保文字完整顯示 */
@@ -146,13 +139,6 @@ body {
   overflow: visible;
   height: auto;
   -webkit-box-orient: unset;
-}
-
-.item-price {
-  font-size: 16px;
-  font-weight: bold;
-  color: #333;
-  margin-top: 8px;
 }
 
 .pagination {

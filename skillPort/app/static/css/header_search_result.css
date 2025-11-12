@@ -184,6 +184,7 @@ h2 {
   display: flex;
   gap: 10px; /* 數據之間的間距 */
   flex-wrap: wrap;
+  justify-content: space-between;
 }
 
 /* 修正 6: 統計數據 (再生回数, いいね数, コメント数) 樣式 */

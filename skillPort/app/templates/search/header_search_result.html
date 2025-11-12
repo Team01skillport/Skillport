@@ -11,7 +11,7 @@ content %}
   {% for item in search_results %}
   <li>
     <a
-      href="{{ url_for('lesson_video.video_player', video_id = item.id)}}"
+      href="{{ url_for('lesson_video.video_player', video_id = item.video_id)}}"
       class="item-card"
     >
       <div class="item-image-container">
@@ -26,15 +26,15 @@ content %}
       <div class="item-details">
         <div class="title-and-user">
           <h2 class="item-title">{{item.video_title}}</h2>
-          <p class="upload_user">{{item.video_uploader_id}}</p>
         </div>
 
         <p class="item-description">{{item.video_description_section}}</p>
 
         <div class="stats-row">
           <p class="view-count">再生回数：{{item.view_count}}</p>
-          <p class="like-count">いいね数：{{item.like_count}}</p>
-          <p class="comment-cunt">コメント数：{{item.comment_count}}</p>
+          <p class="upload_user">{{item.user_name}}</p>
+          <!-- <p class="like-count">いいね数：{{item.like_count}}</p>
+          <p class="comment-cunt">コメント数：{{item.comment_count}}</p> -->
         </div>
       </div>
     </a>

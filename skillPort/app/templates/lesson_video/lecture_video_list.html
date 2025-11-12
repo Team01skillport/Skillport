@@ -17,7 +17,7 @@ content %}
       <ul class="item-grid">
         {% for video in category_videos %}
         <a
-          href="{{ url_for('lesson_video.video_player', video_id = video.id)}}"
+          href="{{ url_for('lesson_video.video_player', video_id = video.video_id)}}"
         >
           <li class="item-card">
             <div class="item-image-container">
@@ -26,18 +26,18 @@ content %}
                 alt="画像ここ"
                 class="item-image"
               />
-              <!-- <div class="play-button">
-                <svg viewBox="0 0 24 24" fill="white" width="48px" height="48px">
-                  <path d="M8 5v14l11-7z" />
-                </svg>
-              </div> -->
               <p class="image-label">動画コース</p>
             </div>
             <p class="item-title">{{ video.video_title }}</p>
             <p class="item-description">
               {{ video.video_description_section }}
             </p>
-            <p>{{ video.video_upload_date }}</p>
+            <div class="video_stats">
+              <p class="video_upload_date">
+                {{ video.video_upload_date.date() }}
+              </p>
+              <p>{{ video.user_name }}</p>
+            </div>
           </li>
         </a>
         {% endfor %}

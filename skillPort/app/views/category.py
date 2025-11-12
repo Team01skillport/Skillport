@@ -8,7 +8,7 @@ def category_list():
     cat_name = request.args.get("name")
     print(cat_name)
     
-    sql = "SELECT * FROM video_tbl WHERE video_category = '"+cat_name+"';"
+    sql = "SELECT v.id AS video_id, v.*, u.* FROM video_tbl v LEFT JOIN user_tbl u ON v.video_uploader_id = u.id WHERE video_category = '"+cat_name+"';"
     category_videos = fetch_query(sql, params=None, fetch_one=False)
     print(category_videos)
 
