@@ -1,38 +1,115 @@
-body{margin:0;font-family:system-ui,"Noto Sans JP",sans-serif;}
-#profile{position:absolute;right:0;margin:8px;}
-#profile ul{display:flex;list-style:none;margin:0;padding:0;font-size:12px;}
-#profile li{margin:0 8px;}
-#profile img{width:25px;}
-#header_cap{padding-top:40px;}
-#header{display:flex;align-items:center;justify-content:center;}
-#header img{width:110px;}
-#header .container{display:flex;align-items:center;gap:24px;background:#226CFF;border-radius:40px;height:56px;width:80%;justify-content:center;}
-#header ul{display:flex;list-style:none;margin:0;padding:0;}
-#header ul li a{color:white;text-decoration:none;font-weight:700;padding:0 20px;display:flex;align-items:center;height:100%;}
-#header ul li a:hover,#header ul li a.is-active{background:#4e89ff;}
-#header .search{display:flex;align-items:center;}
-#header .search input{border:1px solid #ccc;border-radius:20px;padding:4px 10px;}
-#header .search button{margin-left:4px;padding:4px 10px;border:none;background:white;border-radius:4px;cursor:pointer;}
+.main-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  max-width: 1100px;
+  margin: 20px auto;
+  gap: 24px;
+}
+.video-frame {
+  width: 100%;
+  border-radius: 8px;
+}
+.video-title {
+  margin: 12px 0 4px;
+  font-size: 20px;
+}
+.video-desc {
+  color: #555;
+  margin-bottom: 10px;
+}
+.video-stats {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+.btn-report {
+  background: #eee;
+  border-radius: 6px;
+  padding: 4px 10px;
+  text-decoration: none;
+  color: #333;
+}
+.btn-report:hover {
+  background: #ccc;
+}
+.uploader {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: 700;
+  margin-bottom: 20px;
+}
+.uploader img {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+}
 
-.main-grid{display:grid;grid-template-columns:2fr 1fr;max-width:1100px;margin:20px auto;gap:24px;}
-.video-frame{width:100%;border-radius:8px;}
-.video-title{margin:12px 0 4px;font-size:20px;}
-.video-desc{color:#555;margin-bottom:10px;}
-.video-stats{display:flex;align-items:center;gap:10px;margin-bottom:10px;}
-.btn-report{background:#eee;border-radius:6px;padding:4px 10px;text-decoration:none;color:#333;}
-.btn-report:hover{background:#ccc;}
-.uploader{display:flex;align-items:center;gap:10px;font-weight:700;margin-bottom:20px;}
-.uploader img{width:40px;height:40px;border-radius:50%;}
-
-.comment-form{display:flex;gap:10px;margin-bottom:10px;}
-.comment-form input{flex:1;border:1px solid #ccc;border-radius:6px;padding:6px;}
-.comment-form button{background:#226CFF;color:white;border:none;border-radius:6px;padding:6px 12px;cursor:pointer;}
-.comment-list{list-style:none;padding:0;}
-.comment-list li{display:flex;align-items:flex-start;gap:10px;margin-bottom:10px;}
-.comment-list img{width:40px;height:40px;border-radius:50%;}
-.comment-list div{background:#f9f9f9;border-radius:6px;padding:6px 10px;flex:1;}
-.right{border-left:1px solid #ddd;padding-left:16px;}
-.video-card{display:flex;gap:10px;align-items:center;margin-bottom:12px;}
-.video-card img{width:100px;height:60px;object-fit:cover;border-radius:6px;}
-.video-card p{font-size:14px;margin:0;}
-footer{background:#226CFF;color:white;text-align:center;padding:10px;margin-top:40px;}
+.comment-form {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+.comment-form input {
+  flex: 1;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  padding: 6px;
+}
+.comment-form button {
+  background: #226cff;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  padding: 6px 12px;
+  cursor: pointer;
+}
+.comment-list {
+  list-style: none;
+  padding: 0;
+}
+.comment-list li {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+.comment-list img {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+}
+.comment-list div {
+  background: #f9f9f9;
+  border-radius: 6px;
+  padding: 6px 10px;
+  flex: 1;
+}
+.right {
+  border-left: 1px solid #ddd;
+  padding-left: 16px;
+}
+.video-card {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  margin-bottom: 12px;
+}
+.video-card img {
+  width: 100px;
+  height: 60px;
+  object-fit: cover;
+  border-radius: 6px;
+}
+.video-card p {
+  font-size: 14px;
+  margin: 0;
+}
+footer {
+  background: #226cff;
+  color: white;
+  text-align: center;
+  padding: 10px;
+  margin-top: 40px;
+}

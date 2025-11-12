@@ -25,6 +25,7 @@ endblock %} {% block styles %}
     <p class="video-desc">{{ video.video_description_section }}</p>
 
     <div class="video-stats">
+      <span>再生回数：{{views['view_count']}}</span>
       <span>👍 {{ video.like_count }}</span>
       <span>💬 {{ video.comment_count }}</span>
       <a href="#" id="reportBtn" class="btn-report">🚨 通報</a>
