@@ -42,11 +42,11 @@
         <div class="user">
           <img class="avatar" src="{{url_for('static', filename='media/user' + post.profile_icon)}}" alt="ユーザーアイコン">
           <a href="{{url_for('auth.view_profile', user_id=post.user_id)}}" class="username">{{post.user_name}}</a>
-          {% if post.user_id == user_id %}
+          <!-- {% if post.user_id == user_id %}
           <div class="actions">
             <button>編集</button>
           </div>
-          {% endif %}
+          {% endif %} -->
           
         </div>
         {% if post.post_media != None %}
@@ -60,26 +60,28 @@
       {% endfor %}
     </div>
 
-      <div class="new-post">
-        
-
-        <!-- バグるから一旦コメント↓ -->
-        <!-- <img class="user_icon" src="{{url_for('static', filename='media/user')}}" alt="ユーザーアイコン"> -->
-          <div class="input-area">
-            <div class="textbox">
-              <div class="attachment"></div>
-              <input class="text" type="text" name="post_text" placeholder="テキストを追加">
-            </div>
-            <div class="buttons">
-              <button class="add">＋</button>
-              <!-- <button class="send">▶</button> -->
-              <button class="send" type="submit">▶</button>
-            </div>
-            <input class="filepick" type="file" accept="image/*,video/*" name="upload_media" hidden>
-            <!-- <button type="submit">送信</button> -->
+    <div class="new-post">
+      <form action="{{url_for('community.upload_post')}}" class="upload_post" method="post" enctype="multipart/form-data">
+        <div class="input-area">
+          <div class="textbox">
+            <div class="attachment"></div>
+            <input class="text" type="text" name="post_text" placeholder="テキストを追加">
           </div>
-        
-      </div>
+          <div class="buttons">
+            <label for="upload_media" class="upload-label">＋</label>
+            <input 
+              type="file" 
+              id="upload_media" 
+              name="upload_media" 
+              accept="image/*" 
+              style="display:none;"
+            >
+            <button class="send" type="submit">▶</button>
+          </div>
+          <input class="filepick" type="file" accept="image/*,video/*" name="upload_media" hidden>
+        </div>
+      </form>
+     </div> 
   </div>
 
   <div class="reccomended reccomended--right">
@@ -144,9 +146,8 @@
       <button id="btnSaveEdit" class="btn btn--primary" type="button" style="display:none;">保存</button>
     
       <!-- 新規投稿用：投稿 -->
-      <form action="{{url_for('community.upload_post')}}" class="upload_post" method="post">
+
       <button id="btnPostSubmit" class="btn btn--primary" type="button" style="display:none;">投稿</button>
-      </form>
     </footer>
   </div>
 </div>

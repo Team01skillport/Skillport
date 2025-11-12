@@ -1,5 +1,7 @@
-from flask import Blueprint, render_template, request, make_response, session
+from flask import Blueprint, render_template, request, make_response, session, redirect, url_for, current_app
 from app.db import fetch_query, create_user
+from werkzeug.utils import secure_filename
+import os
 
 community_bp = Blueprint('community', __name__, url_prefix='/community')
 
@@ -21,18 +23,27 @@ def upload_post():
     all_posts = fetch_query(sql)
     if 'user_id' in session:
         user_id = session['user_id']
-        up_post_text = request.form.get("post_text")
-        post_media = request.form.get("upload_media")
-        if post_media == "":
-            post_media = None
-            sql = "INSERT INTO post_tbl (user_id, post_text) VALUES ("+ str(user_id)+", '"+up_post_text+"');" 
+        up_post_text = request.form.get("post_text", "").strip()
+        post_media = request.form.get("upload_media", "None").strip()
+            
+        file = request.files.get("upload_media")
+        if file and file.filename != "":
+            filename = secure_filename(file.filename)
+            upload_folder = os.path.join(current_app.root_path, "static")
+            os.makedirs(upload_folder, exist_ok=True)
+            file_path = os.path.join(upload_folder, filename)
+            file.save(file_path)
+            post_media = f"/media/posts/{filename}"
         else:
-            sql = "INSERT INTO post_tbl (user_id, post_text, post_media) VALUES ("+ str(user_id)+", '"+up_post_text+"', '"+post_media+"');" 
-            uploaded_post = create_user(sql)
-            errmsg = ""
-    else:
-        errmsg = "投稿するのにアカウントが必要です"
+            post_media = None
         
-    return render_template('community/community.html', all_posts=all_posts, errmsg=errmsg)
+        sql = "INSERT INTO post_tbl (user_id, post_text, post_media) VALUES (%s, %s, %s);" 
+        uploaded_post = create_user(sql, (user_id, up_post_text, post_media))
+        print(uploaded_post)
+        return redirect(url_for('community.community_top', all_posts=all_posts))
+    else:
+        return redirect(url_for('auth.login'))
+        
+    
     
     

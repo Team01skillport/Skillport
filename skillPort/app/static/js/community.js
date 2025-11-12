@@ -1,123 +1,123 @@
-// ============================
+// // ============================
 
-// New Post composer (+ preview only; no posting)
+// // New Post composer (+ preview only; no posting)
 
-// ============================
+// // ============================
 
-document.addEventListener("DOMContentLoaded", () => {
-  const newPost = document.querySelector(".new-post");
+// document.addEventListener("DOMContentLoaded", () => {
+//   const newPost = document.querySelector(".new-post");
 
-  if (!newPost) return;
+//   if (!newPost) return;
 
-  const btnAdd = newPost.querySelector(".add");
+//   const btnAdd = newPost.querySelector(".add");
 
-  const btnSend = newPost.querySelector(".send"); // acts as "open create popup"
+//   const btnSend = newPost.querySelector(".send"); // acts as "open create popup"
 
-  const inputText = newPost.querySelector(".textbox .text");
+//   const inputText = newPost.querySelector(".textbox .text");
 
-  const filePick = newPost.querySelector(".filepick");
+//   const filePick = newPost.querySelector(".filepick");
 
-  const attachment = newPost.querySelector(".textbox .attachment");
+//   const attachment = newPost.querySelector(".textbox .attachment");
 
-  const textbox = newPost.querySelector(".textbox");
+//   const textbox = newPost.querySelector(".textbox");
 
-  if (btnSend) btnSend.setAttribute("type", "button");
+//   if (btnSend) btnSend.setAttribute("type", "button");
 
-  let objectUrl = null;
+//   let objectUrl = null;
 
-  // ＋ -> ファイル選択
+//   // ＋ -> ファイル選択
 
-  if (btnAdd) {
-    btnAdd.addEventListener("click", (e) => {
-      e.preventDefault();
+//   if (btnAdd) {
+//     btnAdd.addEventListener("click", (e) => {
+//       e.preventDefault();
 
-      filePick?.click();
-    });
-  }
+//       filePick?.click();
+//     });
+//   }
 
-  // 選択ファイルのプレビュー（1ファイル）
+//   // 選択ファイルのプレビュー（1ファイル）
 
-  if (filePick) {
-    filePick.addEventListener("change", () => {
-      const file = filePick.files?.[0];
+//   if (filePick) {
+//     filePick.addEventListener("change", () => {
+//       const file = filePick.files?.[0];
 
-      if (!file) return;
+//       if (!file) return;
 
-      if (objectUrl) URL.revokeObjectURL(objectUrl);
+//       if (objectUrl) URL.revokeObjectURL(objectUrl);
 
-      objectUrl = URL.createObjectURL(file);
+//       objectUrl = URL.createObjectURL(file);
 
-      const isImg = file.type.startsWith("image/");
+//       const isImg = file.type.startsWith("image/");
 
-      const isVid = file.type.startsWith("video/");
+//       const isVid = file.type.startsWith("video/");
 
-      if (isImg) {
-        attachment.innerHTML = `
-<img src="${objectUrl}" style="width:100%;max-height:220px;border-radius:8px;display:block;">
-<button class="remove-btn" title="削除">✖</button>
+//       if (isImg) {
+//         attachment.innerHTML = `
+// <img src="${objectUrl}" style="width:100%;max-height:220px;border-radius:8px;display:block;">
+// <button class="remove-btn" title="削除">✖</button>
 
-        `;
-      } else if (isVid) {
-        attachment.innerHTML = `
-<video controls src="${objectUrl}" style="width:100%;max-height:220px;border-radius:8px;display:block;"></video>
-<button class="remove-btn" title="削除">✖</button>
+//         `;
+//       } else if (isVid) {
+//         attachment.innerHTML = `
+// <video controls src="${objectUrl}" style="width:100%;max-height:220px;border-radius:8px;display:block;"></video>
+// <button class="remove-btn" title="削除">✖</button>
 
-        `;
-      } else {
-        attachment.innerHTML = `
-<div>このファイル形式はプレビューできません</div>
-<button class="remove-btn" title="削除">✖</button>
+//         `;
+//       } else {
+//         attachment.innerHTML = `
+// <div>このファイル形式はプレビューできません</div>
+// <button class="remove-btn" title="削除">✖</button>
 
-        `;
-      }
+//         `;
+//       }
 
-      textbox.classList.add("has-attachment");
+//       textbox.classList.add("has-attachment");
 
-      const removeBtn = attachment.querySelector(".remove-btn");
+//       const removeBtn = attachment.querySelector(".remove-btn");
 
-      removeBtn?.addEventListener("click", () => {
-        attachment.innerHTML = "";
+//       removeBtn?.addEventListener("click", () => {
+//         attachment.innerHTML = "";
 
-        textbox.classList.remove("has-attachment");
+//         textbox.classList.remove("has-attachment");
 
-        filePick.value = "";
+//         filePick.value = "";
 
-        if (objectUrl) {
-          URL.revokeObjectURL(objectUrl);
-          objectUrl = null;
-        }
-      });
-    });
-  }
+//         if (objectUrl) {
+//           URL.revokeObjectURL(objectUrl);
+//           objectUrl = null;
+//         }
+//       });
+//     });
+//   }
 
-  // ▶ -> 「新規投稿」モードでモーダルを開く（※保存/送信はしない）
+//   // ▶ -> 「新規投稿」モードでモーダルを開く（※保存/送信はしない）
 
-  if (btnSend) {
-    btnSend.addEventListener("click", (e) => {
-      e.preventDefault();
+//   if (btnSend) {
+//     btnSend.addEventListener("click", (e) => {
+//       e.preventDefault();
 
-      const file = filePick?.files?.[0] || null;
+//       const file = filePick?.files?.[0] || null;
 
-      if (!window.CommunityModal?.openForCreate) {
-        console.warn("[Community] Modal API not ready.");
+//       if (!window.CommunityModal?.openForCreate) {
+//         console.warn("[Community] Modal API not ready.");
 
-        return;
-      }
+//         return;
+//       }
 
-      window.CommunityModal.openForCreate({
-        text: inputText?.value.trim() || "",
+//       window.CommunityModal.openForCreate({
+//         text: inputText?.value.trim() || "",
 
-        file,
-      });
-    });
-  }
+//         file,
+//       });
+//     });
+//   }
 
-  // GC
+//   // GC
 
-  window.addEventListener("beforeunload", () => {
-    if (objectUrl) URL.revokeObjectURL(objectUrl);
-  });
-});
+//   window.addEventListener("beforeunload", () => {
+//     if (objectUrl) URL.revokeObjectURL(objectUrl);
+//   });
+// });
 
 // ============================
 
