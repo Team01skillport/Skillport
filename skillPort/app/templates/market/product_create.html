@@ -1,165 +1,219 @@
-{% extends "base.html" %}
+{% extends "base.html" %} {% block title %}出品商品登録 - SkillPort{% endblock
+%} {% block styles %} {#
+CSSは編集ページと共通のものを使うか、専用のものを使うか選べます #}
+<link
+  rel="stylesheet"
+  href="{{ url_for('static', filename='css/product_detail_edit.css') }}"
+/>
+{% endblock %} {% block content %}
+<main class="pd-main">
+  <form
+    class="pd-container"
+    method="POST"
+    action="{{ url_for('market.create_product_action') }}"
+    enctype="multipart/form-data"
+  >
+    <h1 class="pd-h1">新しい商品を出品</h1>
 
-{% block title %}出品商品登録 - SkillPort{% endblock %}
+    <section class="pd-section">
+      <div class="pd-sec-title">出品画像（最大20枚）</div>
+      <div class="pd-image-grid" id="imageGrid">
+        <button
+          class="pd-thumb add-slot"
+          type="button"
+          id="addImageBtn"
+          aria-label="画像を追加"
+        >
+          <span>＋</span><small>（画像を追加）</small>
+        </button>
+      </div>
+      <input
+        type="file"
+        id="imageInput"
+        name="images"
+        accept="image/*"
+        multiple
+        hidden
+      />
+      <div class="pd-note">
+        ※ 画像はドラッグ＆ドロップでも追加できます。最大20枚まで。
+      </div>
+    </section>
 
-{% block styles %}
-  {# CSSは編集ページと共通のものを使うか、専用のものを使うか選べます #}
-  <link rel="stylesheet" href="{{ url_for('static', filename='css/product_detail_edit.css') }}">
-  {% endblock %}
+    <section class="pd-section">
+      <label class="pd-sec-title" for="titleInput">商品名</label>
+      <div class="pd-input-wrap">
+        <input
+          id="titleInput"
+          name="product_name"
+          type="text"
+          placeholder="商品名を入力"
+          maxlength="40"
+          required
+        />
+        <div class="pd-chars"><span id="titleCount">0</span>/40</div>
+      </div>
+    </section>
 
-{% block content %}
-  <main class="pd-main">
-    <form class="pd-container" method="POST" action="{{ url_for('market.create_product_action') }}" enctype="multipart/form-data">
+    <section class="pd-section">
+      <div class="pd-sec-title">商品の詳細</div>
 
-      <h1 class="pd-h1">新しい商品を出品する</h1>
+      <label class="pd-label">カテゴリー</label>
+      <div class="pd-select">
+        <select name="product_category" required>
+          <option value="" disabled selected>選択してください</option>
+          <option value="AI">AI</option>
+          <option value="IT">IT</option>
+          <option value="アウトドア">アウトドア</option>
+          <option value="インテリア">インテリア</option>
+          <option value="エンタメ">エンタメ</option>
+          <option value="コミュニティ">コミュニティ</option>
+          <option value="ソフトウェア">ソフトウェア</option>
+          <option value="デザイン">デザイン</option>
+          <option value="ビジネス">ビジネス</option>
+          <option value="フィットネス">フィットネス</option>
+          <option value="プログラミング">プログラミング</option>
+          <option value="ライティング">ライティング</option>
+          <option value="料理">料理</option>
+          <option value="美容">美容</option>
+          <option value="英語">英語</option>
+          <option value="趣味">趣味</option>
+        </select>
+      </div>
 
-      <section class="pd-section">
-        <div class="pd-sec-title">出品画像（最大20枚）</div>
-        <div class="pd-image-grid" id="imageGrid">
-          <button class="pd-thumb add-slot" type="button" id="addImageBtn" aria-label="画像を追加">
-            <span>＋</span><small>（画像を追加）</small>
-          </button>
-        </div>
-        <input type="file" id="imageInput" name="images" accept="image/*" multiple hidden>
-        <div class="pd-note">※ 画像はドラッグ＆ドロップでも追加できます。最大20枚まで。</div>
-      </section>
+      <label class="pd-label">商品の状態</label>
+      <div class="pd-select">
+        <select name="condition" required>
+          <option value="" disabled selected>選択してください</option>
+          <option value="新品">新品</option>
+          <option value="中古">中古</option>
+        </select>
+      </div>
+    </section>
 
-      <section class="pd-section">
-        <label class="pd-sec-title" for="titleInput">商品名</label>
-        <div class="pd-input-wrap">
-          <input id="titleInput" name="product_name" type="text" placeholder="商品名を入力" maxlength="40" required>
-          <div class="pd-chars"><span id="titleCount">0</span>/40</div>
-        </div>
-      </section>
+    <section class="pd-section">
+      <label class="pd-sec-title" for="descInput">商品の説明</label>
+      <textarea
+        id="descInput"
+        name="description"
+        rows="8"
+        placeholder="商品の状態や仕様等を記載してください。"
+        required
+      ></textarea>
+    </section>
 
-      <section class="pd-section">
-        <div class="pd-sec-title">商品の詳細</div>
+    <section class="pd-section">
+      <div class="pd-sec-title">配送について</div>
+      <label class="pd-label">配送元の地域</label>
+      <div class="pd-select">
+        <select id="shipFrom" name="shipping_from" required>
+          <option value="" disabled selected>選択してください</option>
+          <option value="北海道">北海道</option>
+          <option value="青森県">青森県</option>
+          <option value="岩手県">岩手県</option>
+          <option value="宮城県">宮城県</option>
+          <option value="秋田県">秋田県</option>
+          <option value="山形県">山形県</option>
+          <option value="福島県">福島県</option>
+          <option value="茨城県">茨城県</option>
+          <option value="栃木県">栃木県</option>
+          <option value="群馬県">群馬県</option>
+          <option value="埼玉県">埼玉県</option>
+          <option value="千葉県">千葉県</option>
+          <option value="東京都">東京都</option>
+          <option value="神奈川県">神奈川県</option>
+          <option value="新潟県">新潟県</option>
+          <option value="富山県">富山県</option>
+          <option value="石川県">石川県</option>
+          <option value="福井県">福井県</option>
+          <option value="山梨県">山梨県</option>
+          <option value="長野県">長野県</option>
+          <option value="岐阜県">岐阜県</option>
+          <option value="静岡県">静岡県</option>
+          <option value="愛知県">愛知県</option>
+          <option value="三重県">三重県</option>
+          <option value="滋賀県">滋賀県</option>
+          <option value="京都府">京都府</option>
+          <option value="大阪府">大阪府</option>
+          <option value="兵庫県">兵庫県</option>
+          <option value="奈良県">奈良県</option>
+          <option value="和歌山県">和歌山県</option>
+          <option value="鳥取県">鳥取県</option>
+          <option value="島根県">島根県</option>
+          <option value="岡山県">岡山県</option>
+          <option value="広島県">広島県</option>
+          <option value="山口県">山口県</option>
+          <option value="徳島県">徳島県</option>
+          <option value="香川県">香川県</option>
+          <option value="愛媛県">愛媛県</option>
+          <option value="高知県">高知県</option>
+          <option value="福岡県">福岡県</option>
+          <option value="佐賀県">佐賀県</option>
+          <option value="長崎県">長崎県</option>
+          <option value="熊本県">熊本県</option>
+          <option value="大分県">大分県</option>
+          <option value="宮崎県">宮崎県</option>
+          <option value="鹿児島県">鹿児島県</option>
+          <option value="沖縄県">沖縄県</option>
+        </select>
+      </div>
+    </section>
 
-        <label class="pd-label">カテゴリー</label>
-        <div class="pd-select">
-          <select name="product_category" required>
-            <option value="" disabled selected>選択してください</option>
-            <option value="AI">AI</option>
-            <option value="IT">IT</option>
-            <option value="アウトドア">アウトドア</option>
-            <option value="インテリア">インテリア</option>
-            <option value="エンタメ">エンタメ</option>
-            <option value="コミュニティ">コミュニティ</option>
-            <option value="ソフトウェア">ソフトウェア</option>
-            <option value="デザイン">デザイン</option>
-            <option value="ビジネス">ビジネス</option>
-            <option value="フィットネス">フィットネス</option>
-            <option value="プログラミング">プログラミング</option>
-            <option value="ライティング">ライティング</option>
-            <option value="料理">料理</option>
-            <option value="美容">美容</option>
-            <option value="英語">英語</option>
-            <option value="趣味">趣味</option>
-          </select>
-        </div>
-
-        <label class="pd-label">商品の状態</label>
-        <div class="pd-select">
-          <select name="condition" required>
-            <option value="" disabled selected>選択してください</option>
-            <option value="新品">新品</option>
-            <option value="中古">中古</option>
-          </select>
-        </div>
-      </section>
-
-      <section class="pd-section">
-        <label class="pd-sec-title" for="descInput">商品の説明</label>
-        <textarea id="descInput" name="description" rows="8" placeholder="商品の状態や仕様等を記載してください。" required></textarea>
-      </section>
-
-      <section class="pd-section">
-        <div class="pd-sec-title">配送について</div>
-        <label class="pd-label">配送元の地域</label>
-        <div class="pd-select">
-           <select id="shipFrom" name="shipping_from" required>
-            <option value="" disabled selected>選択してください</option>
-            <option value="北海道">北海道</option>
-            <option value="青森県">青森県</option>
-            <option value="岩手県">岩手県</option>
-            <option value="宮城県">宮城県</option>
-            <option value="秋田県">秋田県</option>
-            <option value="山形県">山形県</option>
-            <option value="福島県">福島県</option>
-            <option value="茨城県">茨城県</option>
-            <option value="栃木県">栃木県</option>
-            <option value="群馬県">群馬県</option>
-            <option value="埼玉県">埼玉県</option>
-            <option value="千葉県">千葉県</option>
-            <option value="東京都">東京都</option>
-            <option value="神奈川県">神奈川県</option>
-            <option value="新潟県">新潟県</option>
-            <option value="富山県">富山県</option>
-            <option value="石川県">石川県</option>
-            <option value="福井県">福井県</option>
-            <option value="山梨県">山梨県</option>
-            <option value="長野県">長野県</option>
-            <option value="岐阜県">岐阜県</option>
-            <option value="静岡県">静岡県</option>
-            <option value="愛知県">愛知県</option>
-            <option value="三重県">三重県</option>
-            <option value="滋賀県">滋賀県</option>
-            <option value="京都府">京都府</option>
-            <option value="大阪府">大阪府</option>
-            <option value="兵庫県">兵庫県</option>
-            <option value="奈良県">奈良県</option>
-            <option value="和歌山県">和歌山県</option>
-            <option value="鳥取県">鳥取県</option>
-            <option value="島根県">島根県</option>
-            <option value="岡山県">岡山県</option>
-            <option value="広島県">広島県</option>
-            <option value="山口県">山口県</option>
-            <option value="徳島県">徳島県</option>
-            <option value="香川県">香川県</option>
-            <option value="愛媛県">愛媛県</option>
-            <option value="高知県">高知県</option>
-            <option value="福岡県">福岡県</option>
-            <option value="佐賀県">佐賀県</option>
-            <option value="長崎県">長崎県</option>
-            <option value="熊本県">熊本県</option>
-            <option value="大分県">大分県</option>
-            <option value="宮崎県">宮崎県</option>
-            <option value="鹿児島県">鹿児島県</option>
-            <option value="沖縄県">沖縄県</option>
-           </select>
-        </div>
-      </section>
-
-      <section class="pd-section">
-        <label class="pd-sec-title">販売価格を設定する</label>
-        <div class="pd-price-row">
-          <span class="pd-symbol">¥</span>
-          <input id="priceInput" class="pd-price" name="price" type="number" min="100" max="500000" step="10" placeholder="価格を入力" required>
-          <span class="pd-max">500,000</span>
-        </div>
-        <div class="pd-fee-profit">
-          <div class="pd-kpi">
-            <div class="pd-kpi-label">販売手数料 (<span id="feeRateLabel">...</span>%)</div>
-            <div class="pd-kpi-value">¥ <span id="feeValue">0</span></div>
+    <section class="pd-section">
+      <label class="pd-sec-title">販売価格を設定する</label>
+      <div class="pd-price-row">
+        <span class="pd-symbol">¥</span>
+        <input
+          id="priceInput"
+          class="pd-price"
+          name="price"
+          type="number"
+          min="100"
+          max="500000"
+          step="10"
+          placeholder="価格を入力"
+          required
+        />
+        <span class="pd-max">500,000</span>
+      </div>
+      <div class="pd-fee-profit">
+        <div class="pd-kpi">
+          <div class="pd-kpi-label">
+            販売手数料 (<span id="feeRateLabel">...</span>%)
           </div>
-          <div class="pd-divider"></div>
-          <div class="pd-kpi">
-            <div class="pd-kpi-label">販売利益</div>
-            <div class="pd-kpi-value strong">¥ <span id="profitValue">0</span></div>
+          <div class="pd-kpi-value">¥ <span id="feeValue">0</span></div>
+        </div>
+        <div class="pd-divider"></div>
+        <div class="pd-kpi">
+          <div class="pd-kpi-label">販売利益</div>
+          <div class="pd-kpi-value strong">
+            ¥ <span id="profitValue">0</span>
           </div>
         </div>
-      </section>
+      </div>
+    </section>
 
-      <section class="pd-actions">
-        <button class="pd-primary" id="createBtn" type="submit">出品する</button>
-        <a href="{{ url_for('market.manage_products_page') }}" class="pd-secondary" style="text-align: center; text-decoration: none; padding-top: 10px; padding-bottom: 10px;">キャンセル</a>
-      </section>
-
-    </form>
-  </main>
-{% endblock %} {# <-- 丢失的 endblock 在这里! #}
-
-{% block scripts %}
-  {# 注意：这里引用的JS文件是 product_detail_edit.js，您可以根据需要改成 product_create.js #}
-  <script src="{{ url_for('static', filename='js/product_detail_edit.js') }}" defer></script>
+    <section class="pd-actions">
+      <button class="pd-primary" id="createBtn" type="submit">出品する</button>
+      <a
+        href="{{ url_for('market.manage_products_page') }}"
+        class="pd-secondary"
+        style="
+          text-align: center;
+          text-decoration: none;
+          padding-top: 10px;
+          padding-bottom: 10px;
+        "
+        >キャンセル</a
+      >
+    </section>
+  </form>
+</main>
+{% endblock %} {# <-- 丢失的 endblock 在这里! #} {% block scripts %} {#
+注意：这里引用的JS文件是 product_detail_edit.js，您可以根据需要改成
+product_create.js #}
+<script
+  src="{{ url_for('static', filename='js/product_detail_edit.js') }}"
+  defer
+></script>
 {% endblock %}

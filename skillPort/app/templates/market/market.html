@@ -10,11 +10,11 @@ content %}
       <h2 class="page-title">マーケット</h2>
       <div class="search-bar">
         <form action="{{ url_for('market.market_top')}}" method="GET">
-          <button type="submit" class="search-icon"></button>
+          <button type="submit" class="search-icon">🔍</button>
           <input
             type="text"
             name="keyword"
-            placeholder="🔍商品名で検索..."
+            placeholder="商品名で検索..."
             class="product-search"
             value="{{ request.args.get('keyword', '') }}"
           />
@@ -28,13 +28,13 @@ content %}
         >
           <span class="btn-icon">●</span> 出品管理
         </a>
-        <a 
-          href="{{ url_for('market.purchase_history_page') }}" 
+        <a
+          href="{{ url_for('market.purchase_history_page') }}"
           class="btn btn-yellow"
         >
           <span class="btn-icon">●</span> 購入管理
         </a>
-        </div>
+      </div>
       {% else %}
       <div class="action-buttons-placeholder"></div>
       {% endif %}
@@ -197,7 +197,7 @@ content %}
                 {{ product.product_price | int | tojson | safe | replace('"',
                 '') }}円 ｜ {{product.product_condition}}
               </p>
-              <p>{{product.listing_date.strftime('%Y-%m-%d')}}</p>
+              <p class="listing_date">{{product.listing_date.date()}}</p>
             </div></a
           >
           {% endfor %}

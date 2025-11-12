@@ -60,7 +60,6 @@
 {% block content %}
   <main class="pmain">
     <div class="pcontainer">
-      <h2 class="page-title">商品管理</h2>
 
       <div class="toolbar">
         <a href="{{ url_for('market.create_product_page') }}" class="pill blue">新規商品登録</a>
@@ -97,7 +96,7 @@
 
         {% else %}
           <div class="no-products-message">
-            <p class="lead">あなたはまだ出品しないねぇ</p>
+            <p class="lead">出品中の商品がありません</p>
             <p>「新規商品登録」ボタンから、最初の商品を登録してみましょう！</p>
           </div>
         {% endif %}

@@ -10,8 +10,8 @@
 
 /* Main Content Layout */
 .main-content {
-  padding: 0 0 15px 0; 
-  margin-top: 0; 
+  padding: 0 0 15px 0;
+  margin-top: 0;
 }
 
 .main-container {
@@ -35,7 +35,7 @@
   border-bottom: 3px solid #333;
   display: inline-block;
   padding-bottom: 5px;
-  flex-shrink: 0; 
+  flex-shrink: 0;
 }
 
 .content-wrapper {
@@ -64,7 +64,7 @@
   border-radius: 8px;
   font-weight: bold;
   font-size: 16px;
-  margin-bottom: 10px; 
+  margin-bottom: 10px;
   text-align: left;
   box-sizing: border-box;
 }
@@ -82,7 +82,7 @@
   border-radius: 8px;
   cursor: pointer;
   font-size: 16px;
-  margin-bottom: 10px; 
+  margin-bottom: 10px;
   box-sizing: border-box;
   transition: 0.3s;
 }
@@ -112,9 +112,10 @@
   justify-content: space-between;
   align-items: center;
   font-size: 16px;
-  margin-top: 10px; 
+  margin-top: 10px;
   box-sizing: border-box;
-  transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease;
+  transition: background-color 0.3s ease, border-color 0.3s ease,
+    color 0.3s ease;
 }
 /* 最初のフィルター項目は上マージン不要 */
 .sidebar > .filter-section:first-child > .filter-item {
@@ -127,22 +128,21 @@
 
 .arrow {
   color: #999;
-  transition: transform 0.3s ease; 
+  transition: transform 0.3s ease;
 }
 
 /* [変更] .open クラスが付与された時のスタイル */
 .filter-item.open {
-  background-color: #f0f7ff; 
-  border-color: #007bff;     
-  color: #007bff;           
+  background-color: #f0f7ff;
+  border-color: #007bff;
+  color: #007bff;
 }
 
 .filter-item.open .arrow {
   transform: rotate(90deg);
-  color: #007bff; 
+  color: #007bff;
 }
 /* === [ここまでアニメーション対応版] === */
-
 
 /* カテゴリーリストのスタイル */
 .filter-list-container {
@@ -196,10 +196,10 @@
 }
 
 .search-bar {
-  flex: 1; 
-  max-width: 500px; 
+  flex: 1;
+  max-width: 500px;
   position: relative;
-  margin-left: 0; 
+  margin-left: 0;
 }
 
 .search-icon {
@@ -207,6 +207,12 @@
   left: 15px;
   top: 50%;
   transform: translateY(-50%);
+  background-color: transparent;
+  border: none;
+  font-size: 16px;
+  filter: grayscale(1);
+  transition: 0.2s;
+  cursor: pointer;
 }
 
 .product-search {
@@ -221,12 +227,12 @@
 .action-buttons {
   display: flex;
   gap: 15px;
-  flex-shrink: 0; 
+  flex-shrink: 0;
 }
 
 .action-buttons-placeholder {
   width: 275px;
-  flex-shrink: 0; 
+  flex-shrink: 0;
 }
 
 .btn {
@@ -263,6 +269,7 @@
   border-color: #ffc107;
   color: #ffc107;
   transition: 0.2s;
+  text-decoration: none;
 }
 
 .btn-yellow:hover {
@@ -270,8 +277,12 @@
   color: white;
 }
 
-.btn-yellow .btn-icon {
-  color: #ffc107;
+.btn-yellow:hover .btn-icon {
+  color: white;
+}
+
+.btn-green:hover .btn-icon {
+  color: white;
 }
 
 .btn:hover {
@@ -316,7 +327,7 @@
   font-size: 14px;
   margin-bottom: 8px;
   line-height: 1.4;
-  height: 40px; 
+  height: 40px;
   overflow: hidden;
 }
 
@@ -361,7 +372,7 @@
     gap: 10px;
   }
   .action-buttons .btn {
-    flex: 1; 
+    flex: 1;
   }
 
   .content-wrapper {
@@ -396,6 +407,12 @@
   transform: translateY(-2px);
 }
 
+.listing_date {
+  font-size: 12px;
+  font-style: italic;
+  opacity: 0.6;
+}
+
 /* ======================================== */
 /* ===== フィルター内コンテンツの追加スタイル ===== */
 /* ======================================== */
@@ -408,24 +425,20 @@
   overflow: hidden;
   padding-top: 0;
   padding-bottom: 0;
-  margin-top: 0; 
-  border-top: none; 
-  transition: max-height 0.4s ease-out, 
-              opacity 0.3s ease-out, 
-              padding 0.4s ease-out, 
-              margin 0.4s ease-out,
-              border 0.4s ease-out;
+  margin-top: 0;
+  border-top: none;
+  transition: max-height 0.4s ease-out, opacity 0.3s ease-out,
+    padding 0.4s ease-out, margin 0.4s ease-out, border 0.4s ease-out;
 }
 
 .toggle-filter-btn.open + .filter-content {
-  max-height: 500px; 
+  max-height: 500px;
   opacity: 1;
   border-top: 1px solid #e0e0e0;
   padding: 15px 5px;
   margin-top: 10px;
 }
 /* === [ここまでアニメーション対応版] === */
-
 
 /* ▼ チェックボックスグループのスタイル ▼ */
 .filter-checkbox-group {
@@ -505,14 +518,13 @@
 /* クリック中（アクティブ）のスタイル */
 .price-slider.slider-active::-webkit-slider-thumb {
   background-color: #0056b3; /* 濃い青色に変更 */
-  transform: scale(1.2);    /* 少し大きくする */
+  transform: scale(1.2); /* 少し大きくする */
 }
 .price-slider.slider-active::-moz-range-thumb {
   background-color: #0056b3; /* 濃い青色に変更 */
-  transform: scale(1.2);    /* 少し大きくする */
+  transform: scale(1.2); /* 少し大きくする */
 }
 /* [▲▲▲ 新規追加 ▲▲▲] */
-
 
 .price-display {
   text-align: right;
@@ -522,7 +534,6 @@
   color: #333;
 }
 /* ▲ 価格スライダーのスタイル END ▲ */
-
 
 /* 既存の価格フィルターのスタイル調整 */
 .price-filter-content {

@@ -2,11 +2,7 @@
 * {
   box-sizing: border-box;
 }
-body {
-  font-family: system-ui, -apple-system, "Noto Sans JP", Arial, sans-serif;
-  margin: 0;
-  color: #111;
-}
+
 .page-wrap {
   max-width: 1100px;
   margin: 24px auto 80px;
@@ -22,9 +18,9 @@ body {
 
 .product-section {
   display: grid;
-  grid-template-columns: calc(
-      var(--main-img) + 20px + 3px + var(--thumb) + 16px
-    ) 440px;
+  grid-template-columns:
+    calc(var(--main-img) + 20px + 3px + var(--thumb) + 16px)
+    440px;
   column-gap: var(--gap);
   align-items: start;
   margin: 40px auto;
@@ -229,10 +225,27 @@ body {
   padding-top: 10px;
   gap: 15px;
 }
+.user_rating {
+  text-align: center;
+  display: flex;
+}
+.user_rating p {
+  margin: 0;
+}
 .seller-info img {
   width: 60px;
-  height: 60px;
-  border-radius: 50%;
+  height: 35px;
+  border-radius: 999px;
+}
+.text {
+  margin-top: 1rem;
+}
+.text h4 {
+  margin: 0;
+}
+.text h4 a {
+  text-decoration: none;
+  color: black;
 }
 .follow-btn {
   background: #226cff;

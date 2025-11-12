@@ -84,11 +84,22 @@ def product_detail(product_id):
     thumbnail_sql = "SELECT image_path FROM listing_images_tbl WHERE product_id = %s AND is_thumbnail = 1"
     thumbnail_img = fetch_query(thumbnail_sql, (product_id,), fetch_one=True)
     thumbnail_img = thumbnail_img['image_path']
-    uploader_sql = "SELECT u.id FROM user_tbl u INNER JOIN listing_tbl l ON u.user_name = l.product_upload_user WHERE l.product_id = %s;"
-    uploader_id = fetch_query(uploader_sql, (product_id,), fetch_one=True)
-    uploader_id = uploader_id['id']
-    print("uploader_id 検索結果：", uploader_id)
-    return render_template('market/product_detail.html', info=product_info, other_images=other_images, thumbnail_img=thumbnail_img, uploader_id=uploader_id)
+    uploader_sql = "SELECT * FROM user_tbl u INNER JOIN listing_tbl l ON u.user_name = l.product_upload_user WHERE l.product_id = %s;"
+    uploader_data = fetch_query(uploader_sql, (product_id,), fetch_one=True)
+    uploader_id = uploader_data['id']
+    
+    user_rating = int(uploader_data['user_rating'])
+    rating_stars = []
+    full_rating = 5
+    if user_rating == 0:
+        rating_stars.append("☆☆☆☆☆")
+    else:
+        for i in range(user_rating):
+            rating_stars.append("★")
+        if i < full_rating:
+            for j in range(full_rating - i - 1):
+                rating_stars.append("☆")
+    return render_template('market/product_detail.html', info=product_info, other_images=other_images, thumbnail_img=thumbnail_img, uploader_id=uploader_id, uploader_data=uploader_data, rating_stars=rating_stars)
 
 @market_bp.route('/create', methods=["GET"])
 def create_product_page():

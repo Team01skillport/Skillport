@@ -1,7 +1,5 @@
-{% extends "base.html" %} 
-{% block title %}{{ info.product_name | default('商品詳細', true) }}{% endblock %} 
-
-{% block styles %}
+{% extends "base.html" %} {% block title %}{{ info.product_name |
+default('商品詳細', true) }}{% endblock %} {% block styles %}
 <link
   rel="stylesheet"
   href="{{ url_for('static', filename='css/product_detail.css') }}"
@@ -26,34 +24,26 @@
     flex-direction: column;
   }
 </style>
-{% endblock %} 
-
-{% block content %}
+{% endblock %} {% block content %}
 <div class="page-wrap">
   <main class="product-section">
-    
     <div class="image-area">
       <div class="thumbnails">
-        
         {% if info.image_path %}
         <img
           src="{{ url_for('static', filename=info.image_path) }}"
           class="thumb active"
           alt="サムネイル1"
         />
-        {% endif %}
-        
-        {% for img in other_images %}
+        {% endif %} {% for img in other_images %}
         <img
           src="{{ url_for('static', filename=img.image_path) }}"
           class="thumb"
           alt="サムネイル{{ loop.index + 1 }}"
         />
         {% endfor %}
-
       </div>
       <div class="main-image">
-        
         {% if info.image_path %}
         <img
           id="mainImage"
@@ -61,12 +51,11 @@
           alt="メイン商品画像"
         />
         {% else %}
-          <div class="dummy-main-image">
-            <span>?</span>
-            <p style="font-size: 1rem; margin-top: 10px;">画像がありません</p>
-          </div>
+        <div class="dummy-main-image">
+          <span>?</span>
+          <p style="font-size: 1rem; margin-top: 10px">画像がありません</p>
+        </div>
         {% endif %}
-        
       </div>
     </div>
     <div class="info-area">
@@ -75,12 +64,14 @@
 
       <div class="action-buttons">
         <a href="#" class="btn">♡ お気に入り</a>
-        <a href="#" class="btn">💬 コメント</a>
-        <a href="#" class="btn">📩 連絡</a>
         <a href="#" class="btn" id="reportBtn">通報</a>
       </div>
 
-      <a href="{{ url_for('market.checkout_page', product_id=info.product_id) }}" class="buy-btn">購入</a>
+      <a
+        href="{{ url_for('market.checkout_page', product_id=info.product_id) }}"
+        class="buy-btn"
+        >購入</a
+      >
 
       <div class="desc">
         <h2>商品の説明</h2>
@@ -115,16 +106,28 @@
       <h3>出品者</h3>
       <div class="seller-info">
         {% if info.seller_icon %}
-          <img src="{{ url_for('static', filename=info.seller_icon[1:]) }}" alt="出品者アイコン">
+        <img
+          src="{{ url_for('static', filename='media/user' + uploader_data.profile_icon) }}"
+          alt="出品者アイコン"
+        />
         {% else %}
-          <img src="{{ url_for('static', filename='media/profile_icon.png') }}" alt="デフォルトアイコン">
+        <img
+          src="{{ url_for('static', filename='media/profile_icon.png') }}"
+          alt="デフォルトアイコン"
+        />
         {% endif %}
         <div class="text">
-          <h4><a href="#">{{ info.seller_name }}</a></h4>
-          <p>{{ info.seller_tags }}</p>
-          <p>⭐️⭐️⭐️⭐️☆ (評価は後で実装)</p>
+          <h4>
+            <a href="{{url_for('auth.view_profile', user_id=uploader_id)}}"
+              >{{ info.seller_name }}</a
+            >
+          </h4>
+          <div class="user_rating">
+            {% for star in rating_stars %}
+            <p>{{star}}</p>
+            {% endfor %}
+          </div>
         </div>
-        <a href="#" class="follow-btn">フォローする</a>
       </div>
     </div>
   </section>
@@ -163,9 +166,13 @@
     </form>
   </div>
 </div>
-{% endblock %}
-
-{% block scripts %}
-  <script src="{{ url_for('static', filename='js/product_detail.js') }}" defer></script>
-  <script src="{{ url_for('static', filename='js/popup_report.js') }}" defer></script>
+{% endblock %} {% block scripts %}
+<script
+  src="{{ url_for('static', filename='js/product_detail.js') }}"
+  defer
+></script>
+<script
+  src="{{ url_for('static', filename='js/popup_report.js') }}"
+  defer
+></script>
 {% endblock %}
