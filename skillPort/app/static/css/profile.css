@@ -144,12 +144,11 @@ main {
   margin-bottom: 30px;
   border-radius: 8px;
   overflow: hidden;
+  padding: 1rem;
 }
 
 .video-thumbnail {
   width: 100%;
-  aspect-ratio: 16/9;
-  background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -160,21 +159,29 @@ main {
   background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
 }
 
-.play-icon {
-  width: 60px;
-  height: 60px;
-  background-color: white;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 24px;
+.video_info {
+  padding: 0.5rem;
+  line-height: 1.6rem;
 }
 
-.video-title {
-  padding: 15px;
+.video_info .video_desc {
+  font-style: italic;
+  opacity: 0.8;
   font-size: 14px;
-  line-height: 1.5;
+}
+
+.video_info p {
+  font-size: 14px;
+}
+
+.video_info div {
+  display: flex;
+  justify-content: space-between;
+}
+
+.video_info div .video_upload_date {
+  font-style: italic;
+  opacity: 0.6;
 }
 
 /* Post Cards */
@@ -187,7 +194,7 @@ main {
   transition: transform 400ms;
 }
 
-.post-card:hover{
+.post-card:hover {
   transform: translateY(-2px);
 }
 
@@ -229,4 +236,10 @@ main {
   font-size: 14px;
   line-height: 1.6;
   color: #333;
+}
+
+.post_upload_date {
+  font-style: italic;
+  font-size: 14px;
+  opacity: 0.6;
 }

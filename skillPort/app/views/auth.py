@@ -68,13 +68,27 @@ def view_profile(user_id):
         tag = ""
         
     # ユーザーがアップした動画を表示する
-    sql = "SELECT v.* FROM video_tbl v INNER JOIN user_tbl u ON v.video_uploader_id = u.id WHERE u.id = '"+str(user_id)+"';"
+    sql = "SELECT v.*, COUNT(vv.id) AS view_count FROM video_tbl v LEFT JOIN user_tbl u ON v.video_uploader_id = u.id LEFT JOIN video_view_tbl vv ON v.id = vv.video_id WHERE u.id = '"+str(user_id)+"';"
     user_videos = fetch_query(sql)
+    if not user_videos:
+        user_videos = []
+    print(user_videos)
+        
+
+    
+    # プロフィールでの投稿動画のタグを区切る
+    # video_tag = []
+    # for video in user_videos:
+    #     try:
+    #         video_tags = video['video_tag']
+    #         video_tag.append([tag.strip() for tag in video_tags.split(",")])
+    #     except:
+    #         video_tag = ""
     
     # ユーザーがアップした投稿を表示する
     sql = "SELECT p.* FROM post_tbl p INNER JOIN user_tbl u ON p.user_id = u.id WHERE u.id = '"+str(user_id)+"';"
     user_posts = fetch_query(sql)
-    return render_template('profile/profile.html', user_name=user_name, user_info=user_info, user_icon=user_icon, introduction=introduction, tag=tag, rating_stars=rating_stars, user_videos=user_videos, user_posts=user_posts, novid_msg="このユーザーは動画がありません", nopost_msg="このユーザーは投稿がありません")
+    return render_template('profile/profile.html', user_name=user_name, user_info=user_info, user_icon=user_icon, introduction=introduction, tag=tag, rating_stars=rating_stars, user_videos=user_videos, user_posts=user_posts, novid_msg="このユーザーはまだ動画をアップしていません", nopost_msg="このユーザーはまだ投稿していません")
 
 
 @auth_bp.route('/logout')
