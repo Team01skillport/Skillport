@@ -83,6 +83,10 @@ body {
   outline: none;
 }
 
+.login-form input:hover{
+  border: 1px solid #6d6d6d;
+}
+
 
 /* --------------------------------------------------------- */
 /* 登入按鈕 (確保 <button> 元素被正確樣式化) */

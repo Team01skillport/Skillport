@@ -1,81 +1,72 @@
-{% extends "base.html" %} {# ================= ページのタイトル
-================= #} {% block title %} 購入手続き{% endblock %} {#
-================= ページ固有のCSS ================= #} {% block styles %} {#
-ページ専用CSSのパスを url_for を使って修正 #}
+{% extends "base.html" %} 
+{% block title %} 購入手続き{% endblock %} 
+
+{% block styles %}
 <link
   rel="stylesheet"
   href="{{ url_for('static', filename='css/checkout.css') }}"
 />
-{% endblock %} {# ================= メインコンテンツ ================= #} {%
-block content %}
+{% endblock %} 
+
+{% block content %}
 <main class="page">
   <h1 class="page-title">購入手続き</h1>
-
   <div class="grid">
     <section class="left">
+      
       <div class="product-row">
-        <img
-          src="{{ url_for('static', filename='media/book.jpg') }}"
-          alt="商品画像"
-          class="thumb"
-        />
+        {% if product.image_path %}
+          <img src="{{ url_for('static', filename=product.image_path) }}" alt="{{ product.product_name }}" class="thumb">
+        {% else %}
+          <img src="{{ url_for('static', filename='media/default_product_image.png') }}" alt="商品画像" class="thumb">
+        {% endif %}
         <div class="meta">
-          <p class="title">{{product['product_name']}}</p>
-          <p class="price">¥{{product['product_price']}}(税込)</p>
+          <p class="title">{{ product.product_name }}</p>
+          <p class="price">¥{{ product.product_price }}(税込)</p>
         </div>
-        {# product_detail へのリンクを修正 #}
       </div>
 
       <div class="block">
         <div class="block-head">
           <h2>支払い方法</h2>
+          {% if payment_methods %}
+          <button class="link-edit small" type="button" id="btnEditPayment">
+            変更・追加
+          </button>
+          {% endif %}
         </div>
 
-        <div class="select-wrap">
-          <select id="paymentSelect" aria-label="支払い方法を選択">
-            <option value="クレジットカード">クレジットカード</option>
-            <option value="銀行振込">銀行振込</option>
-          </select>
-          <span class="select-icon">▾</span>
-        </div>
-
-        <form class="card-form" id="cardForm">
-          <label
-            >カード番号
-            <input
-              type="text"
-              inputmode="numeric"
-              placeholder="1234 5678 9012 3456"
-              maxlength="19"
-            />
-          </label>
-          <div class="row-2">
-            <label
-              >有効期限(MM/YY)
-              <input
-                type="text"
-                inputmode="numeric"
-                placeholder="12/29"
-                maxlength="5"
-              />
-            </label>
-            <label
-              >セキュリティコード
-              <input
-                type="password"
-                inputmode="numeric"
-                placeholder="123"
-                maxlength="4"
-              />
-            </label>
+        {% if payment_methods %}
+          <div class="select-wrap">
+            <select id="paymentSelect" name="payment_method_id" aria-label="支払い方法を選択">
+              {% for payment in payment_methods %}
+                {% if payment.account_type == 'クレジット' and payment.card_num != '0000000000000000' %}
+                  <option value="{{ payment.card_num }}">
+                    クレジットカード (**** {{ payment.card_num[-4:] }})
+                  </option>
+                {% elif payment.account_type != 'クレジット' and payment.bank_name %}
+                  <option value="{{ payment.bank_account_num }}">
+                    {{ payment.bank_name }} ({{ payment.account_type }})
+                  </option>
+                {% endif %}
+              {% endfor %}
+            </select>
+            <span class="select-icon">▾</span>
           </div>
-          <label
-            >名義人
-            <input type="text" placeholder="TARO YAMADA" />
-          </label>
-        </form>
+        {% else %}
+          <div class="payment-add-buttons">
+            <button type="button" class="btn-add-payment" id="btnOpenModalCredit">
+              + クレジットカードを追加
+            </button>
+            <button type="button" class="btn-add-payment" id="btnOpenModalBank">
+              + 銀行口座を追加
+            </button>
+          </div>
+          <select id="paymentSelect" name="payment_method_id" style="display: none;">
+            <option value="" disabled selected id="noPaymentOption">支払い方法がありません</option>
+          </select>
+        {% endif %}
       </div>
-
       <div class="block">
         <div class="block-head">
           <h2>配送先</h2>
@@ -83,12 +74,20 @@ block content %}
             変更
           </button>
         </div>
-
-        <address class="address">
-          木下昇悟（キノシタ　ショウゴ）<br />
-          〒532-0011<br />
-          大阪府大阪市淀川区西中島 5-88-88<br />
-          なんとなビル 3階
+        <address class="address" id="shippingAddressDisplay">
+          {% if address and address.zip_code %}
+            {{ address.last_name | default('', true) }} {{ address.first_name | default('', true) }}
+            （{{ address.last_name_katakana | default('', true) }} {{ address.first_name_katakana | default('', true) }}）<br />
+            〒{{ address.zip_code }}<br />
+            {{ address.prefecture | default('', true) }}
+            {{ address.address1 | default('', true) }}<br />
+            {{ address.address2 | default('', true) }}
+          {% else %}
+            <strong>配送先住所が登録されていません。</strong><br />
+            <span class="link-edit" style="cursor: pointer;" id="btnAddAddress">
+              ここをクリックして住所を登録してください。
+            </span>
+          {% endif %}
         </address>
       </div>
     </section>
@@ -97,7 +96,7 @@ block content %}
       <div class="summary">
         <div class="row">
           <span>商品代金</span>
-          <strong id="sumSubtotal">¥1,700</strong>
+          <strong id="sumSubtotal">¥{{ product.product_price }}</strong>
         </div>
         <div class="row">
           <span>送料</span>
@@ -105,22 +104,105 @@ block content %}
         </div>
         <div class="row total">
           <span>支払い金額</span>
-          <strong id="sumTotal">¥1,700</strong>
+          <strong id="sumTotal">¥{{ product.product_price }}</strong>
         </div>
         <div class="row">
           <span>支払い方法</span>
           <strong id="sumPayment">クレジットカード</strong>
         </div>
       </div>
-
       <button class="btn-primary" id="btnPurchase">購入する</button>
-      <p class="note">
-        「購入する」ボタンを押すことで、利用規約およびプライバシーポリシーに同意したものとみなします。
-      </p>
     </aside>
   </div>
 </main>
-{% endblock %} {# ================= ページ固有のJS ================= #} {% block
-scripts %} {# ページ専用JSのパスを url_for を使って修正 #}
+
+<div id="addressModal" class="modal">
+  <div class="modal-content">
+    <h2>配送先の編集</h2>
+    <form id="addressForm" class="modal-form">
+      <label for="modalZipCode">郵便番号 (ハイフンなし)</label>
+      <input type="text" id="modalZipCode" name="zip_code" value="{{ address.zip_code | default('', true) }}" required>
+      <label for="modalPrefecture">都道府県</label>
+      <input type="text" id="modalPrefecture" name="prefecture" value="{{ address.prefecture | default('', true) }}" required>
+      <label for="modalAddress1">市区町村・番地</label>
+      <input type="text" id="modalAddress1" name="address1" value="{{ address.address1 | default('', true) }}" required>
+      <label for="modalAddress2">建物名・部屋番号 (任意)</label>
+      <input type="text" id="modalAddress2" name="address2" value="{{ address.address2 | default('', true) }}">
+      <div class="modal-buttons">
+        <button type="button" class="btn-cancel" id="btnCancelAddress">キャンセル</button>
+        <button type="submit" class="btn-save">保存する</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<div id="paymentModal" class="modal">
+  <div class="modal-content">
+    <h2>支払い方法の追加</h2>
+    <form id="paymentForm" class="modal-form">
+      
+      <div class="payment-toggle">
+        <label>
+          <input type="radio" name="payment_type" value="credit" checked>
+          <span class="toggle-label">
+            <span>クレジットカード</span>
+          </span>
+        </label>
+        <label>
+          <input type="radio" name="payment_type" value="bank">
+          <span class="toggle-label">
+            <span>銀行口座</span>
+          </span>
+        </label>
+      </div>
+      
+      <div id="creditCardForm" class="active">
+        <label for="card_num">カード番号</label>
+        <input type="text" id="card_num" name="card_num" placeholder="1234 5678 9012 3456" maxlength="19">
+        <label for="card_name">名義人 (TARO YAMADA)</label>
+        <input type="text" id="card_name" name="card_name" placeholder="TARO YAMADA">
+        <label for="card_expiration">有効期限 (MM/YY)</label>
+        <input type="text" id="card_expiration" name="card_expiration" placeholder="12/29" maxlength="5">
+      </div>
+
+      <div id="bankAccountForm">
+        <label for="bank_name">銀行名</label>
+        <select id="bank_name" name="bank_name" required>
+            <option value="" disabled selected>銀行を選択してください</option>
+            <option value="三菱ＵＦＪ銀行">三菱ＵＦＪ銀行</option>
+            <option value="三井住友銀行">三井住友銀行</option>
+            <option value="みずほ銀行">みずほ銀行</option>
+            <option value="りそな銀行">りそな銀行</option>
+            <option value="ゆうちょ銀行">ゆうちょ銀行</option>
+            <option value="楽天銀行">楽天銀行</option>
+            <option value="PayPay銀行">PayPay銀行</option>
+            <option value="その他">その他（その他銀行）</option>
+        </select>
+
+        <label for="account_type">口座種別</label>
+        <select id="account_type" name="account_type" required>
+            <option value="普通" selected>普通</option>
+            <option value="当座">当座</option>
+            <option value="貯蓄">貯蓄</option>
+        </select>
+        
+        <label for="bank_account_num">口座番号</label>
+        <input type="text" id="bank_account_num" name="bank_account_num" placeholder="1234567">
+        
+        <label for="acc_holder_name">口座名義人 (カタカナ)</label>
+        <input type="text" id="acc_holder_name" name="acc_holder_name" placeholder="例：ヤマダ タロウ">
+      </div>
+      
+      <div class="modal-buttons">
+        <button type="button" class="btn-cancel" id="btnCancelPayment">キャンセル</button>
+        <button type="submit" class="btn-save">保存する</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+{% endblock %} 
+
+{% block scripts %}
 <script src="{{ url_for('static', filename='js/checkout.js') }}" defer></script>
 {% endblock %}
