@@ -7,6 +7,9 @@ from werkzeug.utils import secure_filename
 
 market_bp = Blueprint('market', __name__, url_prefix='/market')
 
+# ==========================================
+# Route 1: 市场顶部/商品列表页面 (GET)
+# ==========================================
 @market_bp.route('/', methods=["GET"])
 def market_top():
     keyword = request.args.get('keyword')
@@ -74,6 +77,9 @@ def market_top():
     
     return render_template('market/market.html', all_products=all_products, all_categories=all_categories)
 
+# ==========================================
+# Route 2: 商品详情页面 (GET)
+# ==========================================
 @market_bp.route('/product/<product_id>', methods=["GET"])
 def product_detail(product_id):
     sql_product = "SELECT l.*, i.image_path, u.user_name AS seller_name, u.profile_icon AS seller_icon, u.user_tags AS seller_tags FROM listing_tbl l LEFT JOIN listing_images_tbl i ON l.product_id = i.product_id AND i.is_thumbnail = 1 LEFT JOIN user_tbl u ON l.product_upload_user = u.user_name WHERE l.product_id = %s"
@@ -81,32 +87,34 @@ def product_detail(product_id):
     if not product_info: abort(404)
     sql_images = "SELECT image_path FROM listing_images_tbl WHERE product_id = %s AND is_thumbnail = 0 ORDER BY uploaded_at"
     other_images = fetch_query(sql_images, (product_id,))
-    thumbnail_sql = "SELECT image_path FROM listing_images_tbl WHERE product_id = %s AND is_thumbnail = 1"
+    thumbnail_sql = "SELECT image_path FROM listing_images_tbl WHERE product_id = %s AND i.is_thumbnail = 1"
     thumbnail_img = fetch_query(thumbnail_sql, (product_id,), fetch_one=True)
-    thumbnail_img = thumbnail_img['image_path']
-    uploader_sql = "SELECT * FROM user_tbl u INNER JOIN listing_tbl l ON u.user_name = l.product_upload_user WHERE l.product_id = %s;"
-    uploader_data = fetch_query(uploader_sql, (product_id,), fetch_one=True)
-    uploader_id = uploader_data['id']
-    
-    user_rating = int(uploader_data['user_rating'])
-    rating_stars = []
-    full_rating = 5
-    if user_rating == 0:
-        rating_stars.append("☆☆☆☆☆")
+    #! 修改开始====
+    thumbnail_img = thumbnail_img['image_path'] if thumbnail_img else None
+    #! 修改结束====
+    uploader_sql = "SELECT u.id FROM user_tbl u INNER JOIN listing_tbl l ON u.user_name = l.product_upload_user WHERE l.product_id = %s;"
+    #! 修改开始====
+    uploader_id_result = fetch_query(uploader_sql, (product_id,), fetch_one=True)
+    if uploader_id_result:
+        uploader_id = uploader_id_result['id']
     else:
-        for i in range(user_rating):
-            rating_stars.append("★")
-        if i < full_rating:
-            for j in range(full_rating - i - 1):
-                rating_stars.append("☆")
-    return render_template('market/product_detail.html', info=product_info, other_images=other_images, thumbnail_img=thumbnail_img, uploader_id=uploader_id, uploader_data=uploader_data, rating_stars=rating_stars)
+        uploader_id = None
+    #! 修改结束====
+    print("uploader_id 検索結果：", uploader_id)
+    return render_template('market/product_detail.html', info=product_info, other_images=other_images, thumbnail_img=thumbnail_img, uploader_id=uploader_id)
 
+# ==========================================
+# Route 3: 商品创建页面 (GET)
+# ==========================================
 @market_bp.route('/create', methods=["GET"])
 def create_product_page():
     if 'user_id' not in session:
         return redirect(url_for('auth.login')) 
     return render_template('market/product_create.html')
 
+# ==========================================
+# Route 4: 商品编辑页面 (GET)
+# ==========================================
 @market_bp.route('/product/<product_id>/edit', methods=["GET"])
 def edit_product_page(product_id):
     if 'user_id' not in session:
@@ -121,6 +129,9 @@ def edit_product_page(product_id):
 
     return render_template('market/product_detail_edit.html', product=product_data)
 
+# ==========================================
+# Route 5: 执行商品创建动作 (POST)
+# ==========================================
 @market_bp.route('/create_action', methods=["POST"])
 def create_product_action():
     if 'user_id' not in session: abort(403)
@@ -186,6 +197,9 @@ def create_product_action():
 
     return redirect(url_for('market.manage_products_page'))
 
+# ==========================================
+# Route 6: 执行商品更新动作 (POST)
+# ==========================================
 @market_bp.route('/product/<product_id>/update', methods=["POST"])
 def update_product_action(product_id):
     if 'user_id' not in session: abort(403)
@@ -216,6 +230,10 @@ def update_product_action(product_id):
     
     return redirect(url_for('market.manage_products_page'))
 
+
+# ==========================================
+# Route 7: 执行商品删除动作 (GET)
+# ==========================================
 @market_bp.route('/product/<product_id>/delete', methods=["GET"])
 def delete_product(product_id):
     if 'user_id' not in session: abort(403)
@@ -233,6 +251,9 @@ def delete_product(product_id):
 
     return redirect(url_for('market.manage_products_page'))
 
+# ==========================================
+# Route 8: 我的商品管理页面 (GET)
+# ==========================================
 @market_bp.route('/manage', methods=["GET"])
 def manage_products_page():
     if 'user_id' not in session: return redirect(url_for('auth.login'))
@@ -244,6 +265,9 @@ def manage_products_page():
     
     return render_template('market/product_management.html', my_products=my_products)
 
+# ==========================================
+# Route 9: 结账页面 (GET)
+# ==========================================
 @market_bp.route('/product/<product_id>/checkout', methods=["GET"])
 def checkout_page(product_id):
     if 'user_id' not in session: 
@@ -278,8 +302,20 @@ def checkout_page(product_id):
     """
     user_address = fetch_query(sql_user_address, (user_id,), fetch_one=True)
     
-    return render_template('order/checkout.html', product=product_info, address=user_address)
+    # 获取支付方法列表
+    sql_payment_methods = """
+        SELECT card_num, bank_name, bank_account_num, account_type 
+        FROM payment_tbl 
+        WHERE user_id = %s
+    """
+    payment_methods = fetch_query(sql_payment_methods, (user_id,))
+    
+    return render_template('order/checkout.html', product=product_info, address=user_address, payment_methods=payment_methods)
 
+
+# ==========================================
+# Route 10: 执行购买动作 (POST)
+# ==========================================
 @market_bp.route('/product/<product_id>/purchase', methods=["POST"])
 def purchase_action(product_id):
     
@@ -331,6 +367,9 @@ def purchase_action(product_id):
         print(f"購入処理エラー: {e}")
         return jsonify({'success': False, 'error': 'サーバー内部エラー'}), 500
 
+# ==========================================
+# Route 11: 购买历史页面 (GET)
+# ==========================================
 @market_bp.route('/manage/purchases', methods=["GET"])
 def purchase_history_page():
     if 'user_id' not in session:
@@ -364,13 +403,11 @@ def purchase_history_page():
     return render_template('market/purchase_management.html', my_orders=my_orders)
 
 
-#! [新增] AJAXリクエストを処理するための新しいルート (支払い方法用)
+# ==========================================
+# Route 12: AJAX：添加支付方式 (POST)
+# ==========================================
 @market_bp.route('/checkout/add_payment', methods=["POST"])
 def checkout_add_payment():
-    """
-    (POST) チェックアウトページの支払い方法モーダルから
-    AJAXリクエストを受け取り、新しい支払い方法を登録する
-    """
     if 'user_id' not in session:
         return jsonify({'success': False, 'error': 'ログインしていません'}), 401
     
@@ -380,21 +417,22 @@ def checkout_add_payment():
     
     try:
         if payment_type == 'credit':
-            # --- [修改] ---
-            # 1. 取得数据并清除卡号中的所有空格
+            # 1. 取得数据并清除卡号和有效期中的所有空格/斜杠
             card_num_raw = data.get('card_num')
-            if not card_num_raw:
-                return jsonify({'success': False, 'error': 'カード番号は必須です'}), 400
+            card_exp_raw = data.get('card_expiration')
+
+            if not card_num_raw or not card_exp_raw:
+                return jsonify({'success': False, 'error': 'カード番号と有効期限は必須です'}), 400
                 
-            card_num = card_num_raw.replace(' ', '') # <-- 移除所有空格
+            card_num = card_num_raw.replace(' ', '')
             card_name = data.get('card_name')
-            card_exp = data.get('card_expiration')
             
+            # 【关键修复】：移除有效期中的斜杠，确保只有 MMYY (4个字符)
+            card_exp = card_exp_raw.replace('/', '') 
+
             # 2. 检查清理后的数据
-            # (信用卡通常是14到16位)
-            if not all([card_num, card_name, card_exp]) or len(card_num) < 14 or len(card_num) > 16:
-                return jsonify({'success': False, 'error': 'カード情報の形式が正しくありません (14-16桁)'}), 400
-            # --- [修改结束] ---
+            if len(card_num) < 14 or len(card_num) > 16 or len(card_exp) != 4:
+                return jsonify({'success': False, 'error': 'カード情報の形式が正しくありません (14-16桁/MMYY)'}), 400
 
             sql_check = "SELECT 1 FROM payment_tbl WHERE user_id = %s AND card_num = %s"
             if fetch_query(sql_check, (user_id, card_num), fetch_one=True):
@@ -415,7 +453,7 @@ def checkout_add_payment():
             })
 
         elif payment_type == 'bank':
-            # (银行部分保持不变)
+            # (银行部分)
             bank_name = data.get('bank_name')
             acc_type = data.get('account_type')
             acc_num = data.get('bank_account_num')
@@ -424,11 +462,12 @@ def checkout_add_payment():
             if not all([bank_name, acc_type, acc_num, acc_name]):
                 return jsonify({'success': False, 'error': '銀行口座情報が不完全です'}), 400
 
-            card_num_for_bank = '0000000000000000'
+            # 银行账户不使用 card_num 字段作为主键，而是使用占位符
+            card_num_for_bank = acc_num 
             
-            sql_check = "SELECT 1 FROM payment_tbl WHERE user_id = %s AND card_num = %s"
-            if fetch_query(sql_check, (user_id, card_num_for_bank), fetch_one=True):
-                return jsonify({'success': False, 'error': '銀行口座は既に1件登録されています'}), 400
+            sql_check = "SELECT 1 FROM payment_tbl WHERE user_id = %s AND bank_account_num = %s"
+            if fetch_query(sql_check, (user_id, acc_num), fetch_one=True):
+                return jsonify({'success': False, 'error': 'この銀行口座は既に登録されています'}), 400
 
             sql_insert = "INSERT INTO payment_tbl (user_id, card_num, bank_name, bank_account_num, acc_holder_name, account_type) VALUES (%s, %s, %s, %s, %s, %s)"
             params = (user_id, card_num_for_bank, bank_name, acc_num, acc_name, acc_type)

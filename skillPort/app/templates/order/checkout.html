@@ -157,42 +157,34 @@
       </div>
       
       <div id="creditCardForm" class="active">
-        <label for="card_num">カード番号</label>
-        <input type="text" id="card_num" name="card_num" placeholder="1234 5678 9012 3456" maxlength="19">
-        <label for="card_name">名義人 (TARO YAMADA)</label>
-        <input type="text" id="card_name" name="card_name" placeholder="TARO YAMADA">
-        <label for="card_expiration">有効期限 (MM/YY)</label>
-        <input type="text" id="card_expiration" name="card_expiration" placeholder="12/29" maxlength="5">
+          <label for="card_num">カード番号</label>
+          <input type="text" id="card_num" name="card_num" placeholder="XXXX XXXX XXXX XXXX" maxlength="19"> <label for="card_name">名義人 (TARO YAMADA)</label>
+          <input type="text" id="card_name" name="card_name" placeholder="TARO YAMADA"> <label for="card_expiration">有効期限 (MM/YY)</label>
+          <input type="text" id="card_expiration" name="card_expiration" placeholder="MM/YY" maxlength="5">
       </div>
 
       <div id="bankAccountForm">
-        <label for="bank_name">銀行名</label>
-        <select id="bank_name" name="bank_name" required>
-            <option value="" disabled selected>銀行を選択してください</option>
-            <option value="三菱ＵＦＪ銀行">三菱ＵＦＪ銀行</option>
-            <option value="三井住友銀行">三井住友銀行</option>
-            <option value="みずほ銀行">みずほ銀行</option>
-            <option value="りそな銀行">りそな銀行</option>
-            <option value="ゆうちょ銀行">ゆうちょ銀行</option>
-            <option value="楽天銀行">楽天銀行</option>
-            <option value="PayPay銀行">PayPay銀行</option>
-            <option value="その他">その他（その他銀行）</option>
-        </select>
+          <label for="bank_name">銀行名</label>
+          <select id="bank_name" name="bank_name"> <option value="" disabled selected>銀行を選択してください</option>
+              <option value="三菱ＵＦＪ銀行">三菱ＵＦＪ銀行</option>
+              <option value="三井住友銀行">三井住友銀行</option>
+              <option value="みずほ銀行">みずほ銀行</option>
+              <option value="りそな銀行">りそな銀行</option>
+              <option value="ゆうちょ銀行">ゆうちょ銀行</option>
+              <option value="楽天銀行">楽天銀行</option>
+              <option value="PayPay銀行">PayPay銀行</option>
+              <option value="その他">その他（その他銀行）</option>
+          </select>
 
-        <label for="account_type">口座種別</label>
-        <select id="account_type" name="account_type" required>
-            <option value="普通" selected>普通</option>
-            <option value="当座">当座</option>
-            <option value="貯蓄">貯蓄</option>
-        </select>
-        
-        <label for="bank_account_num">口座番号</label>
-        <input type="text" id="bank_account_num" name="bank_account_num" placeholder="1234567">
-        
-        <label for="acc_holder_name">口座名義人 (カタカナ)</label>
-        <input type="text" id="acc_holder_name" name="acc_holder_name" placeholder="例：ヤマダ タロウ">
+          <label for="account_type">口座種別</label>
+          <select id="account_type" name="account_type"> <option value="普通" selected>普通</option>
+              </select>
+          
+          <label for="bank_account_num">口座番号</label>
+          <input type="text" id="bank_account_num" name="bank_account_num" placeholder="7桁以内の口座番号 (数字のみ)"> <label for="acc_holder_name">口座名義人 (カタカナ)</label>
+          <input type="text" id="acc_holder_name" name="acc_holder_name" placeholder="例: ヤマダタロウ (全角カタカナ)"> 
       </div>
-      
+
       <div class="modal-buttons">
         <button type="button" class="btn-cancel" id="btnCancelPayment">キャンセル</button>
         <button type="submit" class="btn-save">保存する</button>

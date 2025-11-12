@@ -72,7 +72,7 @@
           <article class="card">
             <div class="thumb">
               {% if product.image_path %}
-                <img src="{{ url_for('static', filename=product.image_path[1:]) }}" alt="{{ product.product_name }}">
+                <img src="{{ url_for('static', filename=product.image_path) }}" alt="{{ product.product_name }}">
               {% else %}
                 <div class="dummy-thumb">
                   <span>?</span>
@@ -96,7 +96,7 @@
 
         {% else %}
           <div class="no-products-message">
-            <p class="lead">出品中の商品がありません</p>
+            <p class="lead">あなたはまだ出品していない</p>
             <p>「新規商品登録」ボタンから、最初の商品を登録してみましょう！</p>
           </div>
         {% endif %}
