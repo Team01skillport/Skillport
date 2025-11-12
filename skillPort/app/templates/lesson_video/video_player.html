@@ -22,21 +22,27 @@ endblock %} {% block styles %}
     </div>
     <h2 class="video-title">{{ video.video_title }}</h2>
 
-    <p class="video-desc">{{ video.video_description_section }}</p>
+    
+
+    <div class="video_info">
+      <p class="video-desc">{{ video.video_description_section }}</p>
+      <p class="video_date">動画公開日：{{video.video_upload_date.date()}}</p>
+    </div>
+    
 
     <div class="video-stats">
       <span>再生回数：{{views['view_count']}}</span>
-      <span>👍 {{ video.like_count }}</span>
-      <span>💬 {{ video.comment_count }}</span>
       <a href="#" id="reportBtn" class="btn-report">🚨 通報</a>
     </div>
 
     <div class="uploader">
-      <img
-        src="{{ url_for('static', filename=video.profile_icon[1:]) }}"
-        alt="Uploader Icon"
-      />
-      <p>{{ video.uploader_name }}</p>
+      <a href="{{url_for('auth.view_profile', user_id = video.video_uploader_id)}}">
+        <img
+          src="{{ url_for('static', filename='media/user/' + video.profile_icon[1:]) }}"
+          alt="Uploader Icon"
+        />
+        <p>{{video.user_name}}</p>
+      </a>
     </div>
 
     <h3>コメント</h3>
@@ -67,14 +73,19 @@ endblock %} {% block styles %}
     <div class="recommend">
       {% for vid in rec_vids %}
       <div class="video-card">
-        <a href="{{url_for('lesson_video.video_player', video_id = vid.id)}}">
+        <div>  
+          <a href="{{url_for('lesson_video.video_player', video_id = vid.id)}}">
           <img
             src="{{ url_for('static', filename='media/' + vid.thumbnail_path) }}"
             alt="Recommended Video 1"
-          />
+          /></div>
+        <div> 
           <h5>{{vid.video_title}}</h5>
           <p>{{vid.video_description_section}}</p>
-          <p>{{vid.video_upload_date}}</p>
+          <p class="video_date">{{vid.video_upload_date.date()}}</p>
+        </div>
+     
+        
         </a>
       </div>
       {% endfor %}

@@ -18,6 +18,7 @@ def video_player(video_id):
     """  
 
     video_data = fetch_query(sql, (video_id,), fetch_one=True)
+    print(video_data)
 
     if not video_data:
         abort(404, "指定された動画は見つかりませんでした。")
@@ -30,7 +31,6 @@ def video_player(video_id):
     
     view_sql = "SELECT v.*, COUNT(vv.id) AS view_count FROM video_tbl v LEFT JOIN video_view_tbl vv on v.id = vv.video_id WHERE v.id = %s GROUP BY v.id ORDER BY view_count DESC;"
     view_data = fetch_query(view_sql, (video_id,), fetch_one=True)
-    print(view_data)
     
     rec_sql = f"SELECT * FROM video_tbl WHERE video_category LIKE '%{video_data['video_category']}%';"
     rec_data = fetch_query(rec_sql, params=None, fetch_one=False)
