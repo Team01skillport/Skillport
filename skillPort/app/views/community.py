@@ -23,19 +23,15 @@ def upload_post():
         user_id = session['user_id']
         up_post_text = request.form.get("post_text")
         post_media = request.form.get("upload_media")
-        print(up_post_text)
-        print(post_media)
         if post_media == "":
             post_media = None
             sql = "INSERT INTO post_tbl (user_id, post_text) VALUES ("+ str(user_id)+", '"+up_post_text+"');" 
         else:
             sql = "INSERT INTO post_tbl (user_id, post_text, post_media) VALUES ("+ str(user_id)+", '"+up_post_text+"', '"+post_media+"');" 
-        uploaded_post = create_user(sql)
-        errmsg = ""
-        print(uploaded_post)
+            uploaded_post = create_user(sql)
+            errmsg = ""
     else:
         errmsg = "投稿するのにアカウントが必要です"
-        print(errmsg)
         
     return render_template('community/community.html', all_posts=all_posts, errmsg=errmsg)
     
