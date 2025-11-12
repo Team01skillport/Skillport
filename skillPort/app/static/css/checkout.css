@@ -1,13 +1,5 @@
 /* ===== ベース ===== */
 *{ box-sizing:border-box; }
-body{ margin:0; color:#111; font-family:system-ui,-apple-system,"Noto Sans JP",Arial,sans-serif; }
-
-/* ===== ヘッダー（既存デザイン準拠） =====
-  !! 注意 !!
-  base.css と重複するため、
-  ここの #profile, #header_cap, #header のスタイル は
-  すべて削除されました。
-*/
 
 /* ===== ページ ===== */
 .page{ max-width:1100px; margin:24px auto 80px; padding:0 16px; }
@@ -27,8 +19,36 @@ body{ margin:0; color:#111; font-family:system-ui,-apple-system,"Noto Sans JP",A
 .product-row .thumb{ width:88px; height:88px; object-fit:cover; border-radius:6px; border:1px solid #ddd; }
 .product-row .meta .title{ margin:0 0 6px; font-weight:700; }
 .product-row .meta .price{ margin:0; color:#6b7280; font-weight:700; }
-.link-edit{ color:#226CFF; text-decoration:none; font-weight:700; }
-.link-edit.small{ font-size:12px; }
+
+/* --- [修改] 「変更」ボタンをシンプルなリンクスタイルに戻す --- */
+.link-edit{
+  color: #226CFF;
+  font-size: 0.9rem;
+  font-weight: normal; /* 通常の太さ */
+  text-decoration: underline; /* 下線を追加 */
+  cursor: pointer;
+  background: none; /* 背景なし */
+  border: none; /* 枠線なし */
+  padding: 0; /* パディングなし */
+  font-family: inherit; /* フォントを継承 */
+}
+.link-edit:hover {
+  color: #1a57cc;
+}
+.link-edit.small{
+  font-size: 0.8rem;
+}
+#btnAddAddress {
+  display: inline-block;
+  padding: 5px 0;
+  color: #226CFF;
+  text-decoration: underline;
+  font-size: 0.9rem;
+  cursor: pointer;
+}
+#btnAddAddress:hover {
+  color: #1a57cc;
+}
 
 .block{ padding:16px 0; border-bottom:1px solid #e5e7eb; }
 .block-head{ display:flex; align-items:center; justify-content:space-between; margin-bottom:10px; }
@@ -44,14 +64,6 @@ body{ margin:0; color:#111; font-family:system-ui,-apple-system,"Noto Sans JP",A
 .select-wrap .select-icon{
   position:absolute; right:12px; top:50%; transform:translateY(-50%); pointer-events:none; color:#6b7280;
 }
-
-/* カードフォーム（ダミー） */
-.card-form{ margin-top:12px; max-width:520px; }
-.card-form label{ display:block; font-size:12px; color:#6b7280; margin:8px 0 4px; }
-.card-form input{
-  width:100%; height:40px; border:1px solid #cbd5e1; border-radius:6px; padding:0 10px; font:inherit;
-}
-.card-form .row-2{ display:grid; grid-template-columns:1fr 1fr; gap:12px; }
 
 /* ===== 右側：サマリー ===== */
 .summary{
@@ -73,14 +85,136 @@ body{ margin:0; color:#111; font-family:system-ui,-apple-system,"Noto Sans JP",A
 
 .note{ font-size:12px; color:#6b7280; margin:8px 4px 0; }
 
-/* ===== フッター =====
-  !! 注意 !!
-  base.css と重複するため、
-  ここの footer のスタイル は削除されました。
-*/
-
-/* ===== レスポンシブ ===== */
 @media (max-width: 960px){
   .grid{ grid-template-columns: 1fr; }
   .summary{ position:static; }
 }
+
+/* ===== モーダルスタイル ===== */
+.modal {
+  display: none;
+  position: fixed; z-index: 1000;
+  left: 0; top: 0; width: 100%; height: 100%;
+  background-color: rgba(0,0,0,0.5);
+  display: flex; align-items: center; justify-content: center;
+  opacity: 0; visibility: hidden;
+  transition: opacity 0.2s ease, visibility 0.2s ease;
+}
+.modal.active {
+  opacity: 1; visibility: visible;
+}
+.modal-content {
+  background: #fff; border-radius: 12px;
+  padding: 24px; width: min(500px, 90%);
+  box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+}
+.modal-content h2 { 
+  margin-top: 0; 
+  font-size: 1.5rem;
+}
+.modal-form label { 
+  display: block; 
+  margin-top: 12px; 
+  font-size: 0.9rem; 
+  font-weight: 600;
+  color: #333; 
+  margin-bottom: 5px;
+}
+
+.modal-form input[type="text"],
+.modal-form select { 
+  width: 100%; 
+  height: 42px; 
+  padding: 0 12px; 
+  border: 1px solid #ccc; 
+  border-radius: 6px; 
+  font-size: 1rem;
+  background-color: #fff;
+  font-family: inherit;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+}
+.modal-form select {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3E%3Cpath fill='%23666' d='M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 0.7em top 50%, 0 0;
+  background-size: 1.2em auto, 100%;
+}
+
+.modal-buttons { 
+  display: flex; 
+  justify-content: flex-end; 
+  gap: 10px; 
+  margin-top: 24px; 
+}
+.modal-buttons button { 
+  padding: 10px 20px; 
+  border-radius: 8px; 
+  border: none; 
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+.modal-buttons .btn-cancel { 
+  background: #e5e7eb;
+  color: #333;
+}
+.modal-buttons .btn-save { 
+  background: #226CFF;
+  color: white; 
+}
+
+/* 支払い方法トグル */
+.payment-toggle {
+  display: flex;
+  gap: 20px;
+  margin-bottom: 25px;
+  border-bottom: 1px solid #eee;
+  padding-bottom: 20px;
+}
+.payment-toggle label {
+  margin: 0;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+.payment-toggle input[type="radio"] {
+  display: none; 
+}
+.toggle-label {
+  display: flex;
+  align-items: center;
+  padding: 6px;
+  border: 2px solid #e5e7eb;
+  border-radius: 50px;
+  transition: border-color 0.2s;
+}
+.toggle-label::before {
+  content: '';
+  display: block;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background-color: #fff;
+  border: 2px solid #e5e7eb;
+  transition: background-color 0.2s, border-color 0.2s;
+}
+.toggle-label span {
+  writing-mode: vertical-rl;
+  text-orientation: mixed;
+  font-size: 14px;
+  padding: 0 8px 0 12px;
+  color: #333;
+  font-weight: normal; /* [修改] 600(太字) から normal(通常) に変更 */
+}
+.payment-toggle input[type="radio"]:checked + .toggle-label {
+  border-color: #226CFF;
+}
+.payment-toggle input[type="radio"]:checked + .toggle-label::before {
+  background-color: #226CFF;
+  border-color: #226CFF;
+}
+
+#creditCardForm, #bankAccountForm { display: none; }
+#creditCardForm.active, #bankAccountForm.active { display: block; }
