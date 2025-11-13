@@ -22,13 +22,22 @@ def create_app():
 
     @app.route('/', methods=["GET"])
     def index():
-        print("HEHSOHOHDSO")
         popular_sql = "SELECT v.id AS video_id, v.video_title, v.video_description_section, v.video_upload_date, u.user_name, v.video_popularity_index, v.thumbnail_path FROM video_tbl v INNER JOIN user_tbl u ON v.video_uploader_id = u.id ORDER BY v.video_popularity_index DESC LIMIT 6; "
-        popular_videos = fetch_query(popular_sql, None, False)
+        try:
+            popular_videos = fetch_query(popular_sql, None, False)
+            if not popular_videos:
+                popular_videos = []
+        except:
+            print("DBエラー")
+            popular_videos = []
+        
         
         def video_reindex():
             video_sql = "SELECT v.id, v.video_public_status, v.video_popularity_index, COUNT(vv.id) AS view_count, COUNT(vl.id) AS like_count FROM video_tbl v LEFT JOIN video_view_tbl vv ON v.id = vv.video_id LEFT JOIN video_like_tbl vl ON v.id = vl.video_id WHERE v.video_public_status = 1 GROUP BY v.id ORDER BY v.video_popularity_index DESC;"
             video_data = fetch_query(video_sql, None, False)
+            if not video_data:
+                print("データベースにデータが存在しない")
+                return "データがない"
                 
             max_views = max(video['view_count'] for video in video_data) or 1
             max_likes = max(video['like_count'] for video in video_data) or 1
@@ -48,7 +57,11 @@ def create_app():
             
             msg = "reindex complete"
             return msg
-        video_reindex()
+        try:
+            video_reindex()
+        except:
+            errmsg = "データが存在しない"
+            return errmsg
         return render_template('index/index.html', popvids=popular_videos)
     
     return app
