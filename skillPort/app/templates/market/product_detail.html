@@ -63,8 +63,7 @@ default('商品詳細', true) }}{% endblock %} {% block styles %}
       <p class="price">¥{{info.product_price}}(税込)</p>
 
       <div class="action-buttons">
-        <!-- <a href="#" class="btn">♡ お気に入り</a> -->
-        <input type="button" value="♡ お気に入り"  id="favorite_button" data-product-id="{{info.product_id}}">
+        <input type="button" value="♡ お気に入り"  id="favorite_button" data-product-id="{{info.product_id}}" class="btn">
         <a href="#" class="btn" id="reportBtn">通報</a>
       </div>
 
