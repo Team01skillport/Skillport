@@ -1,0 +1,560 @@
+-- MariaDB dump 10.19  Distrib 10.4.32-MariaDB, for Win64 (AMD64)
+--
+-- Host: localhost    Database: skillport_db
+-- ------------------------------------------------------
+-- Server version	10.4.32-MariaDB
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8mb4 */;
+/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
+/*!40103 SET TIME_ZONE='+00:00' */;
+/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
+/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
+
+--
+-- Table structure for table `feed_comment_tbl`
+--
+
+DROP TABLE IF EXISTS `feed_comment_tbl`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `feed_comment_tbl` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `user_id` int(11) DEFAULT NULL,
+  `post_id` int(11) DEFAULT NULL,
+  `post_text` varchar(128) DEFAULT NULL,
+  `comment_date` datetime DEFAULT current_timestamp(),
+  `father_comment_id` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `post_id` (`post_id`),
+  CONSTRAINT `feed_comment_tbl_ibfk_1` FOREIGN KEY (`post_id`) REFERENCES `post_tbl` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=31 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `feed_comment_tbl`
+--
+
+LOCK TABLES `feed_comment_tbl` WRITE;
+/*!40000 ALTER TABLE `feed_comment_tbl` DISABLE KEYS */;
+INSERT INTO `feed_comment_tbl` VALUES (1,10,1,'コード進行、楽しみにしています！ぜひ早めに公開してください。','2025-10-28 10:30:00',NULL),(2,1,1,'ありがとうございます！現在最終調整中です。','2025-10-28 11:00:00',1),(3,4,2,'この盛り付け、本当に美しいですね！真似させていただきます。','2025-10-28 12:00:00',NULL),(4,2,2,'デザインの参考になりますよね！ぜひ試してみてください。','2025-10-28 12:45:00',3),(5,12,3,'チートシート助かります！早速業務で使ってみます。','2025-10-28 14:00:00',NULL),(6,5,3,'お役に立てて嬉しいです！','2025-10-28 14:15:00',5),(7,20,4,'ディクテーション、私も効果を感じています。教材は何を使われていますか？','2025-10-28 15:30:00',NULL),(8,18,4,'私は市販の公式問題集の音源を使っていますよ！','2025-10-28 16:00:00',7),(9,3,5,'夕日、本当に綺麗ですね！Vlogの完成が楽しみです。','2025-10-28 16:40:00',NULL),(10,7,5,'ありがとうございます！色補正に苦労しています…。','2025-10-28 17:00:00',9),(11,28,6,'ブラシの質感がリアルですね！購入先を教えていただけますか？','2025-10-28 18:00:00',NULL),(12,13,6,'このブラシは「ArtStation」で見つけました！','2025-10-28 18:30:00',11),(13,8,7,'麻婆豆腐美味しそう！豆板醤少なめ、メモしておきます✍️','2025-10-28 19:30:00',NULL),(14,25,7,'試してみてください！辛いのが苦手な方におすすめです。','2025-10-28 20:00:00',13),(15,17,8,'お疲れ様でした。次の作品に期待しています！','2025-10-29 08:30:00',NULL),(16,1,8,'温かいメッセージありがとうございます。','2025-10-29 09:00:00',15),(17,26,9,'ミックスダウン後の音源聴きました！低音が効いていて最高です！','2025-10-29 10:00:00',NULL),(18,10,9,'ありがとうございます！こだわった甲斐がありました！','2025-10-29 10:45:00',17),(19,14,10,'資料ダウンロードしました。いつもありがとうございます。','2025-10-29 11:00:00',NULL),(20,22,11,'30%向上はすごいですね！具体的な改善策に興味があります。','2025-10-29 12:30:00',NULL),(21,6,12,'お着物姿、素敵です。どちらへお出かけですか？','2025-10-29 13:45:00',NULL),(22,19,13,'自己ベスト更新おめでとうございます！継続は力ですね。','2025-10-29 15:00:00',NULL),(23,10,14,'この記事、読みました。技術と倫理のバランスは難しい問題ですね。','2025-10-29 16:00:00',NULL),(24,23,15,'私は最近「愛の不時着」を見終えました！本当に感動的でした。','2025-10-29 17:15:00',NULL),(25,29,16,'素晴らしいアイデア！ぜひ協力させてください。','2025-10-30 09:30:00',NULL),(26,30,17,'配色ツール、早速ダウンロードしました。勉強になります！','2025-10-30 11:00:00',NULL),(27,4,18,'美味しそうなサンマですね！秋を感じます。','2025-10-30 13:00:00',NULL),(28,28,21,'現像方法、とても気になります！どこかで公開される予定はありますか？','2025-10-30 17:00:00',NULL),(29,17,22,'この着回し、真似したいです！アイテムの詳細をお願いします。','2025-10-30 18:00:00',NULL),(30,24,25,'新しいロゴ、シンプルで力強くて素敵です。','2025-10-31 12:30:00',NULL);
+/*!40000 ALTER TABLE `feed_comment_tbl` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `feed_like_tbl`
+--
+
+DROP TABLE IF EXISTS `feed_like_tbl`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `feed_like_tbl` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `post_id` int(11) DEFAULT NULL,
+  `user_id` int(11) DEFAULT NULL,
+  `like_time` datetime DEFAULT current_timestamp(),
+  PRIMARY KEY (`id`),
+  KEY `post_id` (`post_id`),
+  CONSTRAINT `feed_like_tbl_ibfk_1` FOREIGN KEY (`post_id`) REFERENCES `post_tbl` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=31 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `feed_like_tbl`
+--
+
+LOCK TABLES `feed_like_tbl` WRITE;
+/*!40000 ALTER TABLE `feed_like_tbl` DISABLE KEYS */;
+INSERT INTO `feed_like_tbl` VALUES (1,1,3,'2025-10-01 10:23:45'),(2,2,5,'2025-10-01 11:02:18'),(3,3,2,'2025-10-01 11:37:09'),(4,4,6,'2025-10-01 12:14:22'),(5,5,8,'2025-10-01 12:50:11'),(6,6,10,'2025-10-01 13:09:56'),(7,7,1,'2025-10-01 13:28:40'),(8,8,4,'2025-10-01 13:57:33'),(9,9,7,'2025-10-01 14:23:17'),(10,10,9,'2025-10-01 14:46:02'),(11,11,12,'2025-10-02 09:05:12'),(12,12,14,'2025-10-02 09:28:21'),(13,13,16,'2025-10-02 09:56:30'),(14,14,11,'2025-10-02 10:14:45'),(15,15,15,'2025-10-02 10:42:19'),(16,16,17,'2025-10-02 11:08:53'),(17,17,18,'2025-10-02 11:24:37'),(18,18,13,'2025-10-02 11:57:02'),(19,19,19,'2025-10-02 12:23:48'),(20,20,20,'2025-10-02 12:41:29'),(21,21,22,'2025-10-03 09:08:54'),(22,22,23,'2025-10-03 09:27:31'),(23,23,21,'2025-10-03 09:45:42'),(24,24,25,'2025-10-03 10:01:56'),(25,25,24,'2025-10-03 10:18:15'),(26,26,26,'2025-10-03 10:32:48'),(27,27,27,'2025-10-03 10:58:09'),(28,28,28,'2025-10-03 11:15:37'),(29,29,29,'2025-10-03 11:39:44'),(30,30,30,'2025-10-03 11:55:02');
+/*!40000 ALTER TABLE `feed_like_tbl` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `listing_images_tbl`
+--
+
+DROP TABLE IF EXISTS `listing_images_tbl`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `listing_images_tbl` (
+  `image_id` varchar(255) DEFAULT NULL,
+  `product_id` varchar(255) DEFAULT NULL,
+  `image_path` varchar(255) DEFAULT NULL,
+  `is_thumbnail` tinyint(1) DEFAULT 0,
+  `uploaded_at` datetime DEFAULT current_timestamp(),
+  KEY `product_id` (`product_id`),
+  CONSTRAINT `listing_images_tbl_ibfk_1` FOREIGN KEY (`product_id`) REFERENCES `listing_tbl` (`product_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `listing_images_tbl`
+--
+
+LOCK TABLES `listing_images_tbl` WRITE;
+/*!40000 ALTER TABLE `listing_images_tbl` DISABLE KEYS */;
+INSERT INTO `listing_images_tbl` VALUES ('IMG-LSG-001-01','LSG-001','/images/procon_base_thumb.jpg',1,'2025-09-20 10:05:00'),('IMG-LSG-002-01','LSG-002','/images/video_soft_thumb.jpg',1,'2025-09-21 12:35:00'),('IMG-LSG-003-01','LSG-003','/images/mugcup_thumb.jpg',1,'2025-09-22 15:05:00'),('IMG-LSG-004-01','LSG-004','/images/illust_course_thumb.jpg',1,'2025-09-23 18:05:00'),('IMG-LSG-005-01','LSG-005','/images/daw_software_thumb.jpg',1,'2025-09-24 09:35:00'),('IMG-LSG-006-01','LSG-006','/images/travel_seminar_thumb.jpg',1,'2025-09-25 15:35:00'),('IMG-LSG-007-01','LSG-007','/images/web_base_thumb.jpg',1,'2025-09-26 18:05:00'),('IMG-LSG-008-01','LSG-008','/images/camping_chair_thumb.jpg',1,'2025-09-27 20:05:00'),('IMG-LSG-009-01','LSG-009','/images/design_ebook_thumb.jpg',1,'2025-09-28 11:05:00'),('IMG-LSG-010-01','LSG-010','/images/bizdoc_set_thumb.jpg',1,'2025-09-29 13:05:00'),('IMG-LSG-011-01','LSG-011','/images/dtm_tek_thumb.jpg',1,'2025-09-30 16:05:00'),('IMG-LSG-012-01','LSG-012','/images/itreport_thumb.jpg',1,'2025-10-01 10:05:00'),('IMG-LSG-013-01','LSG-013','/images/cosme_set_thumb.jpg',1,'2025-10-02 11:35:00'),('IMG-LSG-014-01','LSG-014','/images/toeic_course_thumb.jpg',1,'2025-10-03 14:05:00'),('IMG-LSG-015-01','LSG-015','/images/gym_prog_thumb.jpg',1,'2025-10-04 17:05:00'),('IMG-LSG-016-01','LSG-016','/images/hiking_guide_thumb.jpg',1,'2025-10-05 10:05:00'),('IMG-LSG-017-01','LSG-017','/images/react_procon_thumb.jpg',1,'2025-10-06 14:05:00'),('IMG-LSG-018-01','LSG-018','/images/cloud_hands_thumb.jpg',1,'2025-10-07 17:05:00'),('IMG-LSG-019-01','LSG-019','/images/kpop_dance_thumb.jpg',1,'2025-10-08 10:05:00'),('IMG-LSG-020-01','LSG-020','/images/contract_set_thumb.jpg',1,'2025-10-09 14:05:00'),('IMG-LSG-021-01','LSG-021','/images/recipe_video_thumb.jpg',1,'2025-10-10 17:05:00'),('IMG-LSG-022-01','LSG-022','/images/ai_base_mori_thumb.jpg',1,'2025-10-11 10:05:00'),('IMG-LSG-023-01','LSG-023','/images/ai_ethic_course_thumb.jpg',1,'2025-10-12 13:35:00'),('IMG-LSG-024-01','LSG-024','/images/acoustic_chord_thumb.jpg',1,'2025-10-13 16:05:00'),('IMG-LSG-025-01','LSG-025','/images/c_procon_thumb.jpg',1,'2025-10-14 10:05:00'),('IMG-LSG-026-01','LSG-026','/images/volunteer_guide_thumb.jpg',1,'2025-10-15 14:05:00'),('IMG-LSG-027-01','LSG-027','/images/color_theory_thumb.jpg',1,'2025-10-16 11:05:00'),('IMG-LSG-028-01','LSG-028','/images/book_list_thumb.jpg',1,'2025-10-17 15:05:00'),('IMG-LSG-029-01','LSG-029','/images/watch_repair_thumb.jpg',1,'2025-10-18 18:05:00'),('IMG-LSG-030-01','LSG-030','/images/cpp_procon_thumb.jpg',1,'2025-10-19 09:05:00');
+/*!40000 ALTER TABLE `listing_images_tbl` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `listing_tbl`
+--
+
+DROP TABLE IF EXISTS `listing_tbl`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `listing_tbl` (
+  `product_id` varchar(255) NOT NULL,
+  `product_name` char(32) DEFAULT NULL,
+  `product_price` int(7) DEFAULT NULL,
+  `shipping_area` varchar(4) DEFAULT NULL,
+  `product_category` char(16) DEFAULT NULL,
+  `product_condition` char(8) DEFAULT NULL,
+  `product_description` varchar(255) DEFAULT NULL,
+  `listing_status` tinyint(1) DEFAULT 1,
+  `listing_date` datetime DEFAULT current_timestamp(),
+  `sales_status` char(1) DEFAULT NULL,
+  `update_date` datetime DEFAULT current_timestamp(),
+  `product_upload_user` char(64) NOT NULL,
+  PRIMARY KEY (`product_id`,`product_upload_user`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `listing_tbl`
+--
+
+LOCK TABLES `listing_tbl` WRITE;
+/*!40000 ALTER TABLE `listing_tbl` DISABLE KEYS */;
+INSERT INTO `listing_tbl` VALUES ('LSG-001','プログラミング基礎講座',15000,'東京','プログラミング','新品','田中和也監修。Pythonを使った初心者向けプログラミングの基礎講座です。',1,'2025-09-20 10:00:00','S','2025-09-20 10:00:00','tana_kazu'),('LSG-002','動画編集ソフト 初心者向け',8000,'沖縄','ソフトウェア','新品','Vlog作成に最適な、操作が簡単な動画編集ソフト。',1,'2025-09-21 12:30:00','S','2025-09-21 12:30:00','souta_aoki'),('LSG-003','北欧デザインマグカップ 2個セット',2800,'神奈川','インテリア','新品','おしゃれなマグカップ。割れにくい素材を使用。',1,'2025-09-22 15:00:00','S','2025-09-23 09:00:00','m_hoshi_123'),('LSG-004','デジタルイラスト基礎講座',15000,'北海道','デザイン','新品','タブレットを使ったデジタルイラストの描き方。',1,'2025-09-23 18:00:00','C','2025-09-24 18:00:00','risa_kimura'),('LSG-005','最新DAWソフトウェアライセンス',49800,'宮城','音楽','新品','プロ仕様の音楽制作ソフトウェアの最新版。',1,'2025-09-24 09:30:00','S','2025-09-25 09:30:00','jun_suzuki'),('LSG-006','旅行記執筆オンラインセミナー',6500,'広島','ライティング','新品','魅力的な旅行記を書くための秘訣を公開。',1,'2025-09-25 15:30:00','S','2025-09-26 10:00:00','sakura_kato'),('LSG-007','プログラミング基礎講座',12000,'大阪','プログラミング','新品','佐藤結衣が教えるWeb開発に必要なHTML/CSSの基礎講座。',1,'2025-09-26 18:00:00','S','2025-09-27 10:00:00','yui_sato'),('LSG-008','キャンピングチェア（中古美品）',7000,'香川','アウトドア','中古','軽量で持ち運びやすいキャンプ用チェア。目立った傷なし。',1,'2025-09-27 20:00:00','C','2025-09-28 10:00:00','daichi_wata'),('LSG-009','プロが教えるデザインの基礎',10000,'熊本','デザイン','新品','田中葵による、配色やレイアウトなどデザインの基本を学べるeBook。',1,'2025-09-28 11:00:00','S','2025-09-29 11:00:00','aoi_tanaka'),('LSG-010','ビジネス文書作成テンプレート集',4800,'埼玉','ビジネス','新品','すぐに使えるビジネス文書のテンプレート50種類。',1,'2025-09-29 13:00:00','S','2025-09-30 13:00:00','ryota_morita'),('LSG-011','DTM作曲テクニック集',18000,'新潟','音楽','新品','デジタル音楽制作のための高度なテクニック解説。',1,'2025-09-30 16:00:00','S','2025-10-01 16:00:00','nanami_kudo'),('LSG-012','最新IT業界動向レポート',5000,'石川','ビジネス','新品','2025年のIT業界のトレンドと市場予測レポート。',0,'2025-10-01 10:00:00','S','2025-10-02 10:00:00','kenji_abe'),('LSG-013','春の新作コスメお試しセット',3000,'愛媛','美容','新品','今季注目の最新コスメのミニサイズセット。',1,'2025-10-02 11:30:00','S','2025-10-03 11:30:00','mana_shimizu'),('LSG-014','TOEIC対策eラーニングコース',25000,'大阪','英語','新品','効率的にTOEICスコアを上げるための学習コース。',1,'2025-10-03 14:00:00','S','2025-10-04 14:00:00','haruto_endo'),('LSG-015','自宅でできる筋トレプログラム',4000,'東京','フィットネス','新品','器具を使わずに自宅で全身を鍛えるためのトレーニングメニュー。',1,'2025-10-04 17:00:00','C','2025-10-05 17:00:00','rino_fujita'),('LSG-016','登山入門ガイドブック',3200,'長野','アウトドア','新品','安全に登山を楽しむための知識と装備を紹介。',1,'2025-10-05 10:00:00','S','2025-10-06 10:00:00','kana_ishida'),('LSG-017','プログラミング基礎講座',18000,'東京','プログラミング','新品','井上拓也によるJavaScriptとReactの基礎を学べる集中講座。',1,'2025-10-06 14:00:00','S','2025-10-07 14:00:00','tk_inoue'),('LSG-018','クラウド技術実践ハンズオン資料',55000,'静岡','IT','新品','酒井匠が教えるクラウド環境構築の実践的なステップバイステップ資料。',1,'2025-10-07 17:00:00','S','2025-10-08 17:00:00','takumi_sakai'),('LSG-019','K-POPダンス解説動画',1800,'三重','エンタメ','新品','人気のK-POP楽曲の振付を丁寧に解説した動画コンテンツ。',1,'2025-10-08 10:00:00','S','2025-10-09 10:00:00','momoka_oishi'),('LSG-020','フリーランス向け契約書式セット',12000,'兵庫','ビジネス','新品','フリーランスがトラブルを防ぐための契約書テンプレート集。',1,'2025-10-09 14:00:00','S','2025-10-10 14:00:00','hayato_koda'),('LSG-021','時短で作る簡単レシピ動画',2500,'千葉','料理','新品','忙しい人向けの15分で完成する料理のレシピ動画。',1,'2025-10-10 17:00:00','S','2025-10-11 17:00:00','akane_yoshida'),('LSG-022','プログラミング基礎講座',10000,'愛知','プログラミング','新品','森俊によるAI開発に必要な基礎を学べる講座。',1,'2025-10-11 10:00:00','S','2025-10-12 10:00:00','shun_mori'),('LSG-023','AI入門と倫理オンライン講座',70000,'愛知','AI','新品','AI技術の基礎から、社会における倫理的な側面までを網羅。',1,'2025-10-12 13:30:00','S','2025-10-13 13:30:00','shun_mori'),('LSG-024','アコースティックギターのコードブック',1500,'東京','音楽','新品','初心者でもわかりやすいアコースティックギターのコード集。',1,'2025-10-13 16:00:00','S','2025-10-14 16:00:00','yua_tanaka'),('LSG-025','プログラミング基礎講座',16000,'福岡','プログラミング','新品','石井海斗監修。C言語の基礎とアルゴリズムの考え方を解説。',1,'2025-10-14 10:00:00','S','2025-10-15 10:00:00','kaito_ishii'),('LSG-026','地域活性化ボランティアガイド',1000,'神奈川','コミュニティ','新品','地域活動への参加方法と役立つ情報まとめ。',0,'2025-10-15 14:00:00','S','2025-10-16 14:00:00','yuki_oshima'),('LSG-027','色彩理論とデザイン実例集',9800,'大阪','デザイン','新品','プロのデザイナーが使う色彩理論と実例を解説した資料。',1,'2025-10-16 11:00:00','S','2025-10-17 11:00:00','risa_nakamura'),('LSG-028','自己啓発のための読書リスト',2500,'愛知','ビジネス','新品','自己成長を促すための厳選された書籍の読書ガイドと要約集。',1,'2025-10-17 15:00:00','S','2025-10-18 15:00:00','ryota_morita'),('LSG-029','アンティーク時計 修理マニュアル',15000,'京都','趣味','新品','アンティーク時計の簡単なメンテナンスと修理方法。',1,'2025-10-18 18:00:00','C','2025-10-19 18:00:00','miu_nakano'),('LSG-030','プログラミング基礎講座',13500,'北海道','プログラミング','新品','C++とデータ構造の基礎を解説する上級者向け講座。',1,'2025-10-19 09:00:00','S','2025-10-20 09:00:00','risa_kimura');
+/*!40000 ALTER TABLE `listing_tbl` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `market_order_tbl`
+--
+
+DROP TABLE IF EXISTS `market_order_tbl`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `market_order_tbl` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `purchaser_id` int(11) DEFAULT NULL,
+  `seller_id` int(11) DEFAULT NULL,
+  `transaction_status` char(8) DEFAULT NULL,
+  `transaction_startdate` datetime DEFAULT current_timestamp(),
+  `transaction_completeddate` datetime DEFAULT current_timestamp(),
+  `total_amount` int(7) DEFAULT NULL,
+  `sales_profit` int(7) DEFAULT NULL,
+  `shipping_cost` int(4) DEFAULT NULL,
+  `total_commission` int(4) DEFAULT NULL,
+  `shipping_status` char(8) DEFAULT NULL,
+  `shipping_method` char(16) DEFAULT NULL,
+  `buyer_evaluation` int(1) DEFAULT NULL,
+  `seller_evaluation` int(1) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=31 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `market_order_tbl`
+--
+
+LOCK TABLES `market_order_tbl` WRITE;
+/*!40000 ALTER TABLE `market_order_tbl` DISABLE KEYS */;
+INSERT INTO `market_order_tbl` VALUES (1,2,5,'完了','2025-10-01 10:00:00','2025-10-05 15:30:00',35000,32000,500,2500,'発送済','ヤマト',5,5),(2,4,1,'完了','2025-10-02 11:30:00','2025-10-07 10:00:00',12000,10500,800,700,'受取完了','クリックポスト',4,3),(3,7,20,'完了','2025-10-03 14:00:00','2025-10-06 18:00:00',5000,4300,500,200,'発送済','ゆうパック',5,5),(4,25,14,'完了','2025-10-04 09:15:00','2025-10-04 09:15:00',2500,2150,0,350,'非対象','データDL',5,4),(5,30,2,'進行中','2025-10-05 16:20:00','2025-10-29 14:29:05',49800,45000,1200,3600,'準備中','佐川急便',NULL,NULL),(6,11,28,'完了','2025-10-06 13:45:00','2025-10-10 17:00:00',7800,7000,800,0,'受取完了','クリックポスト',4,4),(7,18,15,'キャンセル','2025-10-07 10:00:00','2025-10-07 10:05:00',18000,0,0,0,'中止','データDL',1,1),(8,22,9,'完了','2025-10-08 17:10:00','2025-10-12 11:30:00',62000,55000,1500,5500,'発送済','ゆうパック',5,5),(9,9,29,'完了','2025-10-09 12:00:00','2025-10-14 13:00:00',1000,850,0,150,'非対象','データDL',3,2),(10,19,11,'進行中','2025-10-10 18:00:00','2025-10-29 14:29:05',4000,3500,500,0,'発送待','ヤマト',NULL,NULL),(11,6,26,'完了','2025-10-11 08:30:00','2025-10-13 16:45:00',70000,63000,0,7000,'非対象','データDL',5,5),(12,13,23,'完了','2025-10-12 14:50:00','2025-10-16 12:00:00',1800,1500,300,0,'受取完了','クリックポスト',3,4),(13,27,8,'完了','2025-10-13 11:00:00','2025-10-13 11:00:00',2800,2500,0,300,'非対象','データDL',5,5),(14,15,17,'完了','2025-10-14 16:30:00','2025-10-18 09:00:00',3000,2600,400,0,'発送済','ゆうパック',4,5),(15,29,3,'進行中','2025-10-15 09:00:00','2025-10-29 14:29:05',4500,4000,500,0,'発送待','レターパック',NULL,NULL),(16,1,19,'完了','2025-10-16 17:45:00','2025-10-16 17:45:00',4000,3600,0,400,'非対象','データDL',5,5),(17,3,16,'完了','2025-10-17 12:00:00','2025-10-21 15:00:00',5000,4300,700,0,'発送済','ヤマト',4,3),(18,20,21,'進行中','2025-10-18 10:00:00','2025-10-29 14:29:05',3200,2800,400,0,'発送待','クリックポスト',NULL,NULL),(19,12,10,'完了','2025-10-19 14:30:00','2025-10-19 14:30:00',49800,45000,0,4800,'非対象','データDL',5,5),(20,26,6,'完了','2025-10-20 11:00:00','2025-10-24 16:00:00',8000,7200,800,0,'受取完了','ゆうパック',4,5),(21,17,24,'完了','2025-10-21 09:30:00','2025-10-21 09:30:00',12000,10800,0,1200,'非対象','データDL',5,4),(22,8,22,'完了','2025-10-22 15:45:00','2025-10-26 10:30:00',55000,50000,1000,4000,'発送済','佐川急便',4,4),(23,10,13,'進行中','2025-10-23 11:00:00','2025-10-29 14:29:05',10000,9000,0,1000,'発送待','データDL',NULL,NULL),(24,14,25,'完了','2025-10-24 13:00:00','2025-10-24 13:00:00',2500,2150,350,0,'発送済','クリックポスト',5,5),(25,21,7,'完了','2025-10-25 16:00:00','2025-10-29 11:00:00',6500,5800,700,0,'受取完了','ヤマト',4,4),(26,28,12,'完了','2025-10-26 10:30:00','2025-10-26 10:30:00',4800,4320,0,480,'非対象','データDL',5,5),(27,5,27,'完了','2025-10-27 14:00:00','2025-10-27 14:00:00',9800,9000,0,800,'非対象','データDL',4,5),(28,16,18,'進行中','2025-10-28 09:00:00','2025-10-29 14:29:05',25000,22000,3000,0,'準備中','佐川急便',NULL,NULL),(29,23,4,'キャンセル','2025-10-29 11:00:00','2025-10-29 11:05:00',3200,0,0,0,'中止','クリックポスト',1,1),(30,1,30,'完了','2025-10-29 13:30:00','2025-10-29 13:30:00',3000,2700,0,300,'非対象','データDL',5,5);
+/*!40000 ALTER TABLE `market_order_tbl` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `membership_tbl`
+--
+
+DROP TABLE IF EXISTS `membership_tbl`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `membership_tbl` (
+  `user_id` int(11) NOT NULL,
+  `join_date` datetime DEFAULT NULL,
+  `renewal_date` datetime DEFAULT NULL,
+  `payment_status` char(16) DEFAULT NULL,
+  `payment_method` char(8) DEFAULT NULL,
+  `bonus_id` varchar(255) DEFAULT NULL,
+  `creator_id` int(11) NOT NULL,
+  PRIMARY KEY (`user_id`,`creator_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `membership_tbl`
+--
+
+LOCK TABLES `membership_tbl` WRITE;
+/*!40000 ALTER TABLE `membership_tbl` DISABLE KEYS */;
+INSERT INTO `membership_tbl` VALUES (1,'2024-01-10 10:00:00','2025-01-10 10:00:00','成功','クレジット','BNS-GTR-TANA',101),(1,'2024-05-20 15:30:00','2024-11-20 15:30:00','成功','口座振替','BNS-DGN-PRJ',103),(2,'2024-07-05 12:00:00','2025-07-05 12:00:00','成功','クレジット','BNS-WEB-GUIDE',103),(3,'2024-03-15 09:00:00','2024-09-15 09:00:00','失敗','クレジット','BNS-VDO-BASIC',102),(4,'2024-02-01 14:00:00','2025-02-01 14:00:00','成功','クレジット','BNS-TRV-NEWS',104),(5,'2024-09-01 18:00:00','2025-10-01 18:00:00','成功','口座振替','BNS-ENG-ADV',105),(6,'2024-04-22 11:00:00','2025-04-22 11:00:00','成功','クレジット','BNS-WEB-BASIC',103),(7,'2024-10-10 09:30:00','2025-10-10 09:30:00','成功','口座振替','BNS-VDO-ADV',102),(8,'2024-01-05 17:00:00','2025-01-05 17:00:00','成功','クレジット','BNS-COOK-RSP',104),(9,'2024-06-18 13:00:00','2024-12-18 13:00:00','成功','口座振替','BNS-DGN-TIPS',103),(10,'2024-08-01 10:00:00','2025-08-01 10:00:00','成功','クレジット','BNS-MUS-MASTER',101),(11,'2024-03-01 08:00:00','2025-03-01 08:00:00','成功','口座振替','BNS-TRV-BLOG',104),(12,'2024-07-25 19:00:00','2025-07-25 19:00:00','成功','クレジット','BNS-OUT-GEAR',102),(13,'2024-05-10 16:30:00','2025-05-10 16:30:00','成功','クレジット','BNS-ILL-SKETCH',103),(13,'2024-09-05 12:00:00','2025-09-05 12:00:00','成功','口座振替','BNS-MINI-GUIDE',105),(14,'2024-01-20 13:00:00','2025-01-20 13:00:00','成功','クレジット','BNS-MKT-TREND',104),(15,'2024-06-05 10:00:00','2024-12-05 10:00:00','成功','口座振替','BNS-MUS-BEAT',101),(16,'2024-08-10 14:00:00','2024-11-10 14:00:00','失敗','クレジット','BNS-BUS-DOC',105),(17,'2024-04-04 17:30:00','2025-04-04 17:30:00','成功','クレジット','BNS-FAS-LOOK',104),(18,'2024-02-15 11:00:00','2025-02-15 11:00:00','成功','口座振替','BNS-ENG-TALK',105),(19,'2024-07-01 10:00:00','2024-11-01 10:00:00','成功','クレジット','BNS-FIT-PLAN',102),(20,'2024-05-01 15:00:00','2025-05-01 15:00:00','成功','口座振替','BNS-COOK-JAP',104),(21,'2024-08-28 14:00:00','2025-08-28 14:00:00','成功','クレジット','BNS-NAT-TREK',102),(22,'2024-03-05 16:00:00','2025-03-05 16:00:00','成功','口座振替','BNS-TECH-NEWS',105),(23,'2024-10-20 10:00:00','2025-10-20 10:00:00','成功','クレジット','BNS-KDR-LIST',104),(24,'2024-09-10 11:00:00','2024-11-10 11:00:00','失敗','クレジット','BNS-VDO-CUT',102),(24,'2024-01-01 12:00:00','2025-01-01 12:00:00','成功','口座振替','BNS-FREE-DESIGN',103),(25,'2024-06-01 15:30:00','2025-06-01 15:30:00','成功','クレジット','BNS-COOK-TIPS',104),(26,'2024-03-10 09:00:00','2025-03-10 09:00:00','成功','口座振替','BNS-AI-MODEL',105),(27,'2024-07-15 13:00:00','2025-07-15 13:00:00','成功','クレジット','BNS-MUS-CHORD',101),(28,'2024-04-10 10:00:00','2025-04-10 10:00:00','成功','口座振替','BNS-PHO-EDIT',102),(29,'2024-02-20 14:00:00','2025-02-20 14:00:00','成功','クレジット','BNS-COM-REPORT',105),(30,'2024-05-15 11:00:00','2025-05-15 11:00:00','成功','口座振替','BNS-DGN-COLOR',103);
+/*!40000 ALTER TABLE `membership_tbl` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `order_message_tbl`
+--
+
+DROP TABLE IF EXISTS `order_message_tbl`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `order_message_tbl` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `order_message_date` datetime DEFAULT current_timestamp(),
+  `order_message_user_id` char(64) NOT NULL,
+  `transaction_id` int(11) NOT NULL,
+  `order_message_text` varchar(128) DEFAULT NULL,
+  PRIMARY KEY (`id`,`order_message_user_id`,`transaction_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=31 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `order_message_tbl`
+--
+
+LOCK TABLES `order_message_tbl` WRITE;
+/*!40000 ALTER TABLE `order_message_tbl` DISABLE KEYS */;
+INSERT INTO `order_message_tbl` VALUES (1,'2025-10-01 10:15:00','tk_inoue',1,'購入手続きが完了しました。発送予定日を教えていただけますか？'),(2,'2025-10-01 11:00:00','yui_sato',1,'ありがとうございます。明日午前中に発送予定です。'),(3,'2025-10-02 12:00:00','yui_sato',1,'発送が完了しました。追跡番号をお知らせします。'),(4,'2025-10-02 11:45:00','h_yamada',2,'この度はありがとうございました。すぐにダウンロードします。'),(5,'2025-10-03 14:30:00','yuma_matsui',3,'商品を受け取りました。迅速な対応に感謝します。'),(6,'2025-10-04 10:00:00','ryota_morita',4,'データ確認しました。大変役立ちそうです。'),(7,'2025-10-05 16:30:00','yui_sato',5,'ご連絡いただきありがとうございます。商品準備中です。'),(8,'2025-10-06 14:00:00','sakura_kato',6,'商品を受け取りました。状態も良く満足です。'),(9,'2025-10-07 10:10:00','haruto_endo',7,'すみません、誤って購入したためキャンセルをお願いします。'),(10,'2025-10-07 10:15:00','nanami_kudo',7,'承知いたしました。キャンセル処理を行います。'),(11,'2025-10-08 17:30:00','takumi_sakai',8,'無事届きました。ありがとうございました。'),(12,'2025-10-09 12:30:00','rino_fujita',9,'ダウンロードリンクの件、確認しました。'),(13,'2025-10-10 18:30:00','mana_shimizu',10,'明日発送予定です。今しばらくお待ちください。'),(14,'2025-10-11 09:00:00','kana_ishida',10,'承知しました。楽しみにしています。'),(15,'2025-10-11 10:00:00','shun_mori',11,'データが届きました。内容を確認します。'),(16,'2025-10-12 15:00:00','momoka_oishi',12,'商品に問題はありませんでした。ありがとうございます。'),(17,'2025-10-13 11:10:00','m_hoshi_123',13,'迅速なデータ送付、感謝いたします。'),(18,'2025-10-14 16:40:00','mana_shimizu',14,'明日、発送いたします。'),(19,'2025-10-15 09:05:00','yuki_oshima',15,'入金完了しました。よろしくお願いいたします。'),(20,'2025-10-16 17:50:00','rino_fujita',16,'すぐに使わせていただきます。'),(21,'2025-10-17 12:15:00','h_yamada',17,'発送ありがとうございました。到着を待ちます。'),(22,'2025-10-18 10:30:00','yuma_matsui',18,'いつ頃の発送になりますでしょうか？'),(23,'2025-10-18 10:45:00','kana_ishida',18,'準備ができ次第すぐに連絡します。少々お待ちください。'),(24,'2025-10-19 14:40:00','jun_suzuki',19,'データ無事に受け取りました。'),(25,'2025-10-20 11:15:00','shun_mori',20,'この度はスムーズな取引ありがとうございました。'),(26,'2025-10-21 09:40:00','mana_shimizu',21,'ファイルが開けるか確認しました。問題ありません。'),(27,'2025-10-22 16:00:00','takumi_sakai',22,'商品が無事届きました。早速使います。'),(28,'2025-10-23 11:30:00','jun_suzuki',23,'入金手続きを行いました。データ配信をお願いします。'),(29,'2025-10-24 13:10:00','ryota_morita',24,'発送ありがとうございました。受け取り次第評価します。'),(30,'2025-10-25 16:20:00','kana_ishida',25,'セミナー資料のダウンロード確認できました。');
+/*!40000 ALTER TABLE `order_message_tbl` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `payment_tbl`
+--
+
+DROP TABLE IF EXISTS `payment_tbl`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `payment_tbl` (
+  `user_id` int(11) NOT NULL,
+  `card_num` char(16) NOT NULL,
+  `card_name` char(16) DEFAULT NULL,
+  `card_expiration` char(4) DEFAULT NULL,
+  `card_block` tinyint(1) DEFAULT NULL,
+  `bank_name` varchar(30) DEFAULT NULL,
+  `bank_account_num` char(16) DEFAULT NULL,
+  `branch_name` char(7) DEFAULT NULL,
+  `branch_num` char(3) DEFAULT NULL,
+  `acc_holder_name` char(16) DEFAULT NULL,
+  `monthly_sales` int(16) DEFAULT NULL,
+  `total_sales` int(16) DEFAULT NULL,
+  `withdrawal` int(16) DEFAULT NULL,
+  `account_type` char(10) DEFAULT NULL,
+  PRIMARY KEY (`user_id`,`card_num`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `payment_tbl`
+--
+
+LOCK TABLES `payment_tbl` WRITE;
+/*!40000 ALTER TABLE `payment_tbl` DISABLE KEYS */;
+INSERT INTO `payment_tbl` VALUES (1,'4980123456789012','タナカ カズヤ','1028',0,NULL,NULL,NULL,NULL,NULL,55000,1200000,800000,'クレジット'),(2,'0000000000000000',NULL,NULL,0,'三菱ＵＦＪ銀行','1234567890123456','本店','001','サトウ ユイ',120000,3500000,2000000,'普通'),(3,'5100000012345678','ヤマダ ハヤト','0526',0,NULL,NULL,NULL,NULL,NULL,15000,350000,150000,'クレジット'),(4,'0000000000000000',NULL,NULL,0,'三井住友銀行','9876543210123456','渋谷支店','101','コイケ エミ',80000,1500000,1000000,'当座'),(5,'4000111122223333','イノウエ タクヤ','0327',0,NULL,NULL,NULL,NULL,NULL,250000,8000000,5000000,'クレジット'),(6,'0000000000000000',NULL,NULL,0,'ゆうちょ銀行','01010123456789','京都支店','401','ナカノ ミウ',5000,120000,50000,'普通'),(7,'4567890123456789','アオキ ソウタ','1125',0,NULL,NULL,NULL,NULL,NULL,40000,950000,700000,'クレジット'),(8,'0000000000000000',NULL,NULL,0,'みずほ銀行','5432109876543210','横浜支店','201','ホシノ ミツキ',65000,1800000,1200000,'普通'),(9,'5432109876543210','キムラ リサ','0829',0,NULL,NULL,NULL,NULL,NULL,20000,450000,300000,'クレジット'),(10,'0000000000000000',NULL,NULL,0,'りそな銀行','7654321098765432','仙台支店','301','スズキ ジュン',150000,4000000,3500000,'当座'),(11,'4321098765432109','カトウ サクラ','0126',0,NULL,NULL,NULL,NULL,NULL,30000,600000,400000,'クレジット'),(12,'0000000000000000',NULL,NULL,0,'地方銀行','0001112223334445','高松支店','501','ワタナベ ダイチ',25000,700000,500000,'普通'),(13,'5213456789012345','タナカ アオイ','1228',0,NULL,NULL,NULL,NULL,NULL,75000,2000000,1500000,'クレジット'),(14,'0000000000000000',NULL,NULL,0,'新生銀行','6789012345678901','浦和支店','601','モリタ リョウタ',95000,2500000,2000000,'普通'),(15,'4777666655554444','クドウ ナナミ','0427',0,NULL,NULL,NULL,NULL,NULL,180000,5500000,4000000,'クレジット'),(16,'0000000000000000',NULL,NULL,0,'信託銀行','8765432109876543','金沢支店','701','アベ ケンジ',35000,850000,600000,'当座'),(17,'5555444433332222','シミズ マナ','0729',0,NULL,NULL,NULL,NULL,NULL,15000,300000,100000,'クレジット'),(18,'0000000000000000',NULL,NULL,0,'楽天銀行','1111000099998888','大阪支店','801','エンドウ ハルト',50000,1100000,900000,'普通'),(19,'4222333344445555','フジタ リノ','0925',0,NULL,NULL,NULL,NULL,NULL,60000,1400000,1000000,'クレジット'),(20,'0000000000000000',NULL,NULL,0,'地方銀行','9999888877776666','岐阜支店','901','マツイ ユウマ',110000,2900000,2500000,'普通'),(21,'5111222233334444','イシダ カナ','1226',0,NULL,NULL,NULL,NULL,NULL,25000,700000,450000,'クレジット'),(22,'0000000000000000',NULL,NULL,0,'静岡銀行','7777666655554444','静岡支店','005','サカイ タクミ',200000,7500000,6000000,'当座'),(23,'4001001001001001','オオイシ モモカ','0526',0,NULL,NULL,NULL,NULL,NULL,10000,250000,150000,'クレジット'),(24,'0000000000000000',NULL,NULL,0,'関西みらい銀行','5555444433332222','神戸支店','105','コウダ ハヤト',70000,1900000,1500000,'普通'),(25,'5000500050005000','ヨシダ アカネ','0327',0,NULL,NULL,NULL,NULL,NULL,85000,2100000,1700000,'クレジット'),(26,'0000000000000000',NULL,NULL,0,'三井住友信託銀行','3333222211110000','名古屋支店','205','モリ シュン',130000,4200000,3000000,'当座'),(27,'4444555566667777','タナカ ユア','0126',0,NULL,NULL,NULL,NULL,NULL,2000,50000,10000,'クレジット'),(28,'0000000000000000',NULL,NULL,0,'西日本シティ銀行','2222111100009999','福岡支店','305','イシイ カイト',90000,2400000,2000000,'普通'),(29,'5678901234567890','オオシマ ユウキ','1125',1,NULL,NULL,NULL,NULL,NULL,40000,980000,750000,'クレジット'),(30,'0000000000000000',NULL,NULL,0,'埼玉りそな銀行','8888777766665555','大宮支店','405','ナカムラ リサ',70000,1600000,1200000,'普通');
+/*!40000 ALTER TABLE `payment_tbl` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `post_tbl`
+--
+
+DROP TABLE IF EXISTS `post_tbl`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `post_tbl` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `user_id` int(11) DEFAULT NULL,
+  `post_date` datetime DEFAULT current_timestamp(),
+  `post_text` varchar(255) DEFAULT NULL,
+  `post_media` varchar(255) DEFAULT NULL,
+  `post_update_date` datetime DEFAULT current_timestamp(),
+  `post_report_flag` tinyint(1) DEFAULT 0,
+  `post_status` tinyint(1) DEFAULT 1,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=52 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `post_tbl`
+--
+
+LOCK TABLES `post_tbl` WRITE;
+/*!40000 ALTER TABLE `post_tbl` DISABLE KEYS */;
+INSERT INTO `post_tbl` VALUES (1,1,'2025-10-28 10:00:00','新しいギターフレーズが完成！コード進行の解説動画も近日アップします。#ギター #作曲',NULL,'2025-10-28 10:00:00',0,1),(2,2,'2025-10-28 11:30:00','今日のランチは手作り和食????。盛り付けのコツはデザインのレイアウトに似ていますね。','/media/posts/post_lunch_design.jpg','2025-10-28 11:30:00',0,1),(3,5,'2025-10-28 13:45:00','Reactの最新フック、皆さんもう試しましたか？パフォーマンス改善のチートシートを公開中！ #プログラミング','/media/posts/post_react_hook.txt','2025-10-28 13:45:00',0,1),(4,18,'2025-10-28 15:00:00','TOEIC満点への道！リスニングのコツはディクテーションだと改めて実感。',NULL,'2025-10-28 15:00:00',0,1),(5,7,'2025-10-28 16:20:00','沖縄の美しい夕日をVlogに。このグラデーションの編集が難しい…！','/media/posts/post_okinawa_sunset.mp4','2025-10-28 16:20:00',0,1),(6,13,'2025-10-28 17:50:00','新しいデジタルペイントブラシを試しています。質感の表現が面白い！','/media/posts/post_new_brush.png','2025-10-28 17:50:00',0,1),(7,25,'2025-10-28 19:10:00','今夜は時短レシピで麻婆豆腐。豆板醤は少なめがポイントです✨','/media/posts/post_mapotofu.jpg','2025-10-28 19:10:00',0,1),(8,9,'2025-10-29 08:00:00','デザインコンペの結果、残念ながら落選。次の作品に向けて切り替えます！',NULL,'2025-10-29 08:00:00',0,1),(9,10,'2025-10-29 09:30:00','新曲のミックスダウン完了。低音の響きにこだわりました。','/media/posts/post_new_song_audio.mp3','2025-10-29 09:30:00',0,1),(10,14,'2025-10-29 10:45:00','最近のマーケティングトレンドは「体験価値」。資料をアップデートしました。','/media/posts/post_marketing_update.pdf','2025-10-29 10:45:00',0,1),(11,22,'2025-10-29 12:00:00','サーバー移管が無事完了！これで処理速度が30%向上しました。',NULL,'2025-10-29 12:00:00',0,1),(12,6,'2025-10-29 13:15:00','着物でお茶会へ????。季節の柄を選ぶのが楽しい時間です。','/media/posts/post_kimono.jpg','2025-10-29 13:15:00',0,1),(13,19,'2025-10-29 14:30:00','今日のトレーニング記録。ベンチプレス自己ベスト更新????',NULL,'2025-10-29 14:30:00',0,1),(14,26,'2025-10-29 15:40:00','AI倫理に関する記事が炎上中。技術者としての責任を改めて考えます。',NULL,'2025-10-29 15:40:00',1,1),(15,23,'2025-10-29 16:50:00','今期の韓ドラ、最終回が泣ける????。皆さんのおすすめは何ですか？',NULL,'2025-10-29 16:50:00',0,1),(16,16,'2025-10-30 09:00:00','新しいビジネスアイデアをブレスト中。スタートアップの仲間募集中です！',NULL,'2025-10-30 09:00:00',0,1),(17,30,'2025-10-30 10:30:00','配色ツールの使い方講座を公開。デザイン初心者必見です????','/media/posts/post_color_tool.mp4','2025-10-30 10:30:00',0,1),(18,20,'2025-10-30 12:45:00','秋の味覚、サンマの塩焼き！旬の魚はやっぱり最高ですね。','/media/posts/post_sanma.jpg','2025-10-30 12:45:00',0,1),(19,11,'2025-10-30 14:00:00','次の旅行はどこへ行こうかな。旅の計画を立てるのも楽しい。',NULL,'2025-10-30 14:00:00',0,1),(20,4,'2025-10-30 15:15:00','来月からの海外ボランティア準備中。持ち物リストを公開します。','/media/posts/post_volunteer_list.pdf','2025-10-30 15:15:00',0,1),(21,28,'2025-10-30 16:30:00','夜景ポートレートの新しい現像方法を発見。雰囲気が劇的に変わります。','/media/posts/post_night_photo.jpg','2025-10-30 16:30:00',0,1),(22,17,'2025-10-30 17:40:00','秋服の着回しコーデをアップ。プチプラアイテムも賢く使えば高見え！','/media/posts/post_autumn_coord.jpg','2025-10-30 17:40:00',0,1),(23,29,'2025-10-31 09:00:00','地域の清掃活動に参加しました！ゴミ拾いも立派な地域貢献。',NULL,'2025-10-31 09:00:00',0,1),(24,21,'2025-10-31 10:30:00','先週末の登山で撮った紅葉の写真。最高の景色でした????','/media/posts/post_mountain_autumn.jpg','2025-10-31 10:30:00',0,1),(25,24,'2025-10-31 12:00:00','新しいロゴデザインが完成！依頼主様にも喜んでもらえて一安心。','/media/posts/post_new_logo.png','2025-10-31 12:00:00',0,1),(26,3,'2025-10-31 13:45:00','最新の動画編集ソフトのレビュー。前バージョンと比較してみました。','/media/posts/post_video_review.mp4','2025-10-31 13:45:00',0,1),(27,12,'2025-10-31 15:00:00','先日購入したキャンプギアのレビュー。デザインと機能性を両立！','/media/posts/post_camp_gear.jpg','2025-10-31 15:00:00',0,1),(28,15,'2025-10-31 16:20:00','DTMで使う無料プラグインのまとめ。コスパ最強のツールを紹介！','/media/posts/post_dtm_plugin.pdf','2025-10-31 16:20:00',0,1),(29,27,'2025-10-31 17:30:00','今日は特にネタがないですが、近況報告。仕事頑張ります！',NULL,'2025-10-31 17:30:00',0,0),(30,8,'2025-10-31 18:40:00','料理教室で習ったパン作り。次は自宅で挑戦します????','/media/posts/post_bread_making.jpg','2025-10-31 18:40:00',1,1),(31,0,'2025-11-05 15:38:44','up_post_text','post_media','2025-11-05 15:38:44',0,1),(32,1,'2025-11-05 10:10:00','ギター練習の成果を投稿します???? #音楽 #ギター初心者','/media/post/music_guitar01.jpg','2025-11-05 10:10:00',0,1),(33,3,'2025-11-05 10:20:00','カフェで撮った写真????光の加減が気に入ってます。','/media/post/camera_cafe01.jpg','2025-11-05 10:20:00',0,1),(34,3,'2025-11-05 10:30:00','朝のヨガでリフレッシュしました????‍♀️','/media/post/fitness_yoga01.jpg','2025-11-05 10:30:00',0,1),(35,5,'2025-11-05 10:40:00','英語の勉強、今日はリスニング中心。少しずつ慣れてきた。',NULL,'2025-11-05 10:40:00',0,1),(36,1,'2025-11-05 11:00:00','キャラ表情アニメを修正しました。目の動きを自然にしたつもりです????','/media/post/anime_face02.gif','2025-11-05 11:00:00',0,1),(37,1,'2025-11-05 11:15:00','ギターコードC→Am→F→Gで曲作り中！',NULL,'2025-11-05 11:15:00',0,1),(38,6,'2025-11-05 11:30:00','久しぶりにジョギングしてスッキリ！','/media/post/run_morning01.jpg','2025-11-05 11:30:00',0,1),(39,1,'2025-11-05 11:45:00','カメラのレンズを新しく買いました???? 被写界深度がすごい！','/media/post/camera_newlens01.jpg','2025-11-05 11:45:00',0,1),(40,1,'2025-11-05 12:00:00','光の調整をミスってしまったけど雰囲気は好き。','/media/post/camera_cafe02.jpg','2025-11-05 12:00:00',0,1),(41,8,'2025-11-05 12:15:00','Pythonで初めてのGUIアプリ完成！','/media/post/python_app01.png','2025-11-05 12:15:00',0,1),(42,9,'2025-11-05 12:30:00','今日のランチ???? おいしかった〜！','/media/post/lunch_pasta.jpg','2025-11-05 12:30:00',0,1),(43,1,'2025-11-05 12:40:00','新しいエレキギター買いました????','/media/post/music_electric.jpg','2025-11-05 12:40:00',0,1),(44,4,'2025-11-05 12:50:00','夜のストレッチ動画を撮ってみました！','/media/post/fitness_nightstretch.mp4','2025-11-05 12:50:00',0,1),(45,1,'2025-11-05 13:00:00','背景エフェクトを追加！完成度上がったかも✨','/media/post/anime_fx01.mp4','2025-11-05 13:00:00',0,1),(46,5,'2025-11-05 13:10:00','今日の英会話レッスンは「Would you mind〜？」の使い方。',NULL,'2025-11-05 13:10:00',0,1),(47,7,'2025-11-05 13:20:00','夕焼けを撮ったらまるで映画みたいだった。','/media/post/sunset_photo.jpg','2025-11-05 13:20:00',0,1),(48,3,'2025-11-05 13:40:00','レタッチ前後を比較してみた。どっちが好み？','/media/post/edit_before_after.jpg','2025-11-05 13:40:00',0,1),(49,8,'2025-11-05 14:00:00','HTMLとCSSでプロフィールページを作ってみた！','/media/post/web_profile.jpg','2025-11-05 14:00:00',0,1),(50,6,'2025-11-05 14:15:00','腹筋トレーニング記録???? だいぶ形になってきた！','/media/post/abs_training.jpg','2025-11-05 14:15:00',0,1),(51,1,'2025-11-05 15:42:05','今日の飯うまかった',NULL,'2025-11-05 15:42:05',0,1);
+/*!40000 ALTER TABLE `post_tbl` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `product_tbl`
+--
+
+DROP TABLE IF EXISTS `product_tbl`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `product_tbl` (
+  `id` varchar(255) NOT NULL,
+  `favorites` int(32) DEFAULT NULL,
+  `product_view_flag` tinyint(1) DEFAULT 0,
+  `user_id` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `product_tbl`
+--
+
+LOCK TABLES `product_tbl` WRITE;
+/*!40000 ALTER TABLE `product_tbl` DISABLE KEYS */;
+INSERT INTO `product_tbl` VALUES ('PRD-AIT-204',450000,1,26),('PRD-ART-304',300,0,13),('PRD-BUS-403',95000,1,16),('PRD-COD-303',180000,1,22),('PRD-COOK-501',75000,1,8),('PRD-CRM-602',1500,0,29),('PRD-DGN-103',9876,1,9),('PRD-DIY-603',75000,1,25),('PRD-ENG-104',350000,1,18),('PRD-FAS-401',1000,1,17),('PRD-FIL-601',2000,1,7),('PRD-FIT-203',150,0,19),('PRD-GRW-604',100000,1,5),('PRD-GTR-101',52345,1,1),('PRD-HIS-305',7500,1,6),('PRD-ILL-502',150000,1,13),('PRD-JAP-201',5000,1,20),('PRD-LIF-302',22000,1,4),('PRD-MED-405',10,0,12),('PRD-MKT-202',25000,1,14),('PRD-MUS-205',89000,1,10),('PRD-PHO-301',50,0,28),('PRD-SKT-504',800,0,27),('PRD-TRE-503',40000,1,21),('PRD-VDO-102',12340,1,7),('PRD-VDO-605',250,0,18),('PRD-VOG-404',32000,1,2),('PRD-WEB-105',1200,0,5),('PRD-WRI-505',12000,1,11),('PRD-YOG-402',500,0,23);
+/*!40000 ALTER TABLE `product_tbl` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `support_tbl`
+--
+
+DROP TABLE IF EXISTS `support_tbl`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `support_tbl` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `category` char(16) DEFAULT NULL,
+  `content` varchar(255) DEFAULT NULL,
+  `inquiry_user_id` int(11) DEFAULT NULL,
+  `send_date` datetime DEFAULT current_timestamp(),
+  `receiving_date` datetime DEFAULT current_timestamp(),
+  `response_status` char(16) DEFAULT NULL,
+  `response_date` datetime DEFAULT current_timestamp(),
+  `attached_file` varchar(255) DEFAULT NULL,
+  `response_content` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=31 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `support_tbl`
+--
+
+LOCK TABLES `support_tbl` WRITE;
+/*!40000 ALTER TABLE `support_tbl` DISABLE KEYS */;
+INSERT INTO `support_tbl` VALUES (1,'ログイン','ログインができません。パスワードを再設定してもエラーになります。',1,'2025-10-29 15:45:05','2025-10-29 15:45:05','対応完了','2025-10-29 15:45:05',NULL,'パスワード再設定URLを再送しました。'),(2,'動画','講義動画が途中で止まります。通信環境は問題ありません。',2,'2025-10-29 15:45:05','2025-10-29 15:45:05','対応中','2025-10-29 15:45:05',NULL,'動画サーバーを確認中です。'),(3,'決済','有料コースの支払いが完了したのに視聴できません。',3,'2025-10-29 15:45:05','2025-10-29 15:45:05','対応完了','2025-10-29 15:45:05',NULL,'システム反映を手動で行いました。'),(4,'アカウント','登録メールアドレスを変更したいです。',4,'2025-10-29 15:45:05','2025-10-29 15:45:05','対応完了','2025-10-29 15:45:05',NULL,'変更用リンクを送信しました。'),(5,'不具合','スマホ版でボタンが押せません。',5,'2025-10-29 15:45:05','2025-10-29 15:45:05','対応中','2025-10-29 15:45:05','/img/bug_screenshot_1.png','開発チームに報告しました。'),(6,'機能要望','ダークモードを追加してほしいです。',6,'2025-10-29 15:45:05','2025-10-29 15:45:05','対応完了','2025-10-29 15:45:05',NULL,'次回アップデートで対応予定です。'),(7,'講義内容','動画内の説明に誤字がありました。',7,'2025-10-29 15:45:05','2025-10-29 15:45:05','対応完了','2025-10-29 15:45:05','/img/typo_report.png','講師に共有し修正を依頼しました。'),(8,'支払い','領収書を再発行したいです。',8,'2025-10-29 15:45:05','2025-10-29 15:45:05','対応完了','2025-10-29 15:45:05',NULL,'PDF形式で再発行しました。'),(9,'講師','講師に質問を送りたいです。',9,'2025-10-29 15:45:05','2025-10-29 15:45:05','対応中','2025-10-29 15:45:05',NULL,'講師用フォームを案内しました。'),(10,'アプリ','iOSアプリが起動しません。',10,'2025-10-29 15:45:05','2025-10-29 15:45:05','対応完了','2025-10-29 15:45:05','/img/app_crash.png','最新版にアップデートしてください。'),(11,'ログイン','二段階認証コードが届きません。',11,'2025-10-29 15:45:05','2025-10-29 15:45:05','対応完了','2025-10-29 15:45:05',NULL,'メール配信システムを再送信しました。'),(12,'動画','音声が小さい動画があります。',12,'2025-10-29 15:45:05','2025-10-29 15:45:05','対応完了','2025-10-29 15:45:05',NULL,'音量を調整し再公開しました。'),(13,'決済','クレジットカード情報を変更したい。',13,'2025-10-29 15:45:05','2025-10-29 15:45:05','対応完了','2025-10-29 15:45:05',NULL,'マイページから変更可能です。'),(14,'講義内容','説明スライドが表示されません。',14,'2025-10-29 15:45:05','2025-10-29 15:45:05','対応中','2025-10-29 15:45:05','/img/missing_slide.png','教材チームが確認中です。'),(15,'不具合','コメント欄が表示されない。',15,'2025-10-29 15:45:05','2025-10-29 15:45:05','対応完了','2025-10-29 15:45:05',NULL,'UIを修正し解決しました。'),(16,'アカウント','誤ってアカウントを削除してしまいました。',16,'2025-10-29 15:45:05','2025-10-29 15:45:05','対応中','2025-10-29 15:45:05',NULL,'復旧可能か確認中です。'),(17,'機能要望','倍速再生にもう1段階追加してほしい。',17,'2025-10-29 15:45:05','2025-10-29 15:45:05','対応完了','2025-10-29 15:45:05',NULL,'次期バージョンで追加します。'),(18,'動画','再生速度が勝手に変わります。',18,'2025-10-29 15:45:05','2025-10-29 15:45:05','対応中','2025-10-29 15:45:05',NULL,'動作ログを収集中です。'),(19,'支払い','クーポンコードが使えません。',19,'2025-10-29 15:45:05','2025-10-29 15:45:05','対応完了','2025-10-29 15:45:05',NULL,'有効期限切れでした。別コードを発行しました。'),(20,'講師','担当講師の変更を希望します。',20,'2025-10-29 15:45:05','2025-10-29 15:45:05','対応完了','2025-10-29 15:45:05',NULL,'サポートチームで対応しました。'),(21,'講義内容','課題ファイルがダウンロードできません。',21,'2025-10-29 15:45:05','2025-10-29 15:45:05','対応中','2025-10-29 15:45:05','/img/download_error.png','サーバー側を調査中です。'),(22,'不具合','マイページが真っ白になります。',22,'2025-10-29 15:45:05','2025-10-29 15:45:05','対応完了','2025-10-29 15:45:05',NULL,'キャッシュクリアで解決しました。'),(23,'決済','請求金額が正しくありません。',23,'2025-10-29 15:45:05','2025-10-29 15:45:05','対応中','2025-10-29 15:45:05',NULL,'経理チームが確認中です。'),(24,'アプリ','Android版で動画が再生されません。',24,'2025-10-29 15:45:05','2025-10-29 15:45:05','対応完了','2025-10-29 15:45:05',NULL,'再生プレイヤーを修正しました。'),(25,'ログイン','ログイン後すぐにログアウトされます。',25,'2025-10-29 15:45:05','2025-10-29 15:45:05','対応中','2025-10-29 15:45:05',NULL,'セッション設定を調整しています。'),(26,'動画','字幕が途中で消えます。',26,'2025-10-29 15:45:05','2025-10-29 15:45:05','対応完了','2025-10-29 15:45:05',NULL,'字幕データを更新しました。'),(27,'支払い','領収書の宛名を変更したい。',27,'2025-10-29 15:45:05','2025-10-29 15:45:05','対応完了','2025-10-29 15:45:05',NULL,'再発行を完了しました。'),(28,'不具合','通知が届かない。',28,'2025-10-29 15:45:05','2025-10-29 15:45:05','対応中','2025-10-29 15:45:05',NULL,'サーバーログを確認中です。'),(29,'機能要望','オフライン再生機能を追加してほしい。',29,'2025-10-29 15:45:05','2025-10-29 15:45:05','対応完了','2025-10-29 15:45:05',NULL,'開発ロードマップに追加しました。'),(30,'講師','講師への評価を編集したいです。',30,'2025-10-29 15:45:05','2025-10-29 15:45:05','対応完了','2025-10-29 15:45:05',NULL,'現在は対応しておりませんが検討中です。');
+/*!40000 ALTER TABLE `support_tbl` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `user_follow_tbl`
+--
+
+DROP TABLE IF EXISTS `user_follow_tbl`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `user_follow_tbl` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `follower_id` int(11) DEFAULT NULL,
+  `followed_id` int(11) DEFAULT NULL,
+  `follow_date` datetime DEFAULT current_timestamp(),
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `follower_id` (`follower_id`,`followed_id`),
+  KEY `followed_id` (`followed_id`),
+  CONSTRAINT `user_follow_tbl_ibfk_1` FOREIGN KEY (`follower_id`) REFERENCES `user_tbl` (`id`),
+  CONSTRAINT `user_follow_tbl_ibfk_2` FOREIGN KEY (`followed_id`) REFERENCES `user_tbl` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=29 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `user_follow_tbl`
+--
+
+LOCK TABLES `user_follow_tbl` WRITE;
+/*!40000 ALTER TABLE `user_follow_tbl` DISABLE KEYS */;
+INSERT INTO `user_follow_tbl` VALUES (1,1,2,'2025-09-25 10:00:00'),(2,1,3,'2025-09-25 10:05:00'),(3,1,5,'2025-09-25 10:10:00'),(4,2,1,'2025-09-26 09:20:00'),(5,2,4,'2025-09-26 09:25:00'),(6,2,6,'2025-09-26 09:30:00'),(7,3,1,'2025-09-27 08:00:00'),(8,3,2,'2025-09-27 08:10:00'),(9,5,4,'2025-09-28 11:00:00'),(10,6,4,'2025-09-28 11:10:00'),(11,7,4,'2025-09-28 11:20:00'),(12,8,4,'2025-09-28 11:30:00'),(13,5,1,'2025-09-29 14:00:00'),(14,5,2,'2025-09-29 14:05:00'),(15,5,3,'2025-09-29 14:10:00'),(16,6,8,'2025-09-30 15:00:00'),(17,6,9,'2025-09-30 15:10:00'),(18,7,5,'2025-10-01 09:00:00'),(19,7,6,'2025-10-01 09:05:00'),(20,7,8,'2025-10-01 09:10:00'),(21,8,2,'2025-10-02 13:00:00'),(22,8,3,'2025-10-02 13:05:00'),(23,9,1,'2025-10-03 16:00:00'),(24,9,4,'2025-10-03 16:05:00'),(25,1,10,'2025-10-04 17:00:00'),(26,3,10,'2025-10-04 17:10:00'),(27,5,10,'2025-10-04 17:20:00'),(28,7,10,'2025-10-04 17:30:00');
+/*!40000 ALTER TABLE `user_follow_tbl` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `user_tbl`
+--
+
+DROP TABLE IF EXISTS `user_tbl`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `user_tbl` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `user_name` char(16) NOT NULL,
+  `first_name` char(8) DEFAULT NULL,
+  `last_name` char(8) DEFAULT NULL,
+  `first_name_katakana` char(8) DEFAULT NULL,
+  `last_name_katakana` char(8) DEFAULT NULL,
+  `tel_no` char(12) DEFAULT NULL,
+  `zip_code` char(7) DEFAULT NULL,
+  `prefecture` varchar(20) DEFAULT NULL,
+  `address1` varchar(20) DEFAULT NULL,
+  `address2` varchar(20) DEFAULT NULL,
+  `birthday` date DEFAULT NULL,
+  `gender` char(6) DEFAULT NULL,
+  `mail` varchar(32) DEFAULT NULL,
+  `password` char(32) DEFAULT NULL,
+  `introduction` varchar(100) DEFAULT NULL,
+  `user_tags` varchar(48) DEFAULT NULL,
+  `profile_icon` varchar(255) DEFAULT NULL,
+  `user_rating` int(1) DEFAULT 0,
+  `report_flag` tinyint(1) DEFAULT 0,
+  PRIMARY KEY (`id`,`user_name`)
+) ENGINE=InnoDB AUTO_INCREMENT=36 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `user_tbl`
+--
+
+LOCK TABLES `user_tbl` WRITE;
+/*!40000 ALTER TABLE `user_tbl` DISABLE KEYS */;
+INSERT INTO `user_tbl` VALUES (1,'kazuya_tana','和也','田中','カズヤ','タナカ','09012345678','1000005','東京都','千代田区','丸の内一丁目','1995-04-15','男性','tanaka.k@example.com','a9979b9a65074e64f0b2af4c703cc4f2','ギターとプログラミングが好きです。よろしくお願いいたします。','Guitar, Code','/icons/tana_kazu.jpg',5,0),(2,'yui_sato','結衣','佐藤','ユイ','サトウ','08098765432','5300001','大阪府','大阪市北区','梅田一丁目','1998-11-20','女性','sato.yui@example.com','b4763e0018f6d2b4b7c61f8a84592a47','Webデザインを勉強中です。猫を飼っています。','Design, Cat','/icons/sato_yui.jpg',4,0),(3,'h_yamada','隼人','山田','ハヤト','ヤマダ','09055551111','4600002','愛知県','名古屋市中区','丸の内三丁目','1990-07-01','男性','h.yamada@example.com','c54094a11f211322237d6e60b134d19d','動画編集に興味があります。','VideoEdit','/icons/y_hayato.jpg',3,0),(4,'emi_koike','恵美','小池','エミ','コイケ','08033332222','8120011','福岡県','福岡市博多区','博多駅前二丁目','2000-07-01','女性','e.koike@example.com','d0239b039648943809e3e7f9a89d1469','英語の勉強と旅行が好きです。','Travel, English','/icons/k_emi.jpg',4,1),(5,'tk_inoue','拓也','井上','タクヤ','イノウエ','09077778888','1500001','東京都','渋谷区','神宮前五丁目','1993-02-28','男性','t.inoue@example.com','e9f45d1797c23f1f3e792c3f19e48795','Webエンジニアです。新しい技術を常に追求しています。','Engineer','/icons/i_taku.jpg',5,0),(6,'miu_nakano','美羽','中野','ミウ','ナカノ','08011110000','6008216','京都府','京都市下京区','真宗本廟','2001-05-10','女性','m.nakano@example.com','f6d90708f5127e2a96996d9333c415e9','着付けと歴史を学びたいです。',NULL,'/icons/n_miu.jpg',2,0),(7,'souta_aoki','颯太','青木','ソウタ','アオキ','09022223333','9000006','沖縄県','那覇市','久茂地','1997-09-03','男性','s.aoki@example.com','0a4b3d7a9609a562d980a3a4014f5263','旅行のVlogを作成しています。編集技術を向上させたいです。','Video, Travel','/icons/a_sota.jpg',4,0),(8,'m_hoshi_123','美月','星野','ミツキ','ホシノ','07066667777','2200011','神奈川県','横浜市西区','高島一丁目','1996-12-05','女性','m.hoshino@example.com','1b2a95c93a02c38d82136e0d9b400929','料理と英語学習が趣味です。','Cooking, English','/icons/h_mizuki.jpg',5,0),(9,'risa_kimura','莉彩','木村','リサ','キムラ','08088889999','0600000','北海道','札幌市中央区','北三条西','2004-01-25','女性','r.kimura@example.com','2c416c80526019623e595a6b0c679a92','大学でデザインを専攻しています。初心者です。','Design','/icons/k_risa.jpg',3,0),(10,'jun_suzuki','潤','鈴木','ジュン','スズキ','09012121212','9800811','宮城県','仙台市青葉区','一番町三丁目','1990-10-10','男性','j.suzuki@example.com','3d56e9c916056345d8b85714f447f525','音楽制作とプログラミングのスキルを共有します。','Music, Code','/icons/s_jun.jpg',5,0),(11,'sakura_kato','さくら','加藤','サクラ','カトウ','07034567890','7300011','広島県','広島市中区','基町','1994-03-21','女性','s.kato@example.com','4e16d443e06180633c6d7a5b3a86c6a6','趣味は読書とライティングです。','Reading, Write','/icons/k_sakura.jpg',4,0),(12,'daichi_wata','大地','渡辺','ダイチ','ワタナベ','08045678901','7600023','香川県','高松市','寿町二丁目','1988-06-07','男性','d.wata@example.com','5f0e1f7a6279f38f7a637f5d933390c5','釣りやキャンプなどのアウトドアが好きです。','Fishing, Camp','/icons/w_daichi.jpg',3,0),(13,'aoi_tanaka','葵','田中','アオイ','タナカ','09056789012','8600808','熊本県','熊本市中央区','手取本町','2003-12-01','女性','a.tanaka@example.com','6a988d87a4128f73f27f54c37953b169','イラストレーター志望です。デジタルペイントを勉強中。','Illust','/icons/t_aoi.jpg',4,0),(14,'ryota_morita','亮太','森田','リョウタ','モリタ','07067890123','3300072','埼玉県','さいたま市浦和区','木崎五丁目','1992-08-18','男性','r.morita@example.com','7b47b8e5c2d3a1f8e12d1b9d10e53a94','マーケティングの理論を学んでいます。','Marketing','/icons/m_ryota.jpg',5,0),(15,'nanami_kudo','七海','工藤','ナナミ','クドウ','08078901234','9500911','新潟県','新潟市中央区','礎町通一番町','1999-04-04','女性','n.kudo@example.com','8c255c2f9d7f5703f8f2e71d37b83f0c','音楽制作（DTM）をしています。','Music','/icons/k_nanami.jpg',4,0),(16,'kenji_abe','健二','阿部','ケンジ','アベ','09089012345','9200961','石川県','金沢市','香林坊二丁目','1985-10-29','男性','k.abe@example.com','9d571871f302a64c51f465a3d7008a1c','ビジネススキル全般の知識を増やしたいです。','Business','/icons/a_kenji.jpg',3,0),(17,'mana_shimizu','真菜','清水','マナ','シミズ','07090123456','7900003','愛媛県','松山市','三番町六丁目','2002-01-09','女性','m.shimizu@example.com','a193b2a245d8b843103e33f67f2e18d3','コスメとファッションに関する知識を共有します。','Fashion','/icons/s_mana.jpg',5,0),(18,'haruto_endo','晴人','遠藤','ハルト','エンドウ','08012345000','5500002','大阪府','大阪市西区','江戸堀一丁目','1991-05-23','男性','h.endo@example.com','b2e04e13583c748c8b671a5c6d59580b','英語の同時通訳スキルを練習中。','English, Report','/icons/e_haruto.jpg',2,1),(19,'rino_fujita','莉乃','藤田','リノ','フジタ','09023456000','1350064','東京都','江東区','青海二丁目','2000-08-07','女性','r.fujita@example.com','c3f683e95079a4055273b4259b951e44','ダンスと筋トレが趣味です。','Dance, Gym','/icons/f_rino.jpg',4,0),(20,'yuma_matsui','悠馬','松井','ユウマ','マツイ','07034567000','5008722','岐阜県','岐阜市','加納桜道一丁目','1994-11-14','男性','y.matsui@example.com','d4e21b06883d6a066c1f72a44d03e62f','料理研究家を目指しています。和食が得意です。','Cooking','/icons/m_yuma.jpg',5,0),(21,'kana_ishida','加奈','石田','カナ','イシダ','08045678000','3900811','長野県','松本市','中央二丁目','1987-03-03','女性','k.ishida@example.com','e5a610f925b4c10041d8d21b0f199342','自然の中での活動（登山、キャンプ）が好きです。','Nature','/icons/i_kana.jpg',3,0),(22,'takumi_sakai','匠','酒井','タクミ','サカイ','09056789000','4200853','静岡県','静岡市葵区','追手町','1995-07-27','男性','t.sakai@example.com','f6b283b7f1e7d0e417a86f1e8f237f37','最新のIT技術、特にクラウドコンピューティングに詳しいです。','IT, Tech','/icons/s_takumi.jpg',5,0),(23,'momoka_oishi','桃香','大石','モモカ','オオイシ','07067890000','5140009','三重県','津市','羽所町','2001-09-12','女性','m.oishi@example.com','07b8a7b3c2d6e3c544d99c7f56f1a9d1','韓国ドラマとK-POPに夢中です。','K-Drama, K-Pop','/icons/o_momoka.jpg',3,0),(24,'hayato_koda','勇人','幸田','ハヤト','コウダ','08078901000','6500021','兵庫県','神戸市中央区','三宮町二丁目','1993-01-01','男性','h.koda@example.com','18b335c0a37e9081a9f1b95f9c5208e4','フリーランスとして活動中。デザイン業務が主です。','Freelance, Design','/icons/k_hayato.jpg',4,0),(25,'akane_yoshida','茜','吉田','アカネ','ヨシダ','09089012000','2770852','千葉県','柏市','旭町一丁目','1997-04-20','女性','a.yoshida@example.com','29c1e956b6858e727e02a939f8d93333','料理のスキルを共有したいです。','Cooking, Share','/icons/y_akane.jpg',5,0),(26,'shun_mori','俊','森','シュン','モリ','07090123000','4506488','愛知県','名古屋市中村区','名駅三丁目','1996-06-06','男性','s.mori@example.com','3a7d20f1c902787c883a992e5e1824a7','AIと機械学習の動向を追いかけています。','AI, Future','/icons/m_shun.jpg',4,0),(27,'yua_tanaka','結愛','田中','ユア','タナカ','08012340001','1008111','東京都','千代田区','千代田一丁目','2005-02-14','女性','y.tanaka2@example.com','4b3d7a9609a562d980a3a4014f5263a2','特になし',NULL,'/icons/t_yua.jpg',1,0),(28,'kaito_ishii','海斗','石井','カイト','イシイ','09023450001','8100041','福岡県','福岡市中央区','大名二丁目','1992-09-01','男性','k.ishii@example.com','5c416c80526019623e595a6b0c679a92','写真撮影が趣味。風景写真を主に投稿します。','Photo','/icons/i_kaito.jpg',5,0),(29,'yuki_oshima','悠希','大島','ユウキ','オオシマ','07034560001','2310023','神奈川県','横浜市中区','山下町','1989-12-31','女性','y.oshima@example.com','6d56e9c916056345d8b85714f447f525','地域活性化に関するプロジェクトに参加したいです。','Community','/icons/o_yuki.jpg',4,0),(30,'risa_nakamura','莉沙','中村','リサ','ナカムラ','08045670001','5406591','大阪府','大阪市中央区','天満橋京町','1998-03-17','女性','r.nakamura@example.com','7e16d443e06180633c6d7a5b3a86c6a6','デザインの基礎知識を教えます。','Design, Tutor','/icons/n_risa.jpg',5,0),(34,'user123','太郎','春','タロウ','ハル','08011223344','5001111','大阪府','大阪市中央区南船場','3-2-1 まさとハイツ101','1976-12-21','male','test@test.com','pass123','あああああああああ',NULL,NULL,0,0),(35,'shin123','shin','shin','shin','shin','08011223344','5001111','大阪府','大阪市中央区南船場','3-2-1 まさとハイツ101','2025-11-15','no_ans','test@test.com','shin123','',NULL,NULL,0,0);
+/*!40000 ALTER TABLE `user_tbl` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `video_comment_tbl`
+--
+
+DROP TABLE IF EXISTS `video_comment_tbl`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `video_comment_tbl` (
+  `comment_id` int(11) NOT NULL AUTO_INCREMENT,
+  `video_id` int(11) DEFAULT NULL,
+  `commentor_id` int(11) DEFAULT NULL,
+  `comment_date` datetime DEFAULT current_timestamp(),
+  `comment_text` varchar(128) DEFAULT NULL,
+  `parent_comment_id` int(11) DEFAULT NULL,
+  PRIMARY KEY (`comment_id`),
+  KEY `video_id` (`video_id`),
+  CONSTRAINT `video_comment_tbl_ibfk_1` FOREIGN KEY (`video_id`) REFERENCES `video_tbl` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=31 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `video_comment_tbl`
+--
+
+LOCK TABLES `video_comment_tbl` WRITE;
+/*!40000 ALTER TABLE `video_comment_tbl` DISABLE KEYS */;
+INSERT INTO `video_comment_tbl` VALUES (1,1,3,'2025-10-29 15:44:54','とてもわかりやすい説明でした！',NULL),(2,1,5,'2025-10-29 15:44:54','初心者でも理解できました。ありがとうございます！',NULL),(3,2,8,'2025-10-29 15:44:54','もう少し具体的な例があると嬉しいです。',NULL),(4,2,2,'2025-10-29 15:44:54','この部分が少し難しかったです。',NULL),(5,3,6,'2025-10-29 15:44:54','関数の説明が丁寧で助かりました。',NULL),(6,3,4,'2025-10-29 15:44:54','ノートを取りながら見ています。勉強になります！',NULL),(7,4,7,'2025-10-29 15:44:54','Python入門シリーズ最高です！',NULL),(8,4,9,'2025-10-29 15:44:54','次の章も楽しみにしています。',NULL),(9,5,10,'2025-10-29 15:44:54','ファイル操作の部分が特に参考になりました。',NULL),(10,5,1,'2025-10-29 15:44:54','毎回動画の質が高いです。感謝！',NULL),(11,6,11,'2025-10-29 15:44:54','AIの基礎がよく理解できました。',NULL),(12,6,13,'2025-10-29 15:44:54','グラフの説明がわかりやすかったです。',NULL),(13,7,15,'2025-10-29 15:44:54','HTMLとCSSの講座、とても楽しかった！',NULL),(14,7,12,'2025-10-29 15:44:54','次はJavaScriptの回もお願いします。',NULL),(15,8,14,'2025-10-29 15:44:54','イベント処理のサンプルコードが参考になります。',NULL),(16,8,16,'2025-10-29 15:44:54','DOMの説明が少し早かったかも。',NULL),(17,9,18,'2025-10-29 15:44:54','Reactの使い方がよく理解できました。',NULL),(18,9,17,'2025-10-29 15:44:54','実際にコードを書いてみたくなりました。',NULL),(19,10,19,'2025-10-29 15:44:54','SQLのSELECTの部分が特に役立ちました。',NULL),(20,10,20,'2025-10-29 15:44:54','動画のテンポがちょうどいいです。',NULL),(21,11,21,'2025-10-29 15:44:54','Linuxコマンドの例が豊富で助かりました。',NULL),(22,11,22,'2025-10-29 15:44:54','初心者にも優しい解説です。',NULL),(23,12,23,'2025-10-29 15:44:54','Gitの操作がやっと理解できました。',NULL),(24,12,24,'2025-10-29 15:44:54','コミットとプッシュの違いがよくわかりました！',NULL),(25,13,25,'2025-10-29 15:44:54','Dockerの概念がイメージしやすかったです。',NULL),(26,13,26,'2025-10-29 15:44:54','もう少し実践的な例も見たいです。',NULL),(27,14,27,'2025-10-29 15:44:54','C言語のポインタ説明が神レベルでした！',NULL),(28,14,28,'2025-10-29 15:44:54','スライド資料も一緒にあればもっと良いです。',NULL),(29,15,29,'2025-10-29 15:44:54','Javaのクラス設計の解説、理解が深まりました。',NULL),(30,15,30,'2025-10-29 15:44:54','オブジェクト指向の部分が特に参考になりました。',NULL);
+/*!40000 ALTER TABLE `video_comment_tbl` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `video_like_tbl`
+--
+
+DROP TABLE IF EXISTS `video_like_tbl`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `video_like_tbl` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `video_id` int(11) DEFAULT NULL,
+  `video_uploader_id` int(11) DEFAULT NULL,
+  `video_like_date` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `video_id` (`video_id`),
+  CONSTRAINT `video_like_tbl_ibfk_1` FOREIGN KEY (`video_id`) REFERENCES `video_tbl` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=31 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `video_like_tbl`
+--
+
+LOCK TABLES `video_like_tbl` WRITE;
+/*!40000 ALTER TABLE `video_like_tbl` DISABLE KEYS */;
+INSERT INTO `video_like_tbl` VALUES (1,1,3,'2025-10-01 09:12:34'),(2,1,5,'2025-10-01 09:45:21'),(3,2,7,'2025-10-01 10:03:52'),(4,2,9,'2025-10-01 10:37:16'),(5,3,11,'2025-10-01 11:04:08'),(6,3,14,'2025-10-01 11:25:33'),(7,4,6,'2025-10-01 11:59:42'),(8,4,8,'2025-10-01 12:15:09'),(9,5,10,'2025-10-01 12:39:51'),(10,5,13,'2025-10-01 13:02:27'),(11,6,15,'2025-10-01 13:19:18'),(12,6,17,'2025-10-01 13:46:50'),(13,7,19,'2025-10-01 14:07:42'),(14,7,12,'2025-10-01 14:30:26'),(15,8,16,'2025-10-01 14:58:07'),(16,8,18,'2025-10-01 15:12:45'),(17,9,20,'2025-10-01 15:34:09'),(18,9,21,'2025-10-01 15:55:30'),(19,10,22,'2025-10-01 16:14:54'),(20,10,24,'2025-10-01 16:33:40'),(21,11,25,'2025-10-02 09:11:19'),(22,11,27,'2025-10-02 09:32:08'),(23,12,23,'2025-10-02 09:51:36'),(24,12,29,'2025-10-02 10:10:47'),(25,13,28,'2025-10-02 10:39:23'),(26,13,30,'2025-10-02 10:55:01'),(27,14,26,'2025-10-02 11:21:15'),(28,14,19,'2025-10-02 11:44:42'),(29,15,17,'2025-10-02 12:03:09'),(30,15,20,'2025-10-02 12:29:57');
+/*!40000 ALTER TABLE `video_like_tbl` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `video_review_tbl`
+--
+
+DROP TABLE IF EXISTS `video_review_tbl`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `video_review_tbl` (
+  `review_id` int(11) NOT NULL AUTO_INCREMENT,
+  `video_id` int(11) DEFAULT NULL,
+  `reviewer_id` int(11) DEFAULT NULL,
+  `review_status` char(8) DEFAULT NULL,
+  `review_result_comment` varchar(255) DEFAULT NULL,
+  `reviewed_at` datetime DEFAULT current_timestamp(),
+  `created_at` datetime DEFAULT current_timestamp(),
+  `updated_at` datetime DEFAULT current_timestamp(),
+  PRIMARY KEY (`review_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=31 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `video_review_tbl`
+--
+
+LOCK TABLES `video_review_tbl` WRITE;
+/*!40000 ALTER TABLE `video_review_tbl` DISABLE KEYS */;
+INSERT INTO `video_review_tbl` VALUES (1,1,2,'承認','音声・画質ともに良好です。内容も問題ありません。','2025-10-29 15:45:16','2025-10-29 15:45:16','2025-10-29 15:45:16'),(2,2,3,'承認','全体的にわかりやすい説明で、学習者に適しています。','2025-10-29 15:45:16','2025-10-29 15:45:16','2025-10-29 15:45:16'),(3,3,4,'修正依頼','冒頭のテロップに誤字があります。修正後に再審査します。','2025-10-29 15:45:16','2025-10-29 15:45:16','2025-10-29 15:45:16'),(4,4,5,'承認','構成が明確で、教材として適切です。','2025-10-29 15:45:16','2025-10-29 15:45:16','2025-10-29 15:45:16'),(5,5,6,'却下','著作権に関わる素材が含まれているため公開不可。','2025-10-29 15:45:16','2025-10-29 15:45:16','2025-10-29 15:45:16'),(6,6,7,'承認','内容・音声バランスともに問題なし。','2025-10-29 15:45:16','2025-10-29 15:45:16','2025-10-29 15:45:16'),(7,7,8,'修正依頼','一部で音量が小さく、聞き取りづらい箇所があります。','2025-10-29 15:45:16','2025-10-29 15:45:16','2025-10-29 15:45:16'),(8,8,9,'承認','映像と説明の同期が取れており高品質です。','2025-10-29 15:45:16','2025-10-29 15:45:16','2025-10-29 15:45:16'),(9,9,10,'承認','ナレーションが明瞭で視聴しやすいです。','2025-10-29 15:45:16','2025-10-29 15:45:16','2025-10-29 15:45:16'),(10,10,11,'承認','問題なし。すぐに公開可能です。','2025-10-29 15:45:16','2025-10-29 15:45:16','2025-10-29 15:45:16'),(11,11,12,'修正依頼','参考資料の出典を明記してください。','2025-10-29 15:45:16','2025-10-29 15:45:16','2025-10-29 15:45:16'),(12,12,13,'承認','説明が丁寧で初心者にも理解しやすいです。','2025-10-29 15:45:16','2025-10-29 15:45:16','2025-10-29 15:45:16'),(13,13,14,'却下','動画の一部が欠損しており再アップが必要です。','2025-10-29 15:45:16','2025-10-29 15:45:16','2025-10-29 15:45:16'),(14,14,15,'承認','表現・言葉遣いともに適切です。','2025-10-29 15:45:16','2025-10-29 15:45:16','2025-10-29 15:45:16'),(15,15,16,'修正依頼','BGMが少し大きいので音量を下げてください。','2025-10-29 15:45:16','2025-10-29 15:45:16','2025-10-29 15:45:16'),(16,16,17,'承認','非常にわかりやすい動画で高評価です。','2025-10-29 15:45:16','2025-10-29 15:45:16','2025-10-29 15:45:16'),(17,17,18,'却下','内容が他動画と重複しているため非承認。','2025-10-29 15:45:16','2025-10-29 15:45:16','2025-10-29 15:45:16'),(18,18,19,'承認','スライドの見やすさが良好。修正不要です。','2025-10-29 15:45:16','2025-10-29 15:45:16','2025-10-29 15:45:16'),(19,19,20,'修正依頼','一部テキストが切れて表示されています。','2025-10-29 15:45:16','2025-10-29 15:45:16','2025-10-29 15:45:16'),(20,20,21,'承認','教育的価値が高く、問題ありません。','2025-10-29 15:45:16','2025-10-29 15:45:16','2025-10-29 15:45:16'),(21,21,22,'承認','クオリティが安定しており即承認。','2025-10-29 15:45:16','2025-10-29 15:45:16','2025-10-29 15:45:16'),(22,22,23,'修正依頼','イントロ部分の音ズレを修正してください。','2025-10-29 15:45:16','2025-10-29 15:45:16','2025-10-29 15:45:16'),(23,23,24,'承認','講師の話し方が自然で良いです。','2025-10-29 15:45:16','2025-10-29 15:45:16','2025-10-29 15:45:16'),(24,24,25,'却下','不適切な表現が含まれていました。再編集が必要です。','2025-10-29 15:45:16','2025-10-29 15:45:16','2025-10-29 15:45:16'),(25,25,26,'承認','資料構成が整理されており問題なし。','2025-10-29 15:45:16','2025-10-29 15:45:16','2025-10-29 15:45:16'),(26,26,27,'修正依頼','最後の数秒で映像が乱れています。','2025-10-29 15:45:16','2025-10-29 15:45:16','2025-10-29 15:45:16'),(27,27,28,'承認','映像の明るさ・音声ともに良好です。','2025-10-29 15:45:16','2025-10-29 15:45:16','2025-10-29 15:45:16'),(28,28,29,'承認','ナレーションのテンポが良く、視聴しやすいです。','2025-10-29 15:45:16','2025-10-29 15:45:16','2025-10-29 15:45:16'),(29,29,30,'修正依頼','一部キャプションの誤字を修正してください。','2025-10-29 15:45:16','2025-10-29 15:45:16','2025-10-29 15:45:16'),(30,30,1,'承認','全体的に完成度が高く、承認します。','2025-10-29 15:45:16','2025-10-29 15:45:16','2025-10-29 15:45:16');
+/*!40000 ALTER TABLE `video_review_tbl` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `video_tbl`
+--
+
+DROP TABLE IF EXISTS `video_tbl`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `video_tbl` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `video_title` char(32) DEFAULT NULL,
+  `video_length` int(5) DEFAULT NULL,
+  `video_uploader_id` int(11) NOT NULL,
+  `video_upload_date` datetime DEFAULT current_timestamp(),
+  `video_description_section` varchar(255) DEFAULT NULL,
+  `video_public_status` tinyint(1) DEFAULT NULL,
+  `video_category` char(16) DEFAULT NULL,
+  `video_tag` char(16) DEFAULT NULL,
+  `video_report_flag` tinyint(1) DEFAULT 0,
+  `video_popularity_index` float DEFAULT NULL,
+  `view_count` int(10) DEFAULT NULL,
+  `like_count` int(10) DEFAULT NULL,
+  `comment_count` int(10) DEFAULT NULL,
+  `file_path` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id`,`video_uploader_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=91 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `video_tbl`
+--
+
+LOCK TABLES `video_tbl` WRITE;
+/*!40000 ALTER TABLE `video_tbl` DISABLE KEYS */;
+INSERT INTO `video_tbl` VALUES (1,'Python入門① 変数と型の基礎',720,1,'2025-10-29 15:44:18','Pythonの基本構文とデータ型について解説します。',1,'プログラミング','Python',0,4.8,1245,210,34,'/videos/python_intro_1.mp4'),(2,'Python入門② 条件分岐とループ',680,1,'2025-10-29 15:44:18','if文とfor文を使った基本的な処理を学びます。',1,'プログラミング','Python',0,4.7,1120,198,29,'/videos/python_intro_2.mp4'),(3,'Python入門③ 関数の作り方',755,2,'2025-10-29 15:44:18','関数定義とreturn文の使い方を解説します。',1,'プログラミング','Python',0,4.9,1340,230,41,'/videos/python_intro_3.mp4'),(4,'Python入門④ リストと辞書',700,2,'2025-10-29 15:44:18','リストと辞書の使い分けと応用方法を紹介します。',1,'プログラミング','Python',0,4.8,1264,221,36,'/videos/python_intro_4.mp4'),(5,'Python入門⑤ ファイル操作',840,3,'2025-10-29 15:44:18','ファイルの読み書き方法とwith構文の使い方を学びます。',1,'プログラミング','Python',0,4.9,1452,258,44,'/videos/python_intro_5.mp4'),(6,'AIの基礎と応用',920,4,'2025-10-29 15:44:18','人工知能の基本概念と応用分野を紹介します。',1,'AI','MachineLearning',0,4.6,987,176,21,'/videos/ai_basics.mp4'),(7,'HTMLとCSSの基礎',780,5,'2025-10-29 15:44:18','Web制作のためのHTMLとCSS入門講座です。',1,'Web','HTML',0,4.5,876,164,19,'/videos/html_css_intro.mp4'),(8,'JavaScriptイベント処理',840,6,'2025-10-29 15:44:18','JavaScriptでのイベント制御方法を説明します。',1,'Web','JavaScript',0,4.4,934,152,18,'/videos/js_event.mp4'),(9,'Reactコンポーネントの作成',960,7,'2025-10-29 15:44:18','ReactでのUIコンポーネント開発を解説します。',1,'Web','React',0,4.7,1045,182,25,'/videos/react_components.mp4'),(10,'SQLデータ操作入門',890,8,'2025-10-29 15:44:18','SQLのSELECT・INSERT・UPDATEの基本を学びます。',1,'データベース','SQL',0,4.5,812,141,16,'/videos/sql_basics.mp4'),(11,'Linuxコマンド基礎',640,9,'2025-10-29 15:44:18','ターミナルでの基本操作を紹介します。',1,'システム','Linux',0,4.3,742,120,14,'/videos/linux_commands.mp4'),(12,'GitとGitHubの使い方',770,10,'2025-10-29 15:44:18','ソースコードのバージョン管理の基本を学びます。',1,'開発ツール','Git',0,4.8,1321,207,28,'/videos/git_github.mp4'),(13,'Docker基礎',810,11,'2025-10-29 15:44:18','Dockerの概念と基本コマンドを解説します。',1,'インフラ','Docker',0,4.7,998,168,20,'/videos/docker_intro.mp4'),(14,'C言語ポインタ入門',880,12,'2025-10-29 15:44:18','ポインタの考え方と使用方法を理解します。',1,'プログラミング','C言語',0,4.6,923,150,17,'/videos/c_pointer.mp4'),(15,'Java基礎クラス設計',930,13,'2025-10-29 15:44:18','オブジェクト指向の基礎とクラス設計を学びます。',1,'プログラミング','Java',0,4.8,1154,192,22,'/videos/java_classes.mp4'),(16,'機械学習モデル評価',910,14,'2025-10-29 15:44:18','精度や再現率などの評価指標を解説します。',1,'AI','MachineLearning',0,4.6,1040,176,23,'/videos/ml_evaluation.mp4'),(17,'深層学習入門',980,15,'2025-10-29 15:44:18','ニューラルネットワークの基礎を学びます。',1,'AI','DeepLearning',0,4.9,1583,240,32,'/videos/dl_intro.mp4'),(18,'自然言語処理の基礎',870,16,'2025-10-29 15:44:18','文章データの解析方法を学びます。',1,'AI','NLP',0,4.5,896,158,19,'/videos/nlp_basics.mp4'),(19,'UIデザイン原則',760,17,'2025-10-29 15:44:18','見やすく美しいUIデザインの基本を紹介します。',1,'デザイン','UI',0,4.4,754,128,15,'/videos/ui_design.mp4'),(20,'UXデザインの考え方',820,18,'2025-10-29 15:44:18','ユーザー体験を重視した設計方法を学びます。',1,'デザイン','UX',0,4.5,882,140,18,'/videos/ux_design.mp4'),(21,'Flutterアプリ開発入門',970,19,'2025-10-29 15:44:18','モバイルアプリ開発の基本を学ぶ講座です。',1,'モバイル','Flutter',0,4.7,1160,198,26,'/videos/flutter_intro.mp4'),(22,'SwiftUI基礎講座',890,20,'2025-10-29 15:44:18','iOS開発に必要なSwiftUIの基本を解説します。',1,'モバイル','Swift',0,4.6,1083,172,21,'/videos/swiftui_basics.mp4'),(23,'Unityゲーム制作①',1030,21,'2025-10-29 15:44:18','Unityでの2Dゲーム制作を紹介します。',1,'ゲーム','Unity',0,4.8,1204,204,27,'/videos/unity_game_1.mp4'),(24,'Unityゲーム制作②',980,21,'2025-10-29 15:44:18','スクリプトを使ったキャラクター操作を解説します。',1,'ゲーム','Unity',0,4.7,1137,193,25,'/videos/unity_game_2.mp4'),(25,'Blender3Dモデリング',960,22,'2025-10-29 15:44:18','3Dモデリングの基本操作を学びます。',1,'デザイン','Blender',0,4.6,985,168,20,'/videos/blender_3d.mp4'),(26,'Excel活用テクニック',780,23,'2025-10-29 15:44:18','仕事効率を上げるExcelの便利機能を紹介します。',1,'ビジネス','Excel',0,4.5,843,137,17,'/videos/excel_tips.mp4'),(27,'PowerPoint資料作成',810,24,'2025-10-29 15:44:18','伝わる資料の作り方を学ぶ講座です。',1,'ビジネス','PowerPoint',0,4.6,910,149,19,'/videos/ppt_design.mp4'),(28,'データ可視化入門',830,25,'2025-10-29 15:44:18','グラフやチャートを使ったデータ可視化方法を紹介します。',1,'データ','Visualization',0,4.7,998,162,20,'/videos/data_viz_intro.mp4'),(29,'セキュリティ基礎',880,26,'2025-10-29 15:44:18','情報セキュリティの基本とリスク対策を学びます。',1,'IT','Security',0,4.5,942,153,18,'/videos/security_basics.mp4'),(30,'IoTの世界',910,27,'2025-10-29 15:44:18','IoT技術の概要と実生活での応用例を紹介します。',1,'IT','IoT',0,4.6,1020,167,21,'/videos/iot_world.mp4'),(31,'作画練習：走るキャラクター',210,1001,'2025-11-05 10:20:00','走るアニメーションの基本動作を紹介します。',1,'アニメーション','動き,走る,基礎',0,4.6,1200,230,15,'/videos/animation01.mp4'),(32,'ギターコード講座 初心者向け',480,1002,'2025-11-05 10:35:00','ギター初心者のためのコード練習講座です。',1,'音楽','ギター,初心者,練習',0,4.3,980,150,9,'/videos/music01.mp4'),(33,'一眼カメラで夜景を撮るコツ',360,1003,'2025-11-05 11:00:00','夜景撮影に適した設定とテクニックを解説。',1,'カメラ','夜景,シャッタースピード,ISO',0,4.8,2050,380,22,'/videos/camera01.mp4'),(34,'10分でできる腹筋トレーニング',600,1004,'2025-11-05 11:30:00','自宅でできる簡単なフィットネストレーニング。',1,'フィットネス','腹筋,自宅,トレーニング',0,4.5,1780,250,11,'/videos/fitness01.mp4'),(35,'英会話：レストランでの注文',420,1005,'2025-11-05 12:00:00','レストランで注文する時の英会話フレーズを紹介。',1,'英語','英会話,レストラン,旅行英語',0,4.7,1320,190,14,'/videos/english01.mp4'),(36,'Unityで簡単なシューティングゲーム制作',900,1006,'2025-11-05 12:20:00','Unityを使って基本的な射撃ゲームを作る方法を紹介。',1,'プログラミング','Unity,C#,ゲーム開発',0,4.9,2500,560,31,'/videos/programming01.mp4'),(37,'表情アニメーションの作り方',300,1001,'2025-11-05 12:45:00','キャラクターの感情表現をアニメーションで表す方法。',1,'アニメーション','表情,キャラクター,感情',0,4.4,890,130,8,'/videos/animation02.mp4'),(38,'ピアノで弾くジブリ名曲',540,1002,'2025-11-05 13:00:00','「となりのトトロ」など人気曲をピアノで演奏。',1,'音楽','ピアノ,ジブリ,演奏',0,4.9,3100,620,24,'/videos/music02.mp4'),(39,'ミラーレスカメラの選び方',420,1003,'2025-11-05 13:20:00','初心者向けのカメラ選びガイド。',1,'カメラ','初心者,機材選び,カメラ',0,4.2,1020,140,10,'/videos/camera02.mp4'),(40,'Python入門：Hello World!',240,1006,'2025-11-05 13:40:00','プログラミング初心者のためのPython入門動画。',1,'プログラミング','Python,初心者,基礎',0,4.6,1550,280,12,'/videos/programming02.mp4'),(41,'ピアノで奏でる夜',420,2001,'2025-11-05 18:10:00','夜の静けさを感じながら優しい旋律をお届けします。',1,'音楽','ピアノ,癒し,夜',0,4.8,2890,560,22,'/videos/music/music41.mp4'),(42,'ギターコード練習帳',360,2002,'2025-11-05 18:20:00','初心者でも弾けるようにゆっくり丁寧に解説。',1,'音楽','ギター,初心者,練習',0,4.5,1980,310,15,'/videos/music/music42.mp4'),(43,'ボーカル発声トレーニング',480,2003,'2025-11-05 18:30:00','喉を痛めない正しい発声方法を練習しましょう。',1,'音楽','ボーカル,発声,高音',0,4.7,2500,430,18,'/videos/music/music43.mp4'),(44,'作曲の基本コード進行',540,2004,'2025-11-05 18:40:00','人気曲に共通する王道コード進行を紹介。',1,'音楽','作曲,コード,進行',0,4.6,3120,500,24,'/videos/music/music44.mp4'),(45,'リズム感を鍛える練習法',300,2005,'2025-11-05 18:50:00','正確なテンポ感を身につけるトレーニング。',1,'音楽','リズム,テンポ,練習',0,4.3,1750,250,9,'/videos/music/music45.mp4'),(46,'DTM入門：ドラム打ち込み',420,2006,'2025-11-05 19:00:00','DAWを使ってドラムパターンを作る基本講座。',1,'音楽','DTM,ドラム,打ち込み',0,4.4,2120,320,13,'/videos/music/music46.mp4'),(47,'メトロノームでリズム練習',300,2007,'2025-11-05 19:10:00','テンポキープの感覚を体で覚える練習。',1,'音楽','リズム,基礎,テンポ',0,4.2,1320,190,8,'/videos/music/music47.mp4'),(48,'ピアノで学ぶコード理論',480,2008,'2025-11-05 19:20:00','コード進行の仕組みをやさしく解説。',1,'音楽','ピアノ,理論,作曲',0,4.5,2270,340,12,'/videos/music/music48.mp4'),(49,'ベースラインの作り方',360,2009,'2025-11-05 19:30:00','グルーヴを生み出すベースパターンの秘密。',1,'音楽','ベース,グルーヴ,練習',0,4.6,2590,410,14,'/videos/music/music49.mp4'),(50,'カラオケ高音攻略法',420,2010,'2025-11-05 19:40:00','喉を傷めないで高音を出す練習法を紹介。',1,'音楽','ボーカル,高音,発声',0,4.7,2910,490,17,'/videos/music/music50.mp4'),(51,'カメラ設定の基本',420,2011,'2025-11-05 20:00:00','シャッタースピード・ISO・絞りを理解して撮影の幅を広げよう。',1,'カメラ','入門,設定,撮影',0,4.6,2450,390,15,'/videos/camera/cam51.mp4'),(52,'夜景撮影テクニック',480,2012,'2025-11-05 20:10:00','三脚と長時間露光を活用した夜景撮影のコツを紹介。',1,'カメラ','夜景,露光,撮影',0,4.8,3120,530,20,'/videos/camera/cam52.mp4'),(53,'ポートレートの光と構図',360,2013,'2025-11-05 20:20:00','自然光を使った人物撮影の基本を解説。',1,'カメラ','ポートレート,光,構図',0,4.5,1980,310,13,'/videos/camera/cam53.mp4'),(54,'構図を学ぶ三分割法',300,2014,'2025-11-05 20:30:00','三分割構図を使って写真を魅力的に撮る方法。',1,'カメラ','構図,バランス,基礎',0,4.4,1870,270,11,'/videos/camera/cam54.mp4'),(55,'単焦点レンズの魅力',420,2015,'2025-11-05 20:40:00','ボケ味を活かした単焦点レンズの表現力。',1,'カメラ','単焦点,ボケ,撮影',0,4.7,2630,430,17,'/videos/camera/cam55.mp4'),(56,'手ブレを防ぐ方法',360,2016,'2025-11-05 20:50:00','撮影中に手ブレを抑えるコツと姿勢を紹介。',1,'カメラ','手ブレ,安定,撮影',0,4.2,1590,240,9,'/videos/camera/cam56.mp4'),(57,'RAW現像で写真を仕上げる',540,2017,'2025-11-05 21:00:00','LightroomでRAWデータを現像して理想の色を作る。',1,'カメラ','RAW,現像,色調整',0,4.5,2320,370,12,'/videos/camera/cam57.mp4'),(58,'旅行スナップの撮り方',300,2018,'2025-11-05 21:10:00','旅先で自然な笑顔を撮るスナップ撮影のポイント。',1,'カメラ','旅行,スナップ,自然',0,4.6,2490,410,14,'/videos/camera/cam58.mp4'),(59,'ミラーレスの特徴と使い方',420,2019,'2025-11-05 21:20:00','初心者向けにミラーレスカメラの操作を解説。',1,'カメラ','ミラーレス,操作,初心者',0,4.3,1880,260,10,'/videos/camera/cam59.mp4'),(60,'ストロボ撮影入門',480,2020,'2025-11-05 21:30:00','一灯ライティングで立体感を出すストロボ講座。',1,'カメラ','ストロボ,光,講座',0,4.7,2710,450,19,'/videos/camera/cam60.mp4'),(61,'朝のヨガストレッチ',480,2031,'2025-11-05 22:00:00','一日の始まりにぴったりの5分間ストレッチ。',1,'フィットネス','ヨガ,朝,ストレッチ',0,4.7,2500,420,17,'/videos/fitness/fit61.mp4'),(62,'10分腹筋チャレンジ',600,2032,'2025-11-05 22:10:00','お腹を引き締めたい人向けの短時間集中トレーニング。',1,'フィットネス','腹筋,チャレンジ,自宅',0,4.6,3100,560,21,'/videos/fitness/fit62.mp4'),(63,'HIIT初心者向け',360,2033,'2025-11-05 22:20:00','短時間で脂肪を燃焼するHIITメニューを紹介。',1,'フィットネス','HIIT,脂肪燃焼,初心者',0,4.8,2890,530,19,'/videos/fitness/fit63.mp4'),(64,'スクワットの正しいフォーム',300,2034,'2025-11-05 22:30:00','膝を痛めないスクワットの基本姿勢を解説。',1,'フィットネス','スクワット,脚,フォーム',0,4.5,1950,310,13,'/videos/fitness/fit64.mp4'),(65,'肩こり解消ストレッチ',420,2035,'2025-11-05 22:40:00','デスクワークで凝った肩をほぐす簡単ストレッチ。',1,'フィットネス','肩,解消,ストレッチ',0,4.4,1780,270,11,'/videos/fitness/fit65.mp4'),(66,'体幹トレーニング基礎',480,2036,'2025-11-05 22:50:00','姿勢を安定させるための体幹強化メニュー。',1,'フィットネス','体幹,姿勢,基礎',0,4.6,2280,370,14,'/videos/fitness/fit66.mp4'),(67,'夜のリラックスヨガ',360,2037,'2025-11-05 23:00:00','一日の疲れを癒すためのリラックス系ヨガ。',1,'フィットネス','ヨガ,夜,リラックス',0,4.7,2600,440,18,'/videos/fitness/fit67.mp4'),(68,'腕立て伏せのやり方',300,2038,'2025-11-05 23:10:00','正しいフォームで胸筋を鍛えるプッシュアップ講座。',1,'フィットネス','腕立て,胸,筋トレ',0,4.3,1720,260,10,'/videos/fitness/fit68.mp4'),(69,'ランニング初心者のための呼吸法',420,2039,'2025-11-05 23:20:00','走るときに息が上がらない呼吸のコツを紹介。',1,'フィットネス','ランニング,呼吸,初心者',0,4.5,1950,310,12,'/videos/fitness/fit69.mp4'),(70,'全身ストレッチ完全版',540,2040,'2025-11-05 23:30:00','全身をバランスよくほぐすストレッチ集。',1,'フィットネス','全身,柔軟,健康',0,4.8,3200,580,22,'/videos/fitness/fit70.mp4'),(71,'自己紹介で使える英会話',360,2041,'2025-11-06 00:00:00','初対面で使える基本的な英語フレーズを紹介。',1,'英語','会話,自己紹介,初心者',0,4.6,2200,360,14,'/videos/english/eng71.mp4'),(72,'レストランでの注文英語',420,2042,'2025-11-06 00:10:00','旅行中に役立つレストランでの英会話を練習。',1,'英語','旅行,注文,フレーズ',0,4.7,2600,430,16,'/videos/english/eng72.mp4'),(73,'発音トレーニング：RとL',300,2043,'2025-11-06 00:20:00','RとLの発音の違いを練習しよう。',1,'英語','発音,R,L',0,4.5,1870,280,11,'/videos/english/eng73.mp4'),(74,'TOEIC頻出単語100選',480,2044,'2025-11-06 00:30:00','スコアアップのための単語暗記法を紹介。',1,'英語','TOEIC,単語,勉強',0,4.8,2990,530,19,'/videos/english/eng74.mp4'),(75,'ビジネスメールの書き方',540,2045,'2025-11-06 00:40:00','丁寧な英語メールの文構成と表現方法を解説。',1,'英語','ビジネス,メール,文法',0,4.6,2480,390,15,'/videos/english/eng75.mp4'),(76,'映画で学ぶ英語表現',480,2046,'2025-11-06 00:50:00','有名映画のセリフで自然な英語を学ぼう。',1,'英語','映画,表現,日常会話',0,4.7,2700,440,18,'/videos/english/eng76.mp4'),(77,'空港での英会話フレーズ',360,2047,'2025-11-06 01:00:00','チェックインから搭乗までの英語表現を紹介。',1,'英語','空港,旅行,会話',0,4.5,2100,330,13,'/videos/english/eng77.mp4'),(78,'短いスモールトークのコツ',300,2048,'2025-11-06 01:10:00','雑談を自然に続けるための会話テクニック。',1,'英語','雑談,会話,スピーキング',0,4.3,1680,250,10,'/videos/english/eng78.mp4'),(79,'リスニング練習 初級編',420,2049,'2025-11-06 01:20:00','短い会話を聞いて理解するリスニング練習。',1,'英語','リスニング,初心者,勉強',0,4.4,1820,270,11,'/videos/english/eng79.mp4'),(80,'電話対応の英語表現',480,2050,'2025-11-06 01:30:00','電話での依頼・確認・伝言の言い方を練習。',1,'英語','電話,仕事,会話',0,4.6,2320,360,14,'/videos/english/eng80.mp4'),(81,'Python入門：Hello World',300,2051,'2025-11-06 02:00:00','Pythonで最初のプログラムを書いてみよう。',1,'プログラミング','Python,入門,初心者',0,4.6,2400,380,14,'/videos/programming/prog81.mp4'),(82,'配列と辞書の使い方',420,2052,'2025-11-06 02:10:00','データ構造の基本、リストと辞書を理解する。',1,'プログラミング','Python,配列,辞書',0,4.5,2280,360,13,'/videos/programming/prog82.mp4'),(83,'Gitの基本操作',360,2053,'2025-11-06 02:20:00','commit、push、pullなどの基本操作を学ぶ。',1,'プログラミング','Git,バージョン管理,入門',0,4.7,2600,420,16,'/videos/programming/prog83.mp4'),(84,'SQLでデータを集計する',480,2054,'2025-11-06 02:30:00','SELECT文とGROUP BYを使ったデータ集計講座。',1,'プログラミング','SQL,集計,データ',0,4.5,2320,370,14,'/videos/programming/prog84.mp4'),(85,'HTMLとCSSでWebページを作る',540,2055,'2025-11-06 02:40:00','初心者向けのWebデザイン基本講座。',1,'プログラミング','HTML,CSS,Web',0,4.6,2810,460,19,'/videos/programming/prog85.mp4'),(86,'JavaScriptイベント基礎',360,2056,'2025-11-06 02:50:00','クリックや入力イベントを使った動的な処理を学ぶ。',1,'プログラミング','JavaScript,イベント,',0,4.4,1980,310,11,'/videos/programming/prog86.mp4'),(87,'C言語ポインタの考え方',480,2057,'2025-11-06 03:00:00','初心者がつまずくポインタの概念をわかりやすく解説。',1,'プログラミング','C,ポインタ,メモリ',0,4.7,2660,430,17,'/videos/programming/prog87.mp4'),(88,'Unityで2Dゲームを作る',600,2058,'2025-11-06 03:10:00','Unityを使ってシンプルな2Dアクションを制作。',1,'プログラミング','Unity,ゲーム,2D',0,4.8,3120,520,20,'/videos/programming/prog88.mp4'),(89,'API設計の基礎',420,2059,'2025-11-06 03:20:00','REST APIの基本構造と考え方を紹介。',1,'プログラミング','API,設計,REST',0,4.5,2300,350,13,'/videos/programming/prog89.mp4'),(90,'Docker入門：環境構築を自動化',540,2060,'2025-11-06 03:30:00','Dockerで開発環境を素早く構築する方法を学ぶ。',1,'プログラミング','Docker,環境,自動化',0,4.8,3280,580,23,'/videos/programming/prog90.mp4');
+/*!40000 ALTER TABLE `video_tbl` ENABLE KEYS */;
+UNLOCK TABLES;
+/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
+
+/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
+/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
+/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
+
+-- Dump completed on 2025-11-06 11:28:39
