@@ -1,7 +1,5 @@
 from flask import Flask, render_template, request, session, redirect, url_for
-import mysql.connector
-import math
-import json
+from app.db import fetch_query 
 import os
 
 # (Blueprint)

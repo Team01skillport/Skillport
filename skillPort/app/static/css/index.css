@@ -25,6 +25,7 @@ body {
   height: 100vh;
   overflow: hidden;
   object-fit: fill;
+  margin-bottom: 5rem;
 }
 
 .slide {
@@ -48,18 +49,17 @@ body {
   position: absolute;
   inset: 0; /* 全体を覆う */
   background:
-    /* 上方向の白フェード */
-     linear-gradient(
+    /* 上方向の白フェード */ linear-gradient(
       to top,
       rgba(255, 255, 255, 0) 70%,
       rgba(255, 255, 255, 1) 100%
     ),
     /* 下方向の白フェード */
-     linear-gradient(
-      to bottom,
-      rgba(255, 255, 255, 0) 70%,
-      rgba(255, 255, 255, 1) 100%
-    ),
+      linear-gradient(
+        to bottom,
+        rgba(255, 255, 255, 0) 70%,
+        rgba(255, 255, 255, 1) 100%
+      ),
     /* 左右の白フェード */
       linear-gradient(
         to left,
@@ -117,9 +117,11 @@ body {
   background-color: #eeeeee;
 }
 
-
 /* カテゴリイメージ */
-.populer_category h1{
+.populer_category {
+}
+
+.populer_category h1 {
   margin-left: 10vw;
   font-size: 3vw;
   font-weight: bold;
@@ -134,28 +136,28 @@ body {
   width: 40%;
   min-width: 200px;
 }
-.list_category_img{
+.list_category_img {
   width: 100vw;
   align-items: center;
   justify-content: center;
   margin: 60px 0px 60px 0px;
 }
-.list_category_img .list_category_contents{
+.list_category_img .list_category_contents {
   display: flex;
   justify-content: center;
   gap: 20px;
   padding: 0;
   margin: 0;
 }
-.list_category_img .list_category_contents{
+.list_category_img .list_category_contents {
   list-style: none;
 }
-.list_category_img .list_category_contents img{
+.list_category_img .list_category_contents img {
   width: 230px;
   border-radius: 10px;
   transition: transform 0.3s ease;
 }
-.list_category_img .list_category_contents img:hover{
+.list_category_img .list_category_contents img:hover {
   transform: scale(1.02);
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
 }
@@ -165,7 +167,9 @@ body {
 /*動画 ------------------------------------------------------------ */
 
 #videos {
-  margin: 0.7vw 0 0 5vw;
+  margin: 0 7vw;
+  justify-content: center;
+  align-items: center;
 }
 
 #videos h1 {
@@ -188,9 +192,9 @@ body {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 40px;
-  margin: 5vw 9vw auto auto;
   width: 85%;
   height: 85%;
+  margin: 0 auto;
 }
 
 .video_grid img {
@@ -205,7 +209,7 @@ body {
 }
 
 .video_grid a:hover {
-  transform: scale(1.03);
+  transform: translateY(-2px);
 }
 
 #videos h2 {
@@ -220,4 +224,36 @@ body {
   margin-right: 5vw;
 }
 
-/* ------------------------------------------------------------------ */
+.popu_vid {
+  background-color: #eee;
+  padding: 0.5rem 1rem;
+  border-radius: 10px;
+  color: black;
+}
+
+.popu_vid div {
+  padding: 0.2rem 0.5rem;
+}
+
+.popu_vid div h3 {
+  margin: 0;
+}
+
+.popu_vid div p {
+  opacity: 0.6;
+  font-size: 14px;
+}
+
+.popu_vid div span {
+  display: flex;
+  justify-content: space-between;
+}
+
+.popu_vid div span p {
+  opacity: 1;
+}
+
+.upload_date {
+  font-style: italic;
+  opacity: 0.6;
+}

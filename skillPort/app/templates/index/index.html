@@ -46,58 +46,39 @@ content %}
   </div>
 
   <div class="skillport_explanation">
-    <h1>スキルポートとは？</h1>
+    <!-- <h1>スキルポートとは？</h1> -->
   </div>
 
   <div class="populer_category">
     <h1>人気のカテゴリー</h1>
-  </div>
-  <div class="list_category_img">
-    <ul class="list_category_contents">
-      
-    </ul>
+    <div class="list_category_img">
+      <ul class="list_category_contents"></ul>
+    </div>
   </div>
 
   <div id="videos">
-    <h1>人気動画</h1>
-
+    <h1>人気の動画</h1>
     <div class="video_grid">
-      <a href="#"
-        ><img
-          src="../static/media/1.jpeg"
-          alt="Image 1"
-        />ああああああああああああああああああああああああああああああああああああ</a
+      {% for vids in popvids %}
+      <a
+        href="{{ url_for('lesson_video.video_player', video_id = vids.video_id)}}"
       >
-      <a href="#"
-        ><img
-          src="../static/media/2.webp"
-          alt="Image 2"
-        />ああああああああああああああああああああああああああああああああああああ</a
-      >
-      <a href="#"
-        ><img
-          src="../static/media/3.jpg"
-          alt="Image 3"
-        />ああああああああああああああああああああああああああああああああああああ</a
-      >
-      <a href="#"
-        ><img
-          src="../static/media/2.webp"
-          alt="Image 4"
-        />ああああああああああああああああああああああああああああああああああああ</a
-      >
-      <a href="#"
-        ><img
-          src="../static/media/3.jpg"
-          alt="Image 5"
-        />ああああああああああああああああああああああああああああああああああああ</a
-      >
-      <a href="#"
-        ><img
-          src="../static/media/1.jpeg"
-          alt="Image 6"
-        />ああああああああああああああああああああああああああああああああああああ</a
-      >
+        <div class="popu_vid">
+          <img
+            src="{{url_for('static', filename='media' + vids.thumbnail_path)}}"
+            alt="サムネイル"
+          />
+          <div>
+            <h3>{{vids.video_title}}</h3>
+            <p>{{vids.video_description_section}}</p>
+            <span>
+              <p>{{vids.user_name}}</p>
+              <p class="upload_date">{{vids.video_upload_date.date()}}</p>
+            </span>
+          </div>
+        </div>
+      </a>
+      {% endfor %}
     </div>
   </div>
   <br /><br />
