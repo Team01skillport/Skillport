@@ -260,7 +260,7 @@ def manage_products_page():
     user_name = session.get('user_name')
     if not user_name: return redirect(url_for('auth.login'))
 
-    sql = "SELECT l.product_id, l.product_name, l.sales_status, i.image_path FROM listing_tbl l LEFT JOIN listing_images_tbl i ON l.product_id = i.product_id AND i.is_thumbnail = 1 WHERE l.product_upload_user = %s ORDER BY l.listing_date DESC"
+    sql = "SELECT l.product_price, l.product_id, l.product_name, l.sales_status, i.image_path FROM listing_tbl l LEFT JOIN listing_images_tbl i ON l.product_id = i.product_id AND i.is_thumbnail = 1 WHERE l.product_upload_user = %s ORDER BY l.listing_date DESC"
     my_products = fetch_query(sql, (user_name,))
     
     return render_template('market/product_management.html', my_products=my_products)
