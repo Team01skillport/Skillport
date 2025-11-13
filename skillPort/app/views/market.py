@@ -200,6 +200,8 @@ def create_product_action():
 # ==========================================
 # Route 6: 执行商品更新动作 (POST)
 # ==========================================
+# market.py (Route 6: update_product_action)
+
 @market_bp.route('/product/<product_id>/update', methods=["POST"])
 def update_product_action(product_id):
     if 'user_id' not in session: abort(403)
@@ -221,15 +223,47 @@ def update_product_action(product_id):
         return "フォームデータの形式が正しくありません。", 400
 
     try:
+        # A. 更新商品基本信息
         sql_update = "UPDATE listing_tbl SET product_name = %s, product_price = %s, product_description = %s, product_category = %s, product_condition = %s, shipping_area = %s, update_date = %s WHERE product_id = %s AND product_upload_user = %s"
         params = (product_name, price, description, category, condition, shipping_area, datetime.datetime.now(), product_id, user_name)
         if not execute_query(sql_update, params): raise Exception("データベースの更新に失敗しました")
+        
+        # B. 检查是否有新图片上传
+        files = request.files.getlist('images')
+        if files and files[0].filename: # 至少有一个文件被选择
+            
+            # B1. 删除旧图片记录
+            execute_query("DELETE FROM listing_images_tbl WHERE product_id = %s", (product_id,))
+            
+            # B2. 在文件系统中创建/准备目录
+            base_upload_path = os.path.join(current_app.static_folder, 'uploads', 'products')
+            product_upload_folder = os.path.join(base_upload_path, product_id)
+            os.makedirs(product_upload_folder, exist_ok=True) # 确保目录存在
+            
+            is_first_image = True
+            
+            # B3. 保存新图片并插入新记录
+            for file in files:
+                if file and file.filename:
+                    filename = secure_filename(file.filename)
+                    save_path = os.path.join(product_upload_folder, filename)
+                    # 注意：这里假设你可以覆盖或使用唯一文件名来避免冲突
+                    file.save(save_path)
+                    
+                    db_path = f"uploads/products/{product_id}/{filename}"
+                    
+                    sql_image_insert = "INSERT INTO listing_images_tbl (image_id, product_id, image_path, is_thumbnail) VALUES (%s, %s, %s, %s)"
+                    image_id = f"IMG-{product_id}-{uuid.uuid4().hex[:6]}"
+                    
+                    execute_query(sql_image_insert, (image_id, product_id, db_path, 1 if is_first_image else 0))
+                    
+                    is_first_image = False # 确保只有第一张是缩略图
+
     except Exception as e:
         print(f"データベース更新エラー: {e}")
         return "サーバーエラー、商品更新に失敗しました。", 500
     
     return redirect(url_for('market.manage_products_page'))
-
 
 # ==========================================
 # Route 7: 执行商品删除动作 (GET)

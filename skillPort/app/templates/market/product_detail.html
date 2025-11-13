@@ -116,12 +116,17 @@ default('商品詳細', true) }}{% endblock %} {% block styles %}
           alt="デフォルトアイコン"
         />
         {% endif %}
-        <div class="text">
+        <div class="text"> <!--!修正点（blue printエラー）-->
           <h4>
-            <a href="{{url_for('auth.view_profile', user_id=uploader_id)}}"
-              >{{ info.seller_name }}</a
-            >
+            {% if uploader_id %}
+            <a href="{{url_for('auth.view_profile', user_id=uploader_id)}}">
+              {{ info.seller_name }}
+            </a>
+            {% else %}
+            {{ info.seller_name }}
+            {% endif %}
           </h4>
+        </div> <!--!修正終了-->
           <div class="user_rating">
             {% for star in rating_stars %}
             <p>{{star}}</p>
