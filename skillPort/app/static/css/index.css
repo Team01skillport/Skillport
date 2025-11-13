@@ -117,6 +117,29 @@ body {
   background-color: #eeeeee;
 }
 
+
+/* カテゴリイメージ */
+.list_category_img{
+  width: 100vw;
+}
+.list_category_img .list_category_contents{
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+}
+.list_category_img .list_category_contents{
+  list-style: none;
+  
+}
+.list_category_img .list_category_contents img{
+  width: 230px;
+  border-radius: 10px
+  t
+}
+.list_category_img .list_category_contents img:hover{
+  transform: scale(1.02);
+}
+
 /* ------------------------------------------------------------------ */
 
 /*動画 ------------------------------------------------------------ */
