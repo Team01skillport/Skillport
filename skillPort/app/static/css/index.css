@@ -120,8 +120,19 @@ body {
 
 /* カテゴリイメージ */
 .populer_category h1{
-  margin-left: 5vw;
+  margin-left: 10vw;
   font-size: 3vw;
+  font-weight: bold;
+  border-bottom: solid;
+  border-bottom-width: 0.4vw;
+  border-image: linear-gradient(
+      to right,
+      rgba(0, 0, 0, 1) 0%,
+      rgba(0, 0, 0, 0) 100%
+    )
+    1;
+  width: 40%;
+  min-width: 200px;
 }
 .list_category_img{
   width: 100vw;
@@ -140,7 +151,7 @@ body {
   list-style: none;
 }
 .list_category_img .list_category_contents img{
-  width: 240px;
+  width: 230px;
   border-radius: 10px;
   transition: transform 0.3s ease;
 }
