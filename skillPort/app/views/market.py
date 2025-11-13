@@ -1,5 +1,5 @@
 from flask import Blueprint, render_template, request, session, abort, redirect, url_for, jsonify, current_app
-from app.db import fetch_query, execute_query
+from app.db import fetch_query, execute_query, create_user
 import datetime
 import uuid
 import os
@@ -74,7 +74,7 @@ def market_top():
     
     sql_categories = "SELECT DISTINCT product_category AS id, product_category AS name FROM listing_tbl WHERE product_category IS NOT NULL AND product_category != '' ORDER BY product_category;"
     all_categories = fetch_query(sql_categories)
-    
+    print(all_products)
     return render_template('market/market.html', all_products=all_products, all_categories=all_categories)
 
 # ==========================================
@@ -525,3 +525,28 @@ def checkout_add_payment():
         if "Duplicate entry" in str(e):
             return jsonify({'success': False, 'error': 'この支払い方法は既に登録されています'}), 409
         return jsonify({'success': False, 'error': 'サーバーエラーが発生しました'}), 500
+
+@market_bp.route('add_favorite/<product_id>', methods=['POST'])
+def video_like(product_id):
+    print("FAV RUN")
+    
+    if 'user_id' in session:
+        user_id = session['user_id']
+        print("USER IN")
+        try:
+            sql_check = "SELECT * FROM liked_products_tbl WHERE user_id=%s AND product_id=%s"
+            existing = fetch_query(sql_check, (user_id, product_id), fetch_one=True)
+            print(existing)
+            if existing:
+                return None
+            else:
+                sql_insert = "INSERT INTO liked_products_tbl (user_id, product_id) VALUES (%s, %s)"
+                add_like = create_user(sql_insert, (user_id, product_id))
+                print(add_like)
+                succmsg = "いいね登録完了"
+                return succmsg
+                
+        except:
+            errmsg = "ログインしていません"
+            return errmsg
+        

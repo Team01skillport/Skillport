@@ -10,7 +10,9 @@ content %}
       <h2 class="page-title">マーケット</h2>
       <div class="search-bar">
         <form action="{{ url_for('market.market_top')}}" method="GET">
-          <button type="submit" class="search-icon"><img src="../../static/media/search.png" alt=""></button>
+          <button type="submit" class="search-icon">
+            <img src="../../static/media/search.png" alt="" />
+          </button>
           <input
             type="text"
             name="keyword"
@@ -173,7 +175,7 @@ content %}
               <!--!商品写真を表示するため  -->
               {% if product.image_path %}
               <img
-                src="{{ url_for('static', filename=product.image_path)}}"
+                src="{{ url_for('static', filename='media'+product.image_path)}}"
                 alt="{{product.product_name}}"
                 style="width: 100%; height: 150px; object-fit: cover"
               />
@@ -196,8 +198,8 @@ content %}
               <!-- !商品写真サイズ統一修正 -->
               <div class="product-title">{{product.product_name}}</div>
               <p>
-                {{ product.product_price | int | tojson | safe | replace('"',
-                '') }}円 ｜ {{product.product_condition}}
+                ￥{{ product.product_price | int | tojson | safe | replace('"',
+                '') }} ｜ {{product.product_condition}}
               </p>
               <p class="listing_date">{{product.listing_date.date()}}</p>
             </div></a

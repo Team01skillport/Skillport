@@ -11,3 +11,17 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 });
+
+document
+  .getElementById("favorite_button")
+  .addEventListener("click", function () {
+    const productId = this.dataset.productId;
+    console.log("AJAX RUN");
+
+    fetch(`/market/add_favorite/${productId}`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/x-www-form-urlencoded",
+      },
+    });
+  });

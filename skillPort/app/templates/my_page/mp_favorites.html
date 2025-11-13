@@ -1,76 +1,28 @@
 <head>
-    <link rel="stylesheet" href="../../static/css/my_page_favorites.css" /> 
+  <link rel="stylesheet" href="../../static/css/my_page_favorites.css" />
 </head>
 <div class="favorites-page-container">
-    <h1 class="support-main-title">お気に入り</h1>
-    
-    <!-- <div class="favorites-header">
+  <h1 class="support-main-title">お気に入り</h1>
+
+  <!-- <div class="favorites-header">
         <h2 class="favorites-title">お気に入りしました商品</h2>
         <p class="favorites-count">全12件</p>
     </div> -->
 
-    <div class="favorites-grid">
-        <a href="#" class="item-card">
-            <img src="../static/media/book_it.jpg" alt="商品画像" class="item-image">
-            <p class="item-title-small">ChatGPTと学でPython入門</p>
-            <p class="item-price">¥1,100</p>
-        </a>
-        <a href="#" class="item-card">
-            <img src="../static/media/book_math.jpg" alt="商品画像" class="item-image">
-            <p class="item-title-small">情報系のための離散数学</p>
-            <p class="item-price">¥1,100</p>
-        </a>
-        <a href="#" class="item-card">
-            <img src="../static/media/book_web.jpg" alt="商品画像" class="item-image">
-            <p class="item-title-small">HTML・CSSとWEBデザイン</p>
-            <p class="item-price">¥1,100</p>
-        </a>
-        <a href="#" class="item-card">
-            <img src="../static/media/gym_rack.jpg" alt="商品画像" class="item-image">
-            <p class="item-title-small">ChatGPTと学でPython入門</p>
-            <p class="item-price">¥1,100</p>
-        </a>
-        <a href="#" class="item-card">
-            <img src="../static/media/dumbbell.jpg" alt="商品画像" class="item-image">
-            <p class="item-title-small">情報系のための離散数学</p>
-            <p class="item-price">¥1,100</p>
-        </a>
-        <a href="#" class="item-card">
-            <img src="../static/media/gym_bench.jpg" alt="商品画像" class="item-image">
-            <p class="item-title-small">HTML・CSSとWEBデザイン</p>
-            <p class="item-price">¥1,100</p>
-        </a>
-        <a href="#" class="item-card">
-            <img src="../static/media/macbook_pro.jpg" alt="商品画像" class="item-image">
-            <p class="item-title-small">ChatGPTと学でPython入門</p>
-            <p class="item-price">¥1,100</p>
-        </a>
-        <a href="#" class="item-card">
-            <img src="../static/media/macbook_air.jpg" alt="商品画像" class="item-image">
-            <p class="item-title-small">情報系のための離散数学</p>
-            <p class="item-price">¥1,100</p>
-        </a>
-        <a href="#" class="item-card">
-            <img src="../static/media/laptop_onyx.jpg" alt="商品画像" class="item-image">
-            <p class="item-title-small">HTML・CSSとWEBデザイン</p>
-            <p class="item-price">¥1,100</p>
-        </a>
-        <a href="#" class="item-card">
-            <img src="../static/media/ukulele.jpg" alt="商品画像" class="item-image">
-            <p class="item-title-small">ChatGPTと学でPython入門</p>
-            <p class="item-price">¥1,100</p>
-        </a>
-        <a href="#" class="item-card">
-            <img src="../static/media/violin.jpg" alt="商品画像" class="item-image">
-            <p class="item-title-small">情報系のための離散数学</p>
-            <p class="item-price">¥1,100</p>
-        </a>
-        <a href="#" class="item-card">
-            <img src="../static/media/flute.jpg" alt="商品画像" class="item-image">
-            <p class="item-title-small">HTML・CSSとWEBデザイン</p>
-            <p class="item-price">¥1,100</p>
-        </a>
-    </div>
-
-    <button class="view-more-items-btn">もっと見る</button>
+  <div class="favorites-grid">
+    {% for item in fav_data %}
+    <a
+      href="{{url_for('market.product_detail', product_id=item.product_id)}}"
+      class="item-card"
+    >
+      <img
+        src="{{ url_for('static', filename='media'+item.image_path)}}"
+        alt="商品画像"
+        class="item-image"
+      />
+      <p class="item-title-small">{{item.product_name}}</p>
+      <p class="item-price">¥{{item.product_price}}</p>
+    </a>
+    {% endfor %}
+  </div>
 </div>

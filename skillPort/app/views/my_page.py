@@ -35,8 +35,11 @@ def membership_List():
 
 @my_page_bp.route('/favorites_list', methods=["GET"])
 def favorites_list():
-    return render_template('my_page/mp_favorites.html')
-
+    user_id = session['user_id']
+    print(user_id)
+    fav_sql = "SELECT l.*, li.image_path FROM listing_tbl l LEFT JOIN liked_products_tbl lp ON l.product_id = lp.product_id LEFT JOIN listing_images_tbl li ON l.product_id = li.product_id LEFT JOIN user_tbl u ON lp.user_id = u.id WHERE u.id = %s;"
+    fav_data = fetch_query(fav_sql, (user_id,), False)
+    return render_template('my_page/mp_favorites.html', fav_data=fav_data)
 @my_page_bp.route('/password_reset', methods=["GET"])
 def password_reset():
     mode = request.form.get("mode", "normal")
