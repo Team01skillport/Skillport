@@ -32,6 +32,7 @@ endblock %} {% block styles %}
 
     <div class="video-stats">
       <span>再生回数：{{views['view_count']}}</span>
+      <input type="button" value="いいね" name="video_like" id="like-button" data-video-id="{{ video.video_id }}">
       <a href="#" id="reportBtn" class="btn-report">🚨 通報</a>
     </div>
 
@@ -132,4 +133,6 @@ endblock %} {% block styles %}
   src="{{ url_for('static', filename='js/popup_report.js') }}"
   defer
 ></script>
+<script src="{{url_for('static', filename='js/video_player.js')}}"></script>
 {% endblock %}
+

@@ -3,7 +3,9 @@
 </head>
 <div class="history-page-container">
   <h1 class="support-main-title">視聴履歴</h1>
-
+  {% if not viewed_videos %}
+  <h4>いいねした動画がありません</h4>
+  {% endif %}
   <div id="historyList" class="history-list">
     {% for video in viewed_videos %}
     <a

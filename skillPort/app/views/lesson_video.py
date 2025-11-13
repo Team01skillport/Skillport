@@ -11,7 +11,7 @@ lesson_video_bp = Blueprint('lesson_video', __name__, url_prefix='/lesson_video'
 def video_player(video_id):
 
     sql = """
-    SELECT * FROM video_tbl v
+    SELECT *, v.id AS video_id FROM video_tbl v
     LEFT JOIN user_tbl u
     ON v.video_uploader_id = u.id
     WHERE v.id = %s;
@@ -43,4 +43,31 @@ def video_player(video_id):
             sql_insert = "INSERT INTO video_view_tbl (user_id, video_id) VALUES (%s, %s)"
             create_user(sql_insert, params=(user_id, video_id))
     
+    
     return render_template('lesson_video/video_player.html', video = video_data, comments=comment_data, rec_vids=rec_data, views=view_data)
+
+@lesson_video_bp.route('like_video/<int:video_id>', methods=['POST'])
+def video_like(video_id):
+    print("LIKE RUN")
+    
+    if 'user_id' in session:
+        user_id = session['user_id']
+        print("USER IN")
+        try:
+            sql_check = "SELECT * FROM video_like_tbl WHERE user_id=%s AND video_id=%s"
+            existing = fetch_query(sql_check, (user_id, video_id), fetch_one=True)
+            print(existing)
+            if existing:
+                return None
+            else:
+                sql_insert = "INSERT INTO video_like_tbl (user_id, video_id) VALUES (%s, %s)"
+                add_like = create_user(sql_insert, (user_id, video_id))
+                print(add_like)
+                succmsg = "いいね登録完了"
+                return succmsg
+                
+        except:
+            errmsg = "ログインしていません"
+            return errmsg
+        
+        

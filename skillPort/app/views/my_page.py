@@ -20,7 +20,10 @@ def bank_account_register():
 
 @my_page_bp.route('/likes_list', methods=["GET"])
 def likes_list():
-    return render_template('my_page/mp_likes.html')
+    user_id = session['user_id']
+    like_sql = "SELECT v.id, v.video_title, v.video_upload_date, v.video_description_section, v.thumbnail_path FROM video_tbl v LEFT JOIN video_like_tbl vl ON v.id = vl.video_id LEFT JOIN user_tbl u ON vl.user_id = u.id WHERE u.id = %s;"
+    liked_videos = fetch_query(like_sql, (user_id,), fetch_one=False)
+    return render_template('my_page/mp_likes.html', liked_videos=liked_videos)
 
 @my_page_bp.route('/sales_list', methods=["GET"])
 def sales_list():
