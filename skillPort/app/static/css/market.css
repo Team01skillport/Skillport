@@ -215,6 +215,11 @@
   cursor: pointer;
 }
 
+.search-icon img{
+  width: 15px;
+  transform: translateY(2px);
+}
+
 .product-search {
   width: 100%;
   padding: 12px 15px 12px 45px;
