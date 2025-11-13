@@ -1,5 +1,5 @@
-from flask import Blueprint, render_template, request, make_response, session
-from app.db import fetch_query
+from flask import Blueprint, render_template, request, make_response, session, redirect, url_for
+from app.db import fetch_query, create_user
 
 my_page_bp = Blueprint('my_page', __name__, url_prefix='/my_page')
 
@@ -9,7 +9,10 @@ def my_page_top():
 
 @my_page_bp.route('/view_history', methods=["GET"])
 def my_page_history():
-    return render_template('my_page/mp_view_history.html')
+    user_id = session['user_id']
+    view_sql = "SELECT v.id, v.video_title, v.video_upload_date, v.video_description_section, v.thumbnail_path FROM video_tbl v LEFT JOIN video_view_tbl vv ON v.id = vv.video_id LEFT JOIN user_tbl u ON vv.user_id = u.id WHERE u.id = %s;"
+    viewed_videos = fetch_query(view_sql, (user_id,), fetch_one=False)
+    return render_template('my_page/mp_view_history.html', viewed_videos=viewed_videos)
 
 @my_page_bp.route('/bank_account_register', methods=["GET"])
 def bank_account_register():
@@ -33,8 +36,38 @@ def favorites_list():
 
 @my_page_bp.route('/password_reset', methods=["GET"])
 def password_reset():
-    mode = request.args.get("mode", "normal")
+    mode = request.form.get("mode", "normal")
     return render_template('my_page/mp_password_reset.html', mode=mode)
+
+@my_page_bp.route('/password_reset/process', methods=["POST"])
+def password_reset_process():
+    currPass = request.form.get("currentPassword")
+    newPass = request.form.get("newPassword")
+    conNewPass = request.form.get("confirmNewPassword")
+    user_id = session['user_id']
+    errmsg = None
+    passcheck_sql = "SELECT password FROM user_tbl WHERE id = %s;"
+    passcheck_data = fetch_query(passcheck_sql, (user_id,), True)
+    passcheck_data = passcheck_data['password']
+    print(passcheck_data)
+    print(currPass)
+    print(newPass)
+    print(conNewPass)
+    if passcheck_data == currPass:
+        print("1st check")
+        if newPass == conNewPass:
+            print("2nd check")
+            newpass_sql = "UPDATE user_tbl SET password = %s WHERE id = %s;"
+            user_pass = create_user(newpass_sql, (newPass, user_id))
+            print(user_pass)
+            errmsg = None
+            succmsg = "パスワードリセット成功"
+            return render_template('my_page/mp_password_reset_success.html', succmsg=succmsg)
+        else:
+            errmsg = "パスワードと再入力のパスワードが一致していません"
+    else:
+        errmsg = "現在のパスワードが間違っています"
+    return render_template('my_page/mp_password_reset_process.html', errmsg=errmsg)
 
 @my_page_bp.route('/payment_history', methods=["GET"])
 def payment_history():
