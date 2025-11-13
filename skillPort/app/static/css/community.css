@@ -2,6 +2,9 @@ body {
   font-family: sans-serif;
   margin: 0;
 }
+main{
+  margin-bottom: 5px;
+}
 
 /* 右上プロファイルのやつ----------------------------------------------- */
 
@@ -184,7 +187,7 @@ body {
   display: flex;
   align-items: flex-start;
   gap: 12px;
-  width: 570px;
+  width: 610px;
 }
 
 /* avatar column */
@@ -204,7 +207,8 @@ body {
   width: 100%;
   padding: 0;
   background-color: white;
-  max-width: 30rem;
+  /* max-width: 30rem; */
+  /* width: 1000px; */
 }
 
 /* textbox grows to fill line */
@@ -216,7 +220,7 @@ body {
   display: grid;
   row-gap: 10px;
   background: #fff;
-  width: 100%;
+  width: 500px;
 }
 
 /* inner text input */
@@ -337,12 +341,14 @@ body {
 /* optional: make scrollbars look clean */
 .reccomended::-webkit-scrollbar,
 .feed::-webkit-scrollbar {
-  width: 8px;
+  /* width: 8px; */
+  display: none;
 }
 .reccomended::-webkit-scrollbar-thumb,
 .feed::-webkit-scrollbar-thumb {
-  background: #ccc;
-  border-radius: 4px;
+  /* background: #ccc;
+  border-radius: 4px; */
+  display: none;
 }
 .reccomended::-webkit-scrollbar-track,
 .feed::-webkit-scrollbar-track {
@@ -352,8 +358,9 @@ body {
 /* === Auto-hide scrollbars === */
 .reccomended,
 .feed {
-  scrollbar-width: thin; /* Firefox: thin bar */
-  scrollbar-color: #bbb transparent;
+  /* ここ変えたらスクロールバー消えた */
+  scrollbar-width: none; 
+  scrollbar-color: #bbb;
 }
 
 /* WebKit browsers */
@@ -661,7 +668,7 @@ footer {
   background-color: #226cff;
   color: white;
   text-align: center;
-  margin-top: 5vw;
+  margin-top: 2vw;
 }
 
 /* ------------------------------------------------------------------ */
