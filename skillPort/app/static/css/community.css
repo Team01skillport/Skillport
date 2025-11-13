@@ -337,12 +337,14 @@ body {
 /* optional: make scrollbars look clean */
 .reccomended::-webkit-scrollbar,
 .feed::-webkit-scrollbar {
-  width: 8px;
+  /* width: 8px; */
+  display: none;
 }
 .reccomended::-webkit-scrollbar-thumb,
 .feed::-webkit-scrollbar-thumb {
-  background: #ccc;
-  border-radius: 4px;
+  /* background: #ccc;
+  border-radius: 4px; */
+  display: none;
 }
 .reccomended::-webkit-scrollbar-track,
 .feed::-webkit-scrollbar-track {
@@ -352,8 +354,9 @@ body {
 /* === Auto-hide scrollbars === */
 .reccomended,
 .feed {
-  scrollbar-width: thin; /* Firefox: thin bar */
-  scrollbar-color: #bbb transparent;
+  /* ここ変えたらスクロールバー消えた */
+  scrollbar-width: none; 
+  scrollbar-color: #bbb;
 }
 
 /* WebKit browsers */

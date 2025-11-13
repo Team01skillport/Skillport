@@ -77,6 +77,10 @@
   transform: translateY(-2px);
   box-shadow: 0 12px 26px rgba(0, 0, 0, 0.09);
 }
+.card a {
+  text-decoration: none;
+  color: black;
+}
 .thumb {
   aspect-ratio: 1/1;
   border-radius: 12px;
@@ -111,6 +115,9 @@
   border-radius: 8px;
   padding: 0.35rem 0.6rem;
   cursor: pointer;
+  text-decoration: none;
+  color: black;
+  font-size: 14px;
 }
 .ghost-sm:hover {
   border-color: #cbd5e1;
@@ -131,4 +138,9 @@
 }
 .more-btn:active {
   transform: translateY(1px);
+}
+
+.product-details h5,
+p {
+  margin: 10px 0;
 }

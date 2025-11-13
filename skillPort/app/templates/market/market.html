@@ -10,7 +10,7 @@ content %}
       <h2 class="page-title">マーケット</h2>
       <div class="search-bar">
         <form action="{{ url_for('market.market_top')}}" method="GET">
-          <button type="submit" class="search-icon">🔍</button>
+          <button type="submit" class="search-icon"><img src="../../static/media/search.png" alt=""></button>
           <input
             type="text"
             name="keyword"
@@ -32,7 +32,7 @@ content %}
           href="{{ url_for('market.purchase_history_page') }}"
           class="btn btn-yellow"
         >
-          <span class="btn-icon">●</span> 購入管理
+          <span class="btn-icon">●</span> 購入履歴
         </a>
       </div>
       {% else %}

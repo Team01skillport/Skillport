@@ -215,6 +215,11 @@
   cursor: pointer;
 }
 
+.search-icon img{
+  width: 15px;
+  transform: translateY(2px);
+}
+
 .product-search {
   width: 100%;
   padding: 12px 15px 12px 45px;
@@ -266,14 +271,14 @@
 }
 
 .btn-yellow {
-  border-color: #ffc107;
-  color: #ffc107;
+  border-color: #007bff;
+  color: #007bff;
   transition: 0.2s;
   text-decoration: none;
 }
 
 .btn-yellow:hover {
-  background-color: #ffc107;
+  background-color: #007bff;
   color: white;
 }
 

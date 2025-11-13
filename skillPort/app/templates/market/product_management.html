@@ -60,6 +60,7 @@
 {% block content %}
   <main class="pmain">
     <div class="pcontainer">
+      <h2 class="page-title">商品管理</h2>
 
       <div class="toolbar">
         <a href="{{ url_for('market.create_product_page') }}" class="pill blue">新規商品登録</a>
@@ -70,33 +71,39 @@
         {% if my_products %}
           {% for product in my_products %}
           <article class="card">
-            <div class="thumb">
-              {% if product.image_path %}
-                <img src="{{ url_for('static', filename=product.image_path) }}" alt="{{ product.product_name }}">
-              {% else %}
-                <div class="dummy-thumb">
-                  <span>?</span>
-                  <p>{{ product.product_name | truncate(20) }}</p>
-                </div>
-              {% endif %}
-            </div>
-            <div class="ops">
-              {% if product.sales_status == 'S' %}
-                <span class="badge">出品中</span>
-              {% elif product.sales_status == 'C' %}
-                <span class="badge sold">売切</span>
-              {% else %}
-                <span class="badge gray">不明</span>
-              {% endif %}
+            <a href="{{url_for('market.product_detail', product_id=product.product_id)}}">
+              <div class="thumb">
+                {% if product.image_path %}
+                  <img src="{{ url_for('static', filename=product.image_path[1:]) }}" alt="{{ product.product_name }}">
+                {% else %}
+                  <div class="dummy-thumb">
+                    <span>?</span>
+                    <p>{{ product.product_name | truncate(20) }}</p>
+                  </div>
+                {% endif %}
+              </div>
+              <div class="product-details">
+                <h5>{{product.product_name}}</h5>
+                <p>￥{{product.product_price}}</p>
+              </div>
+              <div class="ops">
+                {% if product.sales_status == 'S' %}
+                  <span class="badge">出品中</span>
+                {% elif product.sales_status == 'C' %}
+                  <span class="badge sold">売切</span>
+                {% else %}
+                  <span class="badge gray">不明</span>
+                {% endif %}
 
-              <a href="{{ url_for('market.edit_product_page', product_id=product.product_id) }}" class="ghost-sm">編集</a>
-            </div>
+                <a href="{{ url_for('market.edit_product_page', product_id=product.product_id) }}" class="ghost-sm">編集</a>
+              </div>
+            </a>
           </article>
           {% endfor %}
 
         {% else %}
           <div class="no-products-message">
-            <p class="lead">あなたはまだ出品していない</p>
+            <p class="lead">出品中の商品がありません</p>
             <p>「新規商品登録」ボタンから、最初の商品を登録してみましょう！</p>
           </div>
         {% endif %}
