@@ -74,7 +74,11 @@
             <a href="{{url_for('market.product_detail', product_id=product.product_id)}}">
               <div class="thumb">
                 {% if product.image_path %}
-                  <img src="{{ url_for('static', filename=product.image_path[1:]) }}" alt="{{ product.product_name }}">
+                  {% set clean_path = product.image_path %}
+                  {% if clean_path.startswith('/') %}
+                    {% set clean_path = clean_path[1:] %}
+                  {% endif %}
+                  <img src="{{ url_for('static', filename=clean_path) }}" alt="{{ product.product_name }}">
                 {% else %}
                   <div class="dummy-thumb">
                     <span>?</span>
@@ -109,11 +113,7 @@
         {% endif %}
 
       </section>
-      <!-- <div class="more">
-        <button class="more-btn">もっと見る</button>
-      </div>
-    </div> -->
-  </main>
+      </main>
 {% endblock %}
 
 {# ================= ページ固有のJS ================= #}

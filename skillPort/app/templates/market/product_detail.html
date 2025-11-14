@@ -30,14 +30,22 @@ default('商品詳細', true) }}{% endblock %} {% block styles %}
     <div class="image-area">
       <div class="thumbnails">
         {% if info.image_path %}
+        {% set clean_path = info.image_path %}
+        {% if clean_path.startswith('/') %}
+          {% set clean_path = clean_path[1:] %}
+        {% endif %}
         <img
-          src="{{ url_for('static', filename=info.image_path) }}"
+          src="{{ url_for('static', filename=clean_path) }}"
           class="thumb active"
           alt="サムネイル1"
         />
         {% endif %} {% for img in other_images %}
+        {% set clean_path_other = img.image_path %}
+        {% if clean_path_other.startswith('/') %}
+          {% set clean_path_other = clean_path_other[1:] %}
+        {% endif %}
         <img
-          src="{{ url_for('static', filename=img.image_path) }}"
+          src="{{ url_for('static', filename=clean_path_other) }}"
           class="thumb"
           alt="サムネイル{{ loop.index + 1 }}"
         />
@@ -45,9 +53,13 @@ default('商品詳細', true) }}{% endblock %} {% block styles %}
       </div>
       <div class="main-image">
         {% if info.image_path %}
+        {% set clean_path = info.image_path %}
+        {% if clean_path.startswith('/') %}
+          {% set clean_path = clean_path[1:] %}
+        {% endif %}
         <img
           id="mainImage"
-          src="{{ url_for('static', filename=info.image_path) }}"
+          src="{{ url_for('static', filename=clean_path) }}"
           alt="メイン商品画像"
         />
         {% else %}
@@ -93,14 +105,7 @@ default('商品詳細', true) }}{% endblock %} {% block styles %}
       <button class="comment-btn">コメント投稿</button>
       <h3>コメント一覧</h3>
       <ul>
-        <!-- <li>
-          <img
-            src="{{ url_for('static', filename='media/profile_icon.png') }}"
-            alt=""
-          />
-          <div class="bubble">ふふはは</div>
-        </li> -->
-      </ul>
+        </ul>
     </div>
     <div class="seller-box">
       <h3>出品者</h3>
@@ -116,8 +121,7 @@ default('商品詳細', true) }}{% endblock %} {% block styles %}
           alt="デフォルトアイコン"
         />
         {% endif %}
-        <div class="text"> <!--!修正点（blue printエラー）-->
-          <h4>
+        <div class="text"> <h4>
             {% if uploader_id %}
             <a href="{{url_for('auth.view_profile', user_id=uploader_id)}}">
               {{ info.seller_name }}
@@ -126,8 +130,7 @@ default('商品詳細', true) }}{% endblock %} {% block styles %}
             {{ info.seller_name }}
             {% endif %}
           </h4>
-        </div> <!--!修正終了-->
-          <div class="user_rating">
+        </div> <div class="user_rating">
             {% for star in rating_stars %}
             <p>{{star}}</p>
             {% endfor %}

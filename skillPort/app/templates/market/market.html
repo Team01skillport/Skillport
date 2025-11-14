@@ -172,15 +172,17 @@ content %}
           <a
             href="{{url_for('market.product_detail', product_id=product.product_id)}}"
             ><div class="product-container">
-              <!--!商品写真を表示するため  -->
               {% if product.image_path %}
+              {% set clean_path = product.image_path | replace('\'', '') %}
+              {% if clean_path.startswith('/') %}
+                {% set clean_path = clean_path[1:] %}
+              {% endif %}
               <img
-                src="{{ url_for('static', filename='media'+product.image_path)}}"
+                src="{{ url_for('static', filename=clean_path) }}"
                 alt="{{product.product_name}}"
                 style="width: 100%; height: 150px; object-fit: cover"
               />
               {% else %}
-              <!-- !終わる -->
               <div
                 style="
                   width: 100%;
@@ -195,7 +197,6 @@ content %}
                 画像ここ
               </div>
               {% endif %}
-              <!-- !商品写真サイズ統一修正 -->
               <div class="product-title">{{product.product_name}}</div>
               <p>
                 ￥{{ product.product_price | int | tojson | safe | replace('"',
