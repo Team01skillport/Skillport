@@ -105,7 +105,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
-
   // ==========================================================
   // 4. 配送地址模态框逻辑 (Address Modal)
   // ==========================================================
@@ -139,16 +138,30 @@ document.addEventListener('DOMContentLoaded', () => {
       const result = await response.json();
 
       if (result.success) {
-        const newAddr = result.new_address;
+        const updatedData = result.updated_data;
         addressDisplay.innerHTML = `
-          ${newAddr.last_name || ''} ${newAddr.first_name || ''} （${newAddr.last_name_katakana || ''} ${newAddr.first_name_katakana || ''}）<br />
-          〒${newAddr.zip_code}<br />
-          ${newAddr.prefecture} ${newAddr.address1}<br />
-          ${newAddr.address2 || ''}
+          ${updatedData.last_name || ''} ${updatedData.first_name || ''} 
+          （${updatedData.last_name_katakana || ''} ${updatedData.first_name_katakana || ''}）<br />
+          〒${updatedData.zip_code}<br />
+          ${updatedData.prefecture || ''} ${updatedData.address1 || ''}<br />
+          ${updatedData.address2 || ''}
+        `;
+        const currentName = addressDisplay.querySelector('strong') ? '' : addressDisplay.innerHTML.split('<br')[0];
+        
+        addressDisplay.innerHTML = `
+          ${currentName}
+          ${currentName ? '<br />' : ''}
+          〒${updatedData.zip_code}<br />
+          ${updatedData.prefecture || ''} ${updatedData.address1 || ''}<br />
+          ${updatedData.address2 || ''}
         `;
         const addAddressLink = document.getElementById('btnAddAddress');
-        if (addAddressLink) addAddressLink.closest('strong, span')?.remove();
-
+        // '住所が登録されていません' の警告を削除
+        if (addAddressLink) {
+            const strongElement = addAddressLink.closest('strong');
+            if (strongElement) strongElement.parentElement.innerHTML = addressDisplay.innerHTML; 
+            else addAddressLink.closest('span')?.remove();
+        }
         closeAddressModal(e);
       } else {
         alert('住所の保存に失敗しました： ' + result.error);
@@ -160,7 +173,6 @@ document.addEventListener('DOMContentLoaded', () => {
         saveBtn.disabled = false;
     }
   });
-
 
   // ==========================================================
   // 5. 支付方法模态框逻辑 (Payment Modal)

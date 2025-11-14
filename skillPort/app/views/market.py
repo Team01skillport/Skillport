@@ -526,6 +526,9 @@ def checkout_add_payment():
             return jsonify({'success': False, 'error': 'この支払い方法は既に登録されています'}), 409
         return jsonify({'success': False, 'error': 'サーバーエラーが発生しました'}), 500
 
+# ==========================================
+# Route 14: いいね機能実装 (POST)
+# ==========================================
 @market_bp.route('add_favorite/<product_id>', methods=['POST'])
 def video_like(product_id):
     print("FAV RUN")
@@ -549,4 +552,48 @@ def video_like(product_id):
         except:
             errmsg = "ログインしていません"
             return errmsg
+
+# ==========================================
+# Route 13: AJAX：配送先住所の更新 (POST)
+# ==========================================
+@market_bp.route('/checkout/update_address', methods=["POST"])
+def update_address_action():
+    if 'user_id' not in session:
+        return jsonify({'success': False, 'error': 'ユーザーがログインしていません'}), 401
+    
+    user_id = session['user_id']
+    data = request.json # 假设前端以 JSON 格式发送数据
+    
+    # 接收来自前端的地址数据
+    zip_code = data.get('zip_code')
+    prefecture = data.get('prefecture')
+    address1 = data.get('address1')
+    address2 = data.get('address2')
+    
+    # 简单的非空检查
+    if not all([zip_code, prefecture, address1]):
+        return jsonify({'success': False, 'error': '必須の住所情報が不完全です'}), 400
+
+    try:
+        sql_update = """
+            UPDATE user_tbl 
+            SET zip_code = %s, prefecture = %s, address1 = %s, address2 = %s
+            WHERE id = %s
+        """
+        params = (zip_code, prefecture, address1, address2, user_id)
         
+        if execute_query(sql_update, params):
+            # 成功后返回更新后的数据
+            updated_data = {
+                'zip_code': zip_code,
+                'prefecture': prefecture,
+                'address1': address1,
+                'address2': address2
+            }
+            return jsonify({'success': True, 'message': '住所が正常に更新されました', 'updated_data': updated_data})
+        else:
+            raise Exception("データベースの更新に失敗しました")
+
+    except Exception as e:
+        print(f"住所更新エラー: {e}")
+        return jsonify({'success': False, 'error': '住所の更新中にエラーが発生しました'}), 500
