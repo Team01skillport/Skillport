@@ -1,11 +1,9 @@
 {% extends "base.html" %} {% block title %}コミュニティー{% endblock %} {% block
   content %}
 <link rel="stylesheet" href="{{ url_for('static', filename='css/community.css') }}">
-<!-- reccomended container ------------------------------------------ -->
 <div class="reccomended_and_feed">
 
-  <!-- 左側：おすすめ動画 -->
-<div class="reccomended">
+  <div class="reccomended">
     <h2>おすすめ動画</h2>
 
     <a class="video_card" href="{{ url_for('lesson_video.video_player', video_id=1) }}" aria-label="動画1の詳細を開く">
@@ -33,7 +31,6 @@
     </a>
   </div>
 
-  <!-- 右側：投稿フィード -->
   <div class="feed">
     <h2>投稿フィード</h2>
     <div class="post-list">
@@ -42,13 +39,7 @@
         <div class="user">
           <img class="avatar" src="{{url_for('static', filename='media/user' + post.profile_icon)}}" alt="ユーザーアイコン">
           <a href="{{url_for('auth.view_profile', user_id=post.user_id)}}" class="username">{{post.user_name}}</a>
-          <!-- {% if post.user_id == user_id %}
-          <div class="actions">
-            <button>編集</button>
           </div>
-          {% endif %} -->
-          
-        </div>
         {% if post.post_media != None %}
         <img src="{{url_for('static', filename='media/posts/' + post.post_media)}}" class="user_media"></img>
         {% endif %}
@@ -87,28 +78,28 @@
   <div class="reccomended reccomended--right">
     <h2>おすすめ商品</h2>
 
-    <a class="video_card" href="trend-1.html" aria-label="トレンド1の詳細を開く">
-      <img src="../static/media/1.jpeg" alt="トレンド1">
-      <h3>タイトルA</h3>
-      <p>今みんなが見ている投稿をチェックしよう。</p>
+    {% for product in recommended_products %}
+    <a class="video_card" href="{{ url_for('market.product_detail', product_id=product.product_id) }}" aria-label="{{ product.product_name }}の詳細を開く">
+      {% if product.image_path %}
+        {% set clean_path = product.image_path %}
+        {# パスが '/' で始まる場合に先頭のスラッシュを削除 #}
+        {% if clean_path.startswith('/') %}
+          {% set clean_path = clean_path[1:] %}
+        {% endif %}
+        <img src="{{ url_for('static', filename=clean_path) }}" alt="{{ product.product_name }}">
+      {% else %}
+        {# 画像がない場合のプレースホルダー #}
+        <img src="{{ url_for('static', filename='media/product_placeholder.jpg') }}" alt="画像なし">
+      {% endif %}
+      <h3>{{ product.product_name }}</h3>
+      <p>¥{{ product.product_price | int }} | {{ product.product_description | truncate(15) }}</p>
     </a>
+    {% else %}
+    <p>現在、おすすめの商品はありません。</p>
+    {% endfor %}
 
-    <a class="video_card" href="trend-2.html" aria-label="トレンド2の詳細を開く">
-      <img src="../static/media/1.jpeg" alt="トレンド2">
-      <h3>タイトルB</h3>
-      <p>ホットな話題をまとめてキャッチ。</p>
-    </a>
-
-    <a class="video_card" href="trend-3.html" aria-label="トレンド3の詳細を開く">
-      <img src="../static/media/1.jpeg" alt="トレンド3">
-      <h3>タイトルC</h3>
-      <p>学びにも息抜きにもグッド。</p>
-    </a>
   </div>
 </div>
-<!-- reccomended container ------------------------------------------ -->
-
-<!--編集popup --------------------------------------- -->
 <div id="editModal" class="modal" aria-hidden="true" role="dialog" aria-modal="true">
   <div class="modal__overlay" data-close="true"></div>
 
@@ -133,8 +124,7 @@
         </div>
 
         <div id="mediaPreview" class="modal__preview">
-          <!-- 現在の画像/動画 or 新しい選択がここに表示 -->
-        </div>
+          </div>
       </div>
     </main>
 
@@ -142,11 +132,8 @@
       <button class="btn btn--ghost" type="button" data-close="true">キャンセル</button>
       <button id="btnDeletePost" class="btn btn--danger" type="button" style="display:none;">削除</button>
     
-      <!-- 編集用：保存 -->
       <button id="btnSaveEdit" class="btn btn--primary" type="button" style="display:none;">保存</button>
     
-      <!-- 新規投稿用：投稿 -->
-
       <button id="btnPostSubmit" class="btn btn--primary" type="button" style="display:none;">投稿</button>
     </footer>
   </div>
