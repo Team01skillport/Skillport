@@ -413,6 +413,7 @@ def purchase_history_page():
     
     sql_complex = """
         SELECT 
+            o.id AS order_id, 
             o.transaction_startdate, 
             o.total_amount, 
             o.shipping_status,
@@ -597,3 +598,135 @@ def update_address_action():
     except Exception as e:
         print(f"住所更新エラー: {e}")
         return jsonify({'success': False, 'error': '住所の更新中にエラーが発生しました'}), 500
+    
+# [▼▼▼ 在文件末尾添加这个新函数 ▼▼▼]
+
+@market_bp.route('/transaction/<order_id>', methods=["GET"])
+def transaction_detail(order_id):
+    """
+    [新功能] 渲染“取引详细”页面。
+    它会根据 order_id 从数据库获取订单、商品、卖家和聊天记录。
+    """
+    
+    # 1. 检查用户是否登录 (安全检查)
+    if 'user_id' not in session:
+        flash("このページを表示するには、ログインが必要です。", "warning")
+        return redirect(url_for('auth.login', next=request.url))
+    
+    user_id = session['user_id']
+    
+    # --- [数据查询] ---
+    
+    # 2. 查询订单基本信息 (同时验证这个订单是否属于当前用户)
+    sql_order = """
+        SELECT * FROM market_order_tbl 
+        WHERE id = %s AND (purchaser_id = %s OR seller_id = %s)
+    """
+    order_info = fetch_query(sql_order, (order_id, user_id, user_id), fetch_one=True)
+    
+    if not order_info:
+        abort(404) # 如果订单不存在，或是用户无权查看，则显示404
+
+    # 3. 查询卖家信息
+    sql_seller = """
+        SELECT user_name, profile_icon, user_tags
+        FROM user_tbl 
+        WHERE id = %s
+    """
+    seller_info = fetch_query(sql_seller, (order_info['seller_id'],), fetch_one=True)
+
+    # [SCHEMA 限制!] 您的 market_order_tbl 没有保存 product_id。
+    # 我们将复用您在 purchase_history_page 中的复杂逻辑，
+    # 通过 卖家ID 和 价格 来“猜测”商品。
+    sql_product = """
+        SELECT 
+            l.product_id, l.product_name, l.product_price, l.shipping_area, 
+            l.product_condition, l.listing_date, i.image_path
+        FROM 
+            listing_tbl l
+        JOIN 
+            user_tbl u ON l.product_upload_user = u.user_name
+        LEFT JOIN
+            listing_images_tbl i ON l.product_id = i.product_id AND i.is_thumbnail = 1
+        WHERE 
+            u.id = %s AND l.product_price = %s
+        LIMIT 1
+    """
+    product_info = fetch_query(sql_product, 
+                            (order_info['seller_id'], order_info['total_amount']), 
+                            fetch_one=True)
+
+    # 4. 查询聊天记录
+    sql_messages = """
+        SELECT * FROM order_message_tbl 
+        WHERE transaction_id = %s
+        ORDER BY order_message_date ASC
+    """
+    messages = fetch_query(sql_messages, (order_id,))
+    if messages is None:
+        messages = []
+        
+    # 5. 渲染模板，传入所有数据
+    return render_template('order/transaction_detail.html',
+                            order=order_info,
+                            product=product_info,
+                            seller=seller_info,
+                            messages=messages)
+
+# [▼▼▼ 在文件末尾添加这个新函数 ▼▼▼]
+
+@market_bp.route('/transaction/post_message', methods=['POST'])
+def post_message():
+    """
+    [新功能] 
+    接收来自 transaction_detail.js 的 AJAX (Fetch) 请求,
+    并将消息保存到 order_message_tbl 数据库中。
+    """
+    
+    # 1. 检查用户是否登录
+    if 'user_id' not in session:
+        return jsonify({'success': False, 'error': 'ログインしていません'}), 401
+    
+    user_id = session['user_id']
+    
+    # 2. 从 AJAX 请求中获取 JSON 数据
+    data = request.json
+    order_id = data.get('order_id')
+    message_text = data.get('message_text')
+
+    if not order_id or not message_text:
+        return jsonify({'success': False, 'error': 'メッセージが空です'}), 400
+
+    try:
+        # 3. 验证用户是否有权在此订单中发言 (安全检查)
+        sql_check = "SELECT 1 FROM market_order_tbl WHERE id = %s AND (purchaser_id = %s OR seller_id = %s)"
+        order = fetch_query(sql_check, (order_id, user_id, user_id), fetch_one=True)
+        
+        if not order:
+            return jsonify({'success': False, 'error': '権限がありません'}), 403
+
+        # 4. 将消息插入数据库
+        sql_insert = """
+            INSERT INTO order_message_tbl 
+            (transaction_id, order_message_user_id, order_message_text) 
+            VALUES (%s, %s, %s)
+        """
+        # [重要] 您的 db.py 中有 execute_query (或 create_user)，
+        # 它们包含了 .commit()，非常适合 INSERT 操作。
+        success = execute_query(sql_insert, (order_id, user_id, message_text)) 
+        
+        if not success:
+            raise Exception("データベースの挿入に失敗しました")
+
+        # 5. 向前端返回成功信息
+        return jsonify({
+            'success': True, 
+            'message': {
+                'order_message_user_id': user_id,
+                'order_message_text': message_text
+            }
+        })
+
+    except Exception as e:
+        print(f"メッセージの送信エラー: {e}")
+        return jsonify({'success': False, 'error': 'サーバーエラーが発生しました'}), 500

@@ -62,7 +62,7 @@
       {% if my_orders %}
         {% for order in my_orders %}
         <article class="card">
-          <a href="{{ url_for('market.product_detail', product_id=order.product_id) }}" style="text-decoration: none; color: inherit;">
+          <a href="{{ url_for('market.transaction_detail', order_id=order.order_id) }}" style="text-decoration: none; color: inherit;">
             <div class="thumb">
               {% if order.image_path %}
                 {% set clean_path = order.image_path %}

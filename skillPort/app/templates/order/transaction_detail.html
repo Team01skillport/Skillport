@@ -1,0 +1,146 @@
+{% extends "base.html" %}
+
+{# ================= ページのタイトル ================= #}
+{% block title %}
+取引詳細 - SkillPort
+{% endblock %}
+
+{# ================= ページ固有のCSS ================= #}
+{% block styles %}
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/transaction_detail.css') }}">
+{% endblock %}
+
+
+{# ================= メインコンテンツ ================= #}
+{% block content %}
+  <main class="transaction-main">
+    <div class="transaction-container">
+
+      <h1 class="transaction-h1">取引情報 (注文ID: {{ order.id }})</h1>
+
+      <div class="transaction-content">
+
+        {# 左側：交易及商品靜態資訊 #}
+        <section class="transaction-info">
+          
+          <h2 class="info-title">取引情報</h2>
+          
+          {% if product %}
+          <div class="info-product">
+            {% if product.image_path %}
+              <img src="{{ url_for('static', filename=product.image_path[1:]) }}" alt="{{ product.product_name }}" class="product-thumb" style="object-fit: cover; width: 60px; height: 60px; background-color: #eee;">
+            {% else %}
+              <div class="product-thumb">画像なし</div>
+            {% endif %}
+            
+            <div class="product-details">
+              <p class="product-name">{{ product.product_name }}</p>
+              <p class="product-price">¥{{ product.product_price | int }}</p>
+            </div>
+          </div>
+          {% else %}
+          <div class="info-product">
+            <div class="product-thumb">?</div>
+            <div class="product-details">
+              <p class="product-name">商品情報が見つかりません</p>
+            </div>
+          </div>
+          {% endif %}
+          
+          <div class="info-list">
+            <div class="info-item">
+              <span class="item-label">商品代金:</span>
+              <span class="item-value">¥{{ order.total_amount | int }}</span>
+            </div>
+            <div class="info-item">
+              <span class="item-label">送料:</span>
+              <span class="item-value">出品者負担（送料込み）</span>
+            </div>
+            <div class="info-item">
+              <span class="item-label">購入日時:</span>
+              <span class="item-value">{{ order.transaction_startdate.strftime('%Y年%m月%d日 %H:%M') }}</span>
+            </div>
+            
+            {% if product %}
+            <div class="info-item">
+              <span class="item-label">配送元の地域:</span>
+              <span class="item-value">{{ product.shipping_area }}</span>
+            </div>
+            <div class="info-item">
+              <span class="item-label">商品の状態:</span>
+              <span class="item-value">{{ product.product_condition }}</span>
+            </div>
+            {% endif %}
+            
+            <div class="info-item">
+              <span class="item-label">取引ステータス:</span>
+              <span class="item-value">{{ order.transaction_status }}</span>
+            </div>
+          </div>
+
+        </section>
+
+        {# 右側：對話窗/訊息欄 #}
+        <section class="transaction-chat" data-order-id="{{ order.id }}">
+          <h2 class="info-title">取引画面 (メッセージ)</h2>
+
+          <div class="chat-messages" id="chatMessages">
+              {% for msg in messages %}
+                {% set user_role = 'buyer' if session.user_id|string == msg.order_message_user_id|string else 'seller' %}
+                
+                <div class="message-row {{ user_role }}">
+                  <div class="user-avatar"></div> 
+                  <div class="message-content">
+                    <p class="message-user-name">{{ 'あなた' if user_role == 'buyer' else '出品者' }}</small></p>
+                    <div class="message-bubble">
+                      {{ msg.order_message_text }}
+                    </div>
+                  </div>
+                </div>
+              {% endfor %}
+          </div>
+
+          {# 訊息輸入欄: 预备加入互动功能 #}
+          <div class="chat-input-area">
+            <textarea id="messageInput" placeholder="メッセージを入力" rows="3"></textarea>
+            <button class="send-button" id="sendMessageBtn" type="button">送信</button>
+          </div>
+          
+        </section>
+      </div>
+      
+      {# 出品者資訊 #}
+      <section class="seller-info">
+        <h2 class="info-title">出品者情報</h2>
+        
+        {% if seller %}
+        <div class="seller-details">
+          {% if seller.profile_icon %}
+            <img src="{{ url_for('static', filename=seller.profile_icon[1:]) }}" alt="出品者アイコン" class="seller-avatar">
+          {% else %}
+            <div class="seller-avatar"></div>
+          {% endif %}
+          
+          <div class="seller-meta">
+            <p class="seller-name">{{ seller.user_name }}</p>
+            <p class="seller-stats">
+              <small>{{ seller.user_tags }}</small>
+            </p>
+          </div>
+          <button class="follow-button">フォローする</button> 
+          <div class="seller-rating">
+            <span class="stars">★★★★★</span>
+          </div>
+        </div>
+        {% endif %}
+        
+      </section>
+
+    </div>
+  </main>
+{% endblock %}
+
+{# ================= ページ固有のJS ================= #}
+{% block scripts %}
+  <script src="{{ url_for('static', filename='js/transaction_detail.js') }}" defer></script>
+{% endblock %}
