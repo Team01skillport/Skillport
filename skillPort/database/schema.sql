@@ -615,3 +615,24 @@ UNLOCK TABLES;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
 -- Dump completed on 2025-11-13 22:39:57
+--
+-- Table structure for table `product_comment_tbl`
+-- (メッセージ欄)
+--
+DROP TABLE IF EXISTS `product_comment_tbl`;
+CREATE TABLE `product_comment_tbl` (
+  `comment_id` int(11) NOT NULL AUTO_INCREMENT,
+  `product_id` varchar(255) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `comment_date` datetime DEFAULT current_timestamp(),
+  `comment_text` varchar(255) NOT NULL,
+  
+  `parent_comment_id` int(11) DEFAULT NULL,
+  
+  PRIMARY KEY (`comment_id`),
+  
+  KEY `product_id` (`product_id`),
+  KEY `user_id` (`user_id`),
+  CONSTRAINT `product_comment_tbl_ibfk_1` FOREIGN KEY (`product_id`) REFERENCES `listing_tbl` (`product_id`),
+  CONSTRAINT `product_comment_tbl_ibfk_2` FOREIGN KEY (`user_id`) REFERENCES `user_tbl` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
