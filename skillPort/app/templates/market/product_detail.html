@@ -23,6 +23,32 @@ default('商品詳細', true) }}{% endblock %} {% block styles %}
     color: #aaa;
     flex-direction: column;
   }
+  
+  /* [新增] 评论表单的样式 */
+  .comment-form {
+    margin-bottom: 20px;
+  }
+  .comment-form textarea {
+    width: 100%;
+    min-height: 80px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    padding: 10px;
+    font-size: 14px;
+    margin-bottom: 10px;
+  }
+  .comment-form .comment-btn {
+    width: 100%; /* 按钮宽度调整为100% */
+  }
+  
+  /* [新增] 评论列表的样式 */
+  .comment-box li p {
+    margin: 0; /* 移除 <p> 标签的默认边距 */
+  }
+  .comment-box li strong {
+    font-size: 13px; /* 用户名稍小 */
+  }
+  
 </style>
 {% endblock %} {% block content %}
 <div class="page-wrap">
@@ -102,17 +128,42 @@ default('商品詳細', true) }}{% endblock %} {% block styles %}
 
   <section class="bottom-section">
     <div class="comment-box">
-      <button class="comment-btn">コメント投稿</button>
+      
+      <div class="comment-form" data-product-id="{{ info.product_id }}">
+        <h3>コメント投稿</h3>
+        <textarea id="commentInput" placeholder="商品についての質問やコメントを入力..." rows="4"></textarea>
+        <button id="commentSubmitBtn" class="comment-btn">コメント投稿</button>
+      </div>
+
       <h3>コメント一覧</h3>
-      <ul>
-        </ul>
+      
+      <ul id="commentList">
+        {% if comments %}
+          {% for comment in comments %}
+          <li>
+            {% if comment.profile_icon and comment.profile_icon != '/icons/default_icon.png' %}
+              <img src="{{ url_for('static', filename=comment.profile_icon[1:]) }}" alt="icon">
+            {% else %}
+              <img src="{{ url_for('static', filename='media/profile_icon.png') }}" alt="icon">
+            {% endif %}
+            <div class="bubble">
+              <strong>{{ comment.user_name }}</strong>
+              <p>{{ comment.comment_text }}</p>
+              </div>
+          </li>
+          {% endfor %}
+        {% else %}
+          <li id="noCommentsYet">まだコメントがありません。</li>
+        {% endif %}
+      </ul>
     </div>
+    
     <div class="seller-box">
       <h3>出品者</h3>
       <div class="seller-info">
-        {% if info.seller_icon %}
+        {% if info.seller_icon and info.seller_icon != '/icons/default_icon.png' %}
         <img
-          src="{{ url_for('static', filename=info.seller_icon) }}"
+          src="{{ url_for('static', filename=info.seller_icon[1:]) }}"
           alt="出品者アイコン"
         />
         {% else %}
@@ -130,16 +181,12 @@ default('商品詳細', true) }}{% endblock %} {% block styles %}
             {{ info.seller_name }}
             {% endif %}
           </h4>
-        </div> <div class="user_rating">
-            {% for star in rating_stars %}
-            <p>{{star}}</p>
-            {% endfor %}
-          </div>
+        </div> 
         </div>
       </div>
     </div>
   </section>
-</div>
+  </div>
 
 <div id="reportModal" class="modal hidden">
   <div class="modal-content">

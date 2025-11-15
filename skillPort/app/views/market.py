@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, request, session, abort, redirect, url_for, jsonify, current_app
+from flask import Blueprint, render_template, request, session, abort, redirect, url_for, jsonify, current_app,flash
 from app.db import fetch_query, execute_query, create_user
 import datetime
 import uuid
@@ -82,27 +82,52 @@ def market_top():
 # ==========================================
 @market_bp.route('/product/<product_id>', methods=["GET"])
 def product_detail(product_id):
+    
+    # --- [1. 查询商品信息 (不变)] ---
     sql_product = "SELECT l.*, i.image_path, u.user_name AS seller_name, u.profile_icon AS seller_icon, u.user_tags AS seller_tags FROM listing_tbl l LEFT JOIN listing_images_tbl i ON l.product_id = i.product_id AND i.is_thumbnail = 1 LEFT JOIN user_tbl u ON l.product_upload_user = u.user_name WHERE l.product_id = %s"
     product_info = fetch_query(sql_product, (product_id,), fetch_one=True)
     if not product_info: abort(404)
+    
+    # --- [2. 查询其他图片 (不变)] ---
     sql_images = "SELECT image_path FROM listing_images_tbl WHERE product_id = %s AND is_thumbnail = 0 ORDER BY uploaded_at"
     other_images = fetch_query(sql_images, (product_id,))
-    thumbnail_sql = "SELECT image_path FROM listing_images_tbl WHERE product_id = %s AND i.is_thumbnail = 1"
+    if other_images is None: other_images = []
+        
+    thumbnail_sql = "SELECT image_path FROM listing_images_tbl WHERE product_id = %s AND is_thumbnail = 1"
     thumbnail_img = fetch_query(thumbnail_sql, (product_id,), fetch_one=True)
-    #! 修改开始====
     thumbnail_img = thumbnail_img['image_path'] if thumbnail_img else None
-    #! 修改结束====
+    
     uploader_sql = "SELECT u.id FROM user_tbl u INNER JOIN listing_tbl l ON u.user_name = l.product_upload_user WHERE l.product_id = %s;"
-    #! 修改开始====
     uploader_id_result = fetch_query(uploader_sql, (product_id,), fetch_one=True)
-    if uploader_id_result:
-        uploader_id = uploader_id_result['id']
-    else:
-        uploader_id = None
-    #! 修改结束====
-    print("uploader_id 検索結果：", uploader_id)
-    return render_template('market/product_detail.html', info=product_info, other_images=other_images, thumbnail_img=thumbnail_img, uploader_id=uploader_id)
+    uploader_id = uploader_id_result['id'] if uploader_id_result else None
 
+    # --- [3. 新增：获取此商品的评论] ---
+    # 我们从新表 product_comment_tbl 中获取评论，并 JOIN user_tbl 来获取用户名和头像
+    sql_comments = """
+        SELECT 
+            c.comment_text, c.comment_date,
+            u.user_name, u.profile_icon
+        FROM 
+            product_comment_tbl c
+        JOIN 
+            user_tbl u ON c.user_id = u.id
+        WHERE 
+            c.product_id = %s AND c.parent_comment_id IS NULL
+        ORDER BY 
+            c.comment_date DESC
+    """
+    comments = fetch_query(sql_comments, (product_id,))
+    if comments is None: comments = []
+    
+    # --- [4. 渲染模板 (已修改：传入 comments)] ---
+    return render_template(
+        'market/product_detail.html', 
+        info=product_info, 
+        other_images=other_images, 
+        thumbnail_img=thumbnail_img, 
+        uploader_id=uploader_id,
+        comments=comments  # <-- [新增] 将评论列表传递给前端
+    )
 # ==========================================
 # Route 3: 商品创建页面 (GET)
 # ==========================================
@@ -599,8 +624,7 @@ def update_address_action():
         print(f"住所更新エラー: {e}")
         return jsonify({'success': False, 'error': '住所の更新中にエラーが発生しました'}), 500
     
-# [▼▼▼ 在文件末尾添加这个新函数 ▼▼▼]
-
+# ！
 @market_bp.route('/transaction/<order_id>', methods=["GET"])
 def transaction_detail(order_id):
     """
@@ -729,4 +753,65 @@ def post_message():
 
     except Exception as e:
         print(f"メッセージの送信エラー: {e}")
+        return jsonify({'success': False, 'error': 'サーバーエラーが発生しました'}), 500
+    
+# ==========================================
+# Route: 接收商品公开评论 (POST)
+# ==========================================
+@market_bp.route('/product/post_comment', methods=['POST'])
+def post_product_comment():
+    """
+    [新功能] 
+    接收来自 product_detail.js 的 AJAX (Fetch) 请求,
+    并将公开评论保存到 product_comment_tbl 中。
+    """
+    
+    # 1. 检查用户是否登录
+    if 'user_id' not in session:
+        return jsonify({'success': False, 'error': 'コメントするには、ログインが必要です。'}), 401
+    
+    user_id = session['user_id']
+    
+    # 2. 从 AJAX 请求中获取 JSON 数据
+    data = request.json
+    product_id = data.get('product_id')
+    comment_text = data.get('comment_text')
+
+    if not product_id or not comment_text:
+        return jsonify({'success': False, 'error': 'コメントが空です'}), 400
+
+    try:
+        # 3. 将评论插入数据库
+        sql_insert = """
+            INSERT INTO product_comment_tbl 
+            (product_id, user_id, comment_text) 
+            VALUES (%s, %s, %s)
+        """
+        # 使用您 db.py 中带 .commit() 的 execute_query 函数
+        success = execute_query(sql_insert, (product_id, user_id, comment_text)) 
+        
+        if not success:
+            raise Exception("データベースの挿入に失敗しました")
+            
+        # 4. 获取刚刚发布的评论（包含用户信息），以便在前端显示
+        sql_new_comment = """
+            SELECT 
+                c.comment_text, c.comment_date,
+                u.user_name, u.profile_icon
+            FROM 
+                product_comment_tbl c
+            JOIN 
+                user_tbl u ON c.user_id = u.id
+            WHERE 
+                c.user_id = %s AND c.product_id = %s
+            ORDER BY 
+                c.comment_date DESC
+            LIMIT 1
+        """
+        new_comment_data = fetch_query(sql_new_comment, (user_id, product_id), fetch_one=True)
+
+        return jsonify({'success': True, 'comment': new_comment_data})
+
+    except Exception as e:
+        print(f"商品コメントの送信エラー: {e}")
         return jsonify({'success': False, 'error': 'サーバーエラーが発生しました'}), 500
