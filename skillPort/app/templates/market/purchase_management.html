@@ -64,19 +64,16 @@
         <article class="card">
           <a href="{{ url_for('market.transaction_detail', order_id=order.order_id) }}" style="text-decoration: none; color: inherit;">
             <div class="thumb">
+              
               {% if order.image_path %}
-                {% set clean_path = order.image_path %}
-                {% if clean_path.startswith('/') %}
-                  {% set clean_path = clean_path[1:] %}
-                {% endif %}
-                <img src="{{ url_for('static', filename=clean_path) }}" alt="{{ order.product_name }}">
+                <img src="{{ url_for('static', filename=order.image_path) }}" alt="{{ order.product_name }}">
               {% else %}
                 <div class="dummy-thumb">
                   <span>?</span>
                   <p>{{ order.product_name | truncate(20) }}</p>
                 </div>
               {% endif %}
-            </div>
+              </div>
             <div class="ops">
               <span class="price">¥{{ order.total_amount }}</span>
               <span class="shipping-status">{{ order.shipping_status }}</span>

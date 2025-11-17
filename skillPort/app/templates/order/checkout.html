@@ -15,12 +15,9 @@
     <section class="left">
       
       <div class="product-row">
+        
         {% if product.image_path %}
-          {% set clean_path = product.image_path %}
-          {% if clean_path.startswith('/') %}
-            {% set clean_path = clean_path[1:] %}
-          {% endif %}
-          <img src="{{ url_for('static', filename=clean_path) }}" alt="{{ product.product_name }}" class="thumb">
+          <img src="{{ url_for('static', filename=product.image_path) }}" alt="{{ product.product_name }}" class="thumb">
         {% else %}
           <img src="{{ url_for('static', filename='media/default_product_image.png') }}" alt="商品画像" class="thumb">
         {% endif %}

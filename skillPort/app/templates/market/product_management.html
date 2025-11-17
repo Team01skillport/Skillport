@@ -1,17 +1,15 @@
 {% extends "base.html" %}
 
-{# ================= ページのタイトル ================= #}
 {% block title %}
 商品管理 - SkillPort
 {% endblock %}
 
-{# ================= ページ固有のCSS ================= #}
 {% block styles %}
   <link rel="stylesheet" href="{{ url_for('static', filename='css/product_management.css') }}">
   
   <style>
     .no-products-message {
-      grid-column: 1 / -1; /* グリッドの全幅を使用 */
+      grid-column: 1 / -1; 
       text-align: center;
       padding: 60px 20px;
       background-color: #f9f9f9;
@@ -30,7 +28,7 @@
       color: #333;
     }
     .badge.sold {
-      background-color: #9ca3af; /* 売り切れバッジの色 (グレー) */
+      background-color: #9ca3af; 
     }
     .dummy-thumb {
         display: flex;
@@ -56,7 +54,6 @@
 {% endblock %}
 
 
-{# ================= メインコンテンツ ================= #}
 {% block content %}
   <main class="pmain">
     <div class="pcontainer">
@@ -73,19 +70,16 @@
           <article class="card">
             <a href="{{url_for('market.product_detail', product_id=product.product_id)}}">
               <div class="thumb">
+                
                 {% if product.image_path %}
-                  {% set clean_path = product.image_path %}
-                  {% if clean_path.startswith('/') %}
-                    {% set clean_path = clean_path[1:] %}
-                  {% endif %}
-                  <img src="{{ url_for('static', filename=clean_path) }}" alt="{{ product.product_name }}">
+                  <img src="{{ url_for('static', filename=product.image_path) }}" alt="{{ product.product_name }}">
                 {% else %}
                   <div class="dummy-thumb">
                     <span>?</span>
                     <p>{{ product.product_name | truncate(20) }}</p>
                   </div>
                 {% endif %}
-              </div>
+                </div>
               <div class="product-details">
                 <h5>{{product.product_name}}</h5>
                 <p>￥{{product.product_price}}</p>
@@ -114,9 +108,4 @@
 
       </section>
       </main>
-{% endblock %}
-
-{# ================= ページ固有のJS ================= #}
-{% block scripts %}
-  {# (このページにJSが必要な場合はここに記述) #}
 {% endblock %}
