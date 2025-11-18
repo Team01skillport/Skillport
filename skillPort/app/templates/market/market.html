@@ -11,7 +11,10 @@ content %}
       <div class="search-bar">
         <form action="{{ url_for('market.market_top')}}" method="GET">
           <button type="submit" class="search-icon">
-            <img src="{{ url_for('static', filename='media/search.png') }}" alt="" />
+            <img
+              src="{{ url_for('static', filename='media/search.png') }}"
+              alt=""
+            />
           </button>
           <input
             type="text"
@@ -30,8 +33,11 @@ content %}
         >
           <span class="btn-icon">●</span> 出品管理
         </a>
-        <a href="{{ url_for('market.purchase_history_page') }}" class="btn btn-yellow">
-          <span class="btn-icon">●</span> 購入管理
+        <a
+          href="{{ url_for('market.purchase_history_page') }}"
+          class="btn btn-yellow"
+        >
+          <span class="btn-icon">●</span> 購入履歴
         </a>
       </div>
       {% else %}
@@ -168,13 +174,12 @@ content %}
           <a
             href="{{url_for('market.product_detail', product_id=product.product_id)}}"
             ><div class="product-container">
-              
               {% if product.image_path %}
-                <img
-                  src="{{ url_for('static', filename=product.image_path) }}"
-                  alt="{{product.product_name}}"
-                  style="width: 100%; height: 150px; object-fit: cover"
-                />
+              <img
+                src="{{ url_for('static', filename=product.image_path) }}"
+                alt="{{product.product_name}}"
+                style="width: 100%; height: 150px; object-fit: cover"
+              />
               {% else %}
               <div
                 style="

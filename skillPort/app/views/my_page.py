@@ -71,9 +71,9 @@ def password_reset_process():
         errmsg = "現在のパスワードが間違っています"
     return render_template('my_page/mp_password_reset_process.html', errmsg=errmsg)
 
-@my_page_bp.route('/payment_history', methods=["GET"])
-def payment_history():
-    return render_template('my_page/mp_payment_history.html')
+# @my_page_bp.route('/payment_history', methods=["GET"])
+# def payment_history():
+#     return render_template('my_page/mp_payment_history.html')
 
 # @my_page_bp.route('/card_list', methods=["GET"])
 # def card_list():
@@ -95,9 +95,9 @@ def customer_support_sent():
 
     return render_template('my_page/mp_cs_form_sent.html', succmsg="フォーム送信ができました。返事はメールでご確認ください。")
 
-@my_page_bp.route('/notifications', methods=["GET"])
-def notifications():
-    return render_template('my_page/mp_notifications.html')
+# @my_page_bp.route('/notifications', methods=["GET"])
+# def notifications():
+#     return render_template('my_page/mp_notifications.html')
 
 @my_page_bp.route('/delete_account', methods=["GET"])
 def delete_account():

@@ -1,8 +1,3 @@
-body {
-  font-family: sans-serif;
-  margin: 0;
-}
-
 /* ========================================================= */
 /* 1. マイページ 主容器 (.mypage-container) - Flex 修正 */
 /* ========================================================= */
@@ -11,11 +6,9 @@ body {
   /* 修正点：幅の指定と衝突する margin を削除し、Flexbox の親として機能させる */
   width: 90%;
   max-width: 1200px;
-  margin: 0px 500px 50px auto !important; /* 核心修正：全体を中央に配置 */
   padding: 0 20px;
-  
+
   display: flex !important; /* 左右分欄を有効化 */
-  gap: 40px; /* Sidebar と内容の間隔 */
 }
 
 /* 註釈: .mypage-sidebar のスタイルは別のCSSファイルから継承されていると想定 */
@@ -29,7 +22,7 @@ body {
   flex-grow: 1 !important; /* 核心修正：残り全てのスペースを占める */
   min-height: 500px;
   padding-top: 0px;
-  width: auto !important; 
+  width: auto !important;
   max-width: none !important;
   margin: 0 !important; /* 衝突する margin を全て除去 */
   padding-left: 0; /* 左側の padding を除去し、gap からすぐに内容を開始 */
