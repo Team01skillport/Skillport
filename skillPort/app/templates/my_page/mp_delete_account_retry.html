@@ -1,9 +1,11 @@
+{% extends "base.html" %} {% block title %}アカウント削除{% endblock %} {% block
+content %}
 <head>
-  <link rel="stylesheet" href="../../static/css/my_page_delete.css" />
+  <link rel="stylesheet" href="../../static/css/my_page_delete_process.css" />
 </head>
 <div class="account-delete-page-wrapper">
   <div class="delete-confirmation-box">
-    <h1 class="main-title">アカウントを削除しますか？</h1>
+    <h1 class="main-title">本当にアカウント削除します？</h1>
 
     <form
       class="confirmation-form"
@@ -39,7 +41,9 @@
           required
         />
       </div>
-
+      {% if errmsg != None %}
+      <div><p>{{errmsg}}</p></div>
+      {%endif%}
       <div class="form-actions">
         <button type="submit" class="delete-btn">アカウント削除</button>
 
@@ -48,3 +52,4 @@
     </form>
   </div>
 </div>
+{% endblock %}

@@ -8,7 +8,8 @@
   justify-content: center;
   align-items: center;
   /* min-height: 100vh; 確保至少佔據視窗高度 */
-  width: 100%;
+  width: 80%;
+  margin: 0 auto;
   /* box-sizing: border-box; */
 }
 
@@ -19,7 +20,7 @@
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
   padding: 40px;
   text-align: center;
-  margin: 50px 300px;
+  margin: 5rem 10rem;
 }
 
 .main-title {
@@ -33,10 +34,12 @@
   display: flex;
   flex-direction: column;
   gap: 15px; /* 輸入框間距 */
+  justify-content: center;
+  align-items: center;
 }
 
 .form-group {
-  width: 100%;
+  width: 50%;
 }
 
 /* 輸入框樣式 */
@@ -67,7 +70,7 @@
 /* 刪除按鈕 (紅色) */
 .delete-btn {
   width: 100%;
-  padding: 15px 0;
+  padding: 1rem 2rem;
   border: none;
   border-radius: 5px;
   font-weight: bold;

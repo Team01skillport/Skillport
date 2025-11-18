@@ -1,0 +1,25 @@
+{% extends "base.html" %} {% block title %}アカウント削除{% endblock %} {% block
+content %}
+<head>
+  <link rel="stylesheet" href="../../static/css/my_page_delete_process.css" />
+</head>
+<div class="account-delete-page-wrapper">
+  <div class="delete-confirmation-box">
+    <h1 class="main-title">本当にアカウント削除します？</h1>
+
+    <form
+      class="confirmation-form"
+      method="post"
+      action="{{url_for('my_page.delete_account_success')}}"
+    >
+      <h3>削除後のアカウントは復元はできません。</h3>
+      <input type="hidden" value="{{user_id}}" name="user_id" />
+      <div class="form-actions">
+        <button type="submit" class="delete-btn">アカウント削除</button>
+
+        <a href="javascript:history.back()" class="back-btn">戻る</a>
+      </div>
+    </form>
+  </div>
+</div>
+{% endblock %}
