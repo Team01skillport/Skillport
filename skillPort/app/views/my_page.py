@@ -14,24 +14,24 @@ def my_page_history():
     viewed_videos = fetch_query(view_sql, (user_id,), fetch_one=False)
     return render_template('my_page/mp_view_history.html', viewed_videos=viewed_videos)
 
-@my_page_bp.route('/bank_account_register', methods=["GET"])
-def bank_account_register():
-    return render_template('my_page/mp_bank_account_register.html')
+# @my_page_bp.route('/bank_account_register', methods=["GET"])
+# def bank_account_register():
+#     return render_template('my_page/mp_bank_account_register.html')
 
 @my_page_bp.route('/likes_list', methods=["GET"])
 def likes_list():
     user_id = session['user_id']
-    like_sql = "SELECT v.id, v.video_title, v.video_upload_date, v.video_description_section, v.thumbnail_path FROM video_tbl v LEFT JOIN video_like_tbl vl ON v.id = vl.video_id LEFT JOIN user_tbl u ON vl.user_id = u.id WHERE u.id = %s;"
+    like_sql = "SELECT v.id, v.video_title, v.video_upload_date, v.video_description_section, v.thumbnail_path FROM video_tbl v LEFT JOIN video_like_tbl vl ON v.id = vl.video_id LEFT JOIN user_tbl u ON vl.user_id = u.id WHERE u.id = %s ORDER BY vl.video_like_date DESC;"
     liked_videos = fetch_query(like_sql, (user_id,), fetch_one=False)
     return render_template('my_page/mp_likes.html', liked_videos=liked_videos)
 
-@my_page_bp.route('/sales_list', methods=["GET"])
-def sales_list():
-    return render_template('my_page/mp_sales.html')
+# @my_page_bp.route('/sales_list', methods=["GET"])
+# def sales_list():
+#     return render_template('my_page/mp_sales.html')
 
-@my_page_bp.route('/membership_list', methods=["GET"])
-def membership_List():
-    return render_template('my_page/mp_membership.html')
+# @my_page_bp.route('/membership_list', methods=["GET"])
+# def membership_List():
+#     return render_template('my_page/mp_membership.html')
 
 @my_page_bp.route('/favorites_list', methods=["GET"])
 def favorites_list():
@@ -79,9 +79,9 @@ def password_reset_process():
 def payment_history():
     return render_template('my_page/mp_payment_history.html')
 
-@my_page_bp.route('/card_list', methods=["GET"])
-def card_list():
-    return render_template('my_page/mp_cards.html')
+# @my_page_bp.route('/card_list', methods=["GET"])
+# def card_list():
+#     return render_template('my_page/mp_cards.html')
 
 @my_page_bp.route('/customer_support', methods=["GET"])
 def customer_support():
