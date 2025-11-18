@@ -7,9 +7,13 @@
   <div class="support-content-wrapper">
     <h2 class="section-title">お問い合わせフォーム</h2>
 
-    <form class="contact-form">
+    <form
+      class="contact-form"
+      method="post"
+      action="{{url_for('my_page.customer_support_sent')}}"
+    >
       <div class="form-group">
-        <label for="name">ユーザー名前</label>
+        <label for="name">お名前</label>
         <input type="text" id="name" name="name" required />
       </div>
 

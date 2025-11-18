@@ -55,10 +55,6 @@ def password_reset_process():
     passcheck_sql = "SELECT password FROM user_tbl WHERE id = %s;"
     passcheck_data = fetch_query(passcheck_sql, (user_id,), True)
     passcheck_data = passcheck_data['password']
-    print(passcheck_data)
-    print(currPass)
-    print(newPass)
-    print(conNewPass)
     if passcheck_data == currPass:
         print("1st check")
         if newPass == conNewPass:
@@ -86,6 +82,20 @@ def payment_history():
 @my_page_bp.route('/customer_support', methods=["GET"])
 def customer_support():
     return render_template('my_page/mp_support.html')
+
+@my_page_bp.route('/customer_support/sent', methods=["POST"])
+def customer_support_sent():
+    name = request.form.get("name")
+    email = request.form.get("email")
+    category = request.form.get("category")
+    contents = request.form.get("details")
+
+    print(name)
+    print(email)
+    print(category)
+    print(contents)
+
+    redirect(url_for('my_page/mp_support.html'))
 
 @my_page_bp.route('/notifications', methods=["GET"])
 def notifications():
