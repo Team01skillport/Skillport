@@ -3,12 +3,14 @@ from app.db import fetch_query, execute_query, create_user
 import datetime
 import uuid
 import os
+import math 
 from werkzeug.utils import secure_filename
 
 market_bp = Blueprint('market', __name__, url_prefix='/market')
 
 # ==========================================
 # Route 1: 市场顶部/商品列表页面 (GET)
+# (此版本包含我们之前所有的修复，不含分页)
 # ==========================================
 @market_bp.route('/', methods=["GET"])
 def market_top():
@@ -35,7 +37,7 @@ def market_top():
 
     if keyword:
         sql_products += " AND l.product_name LIKE %s"
-        params.append(f"%{keyword}%")
+        params.append(f"%{keyword}%\n")
 
     if categories_filter:
         placeholders = ','.join(['%s'] * len(categories_filter))
@@ -71,24 +73,27 @@ def market_top():
         params.append(int(max_price))
 
     all_products = fetch_query(sql_products, tuple(params))
+    if all_products is None:
+        all_products = [] 
     
     sql_categories = "SELECT DISTINCT product_category AS id, product_category AS name FROM listing_tbl WHERE product_category IS NOT NULL AND product_category != '' ORDER BY product_category;"
     all_categories = fetch_query(sql_categories)
-    print(all_products)
+    if all_categories is None:
+        all_categories = [] 
+        
     return render_template('market/market.html', all_products=all_products, all_categories=all_categories)
 
 # ==========================================
 # Route 2: 商品详情页面 (GET)
+# [已修改] 现在会“获取”商品评论
 # ==========================================
 @market_bp.route('/product/<product_id>', methods=["GET"])
 def product_detail(product_id):
     
-    # --- [1. 查询商品信息 (不变)] ---
     sql_product = "SELECT l.*, i.image_path, u.user_name AS seller_name, u.profile_icon AS seller_icon, u.user_tags AS seller_tags FROM listing_tbl l LEFT JOIN listing_images_tbl i ON l.product_id = i.product_id AND i.is_thumbnail = 1 LEFT JOIN user_tbl u ON l.product_upload_user = u.user_name WHERE l.product_id = %s"
     product_info = fetch_query(sql_product, (product_id,), fetch_one=True)
     if not product_info: abort(404)
     
-    # --- [2. 查询其他图片 (不变)] ---
     sql_images = "SELECT image_path FROM listing_images_tbl WHERE product_id = %s AND is_thumbnail = 0 ORDER BY uploaded_at"
     other_images = fetch_query(sql_images, (product_id,))
     if other_images is None: other_images = []
@@ -101,8 +106,7 @@ def product_detail(product_id):
     uploader_id_result = fetch_query(uploader_sql, (product_id,), fetch_one=True)
     uploader_id = uploader_id_result['id'] if uploader_id_result else None
 
-    # --- [3. 新增：获取此商品的评论] ---
-    # 我们从新表 product_comment_tbl 中获取评论，并 JOIN user_tbl 来获取用户名和头像
+    # [新增：获取此商品的评论]
     sql_comments = """
         SELECT 
             c.comment_text, c.comment_date,
@@ -119,44 +123,36 @@ def product_detail(product_id):
     comments = fetch_query(sql_comments, (product_id,))
     if comments is None: comments = []
     
-    # --- [4. 渲染模板 (已修改：传入 comments)] ---
     return render_template(
         'market/product_detail.html', 
         info=product_info, 
         other_images=other_images, 
         thumbnail_img=thumbnail_img, 
         uploader_id=uploader_id,
-        comments=comments  # <-- [新增] 将评论列表传递给前端
+        comments=comments  
     )
+
 # ==========================================
-# Route 3: 商品创建页面 (GET)
+# Route 3, 4, 5, 6, 7: 创建、更新、删除动作
+# (这些函数保持不变)
 # ==========================================
 @market_bp.route('/create', methods=["GET"])
 def create_product_page():
-    if 'user_id' not in session:
-        return redirect(url_for('auth.login')) 
+    if 'user_id' not in session: return redirect(url_for('auth.login')) 
     return render_template('market/product_create.html')
 
-# ==========================================
-# Route 4: 商品编辑页面 (GET)
-# ==========================================
 @market_bp.route('/product/<product_id>/edit', methods=["GET"])
 def edit_product_page(product_id):
-    if 'user_id' not in session:
-        return redirect(url_for('auth.login'))
+    if 'user_id' not in session: return redirect(url_for('auth.login'))
     user_name = session.get('user_name')
     
     sql_product = "SELECT * FROM listing_tbl WHERE product_id = %s AND product_upload_user = %s"
     product_data = fetch_query(sql_product, (product_id, user_name), fetch_one=True)
     
-    if not product_data:
-        abort(404) 
+    if not product_data: abort(404) 
 
     return render_template('market/product_detail_edit.html', product=product_data)
 
-# ==========================================
-# Route 5: 执行商品创建动作 (POST)
-# ==========================================
 @market_bp.route('/create_action', methods=["POST"])
 def create_product_action():
     if 'user_id' not in session: abort(403)
@@ -189,8 +185,7 @@ def create_product_action():
         sql_insert = "INSERT INTO listing_tbl (product_id, product_name, product_price, shipping_area, product_category, product_condition, product_description, listing_status, listing_date, sales_status, update_date, product_upload_user) VALUES (%s, %s, %s, %s, %s, %s, %s, 1, %s, 'S', %s, %s)"
         current_time = datetime.datetime.now()
         params = (product_id, product_name, price, shipping_area, category, condition, description, current_time, current_time, user_name)
-        if not execute_query(sql_insert, params): 
-            raise Exception("データベースの挿入に失敗しました")
+        if not execute_query(sql_insert, params): raise Exception("データベースの挿入に失敗しました")
         
         files = request.files.getlist('images')
         if files and files[0].filename:
@@ -222,11 +217,6 @@ def create_product_action():
 
     return redirect(url_for('market.manage_products_page'))
 
-# ==========================================
-# Route 6: 执行商品更新动作 (POST)
-# ==========================================
-# market.py (Route 6: update_product_action)
-
 @market_bp.route('/product/<product_id>/update', methods=["POST"])
 def update_product_action(product_id):
     if 'user_id' not in session: abort(403)
@@ -248,31 +238,25 @@ def update_product_action(product_id):
         return "フォームデータの形式が正しくありません。", 400
 
     try:
-        # A. 更新商品基本信息
         sql_update = "UPDATE listing_tbl SET product_name = %s, product_price = %s, product_description = %s, product_category = %s, product_condition = %s, shipping_area = %s, update_date = %s WHERE product_id = %s AND product_upload_user = %s"
         params = (product_name, price, description, category, condition, shipping_area, datetime.datetime.now(), product_id, user_name)
         if not execute_query(sql_update, params): raise Exception("データベースの更新に失敗しました")
         
-        # B. 检查是否有新图片上传
         files = request.files.getlist('images')
-        if files and files[0].filename: # 至少有一个文件被选择
+        if files and files[0].filename: 
             
-            # B1. 删除旧图片记录
             execute_query("DELETE FROM listing_images_tbl WHERE product_id = %s", (product_id,))
             
-            # B2. 在文件系统中创建/准备目录
             base_upload_path = os.path.join(current_app.static_folder, 'uploads', 'products')
             product_upload_folder = os.path.join(base_upload_path, product_id)
-            os.makedirs(product_upload_folder, exist_ok=True) # 确保目录存在
+            os.makedirs(product_upload_folder, exist_ok=True) 
             
             is_first_image = True
             
-            # B3. 保存新图片并插入新记录
             for file in files:
                 if file and file.filename:
                     filename = secure_filename(file.filename)
                     save_path = os.path.join(product_upload_folder, filename)
-                    # 注意：这里假设你可以覆盖或使用唯一文件名来避免冲突
                     file.save(save_path)
                     
                     db_path = f"uploads/products/{product_id}/{filename}"
@@ -282,7 +266,7 @@ def update_product_action(product_id):
                     
                     execute_query(sql_image_insert, (image_id, product_id, db_path, 1 if is_first_image else 0))
                     
-                    is_first_image = False # 确保只有第一张是缩略图
+                    is_first_image = False 
 
     except Exception as e:
         print(f"データベース更新エラー: {e}")
@@ -290,9 +274,6 @@ def update_product_action(product_id):
     
     return redirect(url_for('market.manage_products_page'))
 
-# ==========================================
-# Route 7: 执行商品删除动作 (GET)
-# ==========================================
 @market_bp.route('/product/<product_id>/delete', methods=["GET"])
 def delete_product(product_id):
     if 'user_id' not in session: abort(403)
@@ -311,7 +292,8 @@ def delete_product(product_id):
     return redirect(url_for('market.manage_products_page'))
 
 # ==========================================
-# Route 8: 我的商品管理页面 (GET)
+# Route 8, 9, 10, 11, 12, 13: 
+# (结账, 购买, 历史, 支付, 地址, 收藏)
 # ==========================================
 @market_bp.route('/manage', methods=["GET"])
 def manage_products_page():
@@ -324,9 +306,6 @@ def manage_products_page():
     
     return render_template('market/product_management.html', my_products=my_products)
 
-# ==========================================
-# Route 9: 结账页面 (GET)
-# ==========================================
 @market_bp.route('/product/<product_id>/checkout', methods=["GET"])
 def checkout_page(product_id):
     if 'user_id' not in session: 
@@ -361,7 +340,6 @@ def checkout_page(product_id):
     """
     user_address = fetch_query(sql_user_address, (user_id,), fetch_one=True)
     
-    # 获取支付方法列表
     sql_payment_methods = """
         SELECT card_num, bank_name, bank_account_num, account_type 
         FROM payment_tbl 
@@ -371,10 +349,6 @@ def checkout_page(product_id):
     
     return render_template('order/checkout.html', product=product_info, address=user_address, payment_methods=payment_methods)
 
-
-# ==========================================
-# Route 10: 执行购买动作 (POST)
-# ==========================================
 @market_bp.route('/product/<product_id>/purchase', methods=["POST"])
 def purchase_action(product_id):
     
@@ -426,9 +400,6 @@ def purchase_action(product_id):
         print(f"購入処理エラー: {e}")
         return jsonify({'success': False, 'error': 'サーバー内部エラー'}), 500
 
-# ==========================================
-# Route 11: 购买历史页面 (GET)
-# ==========================================
 @market_bp.route('/manage/purchases', methods=["GET"])
 def purchase_history_page():
     if 'user_id' not in session:
@@ -462,10 +433,6 @@ def purchase_history_page():
     
     return render_template('market/purchase_management.html', my_orders=my_orders)
 
-
-# ==========================================
-# Route 12: AJAX：添加支付方式 (POST)
-# ==========================================
 @market_bp.route('/checkout/add_payment', methods=["POST"])
 def checkout_add_payment():
     if 'user_id' not in session:
@@ -477,7 +444,6 @@ def checkout_add_payment():
     
     try:
         if payment_type == 'credit':
-            # 1. 取得数据并清除卡号和有效期中的所有空格/斜杠
             card_num_raw = data.get('card_num')
             card_exp_raw = data.get('card_expiration')
 
@@ -486,11 +452,8 @@ def checkout_add_payment():
                 
             card_num = card_num_raw.replace(' ', '')
             card_name = data.get('card_name')
-            
-            # 【关键修复】：移除有效期中的斜杠，确保只有 MMYY (4个字符)
             card_exp = card_exp_raw.replace('/', '') 
 
-            # 2. 检查清理后的数据
             if len(card_num) < 14 or len(card_num) > 16 or len(card_exp) != 4:
                 return jsonify({'success': False, 'error': 'カード情報の形式が正しくありません (14-16桁/MMYY)'}), 400
 
@@ -513,7 +476,6 @@ def checkout_add_payment():
             })
 
         elif payment_type == 'bank':
-            # (银行部分)
             bank_name = data.get('bank_name')
             acc_type = data.get('account_type')
             acc_num = data.get('bank_account_num')
@@ -522,7 +484,6 @@ def checkout_add_payment():
             if not all([bank_name, acc_type, acc_num, acc_name]):
                 return jsonify({'success': False, 'error': '銀行口座情報が不完全です'}), 400
 
-            # 银行账户不使用 card_num 字段作为主键，而是使用占位符
             card_num_for_bank = acc_num 
             
             sql_check = "SELECT 1 FROM payment_tbl WHERE user_id = %s AND bank_account_num = %s"
@@ -552,51 +513,19 @@ def checkout_add_payment():
             return jsonify({'success': False, 'error': 'この支払い方法は既に登録されています'}), 409
         return jsonify({'success': False, 'error': 'サーバーエラーが発生しました'}), 500
 
-# ==========================================
-# Route 14: いいね機能実装 (POST)
-# ==========================================
-@market_bp.route('add_favorite/<product_id>', methods=['POST'])
-def video_like(product_id):
-    print("FAV RUN")
-    
-    if 'user_id' in session:
-        user_id = session['user_id']
-        print("USER IN")
-        try:
-            sql_check = "SELECT * FROM liked_products_tbl WHERE user_id=%s AND product_id=%s"
-            existing = fetch_query(sql_check, (user_id, product_id), fetch_one=True)
-            print(existing)
-            if existing:
-                return None
-            else:
-                sql_insert = "INSERT INTO liked_products_tbl (user_id, product_id) VALUES (%s, %s)"
-                add_like = create_user(sql_insert, (user_id, product_id))
-                print(add_like)
-                succmsg = "いいね登録完了"
-                return succmsg
-                
-        except:
-            errmsg = "ログインしていません"
-            return errmsg
-
-# ==========================================
-# Route 13: AJAX：配送先住所の更新 (POST)
-# ==========================================
 @market_bp.route('/checkout/update_address', methods=["POST"])
 def update_address_action():
     if 'user_id' not in session:
         return jsonify({'success': False, 'error': 'ユーザーがログインしていません'}), 401
     
     user_id = session['user_id']
-    data = request.json # 假设前端以 JSON 格式发送数据
+    data = request.json 
     
-    # 接收来自前端的地址数据
     zip_code = data.get('zip_code')
     prefecture = data.get('prefecture')
     address1 = data.get('address1')
     address2 = data.get('address2')
     
-    # 简单的非空检查
     if not all([zip_code, prefecture, address1]):
         return jsonify({'success': False, 'error': '必須の住所情報が不完全です'}), 400
 
@@ -609,7 +538,6 @@ def update_address_action():
         params = (zip_code, prefecture, address1, address2, user_id)
         
         if execute_query(sql_update, params):
-            # 成功后返回更新后的数据
             updated_data = {
                 'zip_code': zip_code,
                 'prefecture': prefecture,
@@ -624,7 +552,36 @@ def update_address_action():
         print(f"住所更新エラー: {e}")
         return jsonify({'success': False, 'error': '住所の更新中にエラーが発生しました'}), 500
     
-# ！
+@market_bp.route('add_favorite/<product_id>', methods=['POST'])
+def video_like(product_id):
+    print("FAV RUN")
+    
+    if 'user_id' in session:
+        user_id = session['user_id']
+        print("USER IN")
+        try:
+            sql_check = "SELECT * FROM liked_products_tbl WHERE user_id=%s AND product_id=%s"
+            existing = fetch_query(sql_check, (user_id, product_id), fetch_one=True)
+            print(existing)
+            if existing:
+                return jsonify({'success': False, 'error': 'すでにお気に入り登録済みです'})
+            else:
+                sql_insert = "INSERT INTO liked_products_tbl (user_id, product_id) VALUES (%s, %s)"
+                add_like = execute_query(sql_insert, (user_id, product_id))
+                if add_like:
+                    return jsonify({'success': True, 'message': 'お気に入り登録完了'})
+                else:
+                    raise Exception("いいね登録失敗")
+                
+        except Exception as e:
+            print(f"お気に入り登録エラー: {e}")
+            return jsonify({'success': False, 'error': 'データベースエラー'}), 500
+    else:
+        return jsonify({'success': False, 'error': 'ログインしていません'}), 401
+
+# ==========================================
+# Route 15: 取引详细页面 (GET)
+# ==========================================
 @market_bp.route('/transaction/<order_id>', methods=["GET"])
 def transaction_detail(order_id):
     """
@@ -632,16 +589,12 @@ def transaction_detail(order_id):
     它会根据 order_id 从数据库获取订单、商品、卖家和聊天记录。
     """
     
-    # 1. 检查用户是否登录 (安全检查)
     if 'user_id' not in session:
-        flash("このページを表示するには、ログインが必要です。", "warning")
+        flash("このページを表示するには、ログインが必要です。", "warning") # <-- [Bug 修复点]
         return redirect(url_for('auth.login', next=request.url))
     
     user_id = session['user_id']
     
-    # --- [数据查询] ---
-    
-    # 2. 查询订单基本信息 (同时验证这个订单是否属于当前用户)
     sql_order = """
         SELECT * FROM market_order_tbl 
         WHERE id = %s AND (purchaser_id = %s OR seller_id = %s)
@@ -649,9 +602,8 @@ def transaction_detail(order_id):
     order_info = fetch_query(sql_order, (order_id, user_id, user_id), fetch_one=True)
     
     if not order_info:
-        abort(404) # 如果订单不存在，或是用户无权查看，则显示404
+        abort(404) 
 
-    # 3. 查询卖家信息
     sql_seller = """
         SELECT user_name, profile_icon, user_tags
         FROM user_tbl 
@@ -659,9 +611,6 @@ def transaction_detail(order_id):
     """
     seller_info = fetch_query(sql_seller, (order_info['seller_id'],), fetch_one=True)
 
-    # [SCHEMA 限制!] 您的 market_order_tbl 没有保存 product_id。
-    # 我们将复用您在 purchase_history_page 中的复杂逻辑，
-    # 通过 卖家ID 和 价格 来“猜测”商品。
     sql_product = """
         SELECT 
             l.product_id, l.product_name, l.product_price, l.shipping_area, 
@@ -680,7 +629,6 @@ def transaction_detail(order_id):
                             (order_info['seller_id'], order_info['total_amount']), 
                             fetch_one=True)
 
-    # 4. 查询聊天记录
     sql_messages = """
         SELECT * FROM order_message_tbl 
         WHERE transaction_id = %s
@@ -690,15 +638,15 @@ def transaction_detail(order_id):
     if messages is None:
         messages = []
         
-    # 5. 渲染模板，传入所有数据
     return render_template('order/transaction_detail.html',
                             order=order_info,
                             product=product_info,
                             seller=seller_info,
                             messages=messages)
 
-# [▼▼▼ 在文件末尾添加这个新函数 ▼▼▼]
-
+# ==========================================
+# Route 16: AJAX：发送取引消息 (POST)
+# ==========================================
 @market_bp.route('/transaction/post_message', methods=['POST'])
 def post_message():
     """
@@ -707,13 +655,11 @@ def post_message():
     并将消息保存到 order_message_tbl 数据库中。
     """
     
-    # 1. 检查用户是否登录
     if 'user_id' not in session:
         return jsonify({'success': False, 'error': 'ログインしていません'}), 401
     
     user_id = session['user_id']
     
-    # 2. 从 AJAX 请求中获取 JSON 数据
     data = request.json
     order_id = data.get('order_id')
     message_text = data.get('message_text')
@@ -722,27 +668,22 @@ def post_message():
         return jsonify({'success': False, 'error': 'メッセージが空です'}), 400
 
     try:
-        # 3. 验证用户是否有权在此订单中发言 (安全检查)
         sql_check = "SELECT 1 FROM market_order_tbl WHERE id = %s AND (purchaser_id = %s OR seller_id = %s)"
         order = fetch_query(sql_check, (order_id, user_id, user_id), fetch_one=True)
         
         if not order:
             return jsonify({'success': False, 'error': '権限がありません'}), 403
 
-        # 4. 将消息插入数据库
         sql_insert = """
             INSERT INTO order_message_tbl 
             (transaction_id, order_message_user_id, order_message_text) 
             VALUES (%s, %s, %s)
         """
-        # [重要] 您的 db.py 中有 execute_query (或 create_user)，
-        # 它们包含了 .commit()，非常适合 INSERT 操作。
         success = execute_query(sql_insert, (order_id, user_id, message_text)) 
         
         if not success:
             raise Exception("データベースの挿入に失敗しました")
 
-        # 5. 向前端返回成功信息
         return jsonify({
             'success': True, 
             'message': {
@@ -754,9 +695,9 @@ def post_message():
     except Exception as e:
         print(f"メッセージの送信エラー: {e}")
         return jsonify({'success': False, 'error': 'サーバーエラーが発生しました'}), 500
-    
+
 # ==========================================
-# Route: 接收商品公开评论 (POST)
+# Route 17: (新功能) AJAX：接收商品公开评论 (POST)
 # ==========================================
 @market_bp.route('/product/post_comment', methods=['POST'])
 def post_product_comment():
@@ -766,13 +707,11 @@ def post_product_comment():
     并将公开评论保存到 product_comment_tbl 中。
     """
     
-    # 1. 检查用户是否登录
     if 'user_id' not in session:
         return jsonify({'success': False, 'error': 'コメントするには、ログインが必要です。'}), 401
     
     user_id = session['user_id']
     
-    # 2. 从 AJAX 请求中获取 JSON 数据
     data = request.json
     product_id = data.get('product_id')
     comment_text = data.get('comment_text')
@@ -781,19 +720,16 @@ def post_product_comment():
         return jsonify({'success': False, 'error': 'コメントが空です'}), 400
 
     try:
-        # 3. 将评论插入数据库
         sql_insert = """
             INSERT INTO product_comment_tbl 
             (product_id, user_id, comment_text) 
             VALUES (%s, %s, %s)
         """
-        # 使用您 db.py 中带 .commit() 的 execute_query 函数
         success = execute_query(sql_insert, (product_id, user_id, comment_text)) 
         
         if not success:
             raise Exception("データベースの挿入に失敗しました")
             
-        # 4. 获取刚刚发布的评论（包含用户信息），以便在前端显示
         sql_new_comment = """
             SELECT 
                 c.comment_text, c.comment_date,
@@ -815,3 +751,49 @@ def post_product_comment():
     except Exception as e:
         print(f"商品コメントの送信エラー: {e}")
         return jsonify({'success': False, 'error': 'サーバーエラーが発生しました'}), 500
+
+# ==========================================
+# Route 18: (搜索功能)
+# ==========================================
+def perform_search(query):
+    if not query:
+        return [], ""
+
+    search_term = f"%{query}%"
+    sql = """
+        SELECT 
+            l.*, 
+            l.product_upload_user AS seller_name,
+            i.image_path
+        FROM 
+            listing_tbl l
+        LEFT JOIN 
+            listing_images_tbl i ON l.product_id = i.product_id AND i.is_thumbnail = 1
+        WHERE 
+            l.product_name LIKE %s
+        ORDER BY
+            l.listing_date DESC
+    """
+    results = fetch_query(sql, (search_term,))
+    if results is None:
+        results = []
+        
+    return results, query
+
+@market_bp.route('/header_search', methods=["GET"])
+def header_search():
+    query = request.args.get('headersearch')
+    results, search_query = perform_search(query)
+    
+    return render_template('search/search_results.html', 
+                           search_results=results, 
+                           search_query=search_query)
+
+@market_bp.route('/market_search', methods=["GET"])
+def market_search():
+    query = request.args.get('keyword') # [已修正] 匹配 market.html
+    results, search_query = perform_search(query)
+    
+    return render_template('search/search_results.html', 
+                           search_results=results, 
+                           search_query=search_query)
