@@ -95,9 +95,39 @@ CREATE TABLE `listing_images_tbl` (
 -- Dumping data for table `listing_images_tbl`
 --
 
-LOCK TABLES `listing_images_tbl` WRITE;
-/*!40000 ALTER TABLE `listing_images_tbl` DISABLE KEYS */;
-INSERT INTO `listing_images_tbl` VALUES ('IMG-LSG-001-01','LSG-001','/images/procon_base_thumb.jpg',1,'2025-09-20 10:05:00'),('IMG-LSG-002-01','LSG-002','/images/video_soft_thumb.jpg',1,'2025-09-21 12:35:00'),('IMG-LSG-003-01','LSG-003','/images/mugcup_thumb.jpg',1,'2025-09-22 15:05:00'),('IMG-LSG-004-01','LSG-004','/images/illust_course_thumb.jpg',1,'2025-09-23 18:05:00'),('IMG-LSG-005-01','LSG-005','/images/daw_software_thumb.jpg',1,'2025-09-24 09:35:00'),('IMG-LSG-006-01','LSG-006','/images/travel_seminar_thumb.jpg',1,'2025-09-25 15:35:00'),('IMG-LSG-007-01','LSG-007','/images/web_base_thumb.jpg',1,'2025-09-26 18:05:00'),('IMG-LSG-008-01','LSG-008','/images/camping_chair_thumb.jpg',1,'2025-09-27 20:05:00'),('IMG-LSG-009-01','LSG-009','/images/design_ebook_thumb.jpg',1,'2025-09-28 11:05:00'),('IMG-LSG-010-01','LSG-010','/images/bizdoc_set_thumb.jpg',1,'2025-09-29 13:05:00'),('IMG-LSG-011-01','LSG-011','/images/dtm_tek_thumb.jpg',1,'2025-09-30 16:05:00'),('IMG-LSG-012-01','LSG-012','/images/itreport_thumb.jpg',1,'2025-10-01 10:05:00'),('IMG-LSG-013-01','LSG-013','/images/cosme_set_thumb.jpg',1,'2025-10-02 11:35:00'),('IMG-LSG-014-01','LSG-014','/images/toeic_course_thumb.jpg',1,'2025-10-03 14:05:00'),('IMG-LSG-015-01','LSG-015','/images/gym_prog_thumb.jpg',1,'2025-10-04 17:05:00'),('IMG-LSG-016-01','LSG-016','/images/hiking_guide_thumb.jpg',1,'2025-10-05 10:05:00'),('IMG-LSG-017-01','LSG-017','/images/react_procon_thumb.jpg',1,'2025-10-06 14:05:00'),('IMG-LSG-018-01','LSG-018','/images/cloud_hands_thumb.jpg',1,'2025-10-07 17:05:00'),('IMG-LSG-019-01','LSG-019','/images/kpop_dance_thumb.jpg',1,'2025-10-08 10:05:00'),('IMG-LSG-020-01','LSG-020','/images/contract_set_thumb.jpg',1,'2025-10-09 14:05:00'),('IMG-LSG-021-01','LSG-021','/images/recipe_video_thumb.jpg',1,'2025-10-10 17:05:00'),('IMG-LSG-022-01','LSG-022','/images/ai_base_mori_thumb.jpg',1,'2025-10-11 10:05:00'),('IMG-LSG-023-01','LSG-023','/images/ai_ethic_course_thumb.jpg',1,'2025-10-12 13:35:00'),('IMG-LSG-024-01','LSG-024','/images/acoustic_chord_thumb.jpg',1,'2025-10-13 16:05:00'),('IMG-LSG-025-01','LSG-025','/images/c_procon_thumb.jpg',1,'2025-10-14 10:05:00'),('IMG-LSG-026-01','LSG-026','/images/volunteer_guide_thumb.jpg',1,'2025-10-15 14:05:00'),('IMG-LSG-027-01','LSG-027','/images/color_theory_thumb.jpg',1,'2025-10-16 11:05:00'),('IMG-LSG-028-01','LSG-028','/images/book_list_thumb.jpg',1,'2025-10-17 15:05:00'),('IMG-LSG-029-01','LSG-029','/images/watch_repair_thumb.jpg',1,'2025-10-18 18:05:00'),('IMG-LSG-030-01','LSG-030','/images/cpp_procon_thumb.jpg',1,'2025-10-19 09:05:00');
+INSERT INTO listing_images_tbl (
+    image_id, product_id, image_path, is_thumbnail, uploaded_at
+) VALUES 
+('IMG-LSG-001-01', 'LSG-001', 'uploads/products/LSG-001/lsg-001-python-thumb.jpg', 1, '2025-09-20 10:05:00'),
+('IMG-LSG-002-01', 'LSG-002', 'uploads/products/LSG-002/lsg-002-youtube-editing.jpg', 1, '2025-09-21 12:35:00'),
+('IMG-LSG-003-01', 'LSG-003', 'uploads/products/LSG-003/lsg-003-mug-set.jpg', 1, '2025-09-22 15:05:00'),
+('IMG-LSG-004-01', 'LSG-004', 'uploads/products/LSG-004/lsg-004-character-drawing.jpg', 1, '2025-09-23 18:05:00'),
+('IMG-LSG-005-01', 'LSG-005', 'uploads/products/LSG-005/lsg-005-daw-thumb.jpg', 1, '2025-09-24 09:35:00'),
+('IMG-LSG-006-01', 'LSG-006', 'uploads/products/LSG-006/lsg-006-travel-note.jpg', 1, '2025-09-25 15:35:00'),
+('IMG-LSG-007-01', 'LSG-007', 'uploads/products/LSG-007/lsg-007-python-beginner.jpg', 1, '2025-09-26 18:05:00'),
+('IMG-LSG-008-01', 'LSG-008', 'uploads/products/LSG-008/lsg-008-wood-chair.jpg', 1, '2025-09-27 20:05:00'),
+('IMG-LSG-009-01', 'LSG-009', 'uploads/products/LSG-009/lsg-009-programming-basics.jpg', 1, '2025-09-28 11:05:00'),
+('IMG-LSG-010-01', 'LSG-010', 'uploads/products/LSG-010/lsg-010-business-writing.jpg', 1, '2025-09-29 13:05:00'),
+('IMG-LSG-011-01', 'LSG-011', 'uploads/products/LSG-011/lsg-011-dtm-beginner.jpg', 1, '2025-09-30 16:05:00'),
+('IMG-LSG-012-01', 'LSG-012', 'uploads/products/LSG-012/lsg-012-it-trends.jpg', 1, '2025-10-01 10:05:00'),
+('IMG-LSG-013-01', 'LSG-013', 'uploads/products/LSG-013/lsg-013-cooking-recipe.jpg', 1, '2025-10-02 11:35:00'),
+('IMG-LSG-014-01', 'LSG-014', 'uploads/products/LSG-014/lsg-014-toeic-basic.jpg', 1, '2025-10-03 14:05:00'),
+('IMG-LSG-015-01', 'LSG-015', 'uploads/products/LSG-015/lsg-015-home-workout.jpg', 1, '2025-10-04 17:05:00'),
+('IMG-LSG-016-01', 'LSG-016', 'uploads/products/LSG-016/lsg-016-trekking-guide.jpg', 1, '2025-10-05 10:05:00'),
+('IMG-LSG-017-01', 'LSG-017', 'uploads/products/LSG-017/lsg-017-programming-manga.jpg', 1, '2025-10-06 14:05:00'),
+('IMG-LSG-018-01', 'LSG-018', 'uploads/products/LSG-018/lsg-018-cute-illustration.jpg', 1, '2025-10-07 17:05:00'),
+('IMG-LSG-019-01', 'LSG-019', 'uploads/products/LSG-019/lsg-019-kpop-analysis.jpg', 1, '2025-10-08 10:05:00'),
+('IMG-LSG-020-01', 'LSG-020', 'uploads/products/LSG-020/lsg-020-contract-guide.jpg', 1, '2025-10-09 14:05:00'),
+('IMG-LSG-021-01', 'LSG-021', 'uploads/products/LSG-021/lsg-021-design-basics.jpg', 1, '2025-10-10 17:05:00'),
+('IMG-LSG-022-01', 'LSG-022', 'uploads/products/LSG-022/lsg-022-programming-entry.jpg', 1, '2025-10-11 10:05:00'),
+('IMG-LSG-023-01', 'LSG-023', 'uploads/products/LSG-023/lsg-023-ai-image-generation.jpg', 1, '2025-10-12 13:35:00'),
+('IMG-LSG-024-01', 'LSG-024', 'uploads/products/LSG-024/lsg-024-guitar-chord-book.jpg', 1, '2025-10-13 16:05:00'),
+('IMG-LSG-025-01', 'LSG-025', 'uploads/products/LSG-025/lsg-025-javascript-programming.jpg', 1, '2025-10-14 10:05:00'),
+('IMG-LSG-026-01', 'LSG-026', 'uploads/products/LSG-026/lsg-026-spring-cosmetics.jpg', 1, '2025-10-15 14:05:00'),
+('IMG-LSG-027-01', 'LSG-027', 'uploads/products/LSG-027/lsg-027-design-coloring.jpg', 1, '2025-10-16 11:05:00'),
+('IMG-LSG-028-01', 'LSG-028', 'uploads/products/LSG-028/lsg-028-selfhelp-summary.jpg', 1, '2025-10-17 15:05:00'),
+('IMG-LSG-029-01', 'LSG-029', 'uploads/products/LSG-029/lsg-029-watch-maintenance.jpg', 1, '2025-10-18 18:05:00'),
+('IMG-LSG-030-01', 'LSG-030', 'uploads/products/LSG-030/lsg-030-aws-practitioner.jpg', 1, '2025-10-19 09:05:00');
 /*!40000 ALTER TABLE `listing_images_tbl` ENABLE KEYS */;
 UNLOCK TABLES;
 
