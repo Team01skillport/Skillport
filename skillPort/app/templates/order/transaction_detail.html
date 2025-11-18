@@ -35,7 +35,6 @@
             
             <div class="product-details">
               <p class="product-name">{{ product.product_name }}</p>
-              <p class="product-price">¥{{ product.product_price | int }}</p>
             </div>
           </div>
           {% else %}
@@ -108,34 +107,44 @@
           
         </section>
       </div>
-      
-      {# 出品者資訊 #}
-      <section class="seller-info">
-        <h2 class="info-title">出品者情報</h2>
-        
-        {% if seller %}
-        <div class="seller-details">
-          {% if seller.profile_icon %}
-            <img src="{{ url_for('static', filename=seller.profile_icon[1:]) }}" alt="出品者アイコン" class="seller-avatar">
-          {% else %}
-            <div class="seller-avatar"></div>
+
+      <div class="flex-wrapper">
+        {# 出品者資訊 #}
+        <section class="seller-info">
+          <h2 class="info-title">出品者情報</h2>
+          
+          {% if seller %}
+          <div class="seller-details">
+            {% if seller.profile_icon %}
+              <img src="{{ url_for('static', filename=seller.profile_icon[1:]) }}" alt="出品者アイコン" class="seller-avatar">
+            {% else %}
+              <div class="seller-avatar"></div>
+            {% endif %}
+            
+            <div class="seller-meta">
+              <p class="seller-name">{{ seller.user_name }}</p>
+              <p class="seller-stats">
+                <small>{{ seller.user_tags }}</small>
+              </p>
+            </div>
+            <div class="seller-rating">
+              <span class="stars">★★★★★</span>
+            </div>
+          </div>
           {% endif %}
           
-          <div class="seller-meta">
-            <p class="seller-name">{{ seller.user_name }}</p>
-            <p class="seller-stats">
-              <small>{{ seller.user_tags }}</small>
-            </p>
-          </div>
-          <button class="follow-button">フォローする</button> 
-          <div class="seller-rating">
-            <span class="stars">★★★★★</span>
-          </div>
-        </div>
-        {% endif %}
-        
-      </section>
+        </section>
 
+        <section class="finish-transaction">
+          <h2 class="info-title">取引を完了にする</h2>
+          <form action="">
+            <input type="checkbox">商品の中身を確認した
+            <br>
+            <button class="finish_trans_button">取引完了</button>
+          </form>
+          
+        </section>
+      </div>
     </div>
   </main>
 {% endblock %}

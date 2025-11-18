@@ -1,223 +1,299 @@
 /* ======================================================= */
 /* 交易畫面主體佈局 (與 base.css 互補) */
 /* ======================================================= */
-.transaction-main { 
-    padding: 40px 0; 
+.transaction-main {
+  padding: 40px 0;
 }
-.transaction-container { 
-    width: 100%; 
-    max-width: 1100px; 
-    margin: 0 auto; 
-    padding: 0 20px; 
+.transaction-container {
+  width: 100%;
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 20px;
 }
-.transaction-h1 { 
-    font-size: 28px; 
-    margin-bottom: 20px; 
-    font-weight: bold; 
-    color: #333; 
+.transaction-h1 {
+  font-size: 28px;
+  margin-bottom: 20px;
+  font-weight: bold;
+  color: #333;
 }
-.transaction-content { 
-    display: flex; 
-    gap: 30px; 
-    margin-bottom: 30px; 
+.transaction-content {
+  display: flex;
+  gap: 30px;
+  margin-bottom: 30px;
 }
-.info-title { 
-    font-size: 20px; 
-    font-weight: bold; 
-    color: #007bff; 
-    padding-bottom: 10px; 
-    border-bottom: 2px solid #007bff; 
-    margin-bottom: 20px; 
+.info-title {
+  font-size: 20px;
+  font-weight: bold;
+  color: #007bff;
+  padding-bottom: 10px;
+  border-bottom: 2px solid #007bff;
+  margin-bottom: 20px;
 }
 
 /* ======================================================= */
 /* 左側 - 交易資訊區 (.transaction-info) */
 /* ======================================================= */
-.transaction-info { 
-    flex: 1; 
-    max-width: 400px; 
-    background: #fff; 
-    border-radius: 8px; 
-    padding: 25px; 
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05); 
+.transaction-info {
+  flex: 1;
+  max-width: 400px;
+  background: #fff;
+  border-radius: 8px;
+  padding: 25px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
 }
-.info-product { 
-    display: flex; 
-    align-items: center; 
-    gap: 15px; 
-    padding-bottom: 20px; 
-    border-bottom: 1px solid #eee; 
-    margin-bottom: 20px; 
+.info-product {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid #eee;
+  margin-bottom: 20px;
 }
-.product-thumb { 
-    width: 60px; 
-    height: 90px; 
-    border-radius: 4px; 
-    background-color: #ccc; 
-    display: flex; 
-    justify-content: center; 
-    align-items: center; 
-    color: #555; 
-    font-size: 10px; 
-    text-align: center; 
-    line-height: 1.2; 
+.product-thumb {
+  width: 60px;
+  height: 90px;
+  border-radius: 4px;
+  background-color: #ccc;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #555;
+  font-size: 10px;
+  text-align: center;
+  line-height: 1.2;
 }
-.product-name { 
-    font-weight: bold; 
-    font-size: 16px; 
-    margin-bottom: 5px; 
+.product-name {
+  font-weight: bold;
+  font-size: 16px;
+  margin-bottom: 5px;
 }
-.product-price { 
-    font-size: 18px; 
-    color: #d9534f; 
-    font-weight: bold; 
+.product-price {
+  font-size: 18px;
+  color: #d9534f;
+  font-weight: bold;
 }
-.info-list .info-item { 
-    display: flex; 
-    justify-content: space-between; 
-    padding: 10px 0; 
-    border-bottom: 1px dashed #eee; 
+.info-list .info-item {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px 0;
+  border-bottom: 1px dashed #eee;
 }
-.item-label { 
-    font-weight: 500; 
-    color: #555; 
+.item-label {
+  font-weight: 500;
+  color: #555;
 }
-.item-value { 
-    font-weight: 400; 
-    color: #333; 
+.item-value {
+  font-weight: 400;
+  color: #333;
 }
-
 
 /* ======================================================= */
 /* 右側 - 對話窗/訊息欄 (.transaction-chat) */
 /* ======================================================= */
-.transaction-chat { 
-    flex: 2; 
-    background: #fff; 
-    border-radius: 8px; 
-    padding: 25px; 
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05); 
-    display: flex; 
-    flex-direction: column; 
+.transaction-chat {
+  flex: 2;
+  background: #fff;
+  border-radius: 8px;
+  padding: 25px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  display: flex;
+  flex-direction: column;
 }
 
-.chat-messages { 
-    height: 400px; 
-    overflow-y: auto; 
-    margin-bottom: 15px; 
-    padding-right: 10px; 
-    flex-grow: 1; 
-    /* 隱藏滾動條 */
-    -ms-overflow-style: none;  
-    scrollbar-width: none;  
+.chat-messages {
+  height: 400px;
+  overflow-y: auto;
+  margin-bottom: 15px;
+  padding-right: 10px;
+  flex-grow: 1;
+  /* 隱藏滾動條 */
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }
-.chat-messages::-webkit-scrollbar { 
-    display: none;
+.chat-messages::-webkit-scrollbar {
+  display: none;
 }
 
 /* 訊息輸入區 */
-.chat-input-area { 
-    display: flex; 
-    gap: 10px; 
-    align-items: flex-end; 
-    padding-top: 15px; 
-    border-top: 1px solid #eee; 
+.chat-input-area {
+  display: flex;
+  gap: 10px;
+  align-items: flex-end;
+  padding-top: 15px;
+  border-top: 1px solid #eee;
 }
-#messageInput { 
-    flex-grow: 1; 
-    padding: 10px 15px; 
-    border: 1px solid #ccc; 
-    border-radius: 8px; 
-    resize: vertical; 
-    min-height: 50px; 
-    font-size: 14px; 
+#messageInput {
+  flex-grow: 1;
+  padding: 10px 15px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  resize: vertical;
+  min-height: 50px;
+  font-size: 14px;
 }
-.send-button { 
-    background-color: #007bff; 
-    color: white; 
-    border: none; 
-    padding: 10px 20px; 
-    border-radius: 8px; 
-    cursor: pointer; 
-    font-weight: bold; 
-    height: 50px; 
-    transition: background-color 0.2s; 
-    flex-shrink: 0; 
+.send-button {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: bold;
+  height: 50px;
+  transition: background-color 0.2s;
+  flex-shrink: 0;
 }
-.send-button:hover { 
-    background-color: #0056b3; 
+.send-button:hover {
+  background-color: #0056b3;
 }
 
 /* 訊息行樣式 (供 JS 建立訊息時套用) */
-.message-row { display: flex; margin-bottom: 15px; align-items: flex-start; }
-.user-avatar { width: 40px; height: 40px; border-radius: 50%; object-fit: cover; margin-top: 5px; background-color: #888; }
-.message-content { max-width: 70%; margin: 0 10px; }
-.message-user-name { font-size: 12px; color: #666; margin-bottom: 2px; }
-.message-bubble { padding: 10px 15px; border-radius: 18px; line-height: 1.5; word-wrap: break-word; font-size: 14px; }
+.message-row {
+  display: flex;
+  margin-bottom: 15px;
+  align-items: flex-start;
+}
+.user-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-top: 5px;
+  background-color: #888;
+}
+.message-content {
+  max-width: 70%;
+  margin: 0 10px;
+}
+.message-user-name {
+  font-size: 12px;
+  color: #666;
+  margin-bottom: 2px;
+}
+.message-bubble {
+  padding: 10px 15px;
+  border-radius: 18px;
+  line-height: 1.5;
+  word-wrap: break-word;
+  font-size: 14px;
+}
 
 /* 買家樣式 */
-.message-row.buyer { justify-content: flex-end; }
-.message-row.buyer .user-avatar { order: 2; margin-left: 10px; background-color: #5cb85c; }
-.message-row.buyer .message-content { text-align: right; margin-right: 0; }
-.message-row.buyer .message-bubble { background-color: #007bff; color: white; border-top-right-radius: 2px; }
-.message-row.buyer .message-user-name { text-align: right; }
+.message-row.buyer {
+  justify-content: flex-end;
+}
+.message-row.buyer .user-avatar {
+  order: 2;
+  margin-left: 10px;
+  background-color: #5cb85c;
+}
+.message-row.buyer .message-content {
+  text-align: right;
+  margin-right: 0;
+}
+.message-row.buyer .message-bubble {
+  background-color: #007bff;
+  color: white;
+  border-top-right-radius: 2px;
+}
+.message-row.buyer .message-user-name {
+  text-align: right;
+}
 
 /* 賣家樣式 */
-.message-row.seller { justify-content: flex-start; }
-.message-row.seller .user-avatar { order: 0; margin-right: 10px; background-color: #f0ad4e; }
-.message-row.seller .message-content { text-align: left; margin-left: 0; }
-.message-row.seller .message-bubble { background-color: #e5e5ea; color: #333; border-top-left-radius: 2px; }
-
+.message-row.seller {
+  justify-content: flex-start;
+}
+.message-row.seller .user-avatar {
+  order: 0;
+  margin-right: 10px;
+  background-color: #f0ad4e;
+}
+.message-row.seller .message-content {
+  text-align: left;
+  margin-left: 0;
+}
+.message-row.seller .message-bubble {
+  background-color: #e5e5ea;
+  color: #333;
+  border-top-left-radius: 2px;
+}
 
 /* ======================================================= */
 /* 出品者資訊區 (.seller-info) */
 /* ======================================================= */
-.seller-info { 
-    background: #fff; 
-    border-radius: 8px; 
-    padding: 25px; 
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05); 
-    margin-bottom: 30px; 
+.seller-info {
+  background: #fff;
+  border-radius: 8px;
+  padding: 25px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  margin-bottom: 30px;
+  width: 44%;
 }
-.seller-details { 
-    display: flex; 
-    align-items: center; 
-    gap: 15px; 
-    margin-top: 20px; 
+.seller-details {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  margin-top: 20px;
 }
-.seller-avatar { 
-    width: 60px; 
-    height: 60px; 
-    border-radius: 50%; 
-    object-fit: cover; 
-    background-color: #d9534f; 
+.seller-avatar {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  object-fit: cover;
+  background-color: #d9534f;
 }
-.seller-name { 
-    font-weight: bold; 
-    font-size: 18px; 
-    margin-bottom: 5px; 
+.seller-name {
+  font-weight: bold;
+  font-size: 18px;
+  margin-bottom: 5px;
 }
-.seller-meta { 
-    flex-grow: 1; 
+.seller-meta {
+  flex-grow: 1;
 }
-.seller-stats small { 
-    color: #666; 
+.seller-stats small {
+  color: #666;
 }
-.follow-button { 
-    background-color: white; 
-    color: #007bff; 
-    border: 1px solid #007bff; 
-    padding: 8px 15px; 
-    border-radius: 20px; 
-    font-size: 14px; 
-    cursor: pointer; 
-    transition: background-color 0.2s; 
-    margin-right: 15px; 
+.follow-button {
+  background-color: white;
+  color: #007bff;
+  border: 1px solid #007bff;
+  padding: 8px 15px;
+  border-radius: 20px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  margin-right: 15px;
 }
-.follow-button:hover { 
-    background-color: #e0f0ff; 
+.follow-button:hover {
+  background-color: #e0f0ff;
 }
-.seller-rating .stars { 
-    color: #ffc107; 
-    font-size: 18px; 
+.seller-rating .stars {
+  color: #ffc107;
+  font-size: 18px;
+}
+
+.finish-transaction {
+  background: #fff;
+  border-radius: 8px;
+  padding: 25px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  margin-bottom: 30px;
+  width: 44%;
+}
+
+.flex-wrapper {
+  display: flex;
+  justify-content: space-between;
+}
+
+.finish_trans_button {
+  background-color: #007bff;
+  color: white;
+  border-radius: 10px;
+  border: none;
+  padding: 0.5rem 1rem;
+  font-weight: bold;
+  font-size: 18px;
+  margin: 1rem 0;
 }
