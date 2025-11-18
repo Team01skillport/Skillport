@@ -1,20 +1,23 @@
-{% extends "base.html" %} {% block title %}プロフィール設定{% endblock %} {%
-block styles %}
+{% extends "base.html" %} 
+{% block title %}プロフィール設定{% endblock %} 
+{% block styles %}
 <link
   rel="stylesheet"
   href="{{ url_for('static', filename='css/profile_edit.css') }}"
 />
-{% endblock %} {% block content %}
+{% endblock %} 
+{% block content %}
 <main class="profile-edit-main">
   <div class="edit-container">
-    <section class="profile-set-section">
-      <h1 class="section-title">プロフィール設定</h1>
-      <form
-        id="profileForm"
-        class="profile-form"
-        action="{{url_for('account.edit_profile_success', user_name = user_name)}}"
-        method="post"
-      >
+    <form
+      id="profileForm"
+      class="profile-form"
+      action="{{url_for('account.edit_profile_success', user_name = user_name)}}"
+      method="post"
+    >
+      <section class="profile-set-section">
+        <h1 class="section-title">プロフィール設定</h1>
+        
         <div class="profile-image-upload">
           <img
             class="profile-set-img"
@@ -32,10 +35,6 @@ block styles %}
         </div>
 
         <div class="profile-inputs-group">
-          <!-- <div class="form-group">
-                        <label for="specialtyInput">専門分野</label>
-                        <input type="text" id="specialtyInput" value="元の情報を載せます" name="specialty" required>
-                    </div> -->
           <div class="form-group">
             <label for="tagInput">タグ</label>
             <input
@@ -46,28 +45,21 @@ block styles %}
               placeholder="複数のタグはカンマ(,)で区切って入力してください（例：映画,歌）"
             />
           </div>
+
           <div class="form-group">
-            <label for="selfIntroInput">自己紹介</label>
-            <textarea id="selfIntroInput" name="self_introduction" rows="4">
-{{info['introduction']}}</textarea
-            >
+            <label for="bioInput">自己紹介</label>
+            <textarea
+              id="bioInput"
+              name="bio"
+              placeholder="あなたの自己紹介を記載してください。"
+            >{{info['bio']}}</textarea>
           </div>
         </div>
+      </section>
 
-    </section>
+      <section class="personal-info-section">
+        <h1 class="section-title">個人情報</h1>
 
-    <section class="personal-info-section">
-      <h1 class="section-title">個人情報設定</h1>
-        <div class="form-group">
-          <label for="mailAdd">メールアドレス</label>
-          <input
-            type="text"
-            id="mailAdd"
-            value="{{info['mail']}}"
-            name="email"
-            required
-          />
-        </div>
         <div class="form-row">
           <div class="form-group half">
             <label for="lastNameInput">姓</label>
@@ -90,65 +82,47 @@ block styles %}
             />
           </div>
         </div>
-        <div class="form-row">
-          <div class="form-group half">
-            <label for="lastNameRubyInput">姓（フリガナ）</label>
-            <input
-              type="text"
-              id="lastNameRubyInput"
-              value="{{info['last_name_katakana']}}"
-              name="last_name_furigana"
-              required
-            />
-          </div>
-          <div class="form-group half">
-            <label for="firstNameRubyInput">名（フリガナ）</label>
-            <input
-              type="text"
-              id="firstNameRubyInput"
-              value="{{info['first_name_katakana']}}"
-              name="first_name_furigana"
-              required
-            />
-          </div>
+
+        <div class="form-group">
+          <label for="emailInput">メールアドレス</label>
+          <input
+            type="email"
+            id="emailInput"
+            value="{{info['email']}}"
+            name="email"
+            required
+          />
         </div>
 
         <div class="form-group">
-          <label for="addressInput">郵便番号</label>
+          <label for="postCodeInput">郵便番号</label>
           <input
             type="text"
-            id="addressInput"
-            value="{{info['zip_code']}}"
-            name="zip_code"
+            id="postCodeInput"
+            value="{{info['post_code']}}"
+            name="post_code"
+            placeholder="例: 123-4567"
             required
           />
         </div>
+
         <div class="form-group">
-          <label for="addressInput">住所 - 都道府県</label>
+          <label for="address1Input">住所1 (都道府県/市区町村)</label>
           <input
             type="text"
-            id="addressInput"
-            value="{{info['prefecture']}}"
-            name="prefecture"
-            required
-          />
-        </div>
-        <div class="form-group">
-          <label for="addressInput">住所 - 市区町村</label>
-          <input
-            type="text"
-            id="addressInput"
-            value="{{info['address1']}}"
+            id="address1Input"
+            value="{{info['address_1']}}"
             name="address1"
             required
           />
         </div>
+
         <div class="form-group">
-          <label for="addressInput">住所 - 番地・建物名</label>
+          <label for="address2Input">住所2 (番地/建物名)</label>
           <input
             type="text"
-            id="addressInput"
-            value="{{info['address2']}}"
+            id="address2Input"
+            value="{{info['address_2']}}"
             name="address2"
             required
           />
@@ -197,52 +171,18 @@ block styles %}
           />
         </div>
 
-        <div class="form-group">
-          <label>支払い（クレジットカード）</label>
-          <input
-            type="text"
-            id="cardNumberInput"
-            value="カード番号"
-            name="card_number"
-            placeholder="xxxx xxxx xxxx xxxx"
-          /><br />
-          <input
-            type="text"
-            id="cardNameInput"
-            value="カード名義"
-            name="card_name"
-            placeholder="名義人名"
-          /><br />
-          <div class="form-row">
-            <input
-              type="text"
-              id="cvvInput"
-              value="CVV"
-              name="cvv"
-              placeholder="CVV"
-              class="half"
-            />
-            <input
-              type="text"
-              id="expirationDateInput"
-              value="有効期限"
-              name="expiration_date"
-              placeholder="MM/YY"
-              class="half"
-            />
-          </div>
-        </div>
-
         <div class="form-actions">
           <button type="submit" class="primary-btn">更新</button>
+          
+          <button type="button" class="secondary-btn" onclick="window.history.back()">キャンセル</button>
         </div>
-      </form>
-    </section>
+      </section>
+    </form>
   </div>
 </main>
-{% endblock %} {% block scripts %}
+{% endblock %} 
+{% block scripts %}
 <script
-  src="{{ url_for('static', filename='js/profile_edit.js') }}"
-  defer
+  src="{{ url_for('static', filename='js/jquery-3.7.0.min.js') }}"
 ></script>
 {% endblock %}

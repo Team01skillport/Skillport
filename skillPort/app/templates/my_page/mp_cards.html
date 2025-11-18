@@ -1,106 +1,204 @@
 <head>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <link rel="stylesheet" href="../../static/css/my_page_cards.css" /> 
 </head>
 <div class="cards-page-container">
     <div class="card-list-header">
-        <h1 class="content-list-title">カード一覧</h1> 
-        <button class="register-card-btn" id="openCardModal">カード登録</button>
+        <h1 class="content-list-title">クレジットカード情報</h1> 
     </div>
 
-    <div class="card-list-wrapper">
-        <div class="card-item">
-            <div class="card-data">
-                <div class="data-row"><span class="label">カードタイプ</span> VISAカード</div>
-                <div class="data-row"><span class="label">カード番号</span> ****_****_****_5678</div>
-                <div class="data-row"><span class="label">有効期限</span> 06/2030</div>
-                <div class="data-row"><span class="label">名義人</span> SYOKOU KINOSHITA</div>
-                <div class="data-row"><span class="label">登録時期</span> 2030/08/19</div>
+    <div class="card-display-wrapper">
+
+        {% if card_data %}
+        
+        <h2 class="register-form-title">
+            登録済みのクレジットカード
+        </h2>
+        
+        <div class="card-info-summary" id="cardSummary">
+            <div class="card-detail-item">
+                <span class="label">カード番号:</span> 
+                <span class="value">**** **** **** {{ card_data.card_number[-4:] if card_data.card_number else '' }}</span>
             </div>
-            <div class="card-actions">
-                <span class="default-badge">既定</span>
-                <button class="action-btn edit-btn">編集</button>
-                <button class="action-btn delete-btn">削除</button>
+            
+            <div class="card-detail-item">
+                <span class="label">カード名義:</span> <span class="value">{{ card_data.holder_name }}</span>
             </div>
-        </div>
-        <div class="card-item">
-            <div class="card-data">
-                <div class="data-row"><span class="label">カードタイプ</span> VISAカード</div>
-                <div class="data-row"><span class="label">カード番号</span> ****_****_****_5678</div>
-                <div class="data-row"><span class="label">有効期限</span> 06/2030</div>
-                <div class="data-row"><span class="label">名義人</span> SYOKOU KINOSHITA</div>
-                <div class="data-row"><span class="label">登録時期</span> 2030/08/19</div>
-            </div>
-            <div class="card-actions">
-                <button class="action-btn default-set-btn">設定</button>
-                <button class="action-btn edit-btn">編集</button>
-                <button class="action-btn delete-btn">削除</button>
+            
+            <div class="card-detail-item">
+                <span class="label">有効期限:</span> <span class="value">{{ card_data.expiry_month }}/{{ card_data.expiry_year }}</span>
             </div>
         </div>
-        <div class="card-item">
-            <div class="card-data">
-                <div class="data-row"><span class="label">カードタイプ</span> VISAカード</div>
-                <div class="data-row"><span class="label">カード番号</span> ****_****_****_5678</div>
-                <div class="data-row"><span class="label">有効期限</span> 06/2030</div>
-                <div class="data-row"><span class="label">名義人</span> SYOKOU KINOSHITA</div>
-                <div class="data-row"><span class="label">登録時期</span> 2030/08/19</div>
-            </div>
-            <div class="card-actions">
-                <button class="action-btn default-set-btn">設定</button>
-                <button class="action-btn edit-btn">編集</button>
-                <button class="action-btn delete-btn">削除</button>
-            </div>
+
+        <div class="card-actions-summary">
+            <button class="register-submit-btn" id="openEditForm">編集する</button> 
+            <button class="delete-button-style" id="deleteCardBtn">削除する</button>
         </div>
-    </div>
-    
-    <div id="cardRegisterModal" class="modal">
-        <div class="modal__backdrop"></div>
-        <div class="modal__card card-register-card">
-            <button class="modal__close" aria-label="Close modal">×</button>
-            <h2 class="register-form-title">新しいクレジットカードを登録</h2>
-            <form class="register-card-form">
+        
+        <div id="editFormSection" style="display: none; margin-top: 40px; padding-top: 20px; border-top: 1px solid #ddd;">
+            <h3 style="margin-top: 0;">クレジットカード情報編集</h3>
+            
+            <form class="register-card-form" id="editCardForm">
                 <div class="form-group">
-                    <input type="text" id="cardNumber" name="cardNumber" 
-                           placeholder="例：182377128971287" required>
+                    <label class="form-label-small">カード番号</label>
+                    <input type="text" id="editCardNumber" name="cardNumber" 
+                           placeholder="例：182377128971287" required 
+                           value="{{ card_data.card_number if card_data else '' }}">
                 </div>
+                
                 <div class="form-group">
-                    <input type="text" id="cardHolderName" name="cardHolderName" 
-                           placeholder="例：KINOSHITA SYOKOU" required>
+                    <label class="form-label-small">名義人</label>
+                    <input type="text" id="editCardHolderName" name="cardHolderName" 
+                           placeholder="例：TAROU YAMADA" required
+                           value="{{ card_data.holder_name if card_data else '' }}">
                 </div>
-                <label class="form-label-small">有効期限</label>
-                <div class="form-group expiry-group">
-                    <input type="text" id="expiryMonth" name="expiryMonth" placeholder="" required pattern="\d{2}">
-                    <span class="expiry-separator">/</span>
-                    <input type="text" id="expiryYear" name="expiryYear" placeholder="" required pattern="\d{4}">
-                </div>
-                <label class="form-label-small">セキュリティコード</label>
+                
                 <div class="form-group">
-                    <input type="text" id="securityCode" name="securityCode" 
-                           placeholder="例：564" required pattern="\d{3,4}">
+                    <label class="form-label-small">有効期限 (月/年)</label>
+                    <div class="expiry-group">
+                        <input type="text" id="editExpiryMonth" name="expiryMonth" 
+                               placeholder="MM" required pattern="\d{2}" maxlength="2"
+                               value="{{ card_data.expiry_month if card_data else '' }}">
+                        <span class="expiry-separator">/</span>
+                        <input type="text" id="editExpiryYear" name="expiryYear" 
+                               placeholder="YYYY" required pattern="\d{4}" maxlength="4"
+                               value="{{ card_data.expiry_year if card_data else '' }}">
+                    </div>
                 </div>
+                
+                <div class="form-group">
+                    <label class="form-label-small">セキュリティコード</label>
+                    <div class="security-input-group">
+                        <input type="text" id="editSecurityCode" name="securityCode" 
+                               placeholder="例：564" required pattern="\d{3,4}" maxlength="4">
+                    </div>
+                </div>
+                
                 <div class="form-actions-modal">
-                    <button type="submit" class="register-submit-btn">登録する</button>
+                    <button type="submit" class="register-submit-btn">情報更新</button>
+                    <button type="button" class="register-submit-btn" id="cancelEditForm" style="background-color: #aaa;">キャンセル</button>
                 </div>
             </form>
         </div>
+
+        {% else %}
+
+        <h2 class="register-form-title">
+            クレジットカード登録
+        </h2>
+        
+        <form class="register-card-form" id="registerCardForm">
+            <div class="form-group">
+                <label class="form-label-small">カード番号</label>
+                <input type="text" id="cardNumber" name="cardNumber" 
+                       placeholder="例：182377128971287" required>
+            </div>
+            
+            <div class="form-group">
+                <label class="form-label-small">名義人</label>
+                <input type="text" id="cardHolderName" name="cardHolderName" 
+                       placeholder="例：TAROU YAMADA" required>
+            </div>
+            
+            <div class="form-group">
+                <label class="form-label-small">有効期限 (月/年)</label>
+                <div class="expiry-group">
+                    <input type="text" id="expiryMonth" name="expiryMonth" 
+                           placeholder="MM" required pattern="\d{2}" maxlength="2">
+                    <span class="expiry-separator">/</span>
+                    <input type="text" id="expiryYear" name="expiryYear" 
+                           placeholder="YYYY" required pattern="\d{4}" maxlength="4">
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label class="form-label-small">セキュリティコード</label>
+                <div class="security-input-group">
+                    <input type="text" id="securityCode" name="securityCode" 
+                           placeholder="例：564" required pattern="\d{3,4}" maxlength="4">
+                </div>
+            </div>
+
+            <div class="form-actions-modal">
+                <button type="submit" class="register-submit-btn">登録する</button>
+            </div>
+        </form>
+
+        {% endif %}
+        
     </div>
     
     <script>
-        const openModalBtn = document.getElementById('openCardModal');
-        const modal = document.getElementById('cardRegisterModal');
-        const closeBtn = modal ? modal.querySelector('.modal__close') : null;
-        const backdrop = modal ? modal.querySelector('.modal__backdrop') : null;
+        $(document).ready(function() {
+            
+            // ===================================
+            // 提交逻辑
+            // ===================================
+            const handleSave = function(e) {
+                e.preventDefault();
+                const formData = $(this).serialize();
+                
+                $.ajax({
+                    url: '/my_page/save_card_info',
+                    method: 'POST',
+                    data: formData,
+                    success: function(response) {
+                        alert(response.message);
+                        if (response.success) {
+                            window.location.reload(); 
+                        }
+                    },
+                    error: function(xhr) {
+                        const error = xhr.responseJSON;
+                        alert('保存失敗: ' + (error ? error.message : '予期せぬエラーが発生しました。'));
+                    }
+                });
+            };
 
-        function openModal() { if (modal) { modal.classList.add('is-open'); document.body.classList.add('modal-open'); } }
-        function closeModal() { if (modal) { modal.classList.remove('is-open'); document.body.classList.remove('modal-open'); } }
+            $('#registerCardForm').on('submit', handleSave);
+            $('#editCardForm').on('submit', handleSave);
 
-        if (openModalBtn) openModalBtn.addEventListener('click', openModal);
-        if (closeBtn) closeBtn.addEventListener('click', closeModal);
-        if (backdrop) backdrop.addEventListener('click', closeModal);
 
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape' && modal && modal.classList.contains('is-open')) {
-                closeModal();
-            }
+            // ===================================
+            // 界面切换和删除逻辑
+            // ===================================
+            const $editFormSection = $('#editFormSection');
+            const $cardSummary = $('#cardSummary');
+            const $cardActionsSummary = $('.card-actions-summary');
+
+            // 绑定编辑按钮
+            $('#openEditForm').on('click', function() {
+                $cardSummary.hide();
+                $cardActionsSummary.hide();
+                $editFormSection.show();
+            });
+
+            // 绑定取消按钮
+            $('#cancelEditForm').on('click', function() {
+                $editFormSection.hide();
+                $cardSummary.show();
+                $cardActionsSummary.show();
+            });
+            
+            // 绑定删除操作
+            $('#deleteCardBtn').on('click', function() {
+                if (confirm('登録済みのクレジットカード情報を削除してもよろしいですか？')) {
+                    $.ajax({
+                        url: '/my_page/delete_card_info',
+                        method: 'POST',
+                        success: function(response) {
+                            alert(response.message);
+                            if (response.success) {
+                                window.location.reload();
+                            }
+                        },
+                        error: function(xhr) {
+                            const error = xhr.responseJSON;
+                            alert('削除失敗: ' + (error ? error.message : '予期せぬエラーが発生しました。'));
+                        }
+                    });
+                }
+            });
         });
     </script>
 </div>
