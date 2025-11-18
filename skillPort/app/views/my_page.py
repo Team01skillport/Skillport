@@ -89,13 +89,11 @@ def customer_support_sent():
     email = request.form.get("email")
     category = request.form.get("category")
     contents = request.form.get("details")
+    user_id = session['user_id']
+    sql = "INSERT INTO support_tbl (name, email, category, content, inquiry_user_id) VALUES (%s, %s, %s, %s, %s)"
+    create_user(sql, (name, email, category, contents, user_id,))
 
-    print(name)
-    print(email)
-    print(category)
-    print(contents)
-
-    redirect(url_for('my_page/mp_support.html'))
+    return render_template('my_page/mp_cs_form_sent.html', succmsg="フォーム送信ができました。返事はメールでご確認ください。")
 
 @my_page_bp.route('/notifications', methods=["GET"])
 def notifications():

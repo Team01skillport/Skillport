@@ -1,0 +1,26 @@
+{% extends "base.html" %} {% block title %}お問い合わせフォーム送信完了{%
+endblock %}{% block content %}
+<head>
+  <link rel="stylesheet" href="../../static/css/my_page_password.css" />
+</head>
+<div class="password-reset-container">
+  <div class="password-reset-box">
+    <h2 class="form-main-title">お問い合わせフォーム送信完了</h2>
+
+    <form
+      class="reset-form"
+      method="post"
+      action="{{url_for('my_page.password_reset_process')}}"
+    >
+      <div>
+        <h5>{{succmsg}}</h5>
+      </div>
+      <div class="form-actions">
+        <a href="{{url_for('my_page.my_page_top')}}" class="back-btn"
+          >マイページに戻る</a
+        >
+      </div>
+    </form>
+  </div>
+</div>
+{% endblock %}
