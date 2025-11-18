@@ -37,11 +37,23 @@ def community_top():
     except:
         user_id = "guest"
         
+        
+    popular_sql = "SELECT v.id AS video_id, v.video_title, v.video_description_section, v.video_upload_date, u.user_name, v.video_popularity_index, v.thumbnail_path FROM video_tbl v INNER JOIN user_tbl u ON v.video_uploader_id = u.id ORDER BY v.video_popularity_index DESC LIMIT 4; "
+    try:
+        popular_videos = fetch_query(popular_sql, None, False)
+        if not popular_videos:
+            popular_videos = []
+    except:
+        print("DBエラー")
+        popular_videos = []  
+    print(popular_videos)
+    
     return render_template(
         'community/community.html', 
         all_posts=all_posts, 
         user_id=user_id,
-        recommended_products=recommended_products # 新しく追加
+        recommended_products=recommended_products,
+        popular_videos=popular_videos
     )
 
 @community_bp.route('/community/upload_post', methods=["POST"])

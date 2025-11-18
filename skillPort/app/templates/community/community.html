@@ -5,30 +5,15 @@
 
   <div class="reccomended">
     <h2>おすすめ動画</h2>
-
-    <a class="video_card" href="{{ url_for('lesson_video.video_player', video_id=1) }}" aria-label="動画1の詳細を開く">
-      <img src="../static/media/1.jpeg" alt="動画1">
-      <h3>タイトル</h3>
-      <p>しょうごくんと楽しくイラストレーションを学びましょう！</p>
+    {% for videos in popular_videos %}
+    <a class="video_card" href="{{ url_for('lesson_video.video_player', video_id=videos.video_id) }}" aria-label="動画1の詳細を開く">
+      <img src="{{url_for('static', filename='media' + videos.thumbnail_path)}}" alt="動画1">
+      <h3>{{videos.video_title}}</h3>
+      <p class="video_desc">{{videos.video_description_section}}</p>
+      <p class="video_upload_user">{{videos.user_name}}</p>
     </a>
+    {%endfor%}
 
-    <a class="video_card" href="{{ url_for('lesson_video.video_player', video_id=2) }}" aria-label="動画2の詳細を開く">
-      <img src="../static/media/1.jpeg" alt="動画2">
-      <h3>タイトル</h3>
-      <p>しょうごくんと楽しく機能を学びましょう！</p>
-    </a>
-
-    <a class="video_card" href="{{ url_for('lesson_video.video_player', video_id=3) }}" aria-label="動画3の詳細を開く">
-      <img src="../static/media/1.jpeg" alt="動画3">
-      <h3>タイトル</h3>
-      <p>しょうごくんと楽しくプログラミングを学びましょう！</p>
-    </a>
-
-    <a class="video_card" href="{{ url_for('lesson_video.video_player', video_id=4) }}" aria-label="動画4の詳細を開く">
-      <img src="../static/media/1.jpeg" alt="動画4">
-      <h3>タイトル</h3>
-      <p>しょうごくんと楽しくフィットネスを学びましょう！</p>
-    </a>
   </div>
 
   <div class="feed">
