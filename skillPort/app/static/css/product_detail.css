@@ -169,7 +169,7 @@
   align-items: center;
 }
 
-/* ================= コメント & 出品者 ================= */
+/* ================= コメント & 出品者セクション ================= */
 .bottom-section {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -219,6 +219,8 @@
   font-size: 18px;
   margin-bottom: 10px;
 }
+
+/* ⭐ 出品者情報エリアの修正 (アイコンのつぶれを解消) ⭐ */
 .seller-info {
   display: flex;
   align-items: center;
@@ -226,20 +228,15 @@
   padding-top: 10px;
   gap: 15px;
 }
-.user_rating {
-  text-align: center;
-  display: flex;
-}
-.user_rating p {
-  margin: 0;
-}
 .seller-info img {
-  width: 60px;
-  height: 35px;
-  border-radius: 999px;
+  width: 45px; /* ⭐ 修正: 幅を正しく設定 */
+  height: 45px; /* ⭐ 修正: 高さを幅と揃える */
+  border-radius: 50%; /* ⭐ 修正: 正確な円形にする */
+  object-fit: cover; /* 画像のつぶれ防止 */
+  flex-shrink: 0;
 }
 .text {
-  margin-top: 1rem;
+  margin-top: 0; /* margin-top: 1rem; をリセット */
 }
 .text h4 {
   margin: 0;
@@ -260,4 +257,94 @@
 }
 .follow-btn:hover {
   background: #4e89ff;
+}
+
+/* ================= 出品者評価エリア (seller-rating-display) - 新規追加 ================= */
+
+.seller-rating-display {
+  margin-top: 10px; 
+  padding-top: 10px; 
+  border-top: 1px solid #ccc; 
+  text-align: center;
+  padding-bottom: 5px; 
+}
+.seller-rating-display h3 {
+  font-size: 14px; 
+  color: #555;
+  margin: 10px 0 5px 0; 
+  border-bottom: none;
+  padding-bottom: 0;
+  font-weight: bold;
+}
+.avg-rating {
+  font-size: 14px; 
+  margin-bottom: 0px; 
+  line-height: 1.2; 
+  display: flex; 
+  align-items: center;
+  justify-content: center;
+}
+.rating-star-icon {
+  color: #ccc; 
+  margin: 0 1px;
+  font-size: 18px; 
+}
+.rating-star-icon.filled {
+  color: #ffc107; 
+}
+.rating-value {
+  font-size: 18px; 
+  font-weight: bold;
+  color: #333;
+  margin-left: 8px; 
+}
+.rating-count {
+  font-size: 11px; 
+  color: #888;
+  margin-top: 3px;
+}
+
+/* product_detail.css (ファイル末尾に追加) */
+
+/* ================= SOLD OUT 表示用スタイル ================= */
+
+.main-image {
+  position: relative; /* オーバーレイを配置するために必要 */
+}
+
+.main-image.sold-out img {
+  filter: grayscale(80%) brightness(80%); /* 画像をグレースケールで淡色表示 */
+  opacity: 0.7; /* 少し透明度を追加 */
+}
+
+.sold-out-overlay {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: rgba(0, 0, 0, 0.6); /* 半透明の黒い背景 */
+  color: #fff;
+  font-size: 2.5rem; /* 大きめのフォント */
+  font-weight: bold;
+  padding: 15px 30px;
+  border-radius: 8px;
+  letter-spacing: 2px;
+  z-index: 10; /* 画像の上に表示 */
+  pointer-events: none; /* 下の画像へのクリックを妨げない */
+  white-space: nowrap; /* テキストが改行されないように */
+}
+
+/* 購入ボタンのスタイル変更 */
+.buy-btn.sold-out-button {
+  background-color: #ccc; /* グレーアウト */
+  cursor: not-allowed;
+  pointer-events: none; /* クリック不可 */
+}
+
+/* お気に入りボタンのスタイル変更 (任意) */
+.action-buttons .btn.sold-out-button {
+  background-color: #e0e0e0;
+  cursor: not-allowed;
+  pointer-events: none;
+  color: #666;
 }

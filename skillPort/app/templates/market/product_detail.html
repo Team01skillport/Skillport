@@ -1,5 +1,8 @@
-{% extends "base.html" %} {% block title %}{{ info.product_name |
-default('商品詳細', true) }}{% endblock %} {% block styles %}
+{% extends "base.html" %} 
+{% block title %}{{ info.product_name |
+default('商品詳細', true) }}{% endblock %} 
+
+{% block styles %}
 <link
   rel="stylesheet"
   href="{{ url_for('static', filename='css/product_detail.css') }}"
@@ -9,6 +12,7 @@ default('商品詳細', true) }}{% endblock %} {% block styles %}
   href="{{ url_for('static', filename='css/popup_report.css') }}"
 />
 <style>
+  /* 評価表示のスタイルは product_detail.css に移動しました */
   .dummy-main-image {
     width: 100%;
     height: var(--main-img, 440px);
@@ -23,7 +27,7 @@ default('商品詳細', true) }}{% endblock %} {% block styles %}
     flex-direction: column;
   }
   
-  /* [新增] 评论表单的样式 */
+  /* [新增] 评论表单のスタイル */
   .comment-form {
     margin-bottom: 20px;
   }
@@ -40,7 +44,7 @@ default('商品詳細', true) }}{% endblock %} {% block styles %}
     width: 100%;
   }
   
-  /* [新增] 评论列表的样式 */
+  /* [新增] 评论列表のスタイル */
   .comment-box li p {
     margin: 0;
   }
@@ -48,7 +52,9 @@ default('商品詳細', true) }}{% endblock %} {% block styles %}
     font-size: 13px;
   }
 </style>
-{% endblock %} {% block content %}
+{% endblock %} 
+
+{% block content %}
 <div class="page-wrap">
   <main class="product-section">
     <div class="image-area">
@@ -69,7 +75,8 @@ default('商品詳細', true) }}{% endblock %} {% block styles %}
         />
         {% endfor %}
         </div>
-      <div class="main-image">
+      {# ⭐ メイン画像エリアの変更 ⭐ #}
+      <div class="main-image {% if info.sales_status == 'C' %}sold-out{% endif %}">
         
         {% if info.image_path %}
         <img
@@ -83,22 +90,29 @@ default('商品詳細', true) }}{% endblock %} {% block styles %}
           <p style="font-size: 1rem; margin-top: 10px">画像がありません</p>
         </div>
         {% endif %}
-        </div>
+
+        {% if info.sales_status == 'C' %}
+        <div class="sold-out-overlay">SOLD OUT</div>
+        {% endif %}
+      </div>
     </div>
     <div class="info-area">
       <h1>{{info.product_name}}</h1>
       <p class="price">¥{{info.product_price}}(税込)</p>
 
       <div class="action-buttons">
-        <input type="button" value="♡ お気に入り"  id="favorite_button" data-product-id="{{info.product_id}}" class="btn">
+        <input type="button" value="♡ お気に入り"  id="favorite_button" data-product-id="{{info.product_id}}" class="btn {% if info.sales_status == 'C' %}sold-out-button{% endif %}" {% if info.sales_status == 'C' %}disabled{% endif %}>
         <a href="#" class="btn" id="reportBtn">通報</a>
       </div>
 
+      {# ⭐ 購入ボタンの変更 ⭐ #}
       <a
-        href="{{ url_for('market.checkout_page', product_id=info.product_id) }}"
-        class="buy-btn"
-        >購入</a
+        href="{% if info.sales_status == 'C' %}#{% else %}{{ url_for('market.checkout_page', product_id=info.product_id) }}{% endif %}"
+        class="buy-btn {% if info.sales_status == 'C' %}sold-out-button{% endif %}"
+        {% if info.sales_status == 'C' %}onclick="return false;"{% endif %}
       >
+        {% if info.sales_status == 'C' %}SOLD OUT{% else %}購入{% endif %}
+      </a>
 
       <div class="desc">
         <h2>商品の説明</h2>
@@ -173,9 +187,34 @@ default('商品詳細', true) }}{% endblock %} {% block styles %}
             {% endif %}
           </h4>
         </div> 
-        </div>
       </div>
-    </div>
+      
+      <div class="seller-rating-display">
+          <h3>出品者評価 (総合)</h3>
+          
+          {% set count = seller_rating_info.rating_count %}
+          
+          {% if count > 0 %}
+              <p class="avg-rating">
+                  {# 平均評価を float に変換し、四捨五入して星の数として使う #}
+                  {% set avg_rating = seller_rating_info.average_rating | float %}
+                  
+                  {% for i in range(5) %}
+                      {# loop.index は 1から5 #}
+                      <span class="rating-star-icon 
+                          {% if loop.index <= avg_rating | round %}filled{% else %}empty{% endif %}">★</span>
+                  {% endfor %}
+                  
+                  <span class="rating-value">**{{ seller_rating_info.average_rating }}**</span>
+              </p>
+              <p class="rating-count">
+                  ({{ count }} 件の評価)
+              </p>
+          {% else %}
+              <p class="no-rating-msg">まだ評価はありません。</p>
+          {% endif %}
+      </div>
+      </div>
   </section>
   </div>
 
@@ -212,7 +251,9 @@ default('商品詳細', true) }}{% endblock %} {% block styles %}
     </form>
   </div>
 </div>
-{% endblock %} {% block scripts %}
+{% endblock %} 
+
+{% block scripts %}
 <script
   src="{{ url_for('static', filename='js/product_detail.js') }}"
   defer

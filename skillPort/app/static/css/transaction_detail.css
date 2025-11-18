@@ -297,3 +297,64 @@
   font-size: 18px;
   margin: 1rem 0;
 }
+
+/* ======================================================= */
+/* 评价显示模块 (.rating-display-module) - 新增 */
+/* ======================================================= */
+.rating-display-module {
+  background-color: #f7f7f7;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  padding: 15px;
+  margin-bottom: 20px;
+  text-align: center;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+}
+
+.rating-display-module h3 {
+  font-size: 18px;
+  color: #333;
+  margin-top: 0;
+  margin-bottom: 10px;
+}
+
+.rating-stars-result {
+  font-size: 28px;
+  margin: 10px 0;
+}
+
+.star-icon {
+  color: #ccc; /* 默认灰色 */
+  margin: 0 1px;
+}
+
+.star-icon.filled {
+  color: #ffc107; /* 评分颜色 */
+}
+
+.rating-comment-bubble {
+  background-color: #e0f0ff;
+  color: #333;
+  padding: 10px 15px;
+  border-radius: 15px;
+  text-align: left;
+  margin-top: 15px;
+  font-style: italic;
+  white-space: pre-wrap;
+  font-size: 14px;
+}
+
+/* 调整聊天消息区域高度，为评价模块留出空间（可选）*/
+.transaction-chat .chat-messages {
+    max-height: 300px; 
+}
+
+/* 评价后，让“取引完了”区域只显示评价按钮 */
+.finish-transaction.rated-completed {
+  padding: 25px;
+  text-align: center;
+}
+.finish-transaction.rated-completed h2 {
+  border-bottom: none;
+  margin-bottom: 10px;
+}

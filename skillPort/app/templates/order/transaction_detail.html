@@ -79,9 +79,27 @@
 
         </section>
 
-        {# 右側：對話窗/訊息欄 #}
+        {# 右側：對話窗/訊息欄 - ⭐ 修改点 A: 评价显示和输入区隐藏 #}
         <section class="transaction-chat" data-order-id="{{ order.id }}">
           <h2 class="info-title">取引画面 (メッセージ)</h2>
+
+          {# ⭐ 【新增】如果评价存在 (rated_info) 则显示评价内容 #}
+          {% if rated_info %}
+          <div class="rating-display-module">
+              <h3>**取引完了:** 出品者への評価</h3>
+              <p class="rating-stars-result">
+                  {% for i in range(5) %}
+                    <span class="star-icon {% if i < rated_info.rating %}filled{% endif %}">★</span>
+                  {% endfor %}
+                  ({{ rated_info.rating }} / 5)
+              </p>
+              {% if rated_info.comment %}
+                <div class="rating-comment-bubble">{{ rated_info.comment }}</div>
+              {% else %}
+                <p class="no-comment-msg">コメントはありません。</p>
+              {% endif %}
+          </div>
+          {% endif %}
 
           <div class="chat-messages" id="chatMessages">
               {% for msg in messages %}
@@ -99,11 +117,15 @@
               {% endfor %}
           </div>
 
-          {# 訊息輸入欄: 预备加入互动功能 #}
+          {# 訊息輸入欄: 只有在交易未完成 (未 '取引完了') 时显示，否则隐藏 #}
+          {% if order.transaction_status != '取引完了' %}
           <div class="chat-input-area">
             <textarea id="messageInput" placeholder="メッセージを入力" rows="3"></textarea>
             <button class="send-button" id="sendMessageBtn" type="button">送信</button>
           </div>
+          {% else %}
+          <p style="text-align: center; color: #888; padding-top: 10px; border-top: 1px solid #eee;">取引は完了しました。新しいメッセージは送信できません。</p>
+          {% endif %}
           
         </section>
       </div>
@@ -135,13 +157,32 @@
           
         </section>
 
-        <section class="finish-transaction">
+        {# 取引完了アクション - ⭐ 修改点 B: 根据状态显示不同内容 #}
+        <section class="finish-transaction 
+            {% if order.transaction_status == '取引完了' %} rated-completed {% endif %}">
+
           <h2 class="info-title">取引を完了にする</h2>
-          <form action="">
-            <input type="checkbox">商品の中身を確認した
-            <br>
-            <button class="finish_trans_button">取引完了</button>
-          </form>
+          
+          {% if order.transaction_status == '取引完了' %}
+
+            {% if rated_info %}
+              <p style="font-weight: bold; color: #5cb85c; font-size: 16px;">
+                <span class="stars" style="font-size: 20px;">✓ </span>この取引は完了し、評価済みです。
+              </p>
+            {% else %}
+              <p style="margin-bottom: 15px; font-weight: 500;">商品受取の確認が完了しました。</p>
+              <a href="{{ url_for('market.rate_seller_page', order_id=order.id) }}">
+                <button class="finish_trans_button" style="background-color:#f0ad4e; font-size: 16px;">出品者を評価する</button>
+              </a>
+            {% endif %}
+
+          {% else %}
+            <form action="{{ url_for('market.complete_transaction', order_id=order.id) }}" method="POST">
+              <input type="checkbox" name="received_check" required>商品の中身を確認した
+              <br>
+              <button class="finish_trans_button" type="submit">取引完了</button>
+            </form>
+          {% endif %}
           
         </section>
       </div>

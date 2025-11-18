@@ -665,3 +665,30 @@ CREATE TABLE `product_comment_tbl` (
   CONSTRAINT `product_comment_tbl_ibfk_1` FOREIGN KEY (`product_id`) REFERENCES `listing_tbl` (`product_id`),
   CONSTRAINT `product_comment_tbl_ibfk_2` FOREIGN KEY (`user_id`) REFERENCES `user_tbl` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+
+--!seller_ratings_tbl: 用于保存买家对卖家的星级评价和评论
+-- Table structure for table `seller_ratings_tbl`
+-- (取引完了後の出品者評価)
+--
+DROP TABLE IF EXISTS `seller_ratings_tbl`;
+CREATE TABLE `seller_ratings_tbl` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `order_id` int(11) NOT NULL,
+  `seller_id` int(11) NOT NULL,
+  `rater_user_id` int(11) NOT NULL,
+  `rating` tinyint(1) NOT NULL COMMENT '1 to 5 stars',
+  `comment` varchar(500) DEFAULT NULL,
+  `rating_date` datetime DEFAULT current_timestamp(),
+
+  PRIMARY KEY (`id`),
+  -- 确保一个订单只能被评价一次
+  UNIQUE KEY `uk_order_rating` (`order_id`),
+  
+  KEY `seller_id` (`seller_id`),
+  KEY `rater_user_id` (`rater_user_id`),
+  
+  CONSTRAINT `seller_ratings_tbl_ibfk_1` FOREIGN KEY (`order_id`) REFERENCES `market_order_tbl` (`id`),
+  CONSTRAINT `seller_ratings_tbl_ibfk_2` FOREIGN KEY (`seller_id`) REFERENCES `user_tbl` (`id`),
+  CONSTRAINT `seller_ratings_tbl_ibfk_3` FOREIGN KEY (`rater_user_id`) REFERENCES `user_tbl` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
