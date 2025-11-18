@@ -2,13 +2,10 @@
   <link rel="stylesheet" href="../../static/css/my_page_favorites.css" />
 </head>
 <div class="favorites-page-container">
-  <h1 class="support-main-title">お気に入り</h1>
-
-  <!-- <div class="favorites-header">
-        <h2 class="favorites-title">お気に入りしました商品</h2>
-        <p class="favorites-count">全12件</p>
-    </div> -->
-
+  <h1 class="support-main-title">お気に入りの商品</h1>
+  {% if not fav_data %}
+  <h4>お気に入り商品がありません</h4>
+  {%endif%}
   <div class="favorites-grid">
     {% for item in fav_data %}
     <a

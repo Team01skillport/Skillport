@@ -104,3 +104,8 @@
 .back-btn:hover {
   background-color: #5d93ff;
 }
+
+.errmsg {
+  color: red;
+  font-size: 14px;
+}
