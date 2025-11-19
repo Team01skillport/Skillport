@@ -11,9 +11,11 @@ def video_player(video_id):
     SELECT *, vl.id AS video_like, v.id AS video_id FROM video_tbl v
     LEFT JOIN user_tbl u
     ON v.video_uploader_id = u.id LEFT JOIN video_like_tbl vl ON v.id = vl.video_id
-    WHERE v.id = %s;
+    WHERE v.id = %s 
+    GROUP BY v.id;
     """ 
     video_data = fetch_query(sql, (video_id,), fetch_one=True)
+    print(video_data)
     if not video_data:
         abort(404, "指定された動画は見つかりませんでした。")
         
