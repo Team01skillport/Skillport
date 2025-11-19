@@ -8,9 +8,9 @@ lesson_video_bp = Blueprint('lesson_video', __name__, url_prefix='/lesson_video'
 @lesson_video_bp.route('play_video//<int:video_id>')
 def video_player(video_id):
     sql = """
-    SELECT *, v.id AS video_id FROM video_tbl v
+    SELECT *, vl.id AS video_like, v.id AS video_id FROM video_tbl v
     LEFT JOIN user_tbl u
-    ON v.video_uploader_id = u.id
+    ON v.video_uploader_id = u.id LEFT JOIN video_like_tbl vl ON v.id = vl.video_id
     WHERE v.id = %s;
     """ 
     video_data = fetch_query(sql, (video_id,), fetch_one=True)
