@@ -29,10 +29,9 @@ def market_top():
         LEFT JOIN 
             listing_images_tbl i ON l.product_id = i.product_id AND i.is_thumbnail = 1
         WHERE 1=1
-        ORDER BY sales_status DESC
     """
     params = []
-
+    
     # --- 検索/フィルタリング条件の構築 ---
     if keyword:
         sql_products += " AND l.product_name LIKE %s"
@@ -71,7 +70,7 @@ def market_top():
         sql_products += " AND l.product_price <= %s"
         params.append(int(max_price))
     # ------------------------------------
-
+    sql_products += "ORDER BY sales_status DESC"
     all_products = fetch_query(sql_products, tuple(params))
     if all_products is None:
         all_products = [] 
@@ -80,7 +79,7 @@ def market_top():
     all_categories = fetch_query(sql_categories)
     if all_categories is None:
         all_categories = [] 
-        
+    
     return render_template('market/market.html', all_products=all_products, all_categories=all_categories)
 
 # =========================================================================
@@ -796,7 +795,7 @@ def transaction_detail(order_id):
 
     # 出品者情報の取得
     sql_seller = """
-        SELECT user_name, profile_icon, user_tags
+        SELECT user_name, profile_icon, user_tags, id
         FROM user_tbl 
         WHERE id = %s
     """
@@ -833,21 +832,42 @@ def transaction_detail(order_id):
         
     # ⭐ 【追加予定】評価情報の取得 (次で追加)
     rated_info = None
+    seller_id = order_info['seller_id']
     if order_info['transaction_status'] == '取引完了' and order_info['purchaser_id'] == user_id:
         sql_rating = """
-            SELECT rating, comment
+            SELECT rating
             FROM seller_ratings_tbl
-            WHERE order_id = %s AND rater_user_id = %s 
-            LIMIT 1
+            WHERE seller_id = %s;
         """
-        rated_info = fetch_query(sql_rating, (order_id, user_id), fetch_one=True)
+        ratings = fetch_query(sql_rating, (seller_id,), False)
+        if ratings and len(ratings) > 0:
+            avg_rating = sum(r['rating'] for r in ratings) / len(ratings)
+            avg_rating = round(avg_rating, 2)
+            rated_info = len(ratings)
+        else:
+            avg_rating = None
+            rated_info = 0
+        rating_sql="UPDATE user_tbl SET user_rating = %s WHERE id = %s"
+        new_rating = create_user(rating_sql,(avg_rating,seller_id))
+        
+        rating_stars=[]
+        full_rating = 5
+        if rated_info == 0:
+            rating_stars.append("☆☆☆☆☆")
+        else:
+            for i in range(rated_info):
+                rating_stars.append("★")
+            if i < full_rating:
+                for j in range(full_rating - i - 1):
+                    rating_stars.append("☆")
         
     return render_template('order/transaction_detail.html',
                             order=order_info,
                             product=product_info,
                             seller=seller_info,
                             messages=messages,
-                            rated_info=rated_info) # ⭐ rated_info をテンプレートに渡す
+                            rated_info=rated_info,
+                            rating_stars=rating_stars)
 
 # =========================================================================
 # Route 16: AJAX：取引メッセージ送信 (POST)
@@ -1007,6 +1027,14 @@ def rate_seller_action(order_id):
         if not rating or not (1 <= int(rating) <= 5):
             flash("評価スター数が無効です。", "danger")
             return redirect(url_for('market.rate_seller_page', order_id=order_id))
+        
+        rating_sql = "SELECT rating FROM seller_ratings_tbl WHERE seller_id = %s OR rater_user_id = %s"
+        get_rating = fetch_query(rating_sql,(user_id, user_id), False)
+        print(get_rating)
+        for rating in get_rating:
+            rating += rating
+            print(rating)
+
             
         # 評価をデータベースに挿入
         sql_insert = """

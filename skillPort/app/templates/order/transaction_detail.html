@@ -28,7 +28,7 @@
           {% if product %}
           <div class="info-product">
             {% if product.image_path %}
-              <img src="{{ url_for('static', filename=product.image_path[1:]) }}" alt="{{ product.product_name }}" class="product-thumb" style="object-fit: cover; width: 60px; height: 60px; background-color: #eee;">
+              <img src="{{ url_for('static', filename=product.image_path)}}" alt="{{ product.product_name }}" class="product-thumb" style="object-fit: cover; width: 60px; height: 60px; background-color: #eee;">
             {% else %}
               <div class="product-thumb">画像なし</div>
             {% endif %}
@@ -88,10 +88,7 @@
           <div class="rating-display-module">
               <h3>**取引完了:** 出品者への評価</h3>
               <p class="rating-stars-result">
-                  {% for i in range(5) %}
-                    <span class="star-icon {% if i < rated_info.rating %}filled{% endif %}">★</span>
-                  {% endfor %}
-                  ({{ rated_info.rating }} / 5)
+                  
               </p>
               {% if rated_info.comment %}
                 <div class="rating-comment-bubble">{{ rated_info.comment }}</div>
@@ -137,21 +134,16 @@
           
           {% if seller %}
           <div class="seller-details">
-            {% if seller.profile_icon %}
-              <img src="{{ url_for('static', filename=seller.profile_icon[1:]) }}" alt="出品者アイコン" class="seller-avatar">
-            {% else %}
-              <div class="seller-avatar"></div>
-            {% endif %}
-            
-            <div class="seller-meta">
-              <p class="seller-name">{{ seller.user_name }}</p>
-              <p class="seller-stats">
-                <small>{{ seller.user_tags }}</small>
-              </p>
-            </div>
-            <div class="seller-rating">
-              <span class="stars">★★★★★</span>
-            </div>
+            <a href="{{url_for('auth.view_profile', user_id=seller.id)}}">
+              <div class="seller-meta">
+                <span><img src="{{ url_for('static', filename='media/user/'+seller.profile_icon[1:]) }}" alt="" class="seller-avatar">
+                <p class="seller-name">{{ seller.user_name }}</p></span>
+                <div class="seller-rating">
+                  <span class="stars">{%for star in rating_stars%} <p>{{star}}</p> {%endfor%}</span>
+                </div>
+              </div>
+              
+            </a>
           </div>
           {% endif %}
           

@@ -231,25 +231,28 @@
   width: 44%;
 }
 .seller-details {
-  display: flex;
   align-items: center;
   gap: 15px;
   margin-top: 20px;
 }
+.seller-details a {
+  color: black;
+  text-decoration: none;
+}
 .seller-avatar {
-  width: 60px;
   height: 60px;
-  border-radius: 50%;
-  object-fit: cover;
-  background-color: #d9534f;
+  border-radius: 999px;
 }
 .seller-name {
   font-weight: bold;
   font-size: 18px;
-  margin-bottom: 5px;
+  margin-bottom: 0;
 }
 .seller-meta {
   flex-grow: 1;
+}
+.seller-meta span {
+  display: flex;
 }
 .seller-stats small {
   color: #666;
@@ -267,6 +270,9 @@
 }
 .follow-button:hover {
   background-color: #e0f0ff;
+}
+.seller-rating {
+  margin-left: 6rem;
 }
 .seller-rating .stars {
   color: #ffc107;
@@ -308,7 +314,7 @@
   padding: 15px;
   margin-bottom: 20px;
   text-align: center;
-  box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
 }
 
 .rating-display-module h3 {
@@ -346,7 +352,7 @@
 
 /* 调整聊天消息区域高度，为评价模块留出空间（可选）*/
 .transaction-chat .chat-messages {
-    max-height: 300px; 
+  max-height: 300px;
 }
 
 /* 评价后，让“取引完了”区域只显示评价按钮 */
