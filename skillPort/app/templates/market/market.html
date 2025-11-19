@@ -174,7 +174,9 @@ content %}
           <a
             href="{{url_for('market.product_detail', product_id=product.product_id)}}"
             ><div class="product-container">
-              {% if product.image_path %}
+              {% if product.image_path %} {% if product.sales_status == 'C' %}
+              <p class="sold_out_banner">SOLD</p>
+              {%endif%}
               <img
                 src="{{ url_for('static', filename=product.image_path) }}"
                 alt="{{product.product_name}}"
@@ -192,7 +194,7 @@ content %}
                   color: #aaa;
                 "
               >
-                画像ここ
+                商品画像
               </div>
               {% endif %}
               <div class="product-title">{{product.product_name}}</div>

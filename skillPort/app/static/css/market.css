@@ -215,7 +215,7 @@
   cursor: pointer;
 }
 
-.search-icon img{
+.search-icon img {
   width: 15px;
   transform: translateY(2px);
 }
@@ -581,4 +581,16 @@
 }
 .btn-apply-price:hover {
   background-color: #0056b3;
+}
+.sold_out_banner {
+  position: absolute;
+  z-index: 10;
+  color: white;
+  font-weight: bold;
+  background-color: red;
+  border-radius: 0 0 10px 0;
+  padding: 5px;
+  margin: 0;
+  opacity: 0.8;
+  font-size: 12px;
 }

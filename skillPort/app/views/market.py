@@ -21,6 +21,7 @@ def market_top():
     sql_products = """
         SELECT 
             l.*, 
+            l.sales_status,
             l.product_upload_user AS seller_name,
             i.image_path
         FROM 
