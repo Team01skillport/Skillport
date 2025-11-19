@@ -6,17 +6,8 @@ import os
 import math 
 from werkzeug.utils import secure_filename
 
-# =========================================================================
-# 【I. Blueprint 初期化】
-# =========================================================================
 market_bp = Blueprint('market', __name__, url_prefix='/market')
 
-# =========================================================================
-# 【II. 商品リスト/検索関連 (Route 1, 18, 19)】
-# =========================================================================
-# =========================================================================
-# Route 1: 市场顶部/商品列表页面 (GET) - 包含筛选逻辑
-# =========================================================================
 @market_bp.route('/', methods=["GET"])
 def market_top():
     keyword = request.args.get('keyword')
@@ -30,13 +21,14 @@ def market_top():
     sql_products = """
         SELECT 
             l.*, 
+            l.sales_status,
             l.product_upload_user AS seller_name,
             i.image_path
         FROM 
             listing_tbl l
         LEFT JOIN 
             listing_images_tbl i ON l.product_id = i.product_id AND i.is_thumbnail = 1
-        WHERE 1=1
+        WHERE 1=1 AND sales_status = 'S'
     """
     params = []
 
