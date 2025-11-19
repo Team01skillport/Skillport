@@ -29,6 +29,7 @@ def market_top():
         LEFT JOIN 
             listing_images_tbl i ON l.product_id = i.product_id AND i.is_thumbnail = 1
         WHERE 1=1
+        ORDER BY sales_status DESC
     """
     params = []
 
