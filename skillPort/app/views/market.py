@@ -21,14 +21,13 @@ def market_top():
     sql_products = """
         SELECT 
             l.*, 
-            l.sales_status,
             l.product_upload_user AS seller_name,
             i.image_path
         FROM 
             listing_tbl l
         LEFT JOIN 
             listing_images_tbl i ON l.product_id = i.product_id AND i.is_thumbnail = 1
-        WHERE 1=1 AND sales_status = 'S'
+        WHERE 1=1
     """
     params = []
 
