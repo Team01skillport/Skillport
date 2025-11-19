@@ -142,8 +142,9 @@ def perform_search(query):
 def product_detail(product_id):
     
     # ⭐ 修复点：在 SQL 中获取 u.id 并命名为 seller_id
-    sql_product = "SELECT l.*, i.image_path, u.id AS seller_id, u.user_name AS seller_name, u.profile_icon AS seller_icon, u.user_tags AS seller_tags FROM listing_tbl l LEFT JOIN listing_images_tbl i ON l.product_id = i.product_id AND i.is_thumbnail = 1 LEFT JOIN user_tbl u ON l.product_upload_user = u.user_name WHERE l.product_id = %s"
+    sql_product = "SELECT l.*, i.image_path, lp.id AS like_status, u.id AS seller_id, u.user_name AS seller_name, u.profile_icon AS seller_icon, u.user_tags AS seller_tags FROM listing_tbl l LEFT JOIN listing_images_tbl i ON l.product_id = i.product_id AND i.is_thumbnail = 1 LEFT JOIN user_tbl u ON l.product_upload_user = u.user_name LEFT JOIN liked_products_tbl lp ON l.product_id = lp.product_id WHERE l.product_id = %s"
     product_info = fetch_query(sql_product, (product_id,), fetch_one=True)
+    print(product_info  )
     if not product_info: abort(404)
 
     # ⭐ 修复点：直接从 product_info 获取 seller_id
@@ -417,7 +418,10 @@ def video_like(product_id):
             existing = fetch_query(sql_check, (user_id, product_id), fetch_one=True)
             print(existing)
             if existing:
-                return jsonify({'success': False, 'error': 'すでにお気に入り登録済みです'})
+                delete_sql = "DELETE FROM liked_products_tbl WHERE user_id=%s AND product_id=%s"
+                delete_like = create_user(delete_sql, (user_id, product_id))
+                print(delete_like)
+                return jsonify({'success': False, 'error': 'お気に入り商品から削除した'})
             else:
                 sql_insert = "INSERT INTO liked_products_tbl (user_id, product_id) VALUES (%s, %s)"
                 add_like = execute_query(sql_insert, (user_id, product_id))

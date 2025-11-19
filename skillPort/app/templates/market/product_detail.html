@@ -101,7 +101,7 @@ default('商品詳細', true) }}{% endblock %}
       <p class="price">¥{{info.product_price}}(税込)</p>
 
       <div class="action-buttons">
-        <input type="button" value="♡ お気に入り"  id="favorite_button" data-product-id="{{info.product_id}}" class="btn {% if info.sales_status == 'C' %}sold-out-button{% endif %}" {% if info.sales_status == 'C' %}disabled{% endif %}>
+        <input type="button" value="♡ お気に入り"  id="favorite_button" data-product-id="{{info.product_id}}" class="btn {% if info.sales_status == 'C' %}sold-out-button{% endif %}" {% if info.sales_status == 'C' %}disabled{% endif %} {% if info.like_status %}style="background-color:#007bff; color:white; font-weight: bold;"{%endif%}>
         <a href="#" class="btn" id="reportBtn">通報</a>
       </div>
 
@@ -254,6 +254,7 @@ default('商品詳細', true) }}{% endblock %}
 {% endblock %} 
 
 {% block scripts %}
+<script src="{{url_for('static', filename='js/jquery-3.7.0.min.js')}}"></script>
 <script
   src="{{ url_for('static', filename='js/product_detail.js') }}"
   defer
