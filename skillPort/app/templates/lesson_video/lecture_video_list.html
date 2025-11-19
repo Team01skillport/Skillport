@@ -43,15 +43,6 @@ content %}
         {% endfor %}
       </ul>
     </div>
-
-    <div class="pagination">
-      <a href="#" class="page-link active">1</a>
-      <a href="#" class="page-link">2</a>
-      <a href="#" class="page-link">3</a>
-      <a href="#" class="page-link">4</a>
-      <a href="#" class="page-link">5</a>
-      <a href="#" class="page-link">6</a>
-    </div>
   </div>
 
   <div id="uploadModal" class="modal">
@@ -59,53 +50,80 @@ content %}
     <div class="modal__card">
       <button class="modal__close" aria-label="Close modal">×</button>
       <div class="modal__content">
-        <div class="upload-fields">
-          <div class="file-preview-group">
-            <div class="file-button-container">
-              <label class="file-label file-button thumbnail-button">
-                ファイルを選択
-                <input
-                  type="file"
-                  id="videoFile"
-                  accept="video/mp4,video/quicktime"
-                />
-              </label>
+        <form
+          id="uploadForm"
+          enctype="multipart/form-data"
+          method="POST"
+          action="{{url_for('lesson_video.video_upload')}}"
+        >
+          <div class="upload-fields">
+            <div class="file-preview-group">
+              <div class="file-button-container">
+                <label class="file-label file-button thumbnail-button">
+                  ファイルを選択
+                  <input
+                    type="file"
+                    id="videoFile"
+                    name="video_file"
+                    accept="video/mp4,video/quicktime"
+                  />
+                </label>
 
-              <label class="file-label file-button thumbnail-button">
-                サムイルを選択
-                <input type="file" id="thumbnailFile" accept="image/*" />
-              </label>
+                <label class="file-label file-button thumbnail-button">
+                  サムイルを選択
+                  <input
+                    type="file"
+                    id="thumbnailFile"
+                    name="thumbnail_file"
+                    accept="image/*"
+                  />
+                </label>
 
-              <span id="fileName" class="file-name-display">animation.mp4</span>
+                <span id="fileName" class="file-name-display"></span>
+              </div>
+
+              <div class="thumbnail-image-preview">
+                <img src="../static/media/default_thumbnail.jpg" alt="" />
+              </div>
             </div>
 
-            <div class="thumbnail-image-preview">
-              <img
-                src="../static/media/default_thumbnail.jpg"
-                alt="プレビュー画像"
-              />
+            <label for="videoTitle" class="form-label">タイトル</label>
+            <input
+              type="text"
+              id="videoTitle"
+              name="video_title"
+              class="form-input"
+              placeholder=""
+            />
+
+            <label for="videoDescription" class="form-label">概要欄</label>
+            <textarea
+              id="videoDescription"
+              name="video_description"
+              class="form-textarea"
+            ></textarea>
+            <br />
+
+            <label for="upload_category_select" class="form-label"
+              >カテゴリー</label
+            >
+            <select name="upload_category" id="upload_category_select">
+              <option value="アニメーション">アニメーション</option>
+              <option value="音楽">音楽</option>
+              <option value="カメラ">カメラ</option>
+              <option value="フィットネス">フィットネス</option>
+              <option value="英語">英語</option>
+              <option value="プログラミング">プログラミング</option>
+            </select>
+            <div class="modal__actions">
+              <button class="btn btn--primary">アップロード</button>
+              <!-- <div class="member-setting">
+                <span>メンバー限定</span>
+                <span class="dot">•</span>
+              </div> -->
             </div>
           </div>
-
-          <label for="videoTitle" class="form-label">タイトル</label>
-          <input
-            type="text"
-            id="videoTitle"
-            class="form-input"
-            placeholder=""
-          />
-
-          <label for="videoDescription" class="form-label">概要欄</label>
-          <textarea id="videoDescription" class="form-textarea"></textarea>
-
-          <div class="modal__actions">
-            <button class="btn btn--primary">アップ...</button>
-            <div class="member-setting">
-              <span>メンバー限定</span>
-              <span class="dot">•</span>
-            </div>
-          </div>
-        </div>
+        </form>
       </div>
     </div>
   </div>
@@ -156,6 +174,17 @@ content %}
         }
       });
     }
+
+    document
+      .getElementById("thumbnailFile")
+      .addEventListener("change", function () {
+        const img = document.querySelector(".thumbnail-image-preview img");
+        const file = this.files[0];
+
+        if (file) {
+          img.src = URL.createObjectURL(file);
+        }
+      });
   </script>
 </body>
 {% endblock %}

@@ -190,7 +190,7 @@ default('商品詳細', true) }}{% endblock %}
       </div>
       
       <div class="seller-rating-display">
-          <h3>出品者評価 (総合)</h3>
+          <h3>出品者評価</h3>
           
           {% set count = seller_rating_info.rating_count %}
           
@@ -211,7 +211,7 @@ default('商品詳細', true) }}{% endblock %}
                   ({{ count }} 件の評価)
               </p>
           {% else %}
-              <p class="no-rating-msg">まだ評価はありません。</p>
+              <p class="no-rating-msg">評価はありません。</p>
           {% endif %}
       </div>
       </div>

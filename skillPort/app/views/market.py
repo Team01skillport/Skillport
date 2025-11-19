@@ -420,7 +420,6 @@ def video_like(product_id):
             if existing:
                 delete_sql = "DELETE FROM liked_products_tbl WHERE user_id=%s AND product_id=%s"
                 delete_like = create_user(delete_sql, (user_id, product_id))
-                print(delete_like)
                 return jsonify({'success': False, 'error': 'お気に入り商品から削除した'})
             else:
                 sql_insert = "INSERT INTO liked_products_tbl (user_id, product_id) VALUES (%s, %s)"

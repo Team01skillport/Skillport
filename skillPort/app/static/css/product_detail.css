@@ -262,44 +262,44 @@
 /* ================= 出品者評価エリア (seller-rating-display) - 新規追加 ================= */
 
 .seller-rating-display {
-  margin-top: 10px; 
-  padding-top: 10px; 
-  border-top: 1px solid #ccc; 
+  margin-top: 10px;
+  padding-top: 10px;
+  border-top: 1px solid #ccc;
   text-align: center;
-  padding-bottom: 5px; 
+  padding-bottom: 5px;
 }
 .seller-rating-display h3 {
-  font-size: 14px; 
+  font-size: 14px;
   color: #555;
-  margin: 10px 0 5px 0; 
+  margin: 10px 0 5px 0;
   border-bottom: none;
   padding-bottom: 0;
   font-weight: bold;
 }
 .avg-rating {
-  font-size: 14px; 
-  margin-bottom: 0px; 
-  line-height: 1.2; 
-  display: flex; 
+  font-size: 14px;
+  margin-bottom: 0px;
+  line-height: 1.2;
+  display: flex;
   align-items: center;
   justify-content: center;
 }
 .rating-star-icon {
-  color: #ccc; 
+  color: #ccc;
   margin: 0 1px;
-  font-size: 18px; 
+  font-size: 18px;
 }
 .rating-star-icon.filled {
-  color: #ffc107; 
+  color: #ffc107;
 }
 .rating-value {
-  font-size: 18px; 
+  font-size: 18px;
   font-weight: bold;
   color: #333;
-  margin-left: 8px; 
+  margin-left: 8px;
 }
 .rating-count {
-  font-size: 11px; 
+  font-size: 11px;
   color: #888;
   margin-top: 3px;
 }
@@ -347,4 +347,8 @@
   cursor: not-allowed;
   pointer-events: none;
   color: #666;
+}
+
+textarea {
+  resize: none;
 }

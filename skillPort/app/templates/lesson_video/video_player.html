@@ -14,7 +14,7 @@ endblock %} {% block styles %}
     <div class="video-area">
       <video controls class="video-frame">
         <source
-          src="{{ url_for('static', filename='media/' + video.file_path[1:]) }}"
+          src="{{ url_for('static', filename= video.file_path[1:]) }}"
           type="video/mp4"
         />
         ブラウザは動画再生に対応していません。
@@ -77,9 +77,10 @@ endblock %} {% block styles %}
         <div>  
           <a href="{{url_for('lesson_video.video_player', video_id = vid.id)}}">
           <img
-            src="{{ url_for('static', filename='media/' + vid.thumbnail_path) }}"
+            src="{{ url_for('static', filename= vid.thumbnail_path) }}"
             alt="Recommended Video 1"
-          /></div>
+          />
+        </div>
         <div> 
           <h5>{{vid.video_title}}</h5>
           <p>{{vid.video_description_section}}</p>
