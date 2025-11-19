@@ -648,43 +648,78 @@ def checkout_add_payment():
     payment_type = data.get('payment_type')
     
     try:
-        # クレジットカードの追加ロジック
+        # クレジットカードの追加ロジック (Credit Card Addition Logic)
         if payment_type == 'credit':
-            # ... (データ処理とDB挿入) ...
+            # 1. 【核心修改】提取新的字段名: MM, YYYY, CVC
             card_num_raw = data.get('card_num')
-            card_exp_raw = data.get('card_expiration')
-
-            if not card_num_raw or not card_exp_raw:
-                return jsonify({'success': False, 'error': 'カード番号と有効期限は必須です'}), 400
-                
-            card_num = card_num_raw.replace(' ', '')
             card_name = data.get('card_name')
-            card_exp = card_exp_raw.replace('/', '') 
+            card_exp_month = data.get('card_expiration_month')
+            card_exp_year = data.get('card_expiration_year')
+            card_cvc = data.get('card_cvc') # CVC/CVV，用于验证，但不存储
 
+            # 2. 验证必填项
+            if not all([card_num_raw, card_name, card_exp_month, card_exp_year, card_cvc]):
+                return jsonify({'success': False, 'error': 'カード情報が不完全です。全項目を入力してください。'}), 400
+                
+            card_num = card_num_raw.replace(' ', '').replace('-', '') # 清理卡号
+            
+            # 3. 构造 DB 所需的 MMYY 格式 (只取年份后两位)
+            if len(card_exp_year) != 4:
+                return jsonify({'success': False, 'error': '有効期限の年が正しくありません (YYYY形式)。'}), 400
+                
+            card_exp = card_exp_month + card_exp_year[-2:] # MMYY 格式
+            
+            # 4. 最终形式验证 (卡号长度和 MMYY 长度)
             if len(card_num) < 14 or len(card_num) > 16 or len(card_exp) != 4:
-                return jsonify({'success': False, 'error': 'カード情報の形式が正しくありません (14-16桁/MMYY)'}), 400
+                return jsonify({'success': False, 'error': 'カード番号または有効期限の形式が正しくありません。'}), 400
 
-            sql_check = "SELECT 1 FROM payment_tbl WHERE user_id = %s AND card_num = %s"
-            if fetch_query(sql_check, (user_id, card_num), fetch_one=True):
-                return jsonify({'success': False, 'error': 'このカードは既に登録されています'}), 400
+            # ----------------------------------------------------
+            # 5. 【核心逻辑：UPSERT (同步到 My Page 管理逻辑)】
+            # ----------------------------------------------------
+            
+            # 检查记录是否存在 (使用 AS record_count)
+            sql_check = "SELECT COUNT(*) AS record_count FROM payment_tbl WHERE user_id = %s AND account_type = 'クレジット';"
+            check_result = fetch_query(sql_check, (user_id,), fetch_one=True)
+            card_exists = check_result and check_result.get('record_count', 0) > 0
+            
+            if card_exists:
+                # 6. 存在记录，则更新 (UPDATE) - 确保执行的是 UPDATE 而非 INSERT
+                sql_action = """
+                    UPDATE payment_tbl SET 
+                        card_num = %s, card_name = %s, card_expiration = %s, card_block = 0 
+                    WHERE user_id = %s AND account_type = 'クレジット';
+                """
+                params = (card_num, card_name, card_exp, user_id)
+                
+            else:
+                # 7. 不存在记录，则插入 (INSERT)
+                sql_action = """
+                    INSERT INTO payment_tbl 
+                        (user_id, card_num, card_name, card_expiration, account_type, card_block, monthly_sales, total_sales, withdrawal) 
+                    VALUES 
+                        (%s, %s, %s, %s, 'クレジット', 0, 0, 0, 0);
+                """
+                params = (user_id, card_num, card_name, card_exp)
 
-            sql_insert = "INSERT INTO payment_tbl (user_id, card_num, card_name, card_expiration, card_block, account_type) VALUES (%s, %s, %s, %s, 0, 'クレジット')"
-            params = (user_id, card_num, card_name, card_exp)
+            # 8. 执行操作
+            if not execute_query(sql_action, params):
+                raise Exception("クレジットカードの登録/更新に失敗しました")
             
-            if not execute_query(sql_insert, params):
-                raise Exception("クレジットカードの登録に失敗しました")
-            
+            # ----------------------------------------------------
+
+            # 9. 返回成功响应，通知前端更新支付方式列表
             return jsonify({
                 'success': True,
+                'message': 'クレジットカード情報が正常に登録され、アカウントに同期されました。',
                 'new_payment': {
                     'value': card_num,
                     'text': f'クレジットカード (**** {card_num[-4:]})'
                 }
             })
 
-        # 銀行口座の追加ロジック
+        # 银行口座の追加ロジック (Bank Account Addition Logic - 保持不变)
         elif payment_type == 'bank':
-            # ... (データ処理とDB挿入) ...
+            # ... (保持原有的银行账户逻辑不变) ...
             bank_name = data.get('bank_name')
             acc_type = data.get('account_type')
             acc_num = data.get('bank_account_num')

@@ -325,3 +325,54 @@ body {
 
 #creditCardForm, #bankAccountForm { display: none; }
 #creditCardForm.active, #bankAccountForm.active { display: block; }
+
+/* checkout.css (新增或修改) */
+
+/* ========================================================= */
+/* [新增] 模态框内横向布局样式 */
+/* ========================================================= */
+
+/* 通用行布局容器 */
+.modal-form .form-row {
+    display: flex;
+    gap: 10px; /* 输入框间的间距 */
+    align-items: center;
+    margin-bottom: 15px; 
+}
+
+/* 确保行内元素可以分栏 */
+.modal-form .form-row .half {
+    flex: 1; /* 平分剩余空间 */
+    /* 确保输入框可以继承并适应 Flex 布局 */
+    width: 100%; 
+    padding: 0 !important; /* 避免内边距冲突 */
+    box-sizing: border-box;
+}
+
+/* 有效期输入组的特殊对齐 */
+.date-inputs-group {
+    /* 继承 form-row 的 display:flex */
+    display: flex; 
+    gap: 5px; /* 减小 MM / YYYY 之间的间距 */
+    align-items: center;
+    width: 100%; /* 占满父容器宽度 */
+}
+
+/* 确保 MM 和 YYYY 输入框宽度合理 */
+.date-inputs-group input {
+    flex: 1; /* 确保 MM 和 YYYY 输入框平分空间 */
+    text-align: center;
+    min-width: 0; /* 允许输入框缩小 */
+}
+
+/* 确保斜杠 '/' 符号与输入框垂直对齐 */
+.modal-form .date-sep {
+    font-size: 18px; 
+    color: #6c757d;
+}
+
+/* ---------------------------------------------------------------------- */
+/* 确保 CVC/CVV 输入框宽度合理 (可选，根据您的 HTML 结构调整) */
+#card_cvc {
+    max-width: 120px; 
+}

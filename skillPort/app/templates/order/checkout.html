@@ -30,26 +30,36 @@
       <div class="block">
         <div class="block-head">
           <h2>支払い方法</h2>
-          {% if payment_methods %}
+          {% if payment_methods or saved_card %}
           <button class="link-edit small" type="button" id="btnEditPayment">
             変更・追加
           </button>
           {% endif %}
         </div>
 
-        {% if payment_methods %}
+        {% if payment_methods or saved_card %}
           <div class="select-wrap">
             <select id="paymentSelect" name="payment_method_id" aria-label="支払い方法を選択">
+              
+              {% if saved_card %}
+                  <option value="{{ saved_card.card_number_full | default('', true) }}" selected>
+                      💳 クレジットカード (保存済み: **** {{ saved_card.card_number_masked[-4:] }})
+                  </option>
+              {% endif %}
+
               {% for payment in payment_methods %}
-                {% if payment.account_type == 'クレジット' and payment.card_num != '0000000000000000' %}
-                  <option value="{{ payment.card_num }}">
-                    クレジットカード (**** {{ payment.card_num[-4:] }})
-                  </option>
-                {% elif payment.account_type != 'クレジット' and payment.bank_name %}
-                  <option value="{{ payment.bank_account_num }}">
-                    {{ payment.bank_name }} ({{ payment.account_type }})
-                  </option>
-                {% endif %}
+                  {% if payment.account_type == 'クレジット' and payment.card_num != '0000000000000000' %}
+                      {% if not saved_card or payment.card_num != saved_card.card_number_full %}
+                          <option value="{{ payment.card_num }}">
+                            クレジットカード (**** {{ payment.card_num[-4:] }})
+                          </option>
+                      {% endif %}
+                      
+                  {% elif payment.account_type != 'クレジット' and payment.bank_name %}
+                      <option value="{{ payment.bank_account_num }}">
+                        🏦 {{ payment.bank_name }} ({{ payment.account_type }})
+                      </option>
+                  {% endif %}
               {% endfor %}
             </select>
             <span class="select-icon">▾</span>
@@ -68,6 +78,7 @@
           </select>
         {% endif %}
       </div>
+      
       <div class="block">
         <div class="block-head">
           <h2>配送先</h2>
@@ -155,14 +166,23 @@
         </label>
       </div>
       
-      <div id="creditCardForm" class="active">
-          <label for="card_num">カード番号</label>
-          <input type="text" id="card_num" name="card_num" placeholder="XXXX XXXX XXXX XXXX" maxlength="19">
-          <label for="card_name">名義人 (TARO YAMADA)</label>
-          <input type="text" id="card_name" name="card_name" placeholder="TARO YAMADA">
-          <label for="card_expiration">有効期限 (MM/YY)</label>
-          <input type="text" id="card_expiration" name="card_expiration" placeholder="MM/YY" maxlength="5">
+<div id="creditCardForm" class="active">
+    <label for="card_num">カード番号</label>
+    <input type="text" id="card_num" name="card_num" placeholder="XXXX XXXX XXXX XXXX" maxlength="19">
+    
+    <label for="card_name">名義人 (TARO YAMADA)</label>
+    <input type="text" id="card_name" name="card_name" placeholder="TARO YAMADA">
+    
+    <label>有効期限</label>
+      <div class="form-row date-inputs-group"> 
+          <input type="text" id="card_expiration_month" name="card_expiration_month" placeholder="MM" maxlength="2" class="half">
+          <span class="date-sep">/</span>
+          <input type="text" id="card_expiration_year" name="card_expiration_year" placeholder="YYYY" maxlength="4" class="half">
       </div>
+
+    <label for="card_cvc">セキュリティコード (CVC/CVV)</label>
+    <input type="text" id="card_cvc" name="card_cvc" placeholder="CVC/CVV" maxlength="4" style="width: 100px;">
+</div>
 
       <div id="bankAccountForm">
           <label for="bank_name">銀行名</label>

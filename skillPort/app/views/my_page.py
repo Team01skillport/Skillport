@@ -76,60 +76,75 @@ def password_reset_process():
         errmsg = "現在のパスワードが間違っています"
     return render_template('my_page/mp_password_reset_process.html', errmsg=errmsg)
 
+
 @my_page_bp.route('/payment_history', methods=["GET"])
 def payment_history():
     return render_template('my_page/mp_payment_history.html')
 
+# !=======================カード追加部分=========================================
+# =========================================================
 # 核心功能：卡列表 (GET - 读取数据)
+# =========================================================
 @my_page_bp.route('/card_list', methods=["GET"])
 def card_list():
     user_id = session.get('user_id')
+    if not user_id:
+        # 如果未登录，重定向到登录页
+        return redirect(url_for('login')) 
     
-    # 从 payment_tbl 中查询用户的 'クレジット' 记录
-    card_sql = "SELECT card_num, card_name, card_expiration FROM payment_tbl WHERE user_id = %s AND account_type = 'クレジット';"
-    card_data_raw = fetch_query(card_sql, (user_id,), fetch_one=True)
+    # SQL: 从 payment_tbl 中获取用户的信用卡信息
+    card_fetch_sql = "SELECT card_num, card_name, card_expiration FROM payment_tbl WHERE user_id = %s AND account_type = 'クレジット';"
+    card_data_raw = fetch_query(card_fetch_sql, (user_id,), fetch_one=True)
     
     card_data = None
     if card_data_raw:
-        # 转换数据格式以匹配 mp_cards.html 模板的 Jinja2 变量
-        expiry_mm = card_data_raw['card_expiration'][:2] if card_data_raw['card_expiration'] else ''
-        expiry_yy_short = card_data_raw['card_expiration'][2:] if card_data_raw['card_expiration'] else ''
+        # 处理数据格式以适应前端显示 (mp_cards.html)
+        card_number = card_data_raw.get('card_num', '')
+        card_name = card_data_raw.get('card_name', '')
+        card_expiration_db = card_data_raw.get('card_expiration', '') # 假设 DB 存储为 MMYY
+        
+        # 将 MMYY 格式分割为 MM 和 YYYY
+        expiry_mm = card_expiration_db[:2] if len(card_expiration_db) >= 4 else ''
+        expiry_yy = card_expiration_db[2:] if len(card_expiration_db) >= 4 else ''
         
         card_data = {
-            'card_number': card_data_raw['card_num'],
-            'holder_name': card_data_raw['card_name'],
+            'card_number': card_number,
+            # card_number_display 用于在列表页显示 '**** **** **** 1234'
+            'card_number_display': '**** **** **** ' + (card_number[-4:] if len(card_number) > 4 else card_number),
+            'holder_name': card_name,
             'expiry_month': expiry_mm, 
-            'expiry_year': '20' + expiry_yy_short, 
-            'security_code': '',
+            'expiry_year': ('20' + expiry_yy) if expiry_yy else '', # 传给模板的是四位数年份
         }
-
+        
     return render_template('my_page/mp_cards.html', card_data=card_data)
 
-# 核心功能：保存/更新卡片 (POST)
+
+# =========================================================
+# 核心功能：保存/更新卡片 (POST - UPSERT)
+# (已适配您提供的表单字段名和 MMYY 存储格式)
+# =========================================================
 @my_page_bp.route('/save_card_info', methods=["POST"])
 def save_card_info():
-    user_id = session.get('user_id') 
-    
-    card_number = request.form.get('cardNumber')
+    user_id = session.get('user_id')
+    if not user_id:
+        return jsonify({'success': False, 'message': 'ユーザーはログインしていません。'}), 401
+
+    # 使用用户提供的表单字段名
+    card_number = request.form.get('cardNumber').replace(' ', '').replace('-', '') # 清理卡号
     holder_name = request.form.get('cardHolderName')
     expiry_month = request.form.get('expiryMonth')
     expiry_year = request.form.get('expiryYear')
     
-    # 1. 构造 card_expiration (payment_tbl 格式为 MMYY，所以取 YYYY 的后两位)
-    expiry_mm_yy = expiry_month + expiry_year[-2:]
-    
-    # 2. 检查该用户是否已存在 'クレジット' 类型的记录
-    # 🚨 修正：为 COUNT(*) 添加别名 AS record_count，解决 KeyError
-    check_sql = "SELECT COUNT(*) AS record_count FROM payment_tbl WHERE user_id = %s AND account_type = 'クレジット';"
-    
-    # 🚨 修正：使用新的别名 'record_count'
-    check_result = fetch_query(check_sql, (user_id,), fetch_one=True)
-    
-    # 检查 fetch_query 返回结果是否有效，然后检查别名
-    card_exists = check_result and check_result.get('record_count', 0) > 0
+    # 保持用户原有的 DB 存储格式: MMYY
+    expiry_mm_yy = expiry_month + expiry_year[-2:] # 取年份后两位
+
+    # 1. 检查记录是否存在 (使用 AS record_count)
+    count_sql = "SELECT COUNT(*) AS record_count FROM payment_tbl WHERE user_id = %s AND account_type = 'クレジット';"
+    count_result = fetch_query(count_sql, (user_id,), fetch_one=True)
+    card_exists = count_result.get('record_count', 0) > 0
     
     if card_exists:
-        # 3. 存在记录，则更新 (UPDATE)
+        # 存在记录，则更新 (UPDATE)
         update_sql = """
             UPDATE payment_tbl SET 
                 card_num = %s, card_name = %s, card_expiration = %s, card_block = 0 
@@ -138,7 +153,7 @@ def save_card_info():
         params = (card_number, holder_name, expiry_mm_yy, user_id)
         
     else:
-        # 4. 不存在记录，则插入 (INSERT)
+        # 不存在记录，则插入 (INSERT)
         update_sql = """
             INSERT INTO payment_tbl 
                 (user_id, card_num, card_name, card_expiration, account_type, card_block, monthly_sales, total_sales, withdrawal) 
@@ -154,6 +169,34 @@ def save_card_info():
         print(f"Error saving card info: {e}")
         return jsonify({'success': False, 'message': '保存中に予期せぬエラーが発生しました。詳細はサーバーログを確認してください。', 'error': str(e)}), 500
 
+
+# =========================================================
+# 核心功能：信用卡信息删除路由 (POST - DELETE)
+# (新增功能，用于处理来自 mp_cards.html 的删除请求)
+# =========================================================
+@my_page_bp.route('/delete_card_info', methods=["POST"])
+def delete_card_info():
+    # 1. 检查用户是否登录
+    user_id = session.get('user_id')
+    if not user_id:
+        return jsonify({'success': False, 'message': 'ユーザーはログインしていません。'}), 401
+
+    # 2. SQL DELETE 语句：删除当前用户的信用卡记录
+    delete_sql = "DELETE FROM payment_tbl WHERE user_id = %s AND account_type = 'クレジット';"
+    
+    try:
+        # 3. 执行删除操作
+        create_user(delete_sql, (user_id,))
+        
+        # 4. 删除成功，返回 JSON 响应
+        return jsonify({'success': True, 'message': 'クレジットカード情報が正常に削除されました。'})
+        
+    except Exception as e:
+        # 5. 删除失败，打印错误并返回 JSON 错误响应
+        print(f"Error deleting card info: {e}")
+        return jsonify({'success': False, 'message': '削除中に予期せぬエラーが発生しました。'}), 500
+
+# !=======================カード追加部分終わり=========================================
 
 @my_page_bp.route('/customer_support', methods=["GET"])
 def customer_support():

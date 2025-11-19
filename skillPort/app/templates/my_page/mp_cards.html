@@ -42,8 +42,8 @@
                 <div class="form-group">
                     <label class="form-label-small">カード番号</label>
                     <input type="text" id="editCardNumber" name="cardNumber" 
-                           placeholder="例：182377128971287" required 
-                           value="{{ card_data.card_number if card_data else '' }}">
+                           placeholder="例：1823 7712 8971 2870" required 
+                           value="{{ card_data.card_number if card_data else '' }}" maxlength="19">
                 </div>
                 
                 <div class="form-group">
@@ -91,7 +91,7 @@
             <div class="form-group">
                 <label class="form-label-small">カード番号</label>
                 <input type="text" id="cardNumber" name="cardNumber" 
-                       placeholder="例：182377128971287" required>
+                       placeholder="例：1823 7712 8971 2870" required maxlength="19">
             </div>
             
             <div class="form-group">
@@ -129,14 +129,45 @@
     </div>
     
     <script>
+        // 卡号格式化函数 (自动添加空格)
+        function formatCardNumber(inputElement) {
+            let value = inputElement.value.replace(/\s/g, ''); // 移除所有空格
+            let formattedValue = '';
+            
+            for (let i = 0; i < value.length; i++) {
+                if (i > 0 && i % 4 === 0) {
+                    formattedValue += ' ';
+                }
+                formattedValue += value[i];
+            }
+            
+            // 限制最大长度 (16位数字 + 3个空格 = 19个字符)
+            if (formattedValue.length > 19) {
+                formattedValue = formattedValue.substring(0, 19);
+            }
+            
+            inputElement.value = formattedValue;
+        }
+
         $(document).ready(function() {
             
+            // 绑定卡号格式化事件到注册和编辑表单
+            $('#cardNumber, #editCardNumber').on('input', function() {
+                formatCardNumber(this);
+            });
+
             // ===================================
-            // 提交逻辑
+            // 提交逻辑 (注册和编辑共用)
             // ===================================
             const handleSave = function(e) {
                 e.preventDefault();
-                const formData = $(this).serialize();
+                
+                // 获取表单数据
+                const form = $(this);
+                // 确保移除卡号中的空格再序列化，以便后端处理
+                const formData = form.serialize().replace(/cardNumber=([0-9%20]+)/g, function(match, p1) {
+                    return 'cardNumber=' + p1.replace(/%20/g, '');
+                });
                 
                 $.ajax({
                     url: '/my_page/save_card_info',

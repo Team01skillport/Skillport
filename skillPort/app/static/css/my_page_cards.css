@@ -7,8 +7,8 @@ body{
 /* 核心容器：用于居中整个信用卡信息区域 */
 /* ========================================================= */
 .cards-page-container {
-    width: 95%; /* 适应屏幕宽度 */
-    max-width: 700px; /* 限制容器最大宽度 */
+    width: 95%; 
+    max-width: 700px; 
     /* 核心修改：移除水平居中，并设置左侧边距 */
     /* 请根据您的主布局CSS来调整左侧边距 (示例值: 240px) */
     margin: 50px 20px 50px 240px; 
@@ -54,7 +54,7 @@ body{
     border: 1px solid #ddd;
     border-radius: 8px;
     background-color: #f9f9f9;
-    max-width: 450px; /* 限制概览的宽度 */
+    max-width: 450px; 
 }
 
 .card-detail-item {
@@ -74,8 +74,8 @@ body{
 /* ========================================================= */
 .card-actions-summary {
     display: flex; /* 启用 Flexbox */
-    align-items: center; /* 垂直居中对齐 */
-    gap: 15px; /* 按钮之间的间距 */
+    align-items: center; 
+    gap: 15px; 
     margin-top: 25px;
     padding-top: 15px;
 }
@@ -106,8 +106,8 @@ body{
 /* ========================================================= */
 .delete-button-style {
     background-color: transparent; 
-    color: #d9534f; /* 红色文字 */
-    border: 1px solid #d9534f; /* 红色边框 */
+    color: #d9534f; 
+    border: 1px solid #d9534f; 
     padding: 12px 25px; 
     border-radius: 30px; 
     font-size: 16px;
@@ -154,8 +154,8 @@ body{
 .register-card-form input[type="text"] {
     width: 100%; 
     padding: 12px 15px;
-    border: 1px solid #ccc;
-    border-radius: 8px; 
+    border: 1px solid #c0c0c0; /* 🚨 边框略微加深 */
+    border-radius: 6px; /* 🚨 圆角调整为 6px */
     box-sizing: border-box;
     font-size: 16px;
 }
@@ -195,12 +195,13 @@ body{
     padding: 12px 10px; 
 }
 
-/* 表单内的动作按钮容器 (更新和取消按钮) */
+/* 表单内的动作按钮容器 (注册和更新按钮) */
 .register-card-form .form-actions-modal {
     display: flex; 
+    /* 核心修改：居中按钮 */
+    justify-content: center; 
     gap: 15px; 
     margin-top: 30px; 
-    justify-content: flex-start; 
 }
 
 /* 取消按钮的样式 */
