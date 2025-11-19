@@ -125,6 +125,12 @@
   color: black;
 }
 
+.video-card div img {
+  width: 175px;
+  height: 100px;
+  border-radius: 12px;
+}
+
 .video_info {
   background-color: #eee;
   padding: 1px 20px;
