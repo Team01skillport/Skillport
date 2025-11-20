@@ -202,6 +202,24 @@ def delete_card_info():
 def customer_support():
     return render_template('my_page/mp_support.html')
 
+@my_page_bp.route('/customer_support/sent', methods=["POST"])
+def customer_support_sent():
+    name = request.form.get("name")
+    email = request.form.get("email")
+    category = request.form.get("category")
+    contents = request.form.get("details")
+    user_id = session['user_id']
+    sql = "INSERT INTO support_tbl (name, email, category, content, inquiry_user_id) VALUES (%s, %s, %s, %s, %s)"
+    create_user(sql, (name, email, category, contents, user_id,))
+
+    print(name)
+    print(email)
+    print(category)
+    print(contents)
+
+    redirect(url_for('my_page/mp_support.html'))
+    return render_template('my_page/mp_cs_form_sent.html', succmsg="フォーム送信ができました。返事はメールでご確認ください。")
+
 @my_page_bp.route('/notifications', methods=["GET"])
 def notifications():
     return render_template('my_page/mp_notifications.html')
@@ -209,3 +227,32 @@ def notifications():
 @my_page_bp.route('/delete_account', methods=["GET"])
 def delete_account():
     return render_template('my_page/mp_delete_account.html')
+    
+@my_page_bp.route('/delete_account/process', methods=["POST"])
+def delete_account_process():
+    user_id = session['user_id']
+    email = request.form.get("email")
+    password = request.form.get("password")
+    confirmPassword = request.form.get("confirmPassword")
+    if password == confirmPassword:
+        check_sql = "SELECT id, mail, password FROM user_tbl WHERE id = %s"
+        check_data = fetch_query(check_sql,(user_id,), True)
+        if check_data['password'] == password and check_data['mail'] == email:
+            erase_user_id = check_data['id']            
+            return render_template('my_page/mp_delete_account_process.html', user_id = erase_user_id)
+        else:
+            errmsg = "パスワードかメールが一致していません"
+            return render_template('my_page/mp_delete_account_retry.html', errmsg=errmsg)
+    else:
+        errmsg = "パスワードと確認用パスワードが一致していません"
+        return render_template('my_page/mp_delete_account_retry.html', errmsg=errmsg)
+    
+@my_page_bp.route('/delete_account/success', methods=["POST"])
+def delete_account_success():
+    user_id = request.form.get("user_id")
+    erase_sql = "UPDATE user_tbl SET password = NULL WHERE id = %s;"
+    create_user(erase_sql,(user_id,))
+    session.pop('user_id', None)
+    session.pop('user_name', None)
+
+    return render_template('my_page/mp_delete_account_success.html', user_id=user_id)
