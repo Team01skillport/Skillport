@@ -1,6 +1,8 @@
-from flask import Blueprint, render_template, request, make_response, session, redirect, url_for, flash
+from flask import Blueprint, render_template, request, make_response, session, redirect, url_for, flash, current_app
 from app.db import create_user, fetch_query
+from werkzeug.utils import secure_filename
 from datetime import datetime
+import os
 
 account_bp = Blueprint('account', __name__, url_prefix='/account')
 
@@ -43,6 +45,7 @@ def user_register_complete():
 def edit_profile(user_name):
     sql = "SELECT * FROM user_tbl WHERE user_name = '"+str(user_name)+"';"
     user_info = fetch_query(sql, params=None, fetch_one=True)
+    print(user_info)
     if not user_info:
         print("NO USER FOUND")
         return "No user", 404
@@ -66,18 +69,25 @@ def edit_profile_success(user_name):
     year = request.form.get("year")
     month = request.form.get("month")
     day = request.form.get("day")
-    zip_code = request.form.get("zip_code")
+    zip_code = request.form.get("post_code")
     prefecture = request.form.get("prefecture")
     address1 = request.form.get("address1")
     address2 = request.form.get("address2")
-    new_profile_icon = request.form.get("profile_icon")
+    new_profile_icon = request.files.get('profile_icon')
     introduction = request.form.get("self_introduction")
-    
+    print(new_profile_icon)
     date_string = f"{year}-{month}-{day}"
-    if new_profile_icon == "":
-        new_profile_icon = "/icons/default_icon.png"
-    
+    if not new_profile_icon:
+        icon_db_path = "/icons/default_icon.png"
+    else:
+        filename = secure_filename(new_profile_icon.filename)
+        local_icon_path = os.path.join(current_app.root_path, 'static', 'media', 'user', 'icons')
+        local_icon_save = os.path.join(local_icon_path, filename)
+        new_profile_icon.save(local_icon_save)
 
+        upload_folder = '/icons'
+        icon_db_path = upload_folder + "/"+ filename
+    
     sql = f"""
     UPDATE user_tbl SET
     first_name = '{first_name}',
@@ -93,16 +103,13 @@ def edit_profile_success(user_name):
     mail = '{mail}',
     introduction = '{introduction}',
     user_tags = '{user_tags}',
-    profile_icon = '{new_profile_icon}'
+    profile_icon = '{icon_db_path}'
     WHERE id = {session['user_id']}
     ;
     """
-    update_user_info = create_user(sql)
-    print(update_user_info)
+    create_user(sql)
 
-    sql = "SELECT * FROM user_tbl WHERE user_name = '"+str(user_name)+"';"
-    user_info = fetch_query(sql, params=None, fetch_one=True)
-    return redirect(url_for('account.edit_profile', user_name = user_name, user_info=user_info, tag_placeholder="複数のタグはカンマ(,)で区切って入力してください（例：映画,歌）"))
+    return redirect(url_for('account.edit_profile', user_name = user_name, tag_placeholder="複数のタグはカンマ(,)で区切って入力してください（例：映画,歌）"))
 
 @account_bp.route('/my_page_top', methods=["GET"])
 def my_page_top():
