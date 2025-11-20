@@ -43,8 +43,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
   // ===========================
   // 4. 初期値のプレースホルダー処理 (例: 年/月/日)
-  //    Jinja2で直接DBの値を'value'属性に出力するのが理想的ですが、
-  //    JavaScriptで制御する場合の例です。
   // ===========================
   const dateInputs = document.querySelectorAll(
     '.date-inputs input[type="number"]'
@@ -73,4 +71,19 @@ document.addEventListener("DOMContentLoaded", function () {
       input.placeholder = "元の情報を載せます"; // Placeholderとして表示
     }
   });
+
+
+  // ===========================
+  // ⭐️ 5. 電話番号の入力制限 (数字のみ許可) ⭐️
+  // ===========================
+  const phoneInput = document.getElementById('phoneNumInput');
+  
+  if (phoneInput) {
+    // inputイベント（入力が発生するたび）を監視
+    phoneInput.addEventListener('input', function(e) {
+      // 0-9の数字以外の文字をすべて空文字（""）に置き換える
+      // これにより、リアルタイムで数字以外の入力が削除される
+      this.value = this.value.replace(/[^0-9]/g, '');
+    });
+  }
 });
