@@ -84,6 +84,29 @@ block styles %}
           </div>
         </div>
 
+        <div class="form-row">
+          <div class="form-group half">
+            <label for="lastNameFuriganaInput">姓</label>
+            <input
+              type="text"
+              id="lastNameFuriganaInput"
+              value="{{info.last_name_katakana}}"
+              name="last_name_katakana"
+              required
+            />
+          </div>
+          <div class="form-group half">
+            <label for="firstNameFuriganaInput">名</label>
+            <input
+              type="text"
+              id="firstNameFuriganaInput"
+              value="{{info.first_name_katakana}}"
+              name="first_name_katakana"
+              required
+            />
+          </div>
+        </div>
+
         <div class="form-group">
           <label for="emailInput">メールアドレス</label>
           <input
@@ -108,7 +131,19 @@ block styles %}
         </div>
 
         <div class="form-group">
-          <label for="address1Input">住所1 (都道府県/市区町村)</label>
+          <label for="prefectureInput">都道府県</label>
+          <input
+            type="text"
+            id="prefectureInput"
+            value="{{info.prefecture}}"
+            name="prefecture"
+            placeholder="都道府県"
+            required
+          />
+        </div>
+
+        <div class="form-group">
+          <label for="address1Input">住所1 (市区町村)</label>
           <input
             type="text"
             id="address1Input"
