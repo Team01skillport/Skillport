@@ -121,9 +121,13 @@ main {
   gap: 40px;
 }
 
+/* --- 【修正箇所】動画と投稿セクションを等幅にするための調整 --- */
 .section {
-  flex: 1;
+  /* flex: 1; から変更 */
+  flex: 1 1 0; /* flex-grow: 1, flex-shrink: 1, flex-basis: 0 で均等幅を保証 */
+  min-width: 0; /* コンテンツによる幅の広がりを防ぎ、柔軟性を高める */
 }
+/* ----------------------------------------------------------------- */
 
 .section a {
   text-decoration: none;
@@ -155,7 +159,8 @@ main {
 }
 
 .video-thumbnail img {
-  max-width: 512px;
+  /* max-width: 512px; を削除し、セクションの幅（100%）に依存させる */
+  max-width: 100%;
   max-height: 288px;
   width: 100%;
   height: 100%;
@@ -248,4 +253,36 @@ main {
   font-style: italic;
   font-size: 14px;
   opacity: 0.6;
+}
+
+/* --- 非表示/もっと見るボタン関連のスタイル (前回の修正で追加) --- */
+
+/* 初期非表示用のクラス */
+.hidden-item {
+  display: none;
+}
+
+/* 「もっと見る」ボタンのスタイル */
+.more-btn {
+  display: block; /* ブロック要素にして中央に配置しやすくする */
+  width: 200px;
+  margin: 20px auto 40px auto; /* 上下左右にマージンを設定 */
+  padding: 10px 20px;
+  background-color: #2563eb;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: 600;
+  transition: 0.2s;
+}
+
+.more-btn:hover {
+  background-color: #1d4ed8;
+}
+
+.video-link {
+  text-decoration: none;
+  color: black;
 }
