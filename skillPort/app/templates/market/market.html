@@ -16,13 +16,14 @@ content %}
               alt=""
             />
           </button>
+          <!-- !=========検索バーの修正========== -->
           <input
             type="text"
             name="keyword"
             placeholder="商品名で検索..."
             class="product-search"
             value="{{ request.args.get('keyword', '') }}"
-          />
+            />
         </form>
       </div>
       {% if 'user_id' in session %}
