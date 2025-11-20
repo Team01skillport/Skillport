@@ -59,10 +59,12 @@ def edit_profile(user_name):
 
 @account_bp.route('/edit_profile/<user_name>/success', methods=["POST"])
 def edit_profile_success(user_name):
+    user_name = session['user_name']
     icon_sql = "SELECT profile_icon FROM user_tbl WHERE user_name = %s"
     icon_data = fetch_query(icon_sql, (user_name,), True)
     
-    user_tags = request.form.get("tags")
+    user_tags = request.form.get("user_tags")
+    print(user_tags)
     mail = request.form.get("email")
     tel_no = request.form.get("phone_num")
     last_name = request.form.get("last_name")
@@ -80,7 +82,7 @@ def edit_profile_success(user_name):
     introduction = request.form.get("self_introduction")
     date_string = f"{year}-{month}-{day}"
     if not new_profile_icon:
-        icon_db_path = icon_data
+        icon_db_path = icon_data["profile_icon"]
     else:
         filename = secure_filename(new_profile_icon.filename)
         local_icon_path = os.path.join(current_app.root_path, 'static', 'media', 'user', 'icons')

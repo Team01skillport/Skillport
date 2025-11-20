@@ -35,12 +35,12 @@ block styles %}
 
         <div class="profile-inputs-group">
           <div class="form-group">
-            <label for="tagInput">タグ</label>
+            <label for="tagInput">タグ (複数を入力する際、カンマ(,)で区切ってください)</label>
             <input
               type="text"
               id="tagInput"
-              value="{{info['user_tags']}}"
-              name="tags"
+              value="{{info.user_tags}}"
+              name="user_tags"
               placeholder="複数のタグはカンマ(,)で区切って入力してください（例：映画,歌）"
             />
           </div>
