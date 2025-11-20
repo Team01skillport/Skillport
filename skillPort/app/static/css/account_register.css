@@ -5,7 +5,7 @@ body {
   font-family: sans-serif;
   margin: 0;
   /* 統一為淺灰色背景 */
-  background-color: #f0f0f0; 
+  background-color: #f0f0f0;
 }
 
 /* --------------------------------------------------------- */
@@ -18,7 +18,7 @@ body {
   align-items: center;
   /* 確保在沒有 base.html 干擾時，內容能垂直置中 */
   /* min-height: calc(100vh - 80px); 假設 header/footer 高度，確保內容居中 */
-  padding: 68px 0 68px 0 ; 
+  padding: 68px 0 68px 0;
   box-sizing: border-box;
 }
 
@@ -30,8 +30,7 @@ body {
   border-radius: 10px;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
   padding: 40px 30px;
-  text-align: center; 
-  
+  text-align: center;
 }
 
 /* Logo 區域 */
@@ -40,18 +39,17 @@ body {
 }
 
 .logo-image {
-  width: 150px; 
+  width: 150px;
   height: auto;
 }
 
 /* 標題 */
 .card-title {
-    font-size: 20px;
-    font-weight: bold;
-    color: #333;
-    margin-bottom: 25px;
+  font-size: 20px;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 25px;
 }
-
 
 /* --------------------------------------------------------- */
 /* 表單與輸入框樣式 */
@@ -75,7 +73,8 @@ body {
   border-radius: 5px; /* 輕微圓角 */
   box-sizing: border-box;
   font-size: 16px;
-  text-align: left; 
+  text-align: left;
+  margin: 10px 0;
 }
 
 .login-form input:focus {
@@ -83,10 +82,9 @@ body {
   outline: none;
 }
 
-.login-form input:hover{
+.login-form input:hover {
   border: 1px solid #6d6d6d;
 }
-
 
 /* --------------------------------------------------------- */
 /* 登入按鈕 (確保 <button> 元素被正確樣式化) */
@@ -98,7 +96,7 @@ body {
   border: none;
   border-radius: 5px;
   /* 統一為登入頁面的藍色 */
-  background-color: #427df0; 
+  background-color: #427df0;
   color: white;
   font-size: 18px;
   font-weight: bold;
@@ -129,15 +127,20 @@ body {
 }
 
 .login-card p {
-    /* 確保 p 標籤內的連結繼承 link-option 樣式 */
-    margin-top: 20px;
-    text-align: center;
+  /* 確保 p 標籤內的連結繼承 link-option 樣式 */
+  margin-top: 20px;
+  text-align: center;
 }
 
 /* 響應式調整 */
 @media (max-width: 450px) {
   .login-card {
     padding: 30px 20px;
-    box-shadow: none; 
+    box-shadow: none;
   }
+}
+
+.warning {
+  font-style: italic;
+  margin: 0;
 }

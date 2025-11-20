@@ -64,7 +64,6 @@ def edit_profile_success(user_name):
     icon_data = fetch_query(icon_sql, (user_name,), True)
     
     user_tags = request.form.get("user_tags")
-    print(user_tags)
     mail = request.form.get("email")
     tel_no = request.form.get("phone_num")
     last_name = request.form.get("last_name")
@@ -79,7 +78,7 @@ def edit_profile_success(user_name):
     address1 = request.form.get("address1")
     address2 = request.form.get("address2")
     new_profile_icon = request.files.get('profile_icon')
-    introduction = request.form.get("self_introduction")
+    introduction = request.form.get("bio")
     date_string = f"{year}-{month}-{day}"
     if not new_profile_icon:
         icon_db_path = icon_data["profile_icon"]

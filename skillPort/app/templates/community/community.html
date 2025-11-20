@@ -7,7 +7,7 @@
     <h2>おすすめ動画</h2>
     {% for videos in popular_videos %}
     <a class="video_card" href="{{ url_for('lesson_video.video_player', video_id=videos.video_id) }}" aria-label="動画1の詳細を開く">
-      <img src="{{url_for('static', filename='media' + videos.thumbnail_path)}}" alt="動画1">
+      <img src="{{url_for('static', filename=videos.thumbnail_path)}}" alt="動画1">
       <h3>{{videos.video_title}}</h3>
       <p class="video_desc">{{videos.video_description_section}}</p>
       <p class="video_upload_user">{{videos.user_name}}</p>
