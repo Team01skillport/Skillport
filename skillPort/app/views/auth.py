@@ -68,13 +68,10 @@ def view_profile(user_id):
         tag = ""
         
     # ユーザーがアップした動画を表示する
-    sql = "SELECT v.*, COUNT(vv.id) AS view_count FROM video_tbl v LEFT JOIN user_tbl u ON v.video_uploader_id = u.id LEFT JOIN video_view_tbl vv ON v.id = vv.video_id WHERE u.id = '"+str(user_id)+"';"
-    user_videos = fetch_query(sql)
+    sql = "SELECT v.*, COUNT(vv.id) AS view_count FROM video_tbl v LEFT JOIN user_tbl u ON v.video_uploader_id = u.id LEFT JOIN video_view_tbl vv ON v.id = vv.video_id WHERE u.id = %s GROUP BY v.id ORDER BY v.video_upload_date DESC"
+    user_videos = fetch_query(sql, (user_id,), False)
     if not user_videos:
         user_videos = []
-    print(user_videos)
-        
-
     
     # プロフィールでの投稿動画のタグを区切る
     # video_tag = []

@@ -1,5 +1,6 @@
 from flask import Blueprint, render_template, abort, session, request, redirect, current_app, url_for
 from app.db import fetch_query, create_user, connect_db
+import uuid
 import os
 from werkzeug.utils import secure_filename
 
@@ -61,6 +62,10 @@ def video_like(video_id):
         except:
             errmsg = "ログインしていません"
             return errmsg
+      
+def generate_random_filename(original_filename):
+    ext = os.path.splitext(original_filename)[1]
+    return f"{uuid.uuid4()}{ext}"
         
 @lesson_video_bp.route('video_upload', methods=['POST'])
 def video_upload():
@@ -72,8 +77,8 @@ def video_upload():
     category = request.form.get('upload_category')
     
     local_upload_folder = os.path.join(current_app.root_path, 'static', 'uploads', 'video')
-    
     local_thumb_folder = os.path.join(current_app.root_path, 'static', 'uploads', 'video_thumbnail')
+    
     
     upload_folder = '/uploads/video'
     os.makedirs(upload_folder, exist_ok=True)
@@ -82,7 +87,7 @@ def video_upload():
     
     video_path = None
     if video_file:
-        filename = secure_filename(video_file.filename)
+        filename = generate_random_filename(video_file.filename)
         local_video_path = os.path.join(local_upload_folder, filename)
         video_path = upload_folder + "/"+ filename
         video_file.save(local_video_path)
@@ -93,7 +98,8 @@ def video_upload():
         local_thumbnail_path = os.path.join(local_thumb_folder, filename)
         thumbnail_path = thumb_folder + "/" + filename
         thumbnail_file.save(local_thumbnail_path)
-        sql = """
+        
+    sql = """
     INSERT INTO video_tbl
     (video_title, video_description_section, video_category, file_path, thumbnail_path, video_uploader_id, video_public_status)
     VALUES (%s, %s, %s, %s, %s, %s, %s);

@@ -54,12 +54,12 @@ content %}
   <div class="content-sections">
     <div class="section">
       <h2 class="section-title">動画</h2>
-      {% if videos %} {% for video in user_videos %}
+      {% if user_videos %} {% for video in user_videos %}
       <a href="{{url_for('lesson_video.video_player', video_id=video.id)}}">
         <div class="video-card">
           <div class="video-thumbnail">
             <img
-              src="{{url_for('static', filename='media' + video.thumbnail_path)}}"
+              src="{{url_for('static', filename=video.thumbnail_path)}}"
               alt=""
             />
           </div>
@@ -68,7 +68,9 @@ content %}
             <p class="video_desc">{{video.video_description_section}}</p>
             <p>再生回数：{{video.view_count}}</p>
             <div>
+              {% if video.video_tag%}
               <p>#{{video.video_tag}}</p>
+              {%endif%}
               <p class="video_upload_date">
                 {{video.video_upload_date.date()}}
               </p>
