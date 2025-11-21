@@ -890,7 +890,7 @@ def transaction_detail(order_id):
         if rated_info == 0:
             rating_stars.append("☆☆☆☆☆")
         else:
-            for i in range(rated_info):
+            for i in range(math.floor(rated_info)):
                 rating_stars.append("★")
             if i < full_rating:
                 for j in range(full_rating - i - 1):

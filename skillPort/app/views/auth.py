@@ -1,5 +1,6 @@
 from flask import Blueprint, render_template, request, make_response, session, redirect, url_for, flash
 from app.db import fetch_query
+import math
 
 # Blueprintオブジェクトを作成
 auth_bp = Blueprint('auth', __name__, url_prefix='/auth')
@@ -54,7 +55,7 @@ def view_profile(user_id):
     if user_rating == 0:
         rating_stars.append("☆☆☆☆☆")
     else:
-        for i in range(user_rating):
+        for i in range(math.floor(user_rating)):
             rating_stars.append("★")
         if i < full_rating:
             for j in range(full_rating - i - 1):
