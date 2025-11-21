@@ -865,36 +865,51 @@ def transaction_detail(order_id):
     if messages is None:
         messages = []
         
-    # ⭐ 【追加予定】評価情報の取得 (次で追加)
-    rated_info = None
+    # ⭐ 修正点: 評価関連の変数を初期化 (解决 UnboundLocalError)
+    rated_info = None  # 评价件数
+    rating_stars = []  # 显示用的星标列表
+    
     seller_id = order_info['seller_id']
+    
+    # 取引完了済み かつ 閲覧者が購入者 の場合にのみ、評価情報を処理
     if order_info['transaction_status'] == '取引完了' and order_info['purchaser_id'] == user_id:
+        
+        # 1. 売り手の全評価を取得
         sql_rating = """
             SELECT rating
             FROM seller_ratings_tbl
             WHERE seller_id = %s;
         """
         ratings = fetch_query(sql_rating, (seller_id,), False)
+        
+        avg_rating = None
+        rated_info = 0
+        full_rating = 5
+        
         if ratings and len(ratings) > 0:
             avg_rating = sum(r['rating'] for r in ratings) / len(ratings)
             avg_rating = round(avg_rating, 2)
             rated_info = len(ratings)
-        else:
-            avg_rating = None
-            rated_info = 0
-        rating_sql="UPDATE user_tbl SET user_rating = %s WHERE id = %s"
-        new_rating = create_user(rating_sql,(avg_rating,seller_id))
         
-        rating_stars=[]
-        full_rating = 5
-        if rated_info == 0:
-            rating_stars.append("☆☆☆☆☆")
+            # 2. user_tbl の user_rating を更新 (平均評価を保存)
+            rating_sql="UPDATE user_tbl SET user_rating = %s WHERE id = %s"
+            execute_query(rating_sql, (avg_rating, seller_id)) 
+            
+            # 3. 表示用の評価スターを生成 (四捨五入して表示)
+            num_full_stars = round(avg_rating)
+            num_empty_stars = full_rating - num_full_stars
+            rating_stars = ["★"] * num_full_stars + ["☆"] * num_empty_stars
+
         else:
             for i in range(math.floor(rated_info)):
                 rating_stars.append("★")
             if i < full_rating:
                 for j in range(full_rating - i - 1):
                     rating_stars.append("☆")
+            # 評価がない場合も、user_ratingをNULL（または0）に更新
+            rating_sql="UPDATE user_tbl SET user_rating = NULL WHERE id = %s"
+            execute_query(rating_sql, (seller_id,))
+            rating_stars = ["☆"] * full_rating # 5つ星全て空で表示
         
     return render_template('order/transaction_detail.html',
                             order=order_info,
@@ -997,8 +1012,10 @@ def complete_transaction(order_id):
         print(f"取引完了エラー: {e}")
         flash("取引完了処理中にエラーが発生しました。", "danger")
         return redirect(url_for('market.transaction_detail', order_id=order_id))
-
+    
+# =========================================================================
 # Route 21: 出品者評価ページ (GET)
+# =========================================================================
 @market_bp.route('/transaction/<order_id>/rate', methods=["GET"])
 def rate_seller_page(order_id):
     """
@@ -1053,7 +1070,10 @@ def rate_seller_action(order_id):
     sql_check_rating = "SELECT 1 FROM seller_ratings_tbl WHERE order_id = %s"
     if fetch_query(sql_check_rating, (order_id,), fetch_one=True):
         flash("既に評価済みです。", "info")
-        return redirect(url_for('market.transaction_detail', order_id=order_id))
+        
+        # ⭐ 修正点: 既に評価済みの場合も、購入管理画面へリダイレクトするように変更
+        # 否则，它会停留在交易详情页，导致用户困惑
+        return redirect(url_for('market.purchase_history_page'))
         
     try:
         rating = request.form.get('rating')
@@ -1063,14 +1083,15 @@ def rate_seller_action(order_id):
             flash("評価スター数が無効です。", "danger")
             return redirect(url_for('market.rate_seller_page', order_id=order_id))
         
-        rating_sql = "SELECT rating FROM seller_ratings_tbl WHERE seller_id = %s OR rater_user_id = %s"
-        get_rating = fetch_query(rating_sql,(user_id, user_id), False)
-        print(get_rating)
-        for rating in get_rating:
-            rating += rating
-            print(rating)
-
-            
+        # 既存の評価計算ロジック（そのまま残します）
+        # 注: この部分在插入前计算所有评价的逻辑是多余且错误的，应该在插入后重新计算平均值，但为了最小化修改，我们暂时保留它。
+        # rating_sql = "SELECT rating FROM seller_ratings_tbl WHERE seller_id = %s OR rater_user_id = %s"
+        # get_rating = fetch_query(rating_sql,(user_id, user_id), False)
+        # print(get_rating)
+        # for rating in get_rating:
+        #     rating += rating
+        #     print(rating)
+        
         # 評価をデータベースに挿入
         sql_insert = """
             INSERT INTO seller_ratings_tbl 
@@ -1083,7 +1104,8 @@ def rate_seller_action(order_id):
             raise Exception("データベースの挿入に失敗しました")
             
         flash("出品者を評価しました。取引完了です。", "success")
-        # !評価した後購入管理画面へ戻る
+        
+        # ⭐ 评价成功后跳转到购买管理画面（原始预期行为）
         return redirect(url_for('market.purchase_history_page'))
 
     except Exception as e:
